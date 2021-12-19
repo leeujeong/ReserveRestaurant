@@ -8,6 +8,7 @@ public class AdminController {
 public AdminController() {
 
 	System.out.println("test1");
+	System.out.println("test1 ¼öÈ¯");
 	
 }
 	
