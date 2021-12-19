@@ -8,6 +8,6 @@
 </head>
 <body>
 	<a href="http://google.com">구글로 이동</a>
-	
+	<a href="http://naver.com">네이버로 이동</a>
 </body>
 </html>
