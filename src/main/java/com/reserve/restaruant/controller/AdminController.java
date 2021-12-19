@@ -6,8 +6,11 @@ import org.springframework.stereotype.Controller;
 public class AdminController {
 
 public AdminController() {
-	System.out.println("test");
-	System.out.println("test23ß");
+
+	System.out.println("test1");
+	System.out.println("test123 with suhwan");
+	System.out.println("test gun");
+	
 }
 	
 }
