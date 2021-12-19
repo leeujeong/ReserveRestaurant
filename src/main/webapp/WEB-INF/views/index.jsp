@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>메인페이지 작업</h1>
 </body>
 </html>
