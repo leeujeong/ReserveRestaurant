@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-       <style>
+  <style>
         * {
             margin: 0;
             padding: 0;
@@ -171,7 +171,7 @@
         }
         
         .col-6 {
-            width: 600px;
+            width: 900px;
         }
         
         .ing_title {
@@ -199,21 +199,153 @@
             width: 100%;
             margin: 0 0 0 140px;
         }
+        .myInfo{
+           width: 100%;
+           padding: 0 80px;
+        }
+        .myInfo input{
+           width:300px;
+           padding:10px;
+           margin:5px;
+        }
+        #updatePw_btn{
+           background-color: lightgreen;
+           border: none;
+           color: white;
+        }
     </style>
     <script>
-    	$(document).ready(function(){
-    		fnIngReserve();
-    	});
-    	
-    	//진행중인 예약조회
-    	function fnIngReserve(){
-    		$('body').on('click', function(){
-    			$.ajax({
-    				
-    			});
-    		});
-    	}   
-    	</script>
+       $(document).ready(function(){
+          fnIngReserve();
+          fnPresentPwCheck();
+          fnPwCheck();
+          fnPw2Check();
+          fnUpdatePw();
+          fnUpdateMember();
+       });
+       
+       //진행중인 예약조회
+       function fnIngReserve(){
+          $('body').on('click', function(){
+             $.ajax({
+                
+             });
+          });
+       }// end fnIngReserve
+       
+       // 현재 비밀번호 확인 
+       let presentPwPass = false;
+       function fnPresentPwCheck() {
+          $('#pw0').keyup(function(){
+             $.ajax({
+                url: 'presentPwCheck',
+                type: 'post',
+                data: $('#f').serialize(),
+                dataType: 'json',
+                success: function(map){
+                   if (map.result) {
+                      presentPwPass = true;
+                   } else {
+                      presentPwPass = false;
+                   }
+                }
+             });
+          });
+       }  // end fnPresentPwCheck
+       
+       // 새 비밀번호 입력 검증
+       let pwPass = false;
+       function fnPwCheck() {
+          let regPw = /^[0-9]{1,10}$/; 
+          $('#pw').keyup(function(){         
+             if ( regPw.test($('#pw').val()) == false ) {
+                pwPass = false;
+             } else {
+                pwPass = true;
+             }
+          });
+       }  // end fnPwCheck
+       
+       // 새 비밀번호 입력 확인 변수와 함수
+       let pwPass2 = false;
+       function fnPw2Check(){
+          $('#pw2').keyup(function(){         
+             if ($('#pw').val() != $('#pw2').val()) {
+                pwPass2 = false;
+             } else {
+                pwPass2 = true;
+             }
+          });
+       }  // end fnPw2Check
+       
+       // 비밀번호 변경 함수
+       function fnUpdatePw() {
+          $('#updatePw_btn').click(function(){
+             if ( presentPwPass == false ) {
+                alert('현재 비밀번호를 확인하세요.');
+                return;
+             }
+             else if ( pwPass == false || pwPass2 == false ) {
+                alert('새 비밀번호 입력을 확인하세요.');
+                return;
+             }
+             $('#f').attr('action', '/restaruant/user/updatePw');
+             $('#f').submit();
+          });
+       }  // end fnUpdatePw
+       
+       // 이메일 중복체크 변수와 함수
+       let emailPass = false;
+       function fnEmailCheck() {
+          if ( $('#email').val() == '${loginUser.email}' ) {
+             emailPass = true;
+             return;
+          }
+          let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+          if ( regEmail.test($('#email').val()) == false ) {
+             alert('이메일 형식을 확인하세요.');
+             emailPass = false;
+             return;
+          }
+          $.ajax({
+             url: '/restaruant/user/emailCheck',
+             type: 'post',
+             data: 'email=' + $('#email').val(),
+             dataType: 'json',
+             success: function(map){
+                if (map.result == null) {
+                   emailPass = true;
+                } else {
+                   alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
+                   emailPass = false;
+                }
+             },
+             error: function(){
+                emailPass = false;
+             }
+          });
+       }  // end fnEmailCheck
+       
+       
+       // 회원정보 변경 함수
+       function fnUpdateMember() {
+          fnEmailCheck();
+          $('#updateMember_btn').click(function(){
+             if ( $('#name').val() == '${loginUser.name}' && 
+                 $('#email').val() == '${loginUser.email}' ) {
+                alert('변경할 내용이 없습니다.');
+                return;
+             }
+             else if ( emailPass == false ) {
+                return;
+             }
+             $('#f').attr('action', '/restaruant/user/updateUser');
+             $('#f').submit();
+          });
+       }  // end fnUpdateMember
+       
+       
+       </script>
 </head>
 <body>
     <header>
@@ -224,7 +356,7 @@
                 </div> -->
             <h1>
                 <a href="index.html">
-                    <img src="../images/projectlogo.png">
+                    <img src="image/projectlogo.png">
                 </a>
             </h1>
 
@@ -250,8 +382,8 @@
                     <h2 class="menu_title">예약내역</h2>
                     <ul>
                         <li><a href="ingReserve" class="menu_sub_title">진행중</a></li>
-                        <li><a href="#" class="menu_sub_title"> 완료</a></li>
-                        <li><a href="#" class="menu_sub_title">취소 / 환불</a></li>
+                        <li><a href="endReserve" class="menu_sub_title"> 완료</a></li>
+                        <li><a href="cancleReserve" class="menu_sub_title">취소 / 환불</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -271,47 +403,132 @@
             </div>
             
             <div class="col-6">
+                 
                 <div>
                     <h2 class="ing_title">진행중인 예약</h2>
                 </div>
                 <hr>
                 <div class="ing_menu">
                     <ul>
-                        <li>
-                            <a href="#">전체</a>
-                        </li>
-                        <li>
-                            <a href="# ">승인 결제</a>
-                        </li>
-                        <li>
-                            <a href="# ">실시간 결제</a>
-                        </li>
+                        <li><a href="#">전체</a></li>
+                        <li><a href="# ">승인 결제</a></li>
+                        <li><a href="# ">실시간 결제</a></li>
                     </ul>
                 </div> 
-                <!-- 진행중인 예약 -->
                 <table>
-                	
-	               	<tbody>
-	               	<c:forEach var="reserve" items="ingReserve">
-	               		<tr>
-	               			<td>
-	               				<div id="paging"></div>
-	               			</td>
-	               		</tr>
-	               	</c:forEach>
-	               	</tbody> 
+                     <tbody>
+                     <c:forEach var="reserve" items="ingReserve">
+                        <tr>
+                           <td>
+                              <div id="paging"></div>
+                           </td>
+                        </tr>
+                     </c:forEach>
+                     </tbody> 
                </table>
+            
+                 
+                <!-- 완료
+                   <div>
+                       <h2 class="ing_title">완료된 예약</h2>
+                   </div>
+                   <hr>
+                   <table>
+                        <tbody>
+                        <c:forEach var="reserve" items="endReserve">
+                           <tr>
+                              <td>
+                                 <div id="paging"></div>
+                              </td>
+                           </tr>
+                        </c:forEach>
+                        </tbody> 
+                  </table>
+                 
+                 --> 
+                 
+                <!-- 취소/ 환불
+                   <div>
+                       <h2 class="ing_title">취소 / 환불</h2>
+                   </div>
+                  <div class="ing_menu">
+                       <ul>
+                           <li><a href="#">취소</a></li>
+                           <li><a href="# ">환불</a></li>
+                       </ul>
+                   </div> 
+                   <table>
+                        <tbody>
+                        <c:forEach var="reserve" items="cancleReserve">
+                           <tr>
+                              <td>
+                                 <div id="paging"></div>
+                              </td>
+                              <td>
+                                 <input type="button" value="취소하기" id="cancle_btn"> //취소하면 바로 환불?
+                              </td>
+                           </tr>
+                        </c:forEach>
+                        </tbody> 
+                  </table>
+                 
+                 -->
                 
-                <!-- 비어있을때 -->
+                  <!--
+                <div>
+                    <h2 class="ing_title">내 정보 수정</h2>
+                </div>
+                <hr>
+                <div class="ing_menu">
+                    <ul>
+                        <li><a href="#">정보 수정</a></li>
+                        <li><a href="# ">본인인증 / 재인증</a></li>
+                    </ul>
+                </div> 
+                <div>
+                   <form id="f" method="post">
+                      <input type="hidden" name="no" id="no" value="${loginUSer.no}">
+                      <input type="hidden" name="id" id="id" value="${lpginUser.id}">
+                      <div class="myInfo">
+                         회원번호 : ${loginUser.no}<br><br>
+                         
+                         아이디: ${loginUser.id}<br><br>
+                         
+                     이름<br>
+                     <input type="text" name="name" id="name" value="${loginUser.name}"><br><br>
+                     
+                     현재 비밀번호<br>
+                     <input type="password" name="pw0" id="pw0" placeholder="현재비밀번호를 입력하세요"><br>
+                     
+                     새 비밀번호<br>
+                     <input type="password" name="pw" id="pw" placeholder="변경할비밀번호를 입력하세요"><br>
+                     <span id="pw_result"></span><br>
+                     
+                     비밀번호 확인<br>
+                     <input type="password" name="pw2" id="pw2" placeholder="변경할 비밀번호를 한번더 입력하세요">
+                     <span id="pw2_result"></span><br>
+   
+                     이메일<br>
+                     <input type="text" name="email" id="email" value="${loginUser.email}"><br>
+                     
+                     <input type="button" value="수정하기" id="updatePw_btn" ><br>
+                      </div>
+                   </form>
+                
+                </div>
+                 내정보 수정 -->    
+                    
+                 
+                
                 <div>
                     <div class="empty_box">
-                        <img class="empty_img" src=" images/mangirl.png " width="200 " height="200 " alt="빈사진 ">
+                        <img class="empty_img" src="/restaruant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
                     </div>
                     <div class="empty_comment">
-                        예약이 비어있습니다.
+                           예약이 비어있습니다.
                     </div>
                 </div>
-                
+              
             </div>
         </div>
      </div>
