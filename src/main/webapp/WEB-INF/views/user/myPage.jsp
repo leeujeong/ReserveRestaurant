@@ -522,11 +522,7 @@
                 
                 <div>
                     <div class="empty_box">
-<<<<<<< HEAD
                         <img class="empty_img" src="/restaruant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
-=======
-                        <img class="empty_img" src="/restaruant/resources/image/myPage/mangirl.png " width="200 " height="200 " alt="빈사진 ">
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestuarant.git
                     </div>
                     <div class="empty_comment">
                            예약이 비어있습니다.
