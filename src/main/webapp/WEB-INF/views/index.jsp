@@ -10,5 +10,7 @@
 	<a href="http://google.com">구글로 이동</a>
 	<a href="http://naver.com">네이버로 이동</a>
 	<a href="http://kakao.com">카카오로 이동</a>
+	
+	<a href="user/myPage">마이페이지로 이동</a>
 </body>
 </html>
