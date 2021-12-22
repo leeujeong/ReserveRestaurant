@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.row {
+    display: flex;
+    margin: 0 10px;
+  
+}
+
+.col-4 {
+    width: 200px;
+    height: 600px;
+    margin: 30px;
+    padding: 10px;
+    
+}
+
+.col-6 {
+    width: 900px;
+}
+
+.menu_nav {
+    width: 200px;
+    padding: 0 0 30px 0;
+    font-size: 12px;
+}
+
+.menu_title {
+    padding: 5px;
+}
+
+.menu_nav li {
+    padding: 5px;
+}
+
+.ing_title {
+    margin-top: 10px;
+    padding: 10px 10px 0;
+}
+
+td {
+    padding: 10px;
+    font-size: 14px;
+}
+
+tr td:first-child {
+    width: 150px;
+    text-align: center;
+}
+
+input {
+    padding: 3px;
+}
+
+.menu_input input{
+    margin:3px
+}
+#s_name {
+    width: 370px;
+}
+
+#tel {
+    width: 370px;
+}
+
+tfoot {
+    text-align: center;
+}
+
+.plus_btn {
+    background-color: white;
+    border: none;
+}
+
+
+.fa-plus-square {
+    width: 20px;
+}
+
+.add_btn {
+    width: 300px;
+    background-color: rgb(160, 57, 38);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.add_btn:hover{
+    background-color:  rgba(160, 57, 38, 0.795);
+}
+label {
+    margin-right: 5px;
+}
+textarea{
+    padding: 5px;
+}
+.container{
+    margin-top: 150px;
+}
+.container1{
+    height: 250px;
+    padding: 15px;
+   
+}
+.store_img{
+    width: 150px;
+    height:150px;
+    display: flex;
+    border-radius: 10px;
+}
+.col-sm-6 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+.col-sm-3 {
+    flex: 0 0 auto;
+    width: 30%;
+}
+.col-sm-9 {
+    flex: 0 0 auto;
+    width: 70%;
+}
+#update_btn, #delete_btn, #reset_btn{
+    width: 100px;
+    background-color: rgb(160, 57, 38);
+    border: none;
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+}
+#update_btn:hover, #delete_btn:hover, #reset_btn:hover{
+    background-color:  rgba(160, 57, 38, 0.795);
+}
+
+/*question 테이블 작업*/
+table{
+    width: 100%;
+}
+.question_btn{
+    display: flex;
+}
+.store_question, .reserve_question{
+    width: 300px;
+    margin:0 auto;
+    padding: 5px ;
+    text-align: center;
+}
+.store_question:hover, .reserve_question:hover{
+    background-color: rgba(160, 57, 38, 0.795);
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+thead{
+    text-align: center;
+}
+
+.question_table td{
+    border-bottom: 1px solid gray;
+}
+table td:first-child{
+    width: 50px;
+}
+
+
+.addtable td:first-child{
+	width:250px
+}
+select{
+    padding:4px;
+}
+.inbox select{
+    margin: 2px;
+}
+#detail_town{
+    width: 163px;
+    margin-left:2px;
+}
+
+
+

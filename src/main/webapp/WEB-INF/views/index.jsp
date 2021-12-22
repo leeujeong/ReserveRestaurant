@@ -22,7 +22,7 @@
             </div>
             <h1>
                 <a href="index.html">
-                    <img src="/restaruant/resources/image/index/projectlogo.png">
+                    <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
 
@@ -74,6 +74,8 @@
             </ul>
         </div>
     </div>
+    <a href="owner/addstore">사업자 페이지로 이</a>
+    <a href="owner/cancle">수정페이지로 이</a>
 
 
 

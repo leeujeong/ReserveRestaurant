@@ -1,4 +1,4 @@
-package com.reserve.restaruant.util;
+package com.reserve.restaurant.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

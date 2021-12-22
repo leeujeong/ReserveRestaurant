@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
 
+/* 초기화시작 */
+
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 * {
     margin: 0;
@@ -15,12 +17,16 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
+a:hover{
+    color:rgba(160, 57, 38);
+}
 img {
     vertical-align: top;
+    margin-botton:10px;
 }
 
 body {
+    width: 100%;
     font-family: 'nanumsquare';
 }
 
@@ -28,6 +34,8 @@ body {
     width: 1200px;
     margin: 0 auto;
     position: relative;
+        
+  
 }
 
 .wrap:after,
@@ -51,51 +59,22 @@ a:after {
 
 /* 초기화끝 */
 
-
 /* 헤더시작 */
 
 header {
     height: 120px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: white;
+    border-bottom: 1px solid rgb(160, 57, 38);
+    box-shadow: 0 1px 2px lightgray;
+    margin: 0 auto;
 }
 
-header h1 {
-    padding: 25px 0;
-}
-
-.input_box #input_search #f {
-    position: absolute;
-    top: 50px;
-    left: 180px;
-    width: 200px;
-    height: 30px;
-    border-radius: 3px;
-    border: 1px solid silver;
-    line-height: 120px;
-    margin-left: 40px;
-    background: #222;
-}
-
-.input_box {
-    position: absolute;
-    top: 50px;
-    left: 180px;
-    width: 200px;
-    height: 30px;
-    border-radius: 3px;
-    border: 1px solid silver;
-    line-height: 120px;
-    margin-left: 40px;
-}
-
-#search_btn {
-    position: absolute;
-    top: 50px;
-    left: 250px;
-    width: 15px;
-    height: 15px;
-    line-height: 120px;
-    cursor: pointer;
-}
 
 header #gnb {
     position: absolute;
@@ -114,9 +93,7 @@ header #gnb li:last-child {
     margin-right: 0;
 }
 
-
 /* 헤더끝 */
-
 
 /* 호버시작 */
 
@@ -451,3 +428,49 @@ header #gnb li:last-child {
     white-space: nowrap;
     text-transform: uppercase;
 }
+
+/* footer시작 */
+
+.footer {
+    padding: 80px 0 32px;
+}
+
+.footer_link {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+}
+
+.footer_item {
+    margin: 0 10px;
+}
+
+.footer_copy {
+    width: 553px;
+    margin: 10px auto 0;
+    text-align: center;
+}
+
+.footer_logo {
+    display: inline-block;
+    /* 보여줄 이미지 크기 */
+    width: 70px;
+    height: 15px;
+    background-image: url(../images/projectlogo.png);
+    background-size: 245px 95px;
+    /* 본 이미지 크기 */
+    background-position: 0 -51px;
+}
+
+.footer_copy>.text {
+    color: #888;
+    font-weight: 800;
+}
+
+.footer_copy img {
+    margin-bottom: 10px;
+}
+
+
+/* 끝 */
