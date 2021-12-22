@@ -67,7 +67,8 @@ input {
 }
 
 .menu_input input{
-    margin:3px
+    margin:3px;
+    width:180px;
 }
 #s_name {
     width: 370px;
@@ -84,6 +85,8 @@ tfoot {
 .plus_btn {
     background-color: white;
     border: none;
+    outer-border:none;
+    padding:5px;
 }
 
 
@@ -187,13 +190,14 @@ select{
     padding:4px;
 }
 
-.inbox select{
-    margin: 2px;
+.address_box{
+	margin:3px;
 }
-
-#detail_town{
-    width: 163px;
-    margin-left:2px;
+.address_box input{
+	width: 308px;
+}
+.address{
+	margin-right:30px;
 }
 
 

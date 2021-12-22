@@ -32,6 +32,27 @@ $('document').ready(function(){
     //     .append($('<div>').html($('<img>').attr('src','/reserve/' + map.path + '/' + thumbnail))
     // });
     
+    
+    //가게 주소등록
+    
+     document.getElementById("address_kakao").addEventListener("click", function(){ 
+		       
+        new daum.Postcode({
+        	width: 500,
+        	height: 600,
+            oncomplete: function(data) {
+                document.getElementById("address_kakao").value = data.address;
+                document.querySelector("input[name=address_detail]").focus(); 
+               
+            }
+        }).open({
+        	left:(window.screen.width / 2)-(500 / 2),
+        	top:(window.screen.height / 2)-(600 / 2)
+        });
+	});
+    
+    
+    
 
     //메뉴추가 버튼
     let num = 1;

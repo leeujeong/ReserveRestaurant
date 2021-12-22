@@ -74,8 +74,8 @@
             </ul>
         </div>
     </div>
-    <a href="owner/addstore">사업자 페이지로 이</a>
-    <a href="owner/cancle">수정페이지로 이</a>
+    <a href="addPage">사업자 페이지로 이</a>
+    <a href="managePage">수정페이지로 이</a>
 
 
 

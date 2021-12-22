@@ -38,21 +38,21 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">나의 사업장</h4>
                     <ul>
-                        <li><a href="#" class="menu_sub_title">등록하기</a></li>
-                        <li><a href="#" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
+                        <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h4 class="menu_title">My 활동</h4>
                     <ul>
-                        <li><a href="question.html">문의 내역</a></li>
-                        <li><a href="review.html">리뷰 관리</a></li>
+                        <li><a href="questionPage">문의 내역</a></li>
+                        <li><a href="reviewPage">리뷰 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="info.html">내 정보 수정</a></li>
+                        <li><a href="modifyPage">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>

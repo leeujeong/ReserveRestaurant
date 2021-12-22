@@ -13,6 +13,7 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 
 <body>
@@ -41,21 +42,21 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">나의 사업장</h4>
                     <ul>
-                        <li><a href="addstore.html" class="menu_sub_title">등록하기</a></li>
-                        <li><a href="cancel.html" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
+                        <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h4 class="menu_title">My 활동</h4>
                     <ul>
-                        <li><a href="question.html">문의 내역</a></li>
-                        <li><a href="review.html">리뷰 관리</a></li>
+                        <li><a href="questionPage">문의 내역</a></li>
+                        <li><a href="reviewPage">리뷰 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="#">내 정보 수정</a></li>
+                        <li><a href="modifyPage">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -95,61 +96,14 @@
 		                         <tr>
                                     <td> 식당위치</td>
                                     <td>
-                                        <div class="inbox">
-                                            <div class="cols">
-                                                <select id="city1" name="city1" title="시/ 도 선택" onchange="javascript:changeAreaList(1,this);" class="select">
-                                                    <option value="">-- 시 / 도 --</option>
-                                                    <option value="1" title="서울특별시" selected="selected">서울특별시</option>
-                                                    <option value="2" title="부산광역시">부산광역시</option>
-                                                    <option value="2" title="대구광역시">대구광역시</option>
-                                                    <option value="2" title="인천광역시">인천광역시</option>
-                                                    <option value="2" title="광주광역시">광주광역시</option>
-                                                    <option value="2" title="대전광역시">대전광역시"</option>
-                                                    <option value="2" title="울산광역시">울산광역시</option>
-                                                    <option value="2" title="세종특별자치시">세종특별자치시</option>
-                                                    <option value="2" title="강원도">강원도</option>
-                                                    <option value="2" title="충청북도">충청북도</option>
-                                                    <option value="2" title="충청남도">충청남도</option>
-                                                    <option value="2" title="전라북도">전라북도</option>
-                                                    <option value="2" title="전라남도">전라남도</option>
-                                                    <option value="2" title="경상북도">경상북도</option>
-                                                    <option value="2" title="경상남도">경상남도</option>
-                                                    <option value="2" title="제주특별자치도">제주특별자치도</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <select id="country1" name="country1" title="시/ 군/ 구 선택" onchange="javascript:changeAreaList(1,this);" class="select">
-                                                    <option value="">--선택--</option>
-                                                    <option value="100" title="강남구">강남구</option>
-                                                    <option value="101" title="강동구">강동구</option>
-                                                    <option value="102" title="강북구">강북구</option>
-                                                    <option value="103" title="강서구">강서구</option>
-                                                    <option value="104" title="관악구">관악구</option>
-                                                    <option value="105" title="광진구">광진구</option>
-                                                    <option value="106" title="구로구">구로구</option>
-                                                    <option value="107" title="금천구">금천구</option>
-                                                    <option value="108" title="노원구">노원구</option>
-                                                    <option value="109" title="도봉구">도봉구</option>
-                                                    <option value="110" title="동대문구">동대문구</option>
-                                                    <option value="111" title="동작구">동작구</option>
-                                                    <option value="112" title="마포구">마포구</option>
-                                                    <option value="113" title="서대문구">서대문구</option>
-                                                    <option value="114" title="서초구">서초구</option>
-                                                    <option value="115" title="성동구">성동구</option>
-                                                    <option value="116" title="성북구">성북구</option>
-                                                    <option value="117" title="송파구">송파구</option>
-                                                    <option value="118" title="영등포구">영등포구</option>
-                                                    <option value="119" title="용산구">용산구</option>
-                                                    <option value="120" title="은평구">은평구</option>
-                                                    <option value="121" title="종로구">종로구</option>
-                                                    <option value="122" title="중구">중구</option>
-                                                    <option value="123" title="중랑구">중랑구</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <input type="text" id="detail_town" name="detail_town" placeholder="상세주소를 입력하세요">
-                                            </div>
-                                        </div>
+	                                    <div class="address_box">
+	                                    	<label class="address">주소</label>
+	                                       <input type="text" id="address_kakao" name="address" placeholder="주소입력시 클릭하세요" readonly />
+	                                    </div>
+	                                    <div class="address_box">
+	                                   		<label>상세주소</label>
+                                       		<input type="text" name="address_detail" placeholder="상세주소를 입력해주세요"/>
+	                                    </div>
                                     </td>
                                 </tr>
 		                          <tr>
@@ -194,7 +148,7 @@
 		                             </tr>
 		                             <tr>
 		                                 <td>상세 설명</td>
-		                                 <td><textarea rows="5" cols="44" placeholder="상세 설명을 입력하세요"></textarea></td>
+		                                 <td><textarea rows="5" cols="48" placeholder="상세 설명을 입력하세요"></textarea></td>
 		                             </tr>
 	                            </tbody>
 	                            <tfoot>
@@ -211,6 +165,7 @@
             </div>
         </div>
     </div>
+
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

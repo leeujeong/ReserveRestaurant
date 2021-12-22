@@ -8,13 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("owner/*")
 public class OwnerController {
 
-	@GetMapping(value="addstore")
-	public String addstore() {
+	@GetMapping(value="addPage")
+	public String addPage() {
 		return "owner/addstore";
 	}
 	
-	@GetMapping(value="cancle")
-	public String cancle() {
+	@GetMapping(value="managePage")
+	public String managePage() {
 		return "owner/cancle";
+	}
+
+	@GetMapping(value="modifyPage")
+	public String modifyPage() {
+		return "owner/info";
+	}
+	@GetMapping(value="questionPage")
+	public String questionPage() {
+		return "owner/question";
+	}
+	@GetMapping(value="reviewPage")
+	public String reviewPage() {
+		return "owner/review";
+	}
+	@GetMapping(value="updatePage")
+	public String updatePage() {
+		return "owner/detail";
 	}
 }
