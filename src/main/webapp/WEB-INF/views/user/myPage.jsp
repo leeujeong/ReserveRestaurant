@@ -289,7 +289,7 @@
                 alert('새 비밀번호 입력을 확인하세요.');
                 return;
              }
-             $('#f').attr('action', '/restaruant/user/updatePw');
+             $('#f').attr('action', '/restaurant/user/updatePw');
              $('#f').submit();
           });
        }  // end fnUpdatePw
@@ -308,7 +308,7 @@
              return;
           }
           $.ajax({
-             url: '/restaruant/user/emailCheck',
+             url: '/restaurant/user/emailCheck',
              type: 'post',
              data: 'email=' + $('#email').val(),
              dataType: 'json',
@@ -339,7 +339,7 @@
              else if ( emailPass == false ) {
                 return;
              }
-             $('#f').attr('action', '/restaruant/user/updateUser');
+             $('#f').attr('action', '/restaurant/user/updateUser');
              $('#f').submit();
           });
        }  // end fnUpdateMember
@@ -522,7 +522,7 @@
                 
                 <div>
                     <div class="empty_box">
-                        <img class="empty_img" src="/restaruant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
+                        <img class="empty_img" src="/restaurant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
                     </div>
                     <div class="empty_comment">
                            예약이 비어있습니다.

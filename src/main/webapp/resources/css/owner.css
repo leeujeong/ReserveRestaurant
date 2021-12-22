@@ -182,12 +182,15 @@ table td:first-child{
 .addtable td:first-child{
 	width:250px
 }
+
 select{
     padding:4px;
 }
+
 .inbox select{
     margin: 2px;
 }
+
 #detail_town{
     width: 163px;
     margin-left:2px;
