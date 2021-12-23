@@ -9,7 +9,7 @@
 <link href="<c:url value="/resources/css/adminCSS/main.css"/>" rel="stylesheet">
 </head>
 <body>
-    <h1>관리자 전용 페이지</h1>
+    <h1>관리자 전용 페이지입니다.</h1>
     <div class="go">
         <div class="admin">
             <div class="admin_user">
