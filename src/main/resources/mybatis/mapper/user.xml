@@ -5,6 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.RestaurantRepository">
 	
-	
+	<insert id="insertUser" parameterType="com.koreait.restaurant.domain.User">
+		INSERT INTO USERTABLE
+		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, #{user_grade},#{user_date},#{user_hbd},#{state},#{point},#{user_email} )
+	</insert>
 	
 </mapper>
