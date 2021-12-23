@@ -7,6 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-아 왜 안되냐..
+    <h1>관리자 전용 페이지</h1>
+    <div class="go">
+        <div class="admin">
+            <div class="admin_user">
+                <p>회원 관리</p>
+            </div>
+            <div class="admin_rest">
+                <p>식당 관리</p>
+            </div>
+        </div>
+        <div class="go_mainPage">
+            <p>메인 페이지 이동</p>
+        </div>
+    </div>
+
+
 </body>
 </html>
