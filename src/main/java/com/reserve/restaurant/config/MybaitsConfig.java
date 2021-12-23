@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import com.reserve.restaurant.service.UserService;
+import com.reserve.restaurant.service.UserServiceImpl;
 //
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -59,6 +62,11 @@ public class MybaitsConfig {
 		multipartResolver.setDefaultEncoding("UTF-8");
 		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10);
 		return multipartResolver;
+	}
+	
+	@Bean
+	public UserService userService() {
+		return new UserServiceImpl();
 	}
 	
 }

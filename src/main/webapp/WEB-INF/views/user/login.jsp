@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="<c:url value="/resources/css/userCSS/login.css"/>" rel="stylesheet">
 
+
 </head>
 <body>
    <div id="root" class="root">
@@ -35,20 +36,20 @@
                   <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;기다리고 있었습니다.&nbsp;&nbsp;🥩</p> 
             </div>
       
-               <form>
+               <form id="loginForm" method="post" action="/restaurant/user/login">
                      <label for="id" class="loginMiddle">
                      <span>아이디</span>
-                     <input type="text" id="id" placeholder="아이디를 입력해주세요"></label>
+                     <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요"></label>
       
                      <label for="pw" class="loginMiddle">
                      <span>비밀번호</span>
-                     <input type="password" id="pw" placeholder="비밀번호를 입력해주세요"></label>
+                     <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요"></label>
       
                      <div class="FindIdPw">
                         <a href="아이디 비밀번호 찾기 창으로 이동">아이디/비밀번호 찾기</a>
                      </div>
                      <button type="submit" class="LoginEnter" id="LoginEn" >로그인</button>  
-                  </form>
+               </form>
                   <div class="social-logins social-logins-o"> 
                      <a href="#" class="kakao " name="kakao"><span>카카오</span></a>
                      <a href="#" class="naver " name="naver"><span>네이버</span></a>

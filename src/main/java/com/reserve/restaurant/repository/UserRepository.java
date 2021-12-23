@@ -1,5 +1,9 @@
 package com.reserve.restaurant.repository;
 
-public interface UserRepository {
+import com.reserve.restaurant.domain.User;
 
+public interface UserRepository {
+	
+	public User login(User user);
+	
 }
