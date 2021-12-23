@@ -12,4 +12,12 @@ public class UserController {
 	public String myPage() {
 		return "/user/myPage";
 	}
+
+	@GetMapping(value="loginPage")
+	public String loginPage() {
+		return "user/login";
+	}
+
+
+
 }
