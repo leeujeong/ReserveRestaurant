@@ -29,7 +29,7 @@
                 <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
                 <li><a href="회원가입페이지이동">JOIN</a></li>
                 <li><a href="찜목록페이지">FAVORITE</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+                <li><a href="/restaurant/myPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
