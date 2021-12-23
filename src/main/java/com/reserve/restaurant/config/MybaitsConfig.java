@@ -53,12 +53,12 @@ public class MybaitsConfig {
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}
 	
-//	@Bean
-//	public CommonsMultipartResolver multipartResolver() {
-//		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//		multipartResolver.setDefaultEncoding("UTF-8");
-//		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10);
-//		return multipartResolver;
-//	}
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setDefaultEncoding("UTF-8");
+		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10);
+		return multipartResolver;
+	}
 	
 }

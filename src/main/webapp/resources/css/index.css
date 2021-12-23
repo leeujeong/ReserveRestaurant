@@ -1,6 +1,3 @@
-@charset "UTF-8";
-
-
 /* 초기화시작 */
 
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
@@ -17,16 +14,12 @@ a {
     text-decoration: none;
     color: inherit;
 }
-a:hover{
-    color:rgba(160, 57, 38);
-}
+
 img {
     vertical-align: top;
-    margin-botton:10px;
 }
 
 body {
-    width: 100%;
     font-family: 'nanumsquare';
 }
 
@@ -34,8 +27,6 @@ body {
     width: 1200px;
     margin: 0 auto;
     position: relative;
-        
-  
 }
 
 .wrap:after,
@@ -59,6 +50,7 @@ a:after {
 
 /* 초기화끝 */
 
+
 /* 헤더시작 */
 
 header {
@@ -70,11 +62,14 @@ header {
     width: 100%;
     z-index: 100;
     background-color: white;
-    border-bottom: 1px solid rgb(160, 57, 38);
+    border-bottom: 1px solid silver;
     box-shadow: 0 1px 2px lightgray;
     margin: 0 auto;
 }
 
+header h1 {
+    padding: 25px 0;
+}
 
 header #gnb {
     position: absolute;
@@ -93,9 +88,11 @@ header #gnb li:last-child {
     margin-right: 0;
 }
 
+
 /* 헤더끝 */
 
-/* 호버시작 */
+
+/* 메뉴시작 */
 
 .accordion {
     float: left;
@@ -149,6 +146,9 @@ header #gnb li:last-child {
 
 .cate ul li {
     padding: 5px 10px;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
 }
 
 .cate ul li:first-child {
@@ -164,7 +164,7 @@ header #gnb li:last-child {
 }
 
 
-/* 호버끝 */
+/* 메뉴끝 */
 
 .location_wrap {
     display: flex;
@@ -188,6 +188,10 @@ header #gnb li:last-child {
     width: 130px;
     margin-top: 10px;
     text-align: center;
+}
+
+.main {
+    margin-top: 200px;
 }
 
 .main .wrap a {
@@ -252,11 +256,13 @@ header #gnb li:last-child {
     width: 1200px;
     height: 600px;
     overflow: hidden;
+    position: relative;
 }
 
 #frame .slide {
     width: 3600px;
     height: 600px;
+    position: relative;
 }
 
 #frame .slide li {
@@ -277,6 +283,33 @@ header #gnb li:last-child {
     background: url(/restaurant/resources/image/index/main2.jpg) no-repeat center/cover;
 }
 
+#frame .slide li {
+    text-align: center;
+}
+
+#frame .slide .text {
+    color: #eee;
+    padding: 0 0 44px 30px;
+    box-sizing: border-box;
+    margin: 220px 60px 0 0;
+}
+
+#frame .slide .text h3 {
+    font-size: 30px;
+    line-height: 1.6;
+}
+
+#frame .slide .text span {
+    display: block;
+    font-size: 28px;
+}
+
+#frame .slide .text p {
+    padding: 36px 0 20px;
+    line-height: 1.6;
+    font-size: 20px;
+}
+
 .h3_text {
     display: block;
     margin: 60px 0 30px;
@@ -287,6 +320,7 @@ header #gnb li:last-child {
 #new ul li {
     float: left;
     margin-right: 25px;
+    cursor: pointer;
 }
 
 #new ul li:last-child {
@@ -333,6 +367,31 @@ header #gnb li:last-child {
 }
 
 
+/* video_section 시작 */
+
+#video_section {
+    margin: 70px 0;
+}
+
+#video_section .wrap {
+    display: flex;
+}
+
+.video_text {
+    width: 600px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+    border: 1px solid rgb(241, 240, 240);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+}
+
+
+/* video_section 끝 */
+
+
 /* footer시작 */
 
 .footer {
@@ -343,6 +402,7 @@ header #gnb li:last-child {
     padding: 0;
     display: flex;
     justify-content: center;
+    font-weight: 400;
 }
 
 .footer_item {
@@ -361,13 +421,18 @@ header #gnb li:last-child {
     width: 70px;
     height: 15px;
     background-image: url(../images/projectlogo.png);
-    background-size: 244px 94px;
+    background-size: 245px 95px;
     /* 본 이미지 크기 */
     background-position: 0 -51px;
 }
 
 .footer_copy>.text {
     color: #888;
+    font-weight: 800;
+}
+
+.footer_copy img {
+    margin-bottom: 10px;
 }
 
 
@@ -428,49 +493,3 @@ header #gnb li:last-child {
     white-space: nowrap;
     text-transform: uppercase;
 }
-
-/* footer시작 */
-
-.footer {
-    padding: 80px 0 32px;
-}
-
-.footer_link {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    font-weight: 400;
-}
-
-.footer_item {
-    margin: 0 10px;
-}
-
-.footer_copy {
-    width: 553px;
-    margin: 10px auto 0;
-    text-align: center;
-}
-
-.footer_logo {
-    display: inline-block;
-    /* 보여줄 이미지 크기 */
-    width: 70px;
-    height: 15px;
-    background-image: url(../images/projectlogo.png);
-    background-size: 245px 95px;
-    /* 본 이미지 크기 */
-    background-position: 0 -51px;
-}
-
-.footer_copy>.text {
-    color: #888;
-    font-weight: 800;
-}
-
-.footer_copy img {
-    margin-bottom: 10px;
-}
-
-
-/* 끝 */

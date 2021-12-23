@@ -10,72 +10,63 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 <script src="<c:url value="/resources/js/index.js"/>"></script>
+ <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
 </head>
 <body>
 	
-	<header>
+	  <header>
         <div class="wrap">
-            <div class="hamburger">
-
-            </div>
             <h1>
                 <a href="index.html">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
-
-            <!-- <div class="input_box">
-                <form id="f">
-                    <input type="text" value="식당을 검색하세요." id="input_search">
-                    <input type="button" value="검색">
-                </form>
-            </div> -->
-
             <ul id="gnb">
-                <li><a href="로그인페이지이동">Login</a></li>
-                <li><a href="#">Join</a></li>
-                <li><a href="#">Favorite</a></li>
-                <li><a href="user/myPage">Mypage</a></li>
+                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
+                <li><a href="회원가입페이지이동">JOIN</a></li>
+                <li><a href="찜목록페이지">FAVORITE</a></li>
+                <li><a href="마이페이지이동">MYPAGE</a></li>
             </ul>
         </div>
     </header>
 
     <div class="accordion">
-        <div class="cate">
+        <div class="cate quickmenu">
             <span class="menu">
-                   <a href="#" class="menulink">Reservation</a>
-                   <a href="javascript:void(0);" class="subopen"></a>
+                <a href="#" class="menulink">Reservation</a>
+                <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="식당검색페이지">식당검색하러가기</a></li>
-                <li><a href="식당검색페이지">놓치면 안되는 혜택 가득!</a></li>
-                <li><a href="식당검색페이지">New 예약 오픈</a></li>
+                <li><a href="식당검색페이지"> 식당 검색  </a></li>
+                <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
+                <li><a href="식당검색페이지"> 신규 오픈 </a></li>
             </ul>
         </div>
-        <div class="cate">
+        <div class="cate quickmenu">
             <span class="menu"> 
-                  <a href="#" class="menulink">Notice&Review</a>
-                  <a href="javascript:void(0);" class="subopen"></a>
+                <a href="#" class="menulink">Board</a>
+                <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항">공지사항</a></li>
-                <li><a href="리뷰">리뷰</a></li>
+                <li><a href="공지사항"> 공지사항 </a></li>
+                <li><a href="리뷰"> 리뷰 </a></li>
+                <li><a href="리뷰"> Q&A </a></li>
             </ul>
         </div>
-        <div class="cate">
+        <div class="cate quickmenu">
             <span class="menu">
                 <a href="#" class="menulink">Magazines</a>
                 <a href="javascript:void(0);" class="subopen"></a>
-             </span>
+            </span>
             <ul>
                 <li>다이닝 매거진</li>
             </ul>
         </div>
     </div>
-    <a href="addPage">사업자 페이지로 이</a>
-    <a href="managePage">수정페이지로 이</a>
 
 
 
@@ -84,18 +75,31 @@
         <div class="wrap">
             <div id="frame">
                 <ul class="slide">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li>
+                        <div class="text">
+                            <h3>FindTable</h3>
+                            <p>블라블라</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <h3>블라블라</h3>
+                            <p>블라블라</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text">
+                            <h3>블라블라</h3>
+                            <p>블라블라</p>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            
             <a href="#none" class="prev">
-                <img src="/restaruant/resources/image/index/prev.png" alt="이전">
+                <img src="/restaurant/resources/image/index/prev.png" alt="이전">
             </a>
             <a href="#none" class="next">
-                <img src="/restaruant/resources/image/index/next.png" alt="다음">
+                <img src="/restaurant/resources/image/index/next.png" alt="다음">
             </a>
             <ul class="page">
                 <li class="num">3</li>
@@ -107,45 +111,45 @@
     <section id="location">
         <div class="wrap">
             <h3 class="h3_text">어디로 갈까요?</h3>
-            <div class="location_wrap">
+            <div class="location_wrap" data-aos="fade-up">
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/location.jpeg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/location.jpeg"></a>
                     </li>
                     <h3>위치검색</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/jamsil.jpg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/jamsil.jpg"></a>
                     </li>
                     <h3>잠실</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/yeouido.jpeg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/yeouido.jpeg"></a>
                     </li>
                     <h3>여의도</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/busan.jpeg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/busan.jpeg"></a>
                     </li>
                     <h3>부산</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/sokcho.jpeg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/sokcho.jpeg"></a>
                     </li>
                     <h3>속초</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaruant/resources/image/index/jejudo.jpeg"></a>
+                        <a href="해당페이지"><img src="/restaurant/resources/image/index/jejudo.jpeg"></a>
                     </li>
                     <h3>제주도</h3>
                     <p></p>
@@ -158,24 +162,24 @@
     <section id="new">
         <div class="wrap">
             <h3 class="h3_text"> <span style="color: crimson;">New </span>신규 오픈 식당!</h3>
-            <ul>
+            <ul data-aos="fade-up">
                 <li>
-                    <a><img src="/restaruant/resources/image/index/rest1.jpg"></a>
+                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest1.jpg"></a>
                     <h3>몽탄</h3>
                     <p>맛있어요</p>
                 </li>
                 <li>
-                    <a><img src="/restaruant/resources/image/index/rest2.jpg"></a>
+                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest2.jpg"></a>
                     <h3>몽탄</h3>
                     <p>맛있어요</p>
                 </li>
                 <li>
-                    <a><img src="/restaruant/resources/image/index/rest3.jpg"></a>
+                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest3.jpg"></a>
                     <h3>몽탄</h3>
                     <p>맛있어요</p>
                 </li>
                 <li>
-                    <a><img src="/restaruant/resources/image/index/rest4.jpg"></a>
+                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest4.jpg"></a>
                     <h3>몽탄</h3>
                     <p>맛있어요</p>
                 </li>
@@ -186,11 +190,11 @@
     <section id="review">
         <div class="wrap">
             <h3 class="h3_text"> <span style="color: crimson;">New </span>리얼 리뷰 Pick!</h3>
-            <div class="box-wrap">
+            <div class="box-wrap" data-aos="fade-down">
                 <div class="box">
                     <div class="img">
                         <a href="해당식당으로이동">
-                            <img src="/restaruant/resources/image/index/rest2.jpg" alt="Hover Effect">
+                            <img src="/restaurant/resources/image/index/rest2.jpg" alt="Hover Effect">
                         </a>
                     </div>
                     <div class="info">
@@ -201,7 +205,7 @@
                 <div class="box">
                     <div class="img">
                         <a href="해당식당으로이동">
-                            <img src="/restaruant/resources/image/index/rest3.jpg" alt="Hover Effect">
+                            <img src="/restaurant/resources/image/index/rest3.jpg" alt="Hover Effect">
                         </a>
                     </div>
                     <div class="info">
@@ -212,7 +216,7 @@
                 <div class="box">
                     <div class="img">
                         <a href="해당식당으로이동">
-                            <img src="/restaruant/resources/image/index/rest1.jpg" alt="Hover Effect">
+                            <img src="/restaurant/resources/image/index/rest1.jpg" alt="Hover Effect">
                         </a>
                     </div>
                     <div class="info">
@@ -223,7 +227,7 @@
                 <div class="box">
                     <div class="img">
                         <a href="해당식당으로이동">
-                            <img src="/restaruant/resources/image/index/rest4.jpg" alt="Hover Effect">
+                            <img src="/restaurant/resources/image/index/rest4.jpg" alt="Hover Effect">
                         </a>
                     </div>
                     <div class="info">
@@ -234,32 +238,42 @@
             </div>
         </div>
     </section>
+
+    <section id="video_section">
+        <div class="wrap">
+            <div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Af25fONww4I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video_text">
+                "예약도 약속입니다" <br><br> "Reservation, It's a Promise" 안녕하세요 즐거운 미식생활의 시작 파인드테이블입니다. 즐거운 미식 생활만큼이나 중요한 매너있는 미식생활! 파인드테이블에서 푸드컨텐츠 기업 '마푸테'와 노쇼캠페인을 진행합니다. 😊<br><br> 레스토랑 예약 후 업장에 나타나지 않는 "노쇼"를 근절하고 올바른 식문화를 정착시키 위한 캠페인을 제작 하였습니다. 예약도 중요한 레스토랑과의
+                약속이라는 사실! 이번기회에 다시 되새겨보면 어떨까요!?
+            </div>
+        </div>
+    </section>
+
+
     <section id="bottom">
         <div class="wrap">
             <div class="footer">
                 <div class="footer_inner">
                     <ul class="footer_link">
-                        <li><a href="#" target="_blank" class="footer_item">이용약관</a></li>
-                        <li><a href="#" target="_blank" class="footer_item">개인정보처리방침</a></li>
-                        <li><a href="#" target="_blank" class="footer_item">책임의 한계와 법적고지</a></li>
+                        <li><a href="#" target="_blank" class="footer_item">이용약관&nbsp;|</a></li>
+                        <li><a href="#" target="_blank" class="footer_item">개인정보처리방침&nbsp;|</a></li>
+                        <li><a href="#" target="_blank" class="footer_item">책임의 한계와 법적고지&nbsp;|</a></li>
                         <li><a href="#" target="_blank" class="footer_item">회원정보 고객센터</a></li>
                     </ul>
                     <div class="footer_copy">
                         <a href="#" target="_blank">
-                            <span class="footer_logo">
-                                <span class="blind" style="display: none;">파인드테이블</span>
-                            </span>
+                            <img src="/restaurant/resources/image/index/projectlogo.png" alt="logo">
                         </a>
                         <span class="text">Copyright</span>
-                        <span class="corp">&copy; FindTable Corp.</span>
+                        <span class="corp" style="font-weight: 800;">&copy; FindTable Corp.</span>
                         <span class="text">All Rights Reserved.</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-	
 	
 </body>
 </html>
