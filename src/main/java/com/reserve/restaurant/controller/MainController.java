@@ -11,10 +11,7 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
-	@GetMapping(value="user/myPage")
-	public String myPage() {
-		return "/user/myPage";
-	}
+
 	
 	
 	
