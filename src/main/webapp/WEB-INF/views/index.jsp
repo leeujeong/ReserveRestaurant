@@ -27,13 +27,26 @@
             <ul id="gnb">
 
            
-            	<li>${loginUser.user_name} 님 환영합니다</li>
-                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="/restaurant/user/join">JOIN</a></li>
-                <li><a href="찜목록페이지">FAVORITE</a></li>
-                <li><a href="/restaurant/user/myPage">ADMIN PAGE</a></li>
+            	<c:if test="${empty loginUser}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="호스트로그인페이지이동">HOSTLOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+            			<li>${loginUser.userName} 님 환영합니다</li>
+            		  <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            	</c:if>
+            	<!-- 관리자 state 2 -->
+            	<c:if test="${loginUser.state == 2}">
+            		  <li>${loginUser.userName} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/관리자">ADMIN PAGE</a></li>
+            	</c:if>
+            	
+            	<!-- 사업자는 어떻게? -->
                 
                 
          

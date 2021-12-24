@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO USERTABLE
-		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, 'Bronze', SYSDATE ,#{user_hbd}, 1 , 1000 , #{user_email} )
+		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{userName}, #{userTel}, 'Bronze', SYSDATE ,#{userHbd}, 1 , 1000 , #{userEmail} )
 	</insert>
 	
 	 

@@ -52,14 +52,14 @@ public class UserController {
 	
 	@PostMapping(value= "emailCheck", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public Map<String, Object> findUserByEmail(@RequestParam("user_email") String email) {
+	public Map<String, Object> findUserByEmail(@RequestParam("userEmail") String email) {
 		return service.findUserByEmail(email);
 	
 	}
 	
 	@PostMapping(value = "sendAuthCode" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> sendAuthCode(@RequestParam("user_email") String email) {
+	public Map<String, Object> sendAuthCode(@RequestParam("userEmail") String email) {
 		return service.sendAuthCode(email);
 	}
 	
