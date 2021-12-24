@@ -12,7 +12,18 @@
 <script src="<c:url value="/resources/js/index.js"/>"></script>
  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		fnAdminPage();
+	})
+	
+	
+	function fnAdminPage() {
+		$('#go_adminPage').click(function() {
+			location.href="/restaurant/admin/adminPage";
+		})
+	}
+</script>
 
 </head>
 <body>
@@ -269,7 +280,6 @@
                         <span class="text">Copyright</span>
                         <span class="corp" style="font-weight: 800;">&copy; FindTable Corp.</span>
                         <span class="text">All Rights Reserved.</span>
-                        <a href="/restaurant/admin/adminPage">관리자 페이지 이동</a>
                     </div>
                 </div>
             </div>

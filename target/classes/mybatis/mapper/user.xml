@@ -5,14 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.UserRepository">
 	
-	<insert id="insertUser" parameterType="com.reserve.restaurant.domain.User">
+	<insert id="insertUser" parameterType="User">
 		INSERT INTO USERTABLE
 		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, #{user_grade},#{user_date},#{user_hbd},#{state},#{point},#{user_email} )
 	</insert>
 	
-	<select id="login" parameterType="com.reserve.restaurant.domain.User" resultType="com.reserve.restaurant.domain.User">
-		SELECT USER_NO, ID, PW, USER_GRADE, STATE, POINT
+	<select id="login" parameterType="User" resultType="User">
+		SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
 		  FROM USERTABLE
 		 WHERE ID = #{id} AND PW = #{pw}
 	</select>
+	
 </mapper>
