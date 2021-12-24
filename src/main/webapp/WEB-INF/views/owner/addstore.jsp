@@ -109,7 +109,6 @@
                                     </td>
                                 </tr>
 		                          <tr>
-		                              <!--다중사진 등록가능-->
 		                              <td>사진 등록</td>
 		                              <td>
 		                                  <input type="file" name="s_file" id="s_file" multiple>

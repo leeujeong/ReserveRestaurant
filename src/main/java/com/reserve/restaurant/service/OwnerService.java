@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.reserve.restaurant.domain.Owner;
 
+
 public interface OwnerService {
 
 	public Map<String, Object> idCheck(String oId);

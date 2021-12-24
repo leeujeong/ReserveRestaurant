@@ -5,7 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.OwnerRepository">
 	
-		<select id="selecOwnerById" parameterType="String" resultType="Owner">
+	<!--  -->
+	<select id="selecOwnerById" parameterType="String" resultType="Owner">
 		SELECT o_no, o_name, o_id, o_email, o_pw, state
 		  FROM owner
 		 WHERE o_id = #{oId}

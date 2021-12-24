@@ -14,7 +14,7 @@ import com.reserve.restaurant.service.RestaurantService;
 public class RestaurantController {
 
 	@Autowired
-	private RestaurantService service;
+	private RestaurantService restaurantService;
 	
 	//등록 form
 	@PostMapping(value="owner/addRestaurant")
@@ -35,7 +35,7 @@ public class RestaurantController {
 //		for (int i = 0; i < res_addtional_option.length; i++) {
 //			System.out.println("추가옵션" + res_addtional_option[i]);
 //		}
-		service.addRestaurant(multipartRequest, response);
+		restaurantService.addRestaurant(multipartRequest, response);
 	}	
 	
 }

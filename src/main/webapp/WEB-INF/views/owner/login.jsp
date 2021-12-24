@@ -19,8 +19,8 @@
       <!-- 맨윗부분 -->
       <header class="shareit_header"> 
          <div>
-            <a class="header-logo" href="메인페이지로 이동"><img src="/LoginHostUpdate/image/FindTableLogo.png" alt="shareit-logo"></a> 
-            <a class="header-logo1" href="메인페이지로 이동">FindTable 사이트 가기</a> 
+            <a class="header-logo" href="/restaurant/index"><img src="/restaurant/resources/image/index/projectlogo.png" alt="findtable"></a> 
+            <a class="header-logo1" href="/restaurant/index">FindTable 사이트 가기</a> 
          </div>
       </header>
       
@@ -28,22 +28,22 @@
       <div>
          <main class="mainlogin"> 
             <div class="sc-kmisXD blbgsK">
-               <img src="/LoginHostUpdate/image/FindTableLogo.png" alt="shareit-loginlogo">
+               <img src="/restaurant/resources/image/index/projectlogo.png" alt="findtable">
             </div>
       
             <div class="welcomelogin"> 
-                  <div class="title">로그인</div>
+                  <div class="title">사업자 로그인</div>
                   <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;기다리고 있었습니다.&nbsp;&nbsp;🥩</p> 
             </div>
       
                <form id="loginForm" method="post" action="/restaurant/user/login">
                      <label for="id" class="loginMiddle">
-                     <span>아이디</span>
-                     <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요"></label>
+                     <span>사업자 아이디</span>
+                     <input type="text" name="id" id="id" placeholder="사업자 아이디를 입력해주세요"></label>
       
                      <label for="pw" class="loginMiddle">
-                     <span>비밀번호</span>
-                     <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요"></label>
+                     <span>사업자 비밀번호</span>
+                     <input type="password" name="pw" id="pw" placeholder="사업자 비밀번호를 입력해주세요"></label>
       
                      <div class="FindIdPw">
                         <a href="아이디 비밀번호 찾기 창으로 이동">아이디/비밀번호 찾기</a>

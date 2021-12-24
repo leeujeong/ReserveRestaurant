@@ -13,10 +13,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.reserve.restaurant.service.OwnerService;
 import com.reserve.restaurant.service.OwnerServiceImpl;
+import com.reserve.restaurant.service.QnaService;
+import com.reserve.restaurant.service.QnaServiceImpl;
 import com.reserve.restaurant.service.RestaurantService;
 import com.reserve.restaurant.service.RestaurantServiceImpl;
-import com.reserve.restaurant.service.UserService;
-import com.reserve.restaurant.service.UserServiceImpl;
 //
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -69,8 +69,20 @@ public class MybaitsConfig {
 	}
 	
 	@Bean
-	public RestaurantService service() {
+	public RestaurantService restaurantService() {
 		return new RestaurantServiceImpl();
 	}
+	
+	@Bean
+	public OwnerService oservice() {
+		return new OwnerServiceImpl();
+	}
+	@Bean
+	public QnaService qnaservice() {
+		return new QnaServiceImpl();
+	
+	}
+
+	
 	
 }

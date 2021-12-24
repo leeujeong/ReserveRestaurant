@@ -29,4 +29,5 @@ public class Restaurant {
 	public String saved;
 	public String path;
 	public Long ownerONo;
+	public Menu menu;
 }

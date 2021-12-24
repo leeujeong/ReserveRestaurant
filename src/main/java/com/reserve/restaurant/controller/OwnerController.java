@@ -12,9 +12,9 @@ import com.reserve.restaurant.service.OwnerService;
 @RequestMapping("owner/*")
 public class OwnerController {
 
-//	
-//	@Autowired
-//	private OwnerService oservice;
+	
+	@Autowired
+	private OwnerService ownerService;
 	
 	//등록페이지
 	@GetMapping(value="addPage")
@@ -50,6 +50,11 @@ public class OwnerController {
 		return "owner/review";
 	}
 
+	//로그인페이지로 이동
+	@GetMapping(value="login")
+	public String login() {
+		return "owner/login";
+	}
 	
 
 //	//아이디체크

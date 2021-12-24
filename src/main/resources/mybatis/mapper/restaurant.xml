@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="saved" property="saved" />
 		<result column="path" property="path" />
 		<result column="owner_o_no" property="owner_o_no" />
-		<collection property="Menu" resultMap="MenutMap" />
+		<collection property="menu" resultMap="MenutMap" />
 	</resultMap>
 	
 	

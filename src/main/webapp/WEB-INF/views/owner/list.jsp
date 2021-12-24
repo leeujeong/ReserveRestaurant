@@ -69,44 +69,44 @@
                           <div class="col-8 col-sm-6">
                           
                          	<c:if test="${empty lsit}">
-                         		<div> <a href="detail">작성된 음식점이 없습니다</a></div>
+                         		<div class="empty_content">  
+                         			<a href="addstore">음식점 등록하러가기</a></div>
                          	</c:if>
                          	
                          	<c:if test="${not empty list}">
                          		<c:forEach var="restaurant" items="${list}">
-                         		<table>
-                         			<tbody>
-	                         			<tr>
-							                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${gallery.path}/${gallery.saved}"></a></td>
-							                <td>${restaurant.resName}</td>
-							            <tr>
-							            <tr>
-							                <td>${restaurant.resTel}</td>
-							            </tr>
-							            <tr>
-							                <td>${restaurant.resLoc} ${resLocDetail}</td>
-							            </tr>
-							            <tr>
-							                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
-							            </tr>
-							            <tr>
-							                <td>${restaurant.resContent}</td>
-							            </tr>
-							            <tr>
-							                <td>${restaurant.res_additional_option}</td>
-            							</tr>
-                         			</tbody>
-                         		</table>
-                         			
+	                         		<table>
+	                         			<tbody>
+		                         			<tr>
+								                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${gallery.path}/${gallery.saved}"></a></td>
+								                <td>${restaurant.resName}</td>
+								            <tr>
+								            <tr>
+								                <td>${restaurant.resTel}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resLoc} ${resLocDetail}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resContent}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.res_additional_option}</td>
+	            							</tr>
+	                         			</tbody>
+                         			</table>
                          		</c:forEach>
                          	</c:if>
                         </div>
                       </div>
                     </div>
                   </div>
+                 </div>
             </div>    
         </div> 
-       
     </div>
     <section id="bottom">
         <div class="wrap">

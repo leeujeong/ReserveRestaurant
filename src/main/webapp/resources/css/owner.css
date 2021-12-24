@@ -213,3 +213,6 @@ select{
 #check_id:hover, #check_pw:hover{
     cursor: pointer;
 }
+.empty_content{
+	padding: 5px;
+}
