@@ -5,8 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.UserRepository">
 
-	
-	
 	<select id="selectUserById" parameterType="String" resultType="User">
 		SELECT USER_NO, ID, PW, USER_NAME, USER_EMAIL, STATE, USER_DATE
 		  FROM USERTABLE
@@ -28,9 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 
 	 
-	<select id="login" parameterType="com.reserve.restaurant.domain.User" resultType="com.reserve.restaurant.domain.User">
+	<select id="login" parameterType="User" resultType="User">
 		SELECT USER_NO, ID, PW, USER_GRADE, STATE, POINT
 		  FROM USERTABLE
 		 WHERE ID = #{id} AND PW = #{pw}
 	</select>
+	
 </mapper>

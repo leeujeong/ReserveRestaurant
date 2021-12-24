@@ -13,7 +13,7 @@
     <div class="go">
         <div class="admin">
             <div class="admin_user">
-                <p>회원 관리</p>
+                <a href="/restaurant/admin/userAdminPage">회원 관리</a>
             </div>
             <div class="admin_rest">
                 <p>식당 관리</p>
