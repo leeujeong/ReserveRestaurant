@@ -1,6 +1,5 @@
 package com.reserve.restaurant.domain;
 
-import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +19,13 @@ public class Restaurant {
 	public Long resNo;
 	public String resName;
 	public String resLoc;
-	public String resHours;
+	public String resLocDetail;
+	public String resOpenTime;
+	public String resCloseTime;
 	public String resTel;
-	public Date resDate;
+	public String resContent;
 	public String origin;
+	public String res_addtional_option;
 	public String saved;
 	public String path;
 	public Long ownerONo;
