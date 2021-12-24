@@ -54,7 +54,7 @@
             	<!-- 관리자 state 2 -->
             	<c:if test="${loginUser.state == 2}">
             		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/user/관리자">ADMIN PAGE</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
             	</c:if>
             	
             	<!-- 사업자는 어떻게? -->
@@ -284,7 +284,7 @@
         </div>
     </section>
 
-
+	<a href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

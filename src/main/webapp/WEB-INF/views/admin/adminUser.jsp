@@ -14,25 +14,23 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 	$(document).ready(function() {
-		fnArea();
 		fnInit();	
 		fnFind();
+		fnFindAllUser();
 	})
 	
+	// 모든 회원 전체 검색
+	function fnFindAllUser() {
+		$('#all_user_search').click(function() {
+			location.href="/restaurant/admin/allFindUser";
+		})
+	}
 	// 검색 초기화 함수
 	function fnInit() {
 		$('#column').val('');
 		$('#query').val('');	
 	}
 	
-	// 검색 화면 세팅 함수
-	function fnArea() {
-		$('#first_area').css('display', 'none');
-		$('#second_area').css('display', 'none');
-		
-		
-		
-	}
 	
 	
 	// 검색 함수
@@ -74,52 +72,55 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="회원가입페이지이동">JOIN</a></li>
-                <li><a href="찜목록페이지">FAVORITE</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+                <li>${loginUser.id} 님 환영합니다</li>
+                <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </div>
     </header>
-    <section class="menu">
-        <p>회원 검색</p>
-        <form>
-        	<select>
-        		<option>일반회원</option>
-        		<option>host회원</option>
-        	</select>
-        	<span id="first_area">
-		        <select name="column" id="column">
-		        	<option value="">선택</option>
-		            <option value="NAME">이름</option>
-		            <option value="AGE">나이</option>
-		            <option value="GRADE">등급</option>
-		        </select>
-        	</span>
-        	<span id="second_area">
-		        <input type="text" name="query" id="query">
-		        <input type="button" value="검색" id="search_btn">
-        	</span>
-        </form>
-    </section>
-    <section class="list_section">
-    	<table>
-    		<thead>
-    			<tr>
-    				<td>회원번호</td>
-    				<td>이름</td>
-    				<td>아이디</td>
-    				<td>등급</td>
-    				<td>이메일</td>
-    				<td>가입일</td>
-    			</tr>
-    		</thead>
-    		<tbody id="user_info"></tbody>
-    	</table>
-    
-    
-    </section>
+    <section class="search_section">
+        <div class="search_box">
+            <p class="user_search">회원 검색</p>
+            <div class="chose">
+                <select class="select_chose" id="column">
+                    <option value="none" selected>:: 선택 ::</option>
+                    <option value="ID">아이디</option>
+                    <option value="NAME">이름</option>
+                    <option value="TEL">전화번호</option>
+                </select>
+                <input type="text" class="select_text" id="query">
+                <input type="button" value="검색" class="search_btn">
+                <input type="button" value="일반회원 전체검색" id="all_user_search">
+                <input type="button" value="사업자회원 전체검색" id="all_owner_search"> 
+            </div>
+            <div class="radio">
+                <input type="radio" name="user" id="user" value="email">
+                <label for="user">일반회원</label>
 
+                <input type="radio" name="user" id="owner" value="phone">
+                <label for="owner">사업자회원</label>
+            </div>
+        </div>
+    </section>
+    <section class="result_section">
+        <p class="comment">총 00명의 회원이 검색되었습니다.</p>
+        <table class="result_table">
+            <thead>
+                <tr>
+                    <td>회원번호</td>
+                    <td>아이디</td>
+                    <td>이름</td>
+                    <td>상태</td>
+                </tr>
+            </thead>
+            <tbody id="All_list"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
 </body>
 </html>
