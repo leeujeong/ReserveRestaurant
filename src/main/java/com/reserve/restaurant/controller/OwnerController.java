@@ -1,24 +1,20 @@
 
 package com.reserve.restaurant.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.service.OwnerService;
 
 @Controller
 @RequestMapping("owner/*")
 public class OwnerController {
 
-	
-	@Autowired
-	private OwnerService oservice;
+//	
+//	@Autowired
+//	private OwnerService oservice;
 	
 	//등록페이지
 	@GetMapping(value="addPage")
@@ -67,13 +63,13 @@ public class OwnerController {
 //	public Map<String, Object> emailCheck(@RequestBody("oEmail") String oEmail){
 //		return service.findOwnerByEmail(oEmail);
 //	}
-	
-	//업데이트
-	@PostMapping(value="updateOwner")
-	public String updateOwner(Owner owner, HttpSession session) {
-		oservice.updateOwner(owner, session);
-		return "redirect:/";
-	}
+//	
+//	//업데이트
+//	@PostMapping(value="updateOwner")
+//	public String updateOwner(Owner owner, HttpSession session) {
+//		oservice.updateOwner(owner, session);
+//		return "redirect:/";
+//	}
 	
 	//현재 비밀번호
 //	@PostMapping(value="presentPwCheck", produces="application/json; charset=UTF-8")

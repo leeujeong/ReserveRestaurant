@@ -11,6 +11,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.reserve.restaurant.service.OwnerService;
+import com.reserve.restaurant.service.OwnerServiceImpl;
+import com.reserve.restaurant.service.RestaurantService;
+import com.reserve.restaurant.service.RestaurantServiceImpl;
 import com.reserve.restaurant.service.UserService;
 import com.reserve.restaurant.service.UserServiceImpl;
 //
@@ -64,6 +68,9 @@ public class MybaitsConfig {
 		return multipartResolver;
 	}
 	
-	
+	@Bean
+	public RestaurantService service() {
+		return new RestaurantServiceImpl();
+	}
 	
 }

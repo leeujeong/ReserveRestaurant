@@ -9,8 +9,8 @@ import com.reserve.restaurant.service.OwnerServiceImpl;
 @Configuration
 public class OwnerConfig {
 
-	@Bean
-	public OwnerService oservice() {
-		return new OwnerServiceImpl();
-	}
+//	@Bean
+//	public OwnerService oservice() {
+//		return new OwnerServiceImpl();
+//	}
 }
