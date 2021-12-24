@@ -1,9 +1,13 @@
 package com.reserve.restaurant.controller;
 
+<<<<<<< HEAD
 import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+=======
+import javax.servlet.http.HttpServletRequest;
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.UserService;
 
+import com.reserve.restaurant.service.UserService;
+
 @Controller
 @RequestMapping("user/*")
 public class UserController {
@@ -23,10 +29,15 @@ public class UserController {
 	@Autowired
 	UserService service;
 
+	@Autowired
+	private UserService userService;
+	
+	
 	@GetMapping(value="myPage")
 	public String myPage() {
 		return "/user/myPage";
 	}
+<<<<<<< HEAD
 	
 	@GetMapping(value="updateUser")
 	public String updateUser() {
@@ -65,4 +76,19 @@ public class UserController {
 	
 		
 	}
+=======
+
+	@GetMapping(value="loginPage")
+	public String loginPage() {
+		return "user/login";
+	}
+
+	@PostMapping(value="login")
+	public String login(HttpServletRequest request) {
+		userService.login(request);
+		return "redirect:/";
+	}
+
+
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 }

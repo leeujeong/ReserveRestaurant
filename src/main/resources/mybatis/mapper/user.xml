@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.UserRepository">
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -25,10 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
+=======
+	<insert id="insertUser" parameterType="com.reserve.restaurant.domain.User">
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 		INSERT INTO USERTABLE
 		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, 'Bronze', SYSDATE ,#{user_hbd}, 1 , 1000 , #{user_email} )
 	</insert>
 	
+<<<<<<< HEAD
 	<!--  
 	
 	<update id="updatePw" parameterType="User">
@@ -44,4 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE NO = #{no}
 	</update>
 	 -->
+=======
+	<select id="login" parameterType="com.reserve.restaurant.domain.User" resultType="com.reserve.restaurant.domain.User">
+		SELECT USER_NO, ID, PW, USER_GRADE, STATE, POINT
+		  FROM USERTABLE
+		 WHERE ID = #{id} AND PW = #{pw}
+	</select>
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 </mapper>

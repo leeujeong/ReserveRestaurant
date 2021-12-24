@@ -64,6 +64,13 @@ public class MybaitsConfig {
 		return multipartResolver;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+	@Bean
+	public UserService userService() {
+		return new UserServiceImpl();
+	}
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 	
 }

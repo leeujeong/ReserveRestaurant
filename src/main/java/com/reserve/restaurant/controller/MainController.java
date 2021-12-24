@@ -12,6 +12,10 @@ public class MainController {
 		return "index";
 	}
 
+	@GetMapping(value="main/mainPage")
+	public String mainPage() {
+		return "index";
+	}
 	
 	
 	
