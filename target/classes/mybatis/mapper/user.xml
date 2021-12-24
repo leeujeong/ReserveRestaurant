@@ -3,11 +3,45 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.reserve.restaurant.repository.RestaurantRepository">
+<mapper namespace="com.reserve.restaurant.repository.UserRepository">
 	
-	<insert id="insertUser" parameterType="com.koreait.restaurant.domain.User">
+	
+	
+	
+	
+	
+	
+	<select id="selectUserById" parameterType="String" resultType="User">
+		SELECT USER_NO, ID, PW, USER_NAME, USER_EMAIL, STATE, USER_DATE
+		  FROM USERTABLE
+		 WHERE ID = #{id}
+	</select>
+	
+	
+	<select id="selectUserByEmail" parameterType="String" resultType="User">
+		SELECT USER_NO, ID, PW, USER_NAME, USER_EMAIL, STATE, USER_DATE
+		  FROM USERTABLE
+		 WHERE USER_EMAIL = #{userEmail}
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
 		INSERT INTO USERTABLE
-		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, #{user_grade},#{user_date},#{user_hbd},#{state},#{point},#{user_email} )
+		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{user_name}, #{user_tel}, 'Bronze', SYSDATE ,#{user_hbd}, 1 , 1000 , #{user_email} )
 	</insert>
 	
+	<!--  
+	
+	<update id="updatePw" parameterType="User">
+		UPDATE USERTABLE
+		   SET PW = #{pw}
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE USERTABLE
+		   SET NAME = #{name}
+		     , EMAIL = #{email}
+		 WHERE NO = #{no}
+	</update>
+	 -->
 </mapper>

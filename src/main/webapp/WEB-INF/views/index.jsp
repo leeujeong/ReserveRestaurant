@@ -25,11 +25,18 @@
                 </a>
             </h1>
             <ul id="gnb">
+           
+            	<li>${loginUser.user_name} 님 환영합니다</li>
                 <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
                 <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="회원가입페이지이동">JOIN</a></li>
+                <li><a href="/restaurant/user/join">JOIN</a></li>
                 <li><a href="찜목록페이지">FAVORITE</a></li>
-                <li><a href="/restaurant/myPage">MYPAGE</a></li>
+                <li><a href="/restaurant/user/myPage">ADMIN PAGE</a></li>
+                
+                
+         
+               
+                
             </ul>
         </div>
     </header>
