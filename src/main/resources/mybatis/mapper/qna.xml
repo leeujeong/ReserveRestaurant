@@ -3,48 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.reserve.restaurant.repository.OwnerRepository">
+<mapper namespace="com.reserve.restaurant.repository.QnaRepository">
 	
-		<select id="selecOwnerById" parameterType="String" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
-		  FROM owner
-		 WHERE o_id = #{oId}
-	</select>
-	
-	<insert id="joinOwner" parameterType="Owner">
-		INSERT INTO owner
-		VALUES (o_no_SEQ.NEXTVAL,#{oName}, #{oId}, #{oEmail}, #{oPw},1 )
-	</insert>
-	
-	<select id="login" parameterType="Owner" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
-		  FROM owner
-		 WHERE o_id = #{oId} AND o_pw = #{oPw} AND STATE = 1
-	</select>
-	
-	<select id="selecOwnerByEmail" parameterType="String" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
-		  FROM owner
-		 WHERE o_email = #{eEmail}
-	</select>
-	
-	<update id="updatePw" parameterType="Owner">
-		UPDATE Owner
-		   SET o_pw = #{oPw}
-		 WHERE o_id = #{oId}
-	</update>
-	
-	<update id="updateOwner" parameterType="Owner">
-		UPDATE Owner
-		   SET o_id = #{oId},
-		       EMAIL = #{oEmail}
-		 WHERE o_no = #{oNo}
-	</update>
-	
-	<update id="leaveOwner" parameterType="Long">
-		UPDATE Owner
-		   SET STATE = -1
-		 WHERE o_no = #{oNo}
-	</update>
 	
 </mapper>

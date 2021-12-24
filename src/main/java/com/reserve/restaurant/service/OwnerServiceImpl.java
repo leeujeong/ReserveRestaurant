@@ -17,11 +17,6 @@ public class OwnerServiceImpl implements OwnerService {
 
 	private SqlSessionTemplate sqlSession;
 	
-	@Autowired
-	public void setBean(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-	
 	@Override
 	public Map<String, Object> idCheck(String oId) {
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
