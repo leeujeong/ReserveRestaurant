@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User loginUser = repository.login(user);
+		System.out.println(loginUser);
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 		}	
