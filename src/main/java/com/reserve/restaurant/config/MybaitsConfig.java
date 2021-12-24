@@ -74,15 +74,13 @@ public class MybaitsConfig {
 	}
 	
 	@Bean
-	public OwnerService oservice() {
+	public OwnerService ownerService() {
 		return new OwnerServiceImpl();
 	}
+	
 	@Bean
-	public QnaService qnaservice() {
+	public QnaService qnaService() {
 		return new QnaServiceImpl();
-	
 	}
-
-	
 	
 }

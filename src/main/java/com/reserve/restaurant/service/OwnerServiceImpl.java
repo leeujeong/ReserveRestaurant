@@ -26,7 +26,7 @@ public class OwnerServiceImpl implements OwnerService {
 	public Map<String, Object> idCheck(String oId) {
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result",repository.selecOwnerById(oId));
+		map.put("result",repository.selectOwnerById(oId));
 		return map;
 	}
 
@@ -34,7 +34,7 @@ public class OwnerServiceImpl implements OwnerService {
 	public Map<String, Object> findOwnerByEmail(String oEmail) {
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result",repository.selecOwnerByEmail(oEmail));
+		map.put("result",repository.selectOwnerByEmail(oEmail));
 		return map;
 	}
 
