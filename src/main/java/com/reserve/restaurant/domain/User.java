@@ -17,16 +17,16 @@ import lombok.ToString;
 @Builder
 public class User {
 
-	private Long user_no;
+	private Long userNo;
 	private String id;
 	private String pw;
-	private String user_name;
-	private String user_tel;
-	private String user_grade;
-	private Date user_date;
-	private String user_hbd;
+	private String userName;
+	private String userTel;
+	private String userGrade;
+	private Date userDate;
+	private String userHbd;
 	private int state;
 	private int point;
-	private String user_email;
+	private String userEmail;
 	
 }

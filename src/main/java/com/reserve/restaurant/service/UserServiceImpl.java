@@ -63,14 +63,22 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public Map<String, Object> emailCheck(String email) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", repository.selectUserByEmail(email));
+		return map;
+	}
+	
+	@Override
 	public void insertUser(User user, HttpServletResponse response) {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		user.setId(user.getId());
 		user.setPw(SecurityUtils.sha256(user.getPw()));
-		user.setUser_name(SecurityUtils.xxs(user.getUser_name()));
-		user.setUser_tel(user.getUser_tel());
-		user.setUser_hbd(user.getUser_hbd());
-		user.setUser_email(user.getUser_email());
+		user.setUserName(SecurityUtils.xxs(user.getUserName()));
+		user.setUserTel(user.getUserTel());
+		user.setUserHbd(user.getUserHbd());
+		user.setUserEmail(user.getUserEmail());
 		
 		int result = repository.insertUser(user);
 		

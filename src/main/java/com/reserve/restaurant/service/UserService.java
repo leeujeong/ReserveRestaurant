@@ -14,5 +14,6 @@ public interface UserService {
 	public Map<String, Object> sendAuthCode(String email);
 	public void insertUser(User user,HttpServletResponse response);
 	public void login(HttpServletRequest request);
+	public Map<String, Object> emailCheck(String email);
 	
 }
