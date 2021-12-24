@@ -64,4 +64,6 @@ public class MybaitsConfig {
 		return multipartResolver;
 	}
 	
+	
+	
 }
