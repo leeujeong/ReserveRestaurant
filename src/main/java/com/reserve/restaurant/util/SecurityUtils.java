@@ -43,4 +43,17 @@ public class SecurityUtils {
 	public static String decodeBase64(String str) {
 		return new String(Base64.decodeBase64(str.getBytes()));
 	}
+	
+	// 인증코드 생성
+		public static String authCode(int length) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < length; i++) {
+				if (Math.random() < 0.5) {
+					sb.append( (char)((int)(Math.random() * 26) + 'A') );
+				} else {
+					sb.append( (char)((int)(Math.random() * 10) + '0') );
+				}
+			}
+			return sb.toString();
+		}
 }
