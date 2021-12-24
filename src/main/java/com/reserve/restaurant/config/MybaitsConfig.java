@@ -64,9 +64,4 @@ public class MybaitsConfig {
 		return multipartResolver;
 	}
 	
-	@Bean
-	public UserService userService() {
-		return new UserServiceImpl();
-	}
-	
 }
