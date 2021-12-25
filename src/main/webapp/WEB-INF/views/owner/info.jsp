@@ -62,26 +62,26 @@
                 </div>
                 <hr>
                 <div>
-                    <form id="f" method="POST" enctype="multipart/form-data">
-                        <table>
+                    <form id="f3" method="POST" enctype="multipart/form-data">
+                        <table class="infobox">
                             <tbody>
                                 <tr>
                                     <td>이름</td>
                                     <td>
-                                        <input type="text" name="o_name" id="o_name" value="${내이름}"/>
+                                        <input type="text" name="o_name" id="o_name" value="<%-- ${내이름} --%>"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>아이디</td>
                                     <td>
-                                        <input type="text" value="${내 아이디}" name="o_id" id="o_id"/>
+                                        <input type="text" value="<%-- ${내 아이디} --%>" name="o_id" id="o_id"/>
                                         <input type="button" value="중복확인" name="check_id" id="check_id"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>전화번호</td>
                                     <td>
-                                        <input type="text" name="tel" id="tel" value="${내 전화번호}"/>
+                                        <input type="text" name="tel" id="tel" value="<%-- ${내 전화번호} --%>"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -141,5 +141,86 @@
             </div>
         </div>
     </section>
+    
+    <script>
+    //아아디체크
+    let idPass = false;
+    let regId = /^[a-zA-Z0-9-_]{4,10}$/;
+    function fnIdCheck(){
+        $('#o_id').keyup(function(){
+            if( regId.text($(this).val() == false)){
+                $('#id_result').text('아이디는 영어 소문자, 대문자, 숫자포함 4 ~ 10자리로 입력해주세요').addClass('no').removeClass('ok');
+                idPass = false;
+                return;
+        }
+        $.ajax({
+                url: 'owner/idCheck',
+                type: 'post',
+                data: 'id=' + $(this).val(),
+                dataType: 'json',
+                success: function(map){
+                    if (map.result == null) {
+                        $('#id_result').text('사용 가능한 아이디입니다').addClass('ok').removeClass('no');
+                        idPass = true;
+                    } else {
+                        $('#id_result').text('사용 중인 아이디입니다').addClass('no').removeClass('ok');
+                        idPass = false;
+                    }
+                },
+                error: function(xhr){
+                    $('#id_result').text(xhr.responseText).addClass('no').removeClass('no');
+                    idPass = false;
+                }
+            });
+        });
+    }       
+    //비밀번호 체크
+    let pwPass = false;
+
+    function fnPwCheck() {
+        $('#o_pw').keyup(function() {
+            let regPw = /^[a-z0-9]{1,10}$/;  
+            if ( regPw.test($(this).val()) == false ) {
+                $('#pw_result').text('비밀번호는 영어 소문자와 숫자포함 1 ~ 10 자리 입니다.').addClass('no').removeClass('ok');
+                pwPass = false;
+            } else {
+                $('#pw_result').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('no');
+                pwPass = true;
+            }
+        });
+    }   
+
+
+    //이메일 체크
+let emailPass = false;
+	function fnEmailCheck() {
+		$('#email').blur(function(){
+			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+			if ( regEmail.test($(this).val()) == false ) {
+				alert('이메일 형식을 확인하세요.');
+				emailPass = false;
+				return;
+			}
+			$.ajax({
+				url: 'owner/emailCheck',
+				type: 'post',
+				data: 'email=' + $(this).val(),
+				dataType: 'json',
+				success: function(map){
+					if (map.result == null) {
+						alert('가입 가능한 이메일입니다. 인증번호받기를 클릭해서 이메일 인증을 진행해 주세요.');
+						emailPass = true;
+					} else {
+						alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
+						emailPass = false;
+					}
+				},
+				error: function(){
+					emailPass = false;
+				}
+			})
+		});
+	}  
+</script>
 </body>
 </html>

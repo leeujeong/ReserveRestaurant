@@ -88,10 +88,16 @@ ALTER TABLE notice ADD CONSTRAINT notice_pk PRIMARY KEY ( notice_no );
 CREATE TABLE owner (
 
     o_no NUMBER NOT NULL,
+    
+    o_name varchar2(50 byte),
 
     o_id VARCHAR2(32 BYTE) NOT NULL,
 
-    o_pw VARCHAR2(100 BYTE) NOT NULL
+    o_pw VARCHAR2(100 BYTE) NOT NULL,
+    
+    o_email varchar2(100 BYTE),
+    
+    state number(1)
 
 );
 
@@ -159,13 +165,23 @@ CREATE TABLE restaurant (
 
     res_name   VARCHAR2(50 BYTE),
 
-    res_loc    VARCHAR2(300 BYTE),
+    address    VARCHAR2(300 BYTE),
+    
+    address_detail varchar2(300 byte),
 
-    res_hours  VARCHAR2(20 BYTE),
+    open_time  VARCHAR2(20 BYTE),
+    
+    lose_time  VARCHAR2(20 BYTE),
 
-    res_tel    VARCHAR2(13 BYTE),
-
-    res_date   DATE,
+    tel    VARCHAR2(13 BYTE),
+    
+    content varchar2(4000 BYTE),
+    
+    res_menu varchar2(100 byte),
+    
+    res_price varchar2(100 byte),
+    
+    res_option varchar2(200 byte),
 
     origin     VARCHAR2(300 BYTE),
 
@@ -387,4 +403,4 @@ ALTER TABLE userlog
             
 select * from tab;
 select * from user_sequences;
-select * from owner;
+select * from restaurant;

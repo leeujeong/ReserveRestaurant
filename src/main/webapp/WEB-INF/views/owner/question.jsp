@@ -66,34 +66,49 @@
                         <li class="store_question">식당 정보 문의</li>
                         <li class="reserve_question">예약 문의</li>
                     </ul>
+         
                     <table class="question_table">
                         <thead>
                             <tr>
                                 <td>번호</td>
                                 <td>작성자</td>
+                                <td>제목</td>
                                 <td>문의 내용</td>
                                 <td>작성일자</td>
                                 <td>조회수</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--jsp 11 freeboard jsp 참고-->
-                            <tr>
-                                <td>1</td>
-                                <td>이유정</td>
-                                <td><a href="#">너무 배고파서 그런데....</a></td>
-                                <td>2021-12-21</td>
-                                <td>hit</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>2</td>
-                                <td>이유정</td>
-                                <td><a href="#">너무 배고파서 그런데....</a></td>
-                                <td>2021-12-21</td>
-                                <td>hit</td>
-                            </tr>
-                        </tbody>
+							<c:if test="${empty list}">
+								<tr>
+									<td colspan="6">공지사항 없음</td>
+								</tr>
+							</c:if>
+							<c:if test="$list.state == 1}">
+								<c:forEach var="qna" items="${list}">
+									<tr>
+										<td>${qna.qNo}</td>				
+										<td>${qna.writer}</td>
+										<td><a href="selectQnaByNo?qNo=${qna.qNo}">${qna.title}</a></td>
+										<td>${qna.content}</td>
+										<td>${qna.qDate}</td>
+										<td>${qna.hit}</td>				
+									</tr>
+								</c:forEach>
+							</c:if>
+							<c:if test="${qNaList.state == 2}">
+								<c:forEach var="qna" items="${qNaList}">
+									<tr>
+										<td>${qna.qNo}</td>				
+										<td>${qna.writer}</td>
+										<td><a href="selectQnaByNo?qNo=${qna.qNo}">${qna.title}</a></td>
+										<td>${qna.content}</td>
+										<td>${qna.qDate}</td>
+										<td>${qna.hit}</td>				
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
                     </table>
                 </div>
             </div>

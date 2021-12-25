@@ -21,8 +21,6 @@ import com.reserve.restaurant.service.UserService;
 @RequestMapping("user/*")
 public class UserController {
 	
-	@Autowired
-	UserService service;
 
 	@Autowired
 	private UserService userService;
@@ -46,27 +44,27 @@ public class UserController {
 	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> idCheck(@RequestParam("id") String id) {
-			return service.idCheck(id);
+			return userService.idCheck(id);
 	}
 	
 	
 	@PostMapping(value= "emailCheck", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> findUserByEmail(@RequestParam("userEmail") String email) {
-		return service.findUserByEmail(email);
+		return userService.findUserByEmail(email);
 	
 	}
 	
 	@PostMapping(value = "sendAuthCode" , produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> sendAuthCode(@RequestParam("userEmail") String email) {
-		return service.sendAuthCode(email);
+		return userService.sendAuthCode(email);
 	}
 	
 	
 	@PostMapping(value = "insertUser")
 	public void insertUser(User user , HttpServletResponse response) {
-		service.insertUser(user, response);
+		userService.insertUser(user, response);
 		
 	
 		

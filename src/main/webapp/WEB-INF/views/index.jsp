@@ -31,7 +31,7 @@
 	  <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="index">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -40,7 +40,7 @@
            
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="호스트로그인페이지이동">HOSTLOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/owner/login">HOSTLOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
             	</c:if>

@@ -18,7 +18,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="#">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -58,41 +58,55 @@
             </div>
             <div class="col-6">
                 <div class="section2">
-                    <h4 class="ing_title">사업장 수정 / 삭제하기</h4>
+                    <h4 class="ing_title">사업장 관리</h4>
                 </div>
                 <hr>
                   <div class="containers">
                     <div class="row">
-                      <div class="col-sm-3">
-                        <img src="../images/platter-g8605cb638_1920.jpg" class="store_img" >
-                      </div>
+                   
                       <div class="col-sm-9">
                         <div class="row">
                           <div class="col-8 col-sm-6">
-                            <h5>가게이름2</h5>
-                            운영시간 랄랄랄랄랄
-                            자세한 설명설명 설명설명
-                          </div>
-                          <div class="col-4 col-sm-6">
-                            <input type="button" value="수정하기" id="update_btn" name="update_btn" onclick="href.loaction='updatePage'">
-                            <input type="button" value="삭제하기" id="delete_btn" name="delete_btn">
-                          </div>
+                          
+                         	<c:if test="${empty lsit}">
+                         		<div class="empty_content">  
+                         			<a href="addstore">음식점 등록하러가기</a></div>
+                         	</c:if>
+                         	
+                         	<c:if test="${not empty list}">
+                         		<c:forEach var="restaurant" items="${list}">
+	                         		<table>
+	                         			<tbody>
+		                         			<tr>
+								                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${gallery.path}/${gallery.saved}"></a></td>
+								                <td>${restaurant.resName}</td>
+								            <tr>
+								            <tr>
+								                <td>${restaurant.resTel}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resLoc} ${resLocDetail}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.resContent}</td>
+								            </tr>
+								            <tr>
+								                <td>${restaurant.res_additional_option}</td>
+	            							</tr>
+	                         			</tbody>
+                         			</table>
+                         		</c:forEach>
+                         	</c:if>
                         </div>
                       </div>
                     </div>
                   </div>
+                 </div>
             </div>    
         </div> 
-        <script>
-             $('#delete_btn').on('click',function(){
-                if(confirm('[가게이름] 을 삭제할까요?')){
-                alert('삭제했습니다.');
-                }
-            $('update_btn').on('click', function(){
-
-            })
-    });
-        </script>      
     </div>
     <section id="bottom">
         <div class="wrap">
