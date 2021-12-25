@@ -8,9 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllUser" resultType="User">
 		SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
   		  FROM USERTABLE
+  		 WHERE STATE = 1
 	</select>
 	
-	
+	<select id="countUser" resultType="int">
+		SELECT COUNT(*)
+		  FROM USERTABLE
+		 WHERE STATE = 1
+	</select>
 	
 	
 </mapper>

@@ -103,25 +103,7 @@
         </div>
     </section>
     <section class="result_section">
-        <p class="comment">총 00명의 회원이 검색되었습니다.</p>
-        <table class="result_table">
-            <thead>
-                <tr>
-                    <td>회원번호</td>
-                    <td>아이디</td>
-                    <td>이름</td>
-                    <td>상태</td>
-                </tr>
-            </thead>
-            <tbody id="All_list"></tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                    여기는 페이징 처리 하는곳 입니다입니다
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <%@ include file="list.jsp" %>
     </section>
 </body>
 </html>

@@ -1,11 +1,6 @@
 package com.reserve.restaurant.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +23,10 @@ public class AdminServiceImpl implements AdminService {
 	public void findAllUser(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		List<String> list = repository.selectAllUser();
-		System.out.println(list);
+		int count = repository.countUser();
+		model.addAttribute("count", count);
 		model.addAttribute("list", list);
-	
+
 	}
 
 }

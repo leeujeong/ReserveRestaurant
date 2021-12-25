@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface AdminRepository {
 
 	public List<String> selectAllUser();
-	
+	public int countUser();
 	
 	
 }
