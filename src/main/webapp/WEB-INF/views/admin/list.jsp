@@ -15,7 +15,7 @@
 </head>
 <body>
     <section class="result_section">
-        <p class="comment">총 ${count}명의 회원이 검색되었습니다.</p>
+        <p class="comment">총 ${totalRecord}명의 회원이 검색되었습니다.</p>
         <table class="result_table">
             <thead>
                 <tr>
@@ -27,28 +27,41 @@
             </thead>
             <tbody>
             	<c:if test="${empty list}">
-					<tr>
-						<td>검색 결과 없음</td>
-					</tr>            	
+    	        	<c:forEach var="owner" items="${ownerList}">
+    	        		<tr>
+    	        			<td></td>
+    	        			<td>${owner}</td>
+    	        			<td></td>
+    	        			<td></td>
+    	        		</tr>
+    	        	</c:forEach>
+    	        	<c:if test="${not empty paging}">
+	            		<tfoot>
+			                <tr>
+			                    <td colspan="4">${paging}</td>
+			                </tr>
+	            		</tfoot>
+            		</c:if>
             	</c:if>
-            	<c:if test="${not empty list}">
-            		<c:forEach var="user" items="${list}">
-		            	<tr>
-		            		<td>${user.userNo}</td>
-		            		<td>${user.id}</td>
-		            		<td>${user.userName}</td>
-		            		<td>예약중</td>
-		            	</tr>
-	            	</c:forEach>
+            	<c:if test="${empty ownerList}">
+            		<c:forEach var="user" items="${list}" varStatus="vs">
+	            		<tr>	        
+	            			<td>${user.userNo}</td>    		
+	            			<td>${user}</td>
+							<td></td>
+							<td></td>
+	            		</tr>
+            		</c:forEach>
+            		<c:if test="${not empty paging}">
+	            		<tfoot>
+			                <tr>
+			                    <td colspan="4">${paging}</td>
+			                </tr>
+	            		</tfoot>
+            		</c:if>
             	</c:if>
+            	
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                    여기는 페이징 하는곳
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </section>
 </body>

@@ -14,23 +14,26 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 	$(document).ready(function() {
-		fnInit();	
+
 		fnFind();
 		fnFindAllUser();
+		fnFindAllOwner();
 	})
 	
 	// 모든 회원 전체 검색
 	function fnFindAllUser() {
 		$('#all_user_search').click(function() {
-			location.href="/restaurant/admin/allFindUser";
+			location.href="/restaurant/admin/findAllUser";
 		})
 	}
-	// 검색 초기화 함수
-	function fnInit() {
-		$('#column').val('');
-		$('#query').val('');	
-	}
 	
+	// 모든 사업자 회원 전체 검색
+	function fnFindAllOwner() {
+		$('#all_owner_search').click(function() {
+			location.href="/restaurant/admin/findAllOwner";
+		})
+	}
+
 	
 	
 	// 검색 함수
@@ -38,24 +41,35 @@
 		$('#search_btn').click(function() {
 			if ($('#column').val() == '') {
 				alert('검색 카테고리를 선택하세요');
+				return;
+			} else if ($('#query').val() == '') {
+				alert('검색어를 입력하세요')
+				return;
 			}
-			if ($('#query').val() == '') {
-				alert('검색어를 입력하세요');
-			}
-			var column = $('#column').val();
-			var query = $('#query').val();
-			$.ajax({
-				url: '',
-				type: 'get',
-				data: 'column=' + column + 'query=' + query,
-				dataType: 'json',
-				success: function() {
-					
-				},
-				error:function() {
-					
+			if ($('#column').val() == 'ID') {
+				if ($('#query').val() == '') {
+					alert('검색어를 입력하세요')
+					return;
+				} else {
+					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
 				}
-			})
+			}
+			if ($('#column').val() == 'NAME') {
+				if ($('#query').val() == '') {
+					alert('검색어를 입력하세요')
+					return;
+				} else {
+					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
+				}
+			}
+			if ($('#column').val() == 'TEL') {
+				if ($('#query').val() == '') {
+					alert('검색어를 입력하세요')
+					return;
+				} else {
+					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
+				}
+			}
 		})		
 	}
 	
@@ -82,19 +96,21 @@
         <div class="search_box">
             <p class="user_search">회원 검색</p>
             <div class="chose">
-                <select class="select_chose" id="column">
-                    <option value="none" selected>:: 선택 ::</option>
-                    <option value="ID">아이디</option>
-                    <option value="NAME">이름</option>
-                    <option value="TEL">전화번호</option>
-                </select>
-                <input type="text" class="select_text" id="query">
-                <input type="button" value="검색" class="search_btn">
-                <input type="button" value="일반회원 전체검색" id="all_user_search">
-                <input type="button" value="사업자회원 전체검색" id="all_owner_search"> 
+	            <form id="search_form" method="get">
+	                <select class="select_chose" id="column">
+	                    <option value="" selected>:: 선택 ::</option>
+	                    <option value="ID">아이디</option>
+	                    <option value="NAME">이름</option>
+	                    <option value="TEL">전화번호</option>
+	                </select>
+	                <input type="text" class="select_text" id="query">
+	                <input type="button" value="검색" id="search_btn">
+	                <input type="button" value="일반회원 전체검색" id="all_user_search">
+	                <input type="button" value="사업자회원 전체검색" id="all_owner_search"> 
+	            </form>
             </div>
             <div class="radio">
-                <input type="radio" name="user" id="user" value="email">
+                <input type="radio" name="user" id="user" value="email" checked>
                 <label for="user">일반회원</label>
 
                 <input type="radio" name="user" id="owner" value="phone">
@@ -105,5 +121,6 @@
     <section class="result_section">
         <%@ include file="list.jsp" %>
     </section>
+
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.reserve.restaurant.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,30 @@ public class AdminController {
 		return "admin/adminUser";
 	}
 	
-	@GetMapping(value="allFindUser")
-	public String allFindUser(Model model) {
+	@GetMapping(value="findAllUser")
+	public String allFindUser(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		service.findAllUser(model);
 		return "admin/adminUser";
 	}
+	
+	@GetMapping(value="findAllOwner")
+	public String allFindOwner(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		service.FindAllOwner(model);
+		return "admin/adminUser";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

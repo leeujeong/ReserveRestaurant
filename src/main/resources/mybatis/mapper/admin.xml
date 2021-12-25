@@ -17,5 +17,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE STATE = 1
 	</select>
 	
+	<select id="selectAllOnwer" resultType="Owner">
+		SELECT O_NO, O_ID, O_PW, O_EMAIL, O_TEL, O_NAME, STATE
+  		  FROM OWNER
+	</select>
+	
+	<select id="countOwner" resultType="int">
+		SELECT COUNT(*)
+		  FROM OWNER
+	</select>
+	
+	<select id="selectUserList" parameterType="Map" resultType="Map">
+		SELECT B.USER_NO, B.ID, B.PW, B.USER_NAME, B.USER_TEL, B.USER_GRADE, B.USER_DATE, B.USER_HBD, B.STATE, B.POINT, B.USER_EMAIL
+		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.USER_NAME, A.USER_TEL, A.USER_GRADE, A.USER_DATE, A.USER_HBD, A.STATE, A.POINT, A.USER_EMAIL
+		   		  FROM (SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
+		   	       		  FROM USERTABLE
+		   	       		 WHERE STATE = 1) A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<select id="selectOwnerList" parameterType="Map" resultType="Map">
+		SELECT B.O_NO, B.O_ID, B.O_PW, B.O_EMAIL, B.O_NAME, B.O_TEL, B.STATE
+		  FROM (SELECT ROWNUM AS RN, A.O_NO, A.O_ID, A.O_PW, A.O_EMAIL, A.O_NAME, A.O_TEL, A.STATE
+		   		  FROM (SELECT O_NO, O_ID, O_PW, O_EMAIL, O_NAME, O_TEL, STATE
+		   	       		  FROM OWNER) A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	
+	
 	
 </mapper>

@@ -5,5 +5,5 @@ import org.springframework.ui.Model;
 public interface AdminService {
 
 	public void findAllUser(Model model);  
-	
+	public void FindAllOwner(Model model);
 }
