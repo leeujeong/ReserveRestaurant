@@ -54,7 +54,7 @@
 					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
 				}
 			}
-			if ($('#column').val() == 'NAME') {
+			if ($('#column').val() == 'USER_NAME') {
 				if ($('#query').val() == '') {
 					alert('검색어를 입력하세요')
 					return;
@@ -62,7 +62,7 @@
 					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
 				}
 			}
-			if ($('#column').val() == 'TEL') {
+			if ($('#column').val() == 'USER_TEL') {
 				if ($('#query').val() == '') {
 					alert('검색어를 입력하세요')
 					return;
@@ -100,8 +100,8 @@
 	                <select class="select_chose" id="column">
 	                    <option value="" selected>:: 선택 ::</option>
 	                    <option value="ID">아이디</option>
-	                    <option value="NAME">이름</option>
-	                    <option value="TEL">전화번호</option>
+	                    <option value="USER_NAME">이름</option>
+	                    <option value="USER_TEL">전화번호</option>
 	                </select>
 	                <input type="text" class="select_text" id="query">
 	                <input type="button" value="검색" id="search_btn">

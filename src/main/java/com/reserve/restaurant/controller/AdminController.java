@@ -37,11 +37,16 @@ public class AdminController {
 	@GetMapping(value="findAllOwner")
 	public String allFindOwner(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		service.FindAllOwner(model);
+		service.findAllOwner(model);
 		return "admin/adminUser";
 	}
 	
-	
+	@GetMapping(value="findUser")
+	public String findUser(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		service.findUser(model);
+		return "admin/adminUser";
+	}
 	
 	
 	
