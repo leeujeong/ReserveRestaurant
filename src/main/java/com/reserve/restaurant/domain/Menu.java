@@ -7,19 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Builder
 
-public class Owner {
+public class Menu {
 
-	private Long oNo;
-	private String oName;
-	private String oId;
-	private String oEmail;
-	private String oPw;
-	private int state;
+	private Long menuNo;
+	private String menu;
+	private Long price;
+	private Long discount;
+	private String expiryDate;
+	private Long restaurant_res_no;
+	
 }

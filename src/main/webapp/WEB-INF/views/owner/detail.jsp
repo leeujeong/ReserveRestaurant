@@ -62,23 +62,23 @@
                 </div>
                 <hr>
                 <div>
-                    <form id="f" method="POST" enctype="multipart/form-data">
+                    <form id="f2" method="POST" enctype="multipart/form-data">
                         <table>
                             <tbody>
                                <tr>
                                    <td>사업장 이름</td>
                                    <td>
-                                       <input type="text" name="s_name" id="s_name" value="수정할가게">
+                                       <input type="text" name="s_name" id="s_name" value="${restaurant.resName}">
                                    </td>
                                </tr>
                                <tr>
                                    <td>운영시간</td>
                                    <td>
                                        <select name="open_time" id="open_time">
-                                           <option value="오픈할 시간">오픈할 시간</option>
+                                           <option value="${restaurant.openTime}">${restaurant.openTime}</option>
                                        </select> ~
                                        <select name="close_time" id="close_time">
-                                           <option value="마감할 시간">마감할 시간</option>
+                                           <option value="${restaurant.Time}">${restaurant.closeTime}</option>
                                            
                                        </select>
                                    </td>
@@ -98,20 +98,18 @@
                                    </td>
                                </tr>
                                <tr>
-                                 <td>메뉴 등록하기</td>
-                                 <!--기존 메뉴 불러와서 수정도 가능하게-->
-                                 <td class="menu">
-                                     <div class="menu_input">
-                                         <div class="menu_input_box default">
-                                             <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/>
-                                             <input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
-                                         </div>
-                                     </div>
-                                     <button class="plus_btn">
-                                         <i class="far fa-plus-square" ></i>
-                                     </button>
-                                 </td>
-                                </tr>
+	                                <td>메뉴 등록하기</td>
+	                                <td class="menu">
+	                                    <div class="menu_input">
+	                                        <div class="menu_input_box default">
+	                                            <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/><input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
+	                                        </div>
+	                                    </div>
+	                                    <button class="plus_btn">
+	                                        <i class="far fa-plus-square" ></i>
+	                                    </button>
+	                                </td>
+		                        </tr>
                                 <tr>
                                     <td>추가 옵션</td>
                                     <td>
@@ -133,14 +131,15 @@
                                 </tr>
                                 <tr>
                                     <td>상세 설명</td>
-                                    <td><textarea rows="5" cols="44" >기존에 적어논 설명</textarea></td>
+                                    <td><textarea rows="5" cols="44" id="content">기존에 적어논 설명</textarea></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                        <input type="submit" value="수정 하기" id="update_btn">
-                                        <input type="reset" value="초기화 하기" id="reset_btn">
+                                    	
+                                        <input type="button" value="수정 하기" id="update_btn">
+                                        <input type="button" value="삭제 하기" id="remove_btn">
                                     </td>
                                 </tr>
                             </tfoot>

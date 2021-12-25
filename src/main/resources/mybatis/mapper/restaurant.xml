@@ -2,9 +2,87 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "com.reserve.restaurant.repository.RestaurantRepository">
 
-<mapper namespace="com.reserve.restaurant.repository.RestaurantRepository">
+<!--menu restaurant 조인처리 -->
+<!-- 	<resultMap type="Menu" id="MenuMap">
+		<result column="menu_no" property="menuNo"/>
+		<result column ="menu" property="menu"/>
+		<result column = "price" property="price"/>
+		<result column="discount" property="expiry_date"/>
+		<result column="restaurant_res_no" property="restaurant_res_no"/>
+	</resultMap> 
+	
+
+	<resultMap type="Restaurant" id="RestaurantMap">
+		<result column="res_no" property="res_no" />
+		<result column="res_name" property="res_name" />
+		<result column="address" property="address" />
+		<result column="address_detail" property="address_detail" />
+		<result column="open_time" property="open_time" />
+		<result column="lose_time" property="lose_time" />
+		<result column="tel" property="tel" />
+		<result column="content" property="content" />
+		<result column="res_menu" property="res_menu" />
+		<result column="res_option" property="res_option" />
+		<result column="origin" property="origin" />
+		<result column="saved" property="saved" />
+		<result column="path" property="path" />
+		<result column="owner_o_no" property="owner_o_no" />
+		<collection property="menu" resultMap="MenutMap" />
+	</resultMap>
 	
 	
+	<select id="selectMyRestaurantList" parameterType="Map" resultMap="RestaurantMap" >
+		SELECT B.res_no, B.res_mame, B.address, B.address_detail, B.open_time, B.clos_time B.tel, B.content, B.origin, B.res_additional_option, B.saved, B.path, B.ownerONo, B.menu, B.price
+		  FROM ( SELECT ROWNUM AS RN, A.resNo, A.resName, A.resLoc, A.resLocDetail, A.resOpenTime, A.CloseTime, A.resTel, A.resContent, A.origin, A.res_additional_option, A.saved, A.path, A.ownerONo, B.menu, B.price
+		  		   FROM restaurant R, menu M
+		  		  WHERE R.restaurant_resNo(+) = M.restaurant_res_no
+		  		  ORDER BY M.menu_no) A) B
+	</select> -->
+	
+	<select id="selectRestaurantByNo" parameterType="Long" resultType="Restaurant">
+		SELECT res_no, res_name, res_loc, res_hours, res_tel, res_content, res_date, origin, saved, path
+		  FROM restaurant
+		 WHERE res_no = #{resNo}
+	</select> 
+	
+	
+	
+	
+	
+	
+	
+	<insert id="addRestaurant" parameterType="Restaurant"> 
+		INSERT INTO restaurant
+		VALUES (res_no_seq.nextval, #{resName}, #{resLoc} , #{resLocDetail}, #{resTel}, #{resContent}, #{s_menu1},#{s_price1} ,#{resOpenTime} ,#{resCloseTime}, #{res_addtional_option}, #{origin}, #{saved}, #{path}, o_no_seq.nextval)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<update id="modifyRestaurant" parameterType="Restaurant">
+		UPDATE restaurant
+		   SET res_name = #{resName},
+		   	   res_loc = #{resLoc}, 
+		   	   res_hours = #{resHours},
+		   	   res_tel = #{resTel},
+		   	   res_content = #{resContent},
+		   	   res_date = #{resDate}, 
+		   	   origin = #{origin},
+		   	   saved = #{saved},
+		   	   path = #{path}
+	</update>
+	
+	<delete id ="removeRestaurant" parameterType="Long">
+		DELETE 
+		  FROM restaurant
+		 WHERE res_no = #{resNo}
+	</delete>
 	
 </mapper>

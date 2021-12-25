@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,6 +18,7 @@
 </head>
 
 <body>
+
  
     <header>
         <div class="wrap">
@@ -107,7 +109,6 @@
                                     </td>
                                 </tr>
 		                          <tr>
-		                              <!--다중사진 등록가능-->
 		                              <td>사진 등록</td>
 		                              <td>
 		                                  <input type="file" name="s_file" id="s_file" multiple>
@@ -165,7 +166,6 @@
             </div>
         </div>
     </div>
-
     <section id="bottom">
         <div class="wrap">
             <div class="footer">
