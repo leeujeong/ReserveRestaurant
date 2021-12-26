@@ -49,5 +49,13 @@ public class QnaServiceImpl implements QnaService {
 		return repository.deleteQna(qNo);
 	}
 
+	
+	// 조회수 증가
+	@Override
+	public int updateQnaHit(Qna qNo) {
+		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		return repository.updateQnaHit(qNo);
+	}
+
 
 }

@@ -18,16 +18,15 @@ public class Restaurant {
 
 	public Long resNo;
 	public String resName;
-	public String resLoc;
-	public String resLocDetail;
-	public String resOpenTime;
-	public String resCloseTime;
-	public String resTel;
-	public String resContent;
+	public String address;
+	public String addressDetail;
+	public String openTime;
+	public String closeTime;
+	public String tel;
+	public String content;
 	public String origin;
-	public String res_addtional_option;
+	public String resOption;
 	public String saved;
 	public String path;
-	public Long ownerONo;
-	public Menu menu;
+	public Long owneroNo;
 }

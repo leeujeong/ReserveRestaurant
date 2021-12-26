@@ -22,13 +22,7 @@ public class OwnerController {
 		return "owner/addstore";
 	}
 	
-	      
-	//관리페이지
-	@GetMapping(value="managePage")
-	public String managePage() {
-		return "owner/list";
-	}
-	//수정 페이지
+	//개인정보 수정 페이지
 	@GetMapping(value="modifyPage")
 	public String modifyPage() {
 		return "owner/info";
@@ -38,6 +32,7 @@ public class OwnerController {
 	public String updatePage() {
 		return "owner/detail";
 	}
+
 	
 	//문의페이지
 	@GetMapping(value="questionPage")

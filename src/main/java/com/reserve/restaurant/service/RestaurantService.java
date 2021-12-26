@@ -4,15 +4,17 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Restaurant;
 
 public interface RestaurantService {
 
-	public List<Restaurant> selectMyRestaurantList();
+	public void selectMyRestaurantList(Model model);
 	public Restaurant selectRestaurantByNo(Long resNo);
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);

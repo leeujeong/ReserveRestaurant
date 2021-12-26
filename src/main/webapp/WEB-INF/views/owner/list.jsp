@@ -68,36 +68,39 @@
                         <div class="row">
                           <div class="col-8 col-sm-6">
                           
-                         	<c:if test="${empty lsit}">
+                         	<c:if test="${empty list}">
                          		<div class="empty_content">  
-                         			<a href="addstore">음식점 등록하러가기</a></div>
+                         			<a href="addstore">음식점 등록하러가기</a>
+                         		</div>
                          	</c:if>
                          	
                          	<c:if test="${not empty list}">
                          		<c:forEach var="restaurant" items="${list}">
-	                         		<table>
-	                         			<tbody>
-		                         			<tr>
-								                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${gallery.path}/${gallery.saved}"></a></td>
-								                <td>${restaurant.resName}</td>
-								            <tr>
-								            <tr>
-								                <td>${restaurant.resTel}</td>
-								            </tr>
-								            <tr>
-								                <td>${restaurant.resLoc} ${resLocDetail}</td>
-								            </tr>
-								            <tr>
-								                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
-								            </tr>
-								            <tr>
-								                <td>${restaurant.resContent}</td>
-								            </tr>
-								            <tr>
-								                <td>${restaurant.res_additional_option}</td>
-	            							</tr>
-	                         			</tbody>
-                         			</table>
+	                         		<div class="list_table">
+		                         		<table >
+		                         			<tbody>
+			                         			<tr>
+									                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${restaurant.path}/${restaurant.saved}"></a></td>
+									                <td>${restaurant.resName}</td>
+									            <tr>
+									            <tr>
+									                <td>${restaurant.tel}</td>
+									            </tr>
+									            <tr>
+									                <td>${restaurant.address} ${restaurant.addressDetail}</td>
+									            </tr>
+									            <tr>
+									                <td>${restaurant.openTime} ~ ${restaurant.closeTime}</td>
+									            </tr>
+									            <tr>
+									                <td>${restaurant.content}</td>
+									            </tr>
+									            <tr>
+									                <td>${restaurant.resOption}</td>
+		            							</tr>
+		                         			</tbody>
+	                         			</table>
+									</div>
                          		</c:forEach>
                          	</c:if>
                         </div>
