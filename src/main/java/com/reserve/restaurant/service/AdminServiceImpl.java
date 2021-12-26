@@ -153,6 +153,7 @@ public class AdminServiceImpl implements AdminService {
 		String query = request.getParameter("query");
 		String begin = request.getParameter("begin");
 		String end = request.getParameter("end");
+		String type = request.getParameter("radio");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("column", column);
@@ -188,13 +189,13 @@ public class AdminServiceImpl implements AdminService {
 		// 검색 조건에 따라서 파라미터가 달라짐
 		switch (column) {
 		case "ID":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query));  // 목록을 출력하는 매핑값 전달
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "USER_NAME":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query));  // 목록을 출력하는 매핑값 전달
+		case "O_NAME":
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "USER_TEL":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query));  // 목록을 출력하는 매핑값 전달
+		case "O_TEL":
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
 		}
 		
