@@ -42,16 +42,34 @@ public class AdminController {
 	}
 	
 	@GetMapping(value="findUser")
-	public String findUser(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		service.findUser(model);
+	public String findUser(HttpServletRequest request, Model model) {		
+		
+		System.out.println("타입:" + request.getParameter("radio"));
+		System.out.println("칼럼:" + request.getParameter("column"));
+		System.out.println("쿼리:" + request.getParameter("query"));
+		
+		String type = request.getParameter("radio");
+		
+		if (type.contains("user")) {
+			System.out.println("service user로");
+			model.addAttribute("request", request);
+			service.findUser(model);
+			return "admin/adminUser";
+		} else if (type.contains("owner")) {
+			System.out.println("service owner로");
+			model.addAttribute("request", request);
+			service.findOwner(model);
+			return "admin/adminUser";
+		}
 		return "admin/adminUser";
 	}
 	
-	
-	
-	
-	
+	@GetMapping(value="userDetailPage")
+	public String detailPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		service.selectUserInfo(model);
+		return "admin/userDetailPage";
+	}
 	
 	
 	

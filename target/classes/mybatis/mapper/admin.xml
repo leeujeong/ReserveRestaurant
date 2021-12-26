@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
+	<!-- 검색된 목록 수 -->
 	<select id="selectFindRecordCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
@@ -56,6 +57,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="selectFindRecordCountOwner" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM OWNER
+		 WHERE 1 = 1
+		 	   <if test="column == 'O_ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'O_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'O_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	</select>
+	
+	<select id="selectFindListOwner" parameterType="Map" resultType="Owner">
+		SELECT B.O_NO, B.O_ID, B.O_PW, B.O_EMAIL, B.O_NAME, B.O_TEL, B.STATE
+		  FROM (SELECT ROWNUM AS RN, A.O_NO, A.O_ID, A.O_PW, A.O_EMAIL, A.O_NAME, A.O_TEL, A.STATE
+		   		  FROM (SELECT O_NO, O_ID, O_PW, O_EMAIL, O_NAME, O_TEL, STATE
+		   	       		  FROM OWNER
+	  			  		 WHERE 1 = 1
+	  			  		 	   <if test="column == 'O_ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	  			  		 	   <if test="column == 'O_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	  			  		 	   <if test="column == 'O_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<select id="selectUserInfo" parameterType="String" resultType="User">
+		SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
+		  FROM USERTABLE
+		 WHERE USER_NO = #{userNo}
+	</select>
 	
 	
 	

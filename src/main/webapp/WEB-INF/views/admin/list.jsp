@@ -30,7 +30,9 @@
     	        	<c:forEach var="owner" items="${ownerList}">
     	        		<tr>
     	        			<td>${owner.ONo}</td>
-    	        			<td>${owner.OId}</td>
+    	        			<td>
+    	        				<a href="">	${owner.OId}</a>
+    	        			</td>
     	        			<td>${owner.OName}</td>
     	        			<td>${owner.state}</td>
     	        		</tr>
@@ -47,7 +49,9 @@
             		<c:forEach var="user" items="${list}">
 	            		<tr>	        
 	            			<td>${user.userNo}</td>    		
-	            			<td>${user.id}</td>
+	            			<td>
+	            				<a href="/restaurant/admin/userDetailPage?userNo=${user.userNo}">${user.id}</a> 
+	            			</td>
 							<td>${user.userName}</td>
 							<td>${user.state}</td>
 	            		</tr>

@@ -14,7 +14,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 	$(document).ready(function() {
-
 		fnFind();
 		fnFindAllUser();
 		fnFindAllOwner();
@@ -38,7 +37,7 @@
 	
 	// 검색 함수
 	function fnFind() {
-		$('#search_btn').click(function() {
+		$('#search_btn').click(function(event) {
 			if ($('#column').val() == '') {
 				alert('검색 카테고리를 선택하세요');
 				return;
@@ -46,34 +45,14 @@
 				alert('검색어를 입력하세요')
 				return;
 			}
-			if ($('#column').val() == 'ID') {
-				if ($('#query').val() == '') {
-					alert('검색어를 입력하세요')
-					return;
-				} else {
-					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
-				}
-			}
-			if ($('#column').val() == 'USER_NAME') {
-				if ($('#query').val() == '') {
-					alert('검색어를 입력하세요')
-					return;
-				} else {
-					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
-				}
-			}
-			if ($('#column').val() == 'USER_TEL') {
-				if ($('#query').val() == '') {
-					alert('검색어를 입력하세요')
-					return;
-				} else {
-					location.href='/restaurant/admin/findUser?column=' + $('#column').val() + '&query=' + $('#query').val();				
-				}
-			}
+			$('#search_form').attr('action', '/restaurant/admin/findUser');
+			$('#search_form').submit();
 		})		
 	}
 	
 	
+	
+
 	
 </script>
 </head>
@@ -95,27 +74,28 @@
     <section class="search_section">
         <div class="search_box">
             <p class="user_search">회원 검색</p>
-            <div class="chose">
-	            <form id="search_form" method="get">
-	                <select class="select_chose" id="column">
+            <form id="search_form" action="/restaurant/admin/findUser">
+           		<div class="chose">
+	                <select id="column" name="column">
 	                    <option value="" selected>:: 선택 ::</option>
-	                    <option value="ID">아이디</option>
-	                    <option value="USER_NAME">이름</option>
-	                    <option value="USER_TEL">전화번호</option>
+	                    <option value="ID" value1="O_ID">아이디</option>
+	                    <option value="USER_NAME" value1="O_NAME">이름</option>
+	                    <option value="USER_TEL" value="O_TEL">전화번호</option>
 	                </select>
-	                <input type="text" class="select_text" id="query">
+	                
+	                <input type="text" class="select_text" id="query" name="query">
 	                <input type="button" value="검색" id="search_btn">
 	                <input type="button" value="일반회원 전체검색" id="all_user_search">
 	                <input type="button" value="사업자회원 전체검색" id="all_owner_search"> 
-	            </form>
-            </div>
-            <div class="radio">
-                <input type="radio" name="user" id="user" value="email" checked>
-                <label for="user">일반회원</label>
-
-                <input type="radio" name="user" id="owner" value="phone">
-                <label for="owner">사업자회원</label>
-            </div>
+	            	<div class="radio">
+		                <input type="radio" name="radio" id="user" value="user" checked>
+		                <label for="user">일반회원</label>
+		
+		                <input type="radio" name="radio" id="owner" value="owner">
+		                <label for="owner">사업자회원</label>
+		            </div>
+           		</div>
+            </form>
         </div>
     </section>
     <section class="result_section">
