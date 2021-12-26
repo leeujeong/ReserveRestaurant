@@ -5,5 +5,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.QnaRepository">
 	
+	<select id="selectQnaList1" resultType="Qna">
+		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		  FROM QNA
+		 WHERE STATE = 1
+		 ORDER BY Q_NO DESC
+	</select>
+	
+	<select id="selectQnaList2" resultType="Qna">
+		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		  FROM QNA
+		 WHERE STATE = 1
+		 ORDER BY Q_NO DESC
+	</select>
+	
+	<select id="selectQnaByNo" parameterType="Long" resultType="Qna">
+		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		  FROM QNA
+		 WHERE Q_NO = #{aNo}
+	</select>
+	
+	<update id="updateQnaHit" parameterType="Long">
+		UPDATE QNA
+		   SET HIT = HIT + 1
+		 WHERE Q_NO = #{qNo}
+	</update>
+
+	<insert id="insertQna" parameterType="Qna">
+		INSERT INTO QNA
+		VALUES (QNA_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, HIT, SYSDATE)
+	</insert>
+	
+	<update id="updateQna" parameterType="Qna">
+		UPDATE QNA
+		   SET TITLE = #{title}, CONTENT = #{content}
+		 WHERE Q_NO = #{qNo}
+	</update>
+	
+	<delete id="deleteQna" parameterType="Long">
+		DELETE
+		  FROM QNA
+		 WHERE Q_NO = #{qNo}
+	</delete>
 	
 </mapper>
