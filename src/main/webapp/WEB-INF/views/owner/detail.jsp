@@ -78,7 +78,7 @@
                                            <option value="${restaurant.openTime}">${restaurant.openTime}</option>
                                        </select> ~
                                        <select name="close_time" id="close_time">
-                                           <option value="${restaurant.Time}">${restaurant.closeTime}</option>
+                                           <option value="${restaurant.closeTime}">${restaurant.closeTime}</option>
                                            
                                        </select>
                                    </td>
@@ -112,26 +112,26 @@
 		                        </tr>
                                 <tr>
                                     <td>추가 옵션</td>
-                                    <td>
-                                        <input type="checkbox" name="corkage" id="corkage">
-                                        <label for="corkage">콜키지</label>
-                                        <input type="checkbox" name="night" id="night">
-                                        <label for="night">심야 영업</label>
-                                        <input type="checkbox" name="babyseat" id="babyseat">
-                                        <label for="babyseat">아기 의자</label>
-                                        <input type="checkbox" name="nokids" id="nokids">
-                                        <label for="nokids">노 키즈존</label><br>
-                                        <input type="checkbox" name="group" id="group">
-                                        <label for="group">단체석</label>
-                                        <input type="checkbox" name="parking" id="parking">
-                                        <label for="parking">주차 가능</label>
-                                        <input type="checkbox" name="wifi" id="wifi">
-                                        <label for="wifi">와이파이</label>
-                                    </td>
+                        			 <td>
+	                                     <input type="checkbox" name="additional_option" value="corkage">
+	                                     <label for="corkage">콜키지</label>
+	                                     <input type="checkbox" name="additional_option" value="night">
+	                                     <label for="night">심야 영업</label>
+	                                     <input type="checkbox" name="additional_option" value="babyseat">
+	                                     <label for="babyseat">아기 의자</label>
+	                                     <input type="checkbox" name="additional_option" value="nokids">
+	                                     <label for="nokids">노 키즈존</label><br>
+	                                     <input type="checkbox" name="additional_option" value="group">
+	                                     <label for="group">단체석</label>
+	                                     <input type="checkbox" name="additional_option" value="parking">
+	                                     <label for="parking">주차 가능</label>
+	                                     <input type="checkbox" name="additional_option" value="wifi">
+	                                     <label for="wifi">와이파이</label>
+		                             </td>
                                 </tr>
                                 <tr>
                                     <td>상세 설명</td>
-                                    <td><textarea rows="5" cols="44" id="content">기존에 적어논 설명</textarea></td>
+                                    <td><textarea rows="5" cols="44" id="content">${restaurant.content}</textarea></td>
                                 </tr>
                             </tbody>
                             <tfoot>

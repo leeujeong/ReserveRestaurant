@@ -96,8 +96,8 @@
 									</tr>
 								</c:forEach>
 							</c:if>
-							<c:if test="${qNaList.state == 2}">
-								<c:forEach var="qna" items="${qNaList}">
+							<c:if test="${list.state == 2}">
+								<c:forEach var="qna" items="${list}">
 									<tr>
 										<td>${qna.qNo}</td>				
 										<td>${qna.writer}</td>

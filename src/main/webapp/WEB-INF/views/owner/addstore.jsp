@@ -68,7 +68,7 @@
                 </div>
                 <hr>
                 <div class="formtable">
-                    <form id="f" method="POST" enctype="multipart/form-data">
+                    <form id="f" method="POST" enctype="multipart/form-data" action="addRestaurant" >
                         <table class="addtable">
                             <tbody>
 		                        <tr>
@@ -119,8 +119,11 @@
 		                                 <td>메뉴 등록하기</td>
 		                                 <td class="menu">
 		                                     <div class="menu_input">
-		                                         <div class="menu_input_box default">
+		                                         <!-- <div class="menu_input_box default">
 		                                             <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/><input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
+		                                         </div> -->
+		                                         <div class="menu_input_box default">
+		                                             <input type="text" name="menu" placeholder="메뉴명"/><input type="text" name="price" placeholder="가격 (원)"/>
 		                                         </div>
 		                                     </div>
 		                                     <button class="plus_btn">
@@ -131,25 +134,25 @@
 		                             <tr>
 		                                 <td>추가 옵션</td>
 		                                 <td>
-		                                     <input type="checkbox" name="corkage" id="corkage">
+		                                     <input type="checkbox" name="additional_option" value="corkage">
 		                                     <label for="corkage">콜키지</label>
-		                                     <input type="checkbox" name="night" id="night">
+		                                     <input type="checkbox" name="additional_option" value="night">
 		                                     <label for="night">심야 영업</label>
-		                                     <input type="checkbox" name="babyseat" id="babyseat">
+		                                     <input type="checkbox" name="additional_option" value="babyseat">
 		                                     <label for="babyseat">아기 의자</label>
-		                                     <input type="checkbox" name="nokids" id="nokids">
+		                                     <input type="checkbox" name="additional_option" value="nokids">
 		                                     <label for="nokids">노 키즈존</label><br>
-		                                     <input type="checkbox" name="group" id="group">
+		                                     <input type="checkbox" name="additional_option" value="group">
 		                                     <label for="group">단체석</label>
-		                                     <input type="checkbox" name="parking" id="parking">
+		                                     <input type="checkbox" name="additional_option" value="parking">
 		                                     <label for="parking">주차 가능</label>
-		                                     <input type="checkbox" name="wifi" id="wifi">
+		                                     <input type="checkbox" name="additional_option" value="wifi">
 		                                     <label for="wifi">와이파이</label>
 		                                 </td>
 		                             </tr>
 		                             <tr>
 		                                 <td>상세 설명</td>
-		                                 <td><textarea rows="5" cols="48" placeholder="상세 설명을 입력하세요"></textarea></td>
+		                                 <td><textarea name="content" rows="5" cols="48" placeholder="상세 설명을 입력하세요"></textarea></td>
 		                             </tr>
 	                            </tbody>
 	                            <tfoot>

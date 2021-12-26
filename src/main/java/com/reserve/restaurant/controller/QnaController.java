@@ -28,9 +28,9 @@ public class QnaController {
 		return "owner/question";
 	}
 	//공지사항 선택
-	@GetMapping(value="selectQnaByNo")
-	public String selectQnaByNo(@RequestParam("no") Long no, Model model) {
-		model.addAttribute("Qna", qnaService.selectQnaByNo(no));
+	@GetMapping(value="selectQnaByqNo")
+	public String selectQnaByNo(@RequestParam("qNo") Long qNo, Model model) {
+		model.addAttribute("Qna", qnaService.selectQnaByNo(qNo));
 		return "Qna/detail";
 	}
 	

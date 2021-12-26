@@ -216,3 +216,15 @@ select{
 .empty_content{
 	padding: 5px;
 }
+.list_table{
+	border:1px solid gray;
+	margin:5px;
+	border-radius:30px;
+}
+
+.list_table:hover{
+	cursor:pointer;
+}
+.list_table td:first-child{
+	width:300px;
+}

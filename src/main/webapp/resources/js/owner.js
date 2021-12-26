@@ -56,19 +56,21 @@ $('document').ready(function(){
 	});
     
     //메뉴추가 버튼
-    let num = 1;
+    //let num = 1;
     document.querySelector(".plus_btn").addEventListener("click", function(e){
         e.preventDefault();
-        let input_num = num + 1;
+        //let input_num = num + 1;
         let clone_menu_input_box = document.querySelector(".menu_input_box").cloneNode();
         let input_menu = document.createElement("input");
         input_menu.setAttribute("type", "text");
         let input_menu_name = input_menu.cloneNode();
-        input_menu_name.setAttribute("name", "s_menu" + input_num);
+        //input_menu_name.setAttribute("name", "s_menu" + input_num);
+        input_menu_name.setAttribute("name", "menu");
         input_menu_name.setAttribute("placeholder", "메뉴명")
         clone_menu_input_box.appendChild(input_menu_name);
         let input_menu_price = input_menu.cloneNode();
-        input_menu_price.setAttribute("name", "s_price" + input_num);
+        //input_menu_price.setAttribute("name", "s_price" + input_num);
+        input_menu_price.setAttribute("name", "price");
         input_menu_price.setAttribute("placeholder", "가격(원)")
         clone_menu_input_box.appendChild(input_menu_price);
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
