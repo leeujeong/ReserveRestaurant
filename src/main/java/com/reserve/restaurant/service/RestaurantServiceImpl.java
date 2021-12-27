@@ -42,12 +42,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) m.get("request");
 		
-//		HttpSession session = request.getSession();
-//		String oId = (String) session.getAttribute("oId");
-		
-		String oId = "d";
-		
+		HttpSession session = request.getSession();
+		String oId = (String) session.getAttribute("oId");
+
 		int totalRecord = repository.selectTotalCount(oId);
+		
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -58,21 +57,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
-		map.put("oId", oId);
 		
-		System.out.println("mao : " + map);
 		
 		List<Restaurant> list = repository.selectMyRestaurantList(map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1)*pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPageEntity("selectMyRestaurantList"));
+		model.addAttribute("paging", pageUtils.getPageEntity("managePage"));
 		
-	}
-
-	@Override
-	public Restaurant selectRestaurantByNo(Long resNo) {
-		return null;
 	}
 	
 	@Override
@@ -166,18 +158,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
 		menu_repository.addMenu(menu_list);
 		
-		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "owner/list");
+		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "managePage");
 		
 	}
 	
-	
-
 	@Override
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 	}
 
 	@Override
 	public Map<String, Object> removeRestaurant(Long resNo) {
+		return null;
+	}
+
+	@Override
+	public Restaurant selectRestaurantByNo(Long resNo) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

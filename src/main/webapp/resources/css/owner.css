@@ -133,7 +133,7 @@ textarea{
     flex: 0 0 auto;
     width: 70%;
 }
-#update_btn, #remove_btn, #update_menu{
+#update_btn, #delete_btn, #update_menu{
     width: 100px;
     background-color: rgb(160, 57, 38);
     border: none;
@@ -142,7 +142,7 @@ textarea{
     margin: 5px;
     border-radius: 10px;
 }
-#update_btn:hover, #remove_btn:hover, #update_menu:hover{
+#update_btn:hover, #delete_btn:hover, #update_menu:hover{
     background-color:  rgba(160, 57, 38, 0.795);
 }
 
@@ -227,4 +227,8 @@ select{
 }
 .list_table td:first-child{
 	width:300px;
+}
+.paging{
+	width: 100%;
+	color: rgb(160, 57, 38);
 }

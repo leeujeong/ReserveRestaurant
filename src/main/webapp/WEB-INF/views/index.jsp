@@ -24,7 +24,6 @@
 		})
 	}
 </script>
-
 </head>
 <body>
 	
@@ -36,13 +35,9 @@
                 </a>
             </h1>
             <ul id="gnb">
-
-           
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/owner/login">HOSTLOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
             	</c:if>
             	
             	<!-- 사용자 state =1 -->
@@ -58,7 +53,11 @@
             	</c:if>
             	
             	<!-- 사업자는 어떻게? -->
-                
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+            	</c:if>
                 
          
                

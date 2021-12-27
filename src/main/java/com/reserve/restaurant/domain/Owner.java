@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,20 +14,12 @@ import lombok.ToString;
 @ToString
 @Builder
 
-
 public class Owner {
 
-	private Long ownerNo;
-	private String id;
-	private String pw;
-	private String email;
-	private String tel;
+	private Long owner_no;
 	private String name;
-	private Long state;
-	
-	
-	private Restaurant restaurant;
-	
-	
-	
+	private String id;
+	private String email;
+	private String pw;
+	private int state;
 }

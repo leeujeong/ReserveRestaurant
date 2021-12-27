@@ -6,28 +6,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.reserve.restaurant.repository.UserRepository">
 
 	<select id="selectUserById" parameterType="String" resultType="User">
-		SELECT USER_NO, ID, PW, USER_NAME, USER_EMAIL, STATE, USER_DATE
+		SELECT USER_NO, ID, PW, NAME, EMAIL, STATE, USER_DATE
 		  FROM USERTABLE
 		 WHERE ID = #{id}
 	</select>
 	
 	
 	<select id="selectUserByEmail" parameterType="String" resultType="User">
-		SELECT USER_NO, ID, PW, USER_NAME, USER_EMAIL, STATE, USER_DATE
+		SELECT USER_NO, ID, PW, NAME, EMAIL, STATE, USER_DATE
 		  FROM USERTABLE
-		 WHERE USER_EMAIL = #{userEmail}
+		 WHERE EMAIL = #{email}
 	</select>
 	
 
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO USERTABLE
-		VALUES(USERTABLE_SEQ.NEXTVAL, #{id}, #{pw}, #{userName}, #{userTel}, 'Bronze', SYSDATE ,#{userHbd}, 1 , 1000 , #{userEmail} )
+		VALUES(user_no_seq.NEXTVAL, #{id}, #{pw}, #{name}, #{tel}, 'Bronze', SYSDATE ,#{hbd}, 1 , 1000 , #{email} )
 	</insert>
 	
 	 
 	 
 	<select id="login" parameterType="User" resultType="User">
-		SELECT USER_NO, ID, PW, USER_GRADE, STATE, POINT
+		SELECT USER_NO, ID, PW, GRADE, STATE, POINT
 		  FROM USERTABLE
 		 WHERE ID = #{id} AND PW = #{pw}
 	</select>

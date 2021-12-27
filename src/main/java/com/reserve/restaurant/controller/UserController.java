@@ -66,9 +66,8 @@ public class UserController {
 	public void insertUser(User user , HttpServletResponse response) {
 		userService.insertUser(user, response);
 		
-	
-		
 	}
+	
  //윤건씨가 작업하던 부분
 	@GetMapping(value="loginPage")
 	public String loginPage() {

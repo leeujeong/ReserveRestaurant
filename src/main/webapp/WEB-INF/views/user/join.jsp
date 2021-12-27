@@ -20,6 +20,17 @@
 		fnPwCheck();
 		fnPw2Check();
 		fnJoin();
+		
+		
+		$('#owner_radio, #user_radio').click(function(event){
+			if(this.value == "user") {
+				
+				$("#form").attr("action", "/restaurant/user/insertUser");
+			} else if (this.value == "owner") {
+				$("#form").attr("action", "/restaurant/owner/insertOwner");
+			}
+		});
+		
 	});
 	
 	// 비밀번호 변경 변수와 함수
@@ -230,6 +241,12 @@
                <p>🥑🧀&nbsp;&nbsp;파인드 테이블과 함께 해주셔서 감사합니다&nbsp;&nbsp;🥑🧀</p> 
          </div>
        	<form id="form" method="post" action="/restaurant/user/insertUser">
+       	<div>
+       		<label for="user">user</label>
+       		<input type="radio" name="radio" id="user_radio" value="user" checked>
+       		<label for="owner">owner</label>
+       		<input type="radio" name="radio" id="owner_radio" value="owner">
+       	</div>	
          <div class="tblForm inputForm">
             <table>
                 <colgroup>

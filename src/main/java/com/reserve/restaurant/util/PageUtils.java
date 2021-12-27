@@ -3,7 +3,7 @@ package com.reserve.restaurant.util;
 public class PageUtils {
 
 	private int totalRecord;          // 전체 게시글 갯수(DB에서 가져옴)
-	private int recordPerPage = 3;   // 한 페이지에 표시하는 게시글 갯수(여기서 정함)
+	private int recordPerPage = 5;   // 한 페이지에 표시하는 게시글 갯수(여기서 정함)
 	private int totalPage;            // 전체 페이지 갯수(totalRecord, recordPerPage로 계산)
 
 	/************************************************
@@ -25,7 +25,7 @@ public class PageUtils {
 		2block <  6  7  8  9  10  >  page=6~10,  beginPage=6,  endPage=10
 		3block <  11 12  >           page=11~15, beginPage=11, endPage=12 
 	**********************************************************************/
-	private int pagePerBlock = 5;     // 한 블록에 표시하는 페이지 갯수(여기서 정함)
+	private int pagePerBlock = 3;     // 한 블록에 표시하는 페이지 갯수(여기서 정함)
 	private int beginPage;            // 각 블록에 표시하는 시작 페이지 번호(page, pagePerBlock로 계산)
 	private int endPage;              // 각 블록에 표시하는 종료 페이지 번호(beginPage, pagePerBlock, totalPage로 계산) 
 	

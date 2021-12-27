@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="<c:url value="/resources/css/userCSS/login.css"/>" rel="stylesheet">
 
@@ -35,8 +36,9 @@
                   <div class="title">사업자 로그인</div>
                   <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;기다리고 있었습니다.&nbsp;&nbsp;🥩</p> 
             </div>
-      
-               <form id="loginForm" method="post" action="/restaurant/user/login">
+      			<div>
+      			</div>
+               <form id="loginForm" method="post" action="/restaurant/owner/mainPage">
                      <label for="id" class="loginMiddle">
                      <span>사업자 아이디</span>
                      <input type="text" name="id" id="id" placeholder="사업자 아이디를 입력해주세요"></label>
