@@ -1,10 +1,18 @@
 
 package com.reserve.restaurant.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reserve.restaurant.service.OwnerService;
 
@@ -45,13 +53,31 @@ public class OwnerController {
 		return "owner/review";
 	}
 
-	//로그인페이지로 이동
-	@GetMapping(value="login")
-	public String login() {
-		return "owner/login";
-	}
+
+	@PostMapping(value="login")
+	public String loginOwner(HttpServletRequest request) {
+		ownerService.loginOwner(request);	
+		return "redirect:/";
+	}	
 	
 
+	@PostMapping(value="insertOwner")
+	public String insertOwner(HttpServletRequest request) {
+		ownerService.join(request);
+		return "redirect:/";
+	}
+	
+	@GetMapping(value="logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+//	@GetMapping(value="leave")
+//	public String leave(@RequestParam("owner_no")Long owner_no,HttpSession session) {
+//		ownerService.leave(owner_no, session);
+//		return "redirect:/";
+//	}
+	
 //	//아이디체크
 //	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
 //	@ResponseBody

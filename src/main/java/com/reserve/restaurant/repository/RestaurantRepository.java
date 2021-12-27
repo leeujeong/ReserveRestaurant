@@ -7,7 +7,7 @@ import com.reserve.restaurant.domain.Restaurant;
 
 public interface RestaurantRepository {
 
-	public int selectTotalCount(String oId);
+	public int selectTotalCount(String id);
 	public List<Restaurant> selectMyRestaurantList(Map<String, Object> map);
 	public Restaurant selectRestaurantByNo(Long resNo);
 	public int addRestaurant(Restaurant restaurant);

@@ -51,7 +51,7 @@ public class QnaController {
 	@GetMapping(value="updateQna")
 	public String updateQna(Qna Qna) {
 		qnaService.updateQna(Qna);
-		return "redirect:selectQnaByNo?qNo=" + Qna.getQNo();
+		return "redirect:selectQnaByNo?qNo=" + Qna.getQnaNo();
 	}
 	
 	//공지사항 삭제

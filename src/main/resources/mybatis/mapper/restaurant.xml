@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (SELECT ROWNUM AS rn, A.*
 		          FROM (SELECT r.*
 		                  FROM restaurant r, owner o
-		                 WHERE r.owner_o_no = o.o_no AND o.o_id = #{oId}
+		                 WHERE r.owner_o_no = o.o_no AND o.o_id = #{id}
 		                 ORDER BY r.res_no) A) B
 		WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM restaurant r, owner o
 		 WHERE r.owner_o_no = o.o_no
-		   AND o.o_id = #{oId}
+		   AND o.o_id = #{id}
 	</select>
 	
 <!-- 	
@@ -34,15 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE res_no = #{resNo}
 	</select>  -->
 	
-	
-	
-	
-	
-	
-	
 	<insert id="addRestaurant" parameterType="Restaurant"> 
 		INSERT INTO restaurant (res_no, res_name, address, address_detail, open_time, close_time, tel, content, res_option, origin, saved, path, owner_o_no)
-		VALUES (res_no_seq.nextval, #{resName}, #{address}, #{addressDetail} , #{openTime}, #{closeTime}, #{tel}, #{content}, #{resOption}, #{origin}, #{saved}, #{path}, #{owneroNo})
+		VALUES (res_no_seq.nextval, #{resName}, #{address}, #{addressDetail} , #{opeTime}, #{closeTime}, #{tel}, #{content}, #{resOption}, #{origin}, #{saved}, #{path}, #{owneroNo})
 		<selectKey keyProperty="resNo" resultType="Long" order="AFTER">
         	SELECT res_no_seq.currval AS resNo
             FROM DUAL

@@ -21,6 +21,7 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
+
 	
 	//등록 form
 	@PostMapping(value="owner/addRestaurant")
@@ -51,29 +52,26 @@ public class RestaurantController {
 //		for (int i = 0; i < menus.length; i++) {
 //			System.out.println("가격 : " + prices[i]);
 //		}
-		System.out.println("식당이름 : " + resName);
 		
 		restaurantService.addRestaurant(multipartRequest, response);
 	}	
 	
 	@GetMapping(value="owner/managePage")
-	public String manageRestaurant(HttpServletRequest request, Model model) throws IOException {
+	public String managePage(HttpServletRequest request, Model model) throws IOException {
 		
 		HttpSession session = request.getSession();
-//		String oId = (String)session.getAttribute("oId");
-//		String oId1 = "d";
-//		
-//		model.addAttribute(oId1, oId1);
+		String oId = (String) session.getAttribute("oId");
 		
+		model.addAttribute("oId", oId);
 		model.addAttribute("request", request);
+		
 //		model.addAttribute("list", restaurantService.selectMyRestaurantList(model));
 		
-		
-		
-		restaurantService.selectMyRestaurantList(model);
+//		restaurantService.selectMyRestaurantList(model);
+		System.out.println(oId);
 		return "owner/list";
-		
 	}
+
 	
 	
 }

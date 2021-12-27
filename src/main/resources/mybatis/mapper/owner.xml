@@ -6,24 +6,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.reserve.restaurant.repository.OwnerRepository">
 	
 	<!--  -->
-	<select id="selectOwnerById" parameterType="String" resultType="Owner">
+<!-- 	<select id="selectOwnerById" parameterType="String" resultType="Owner">
 		SELECT o_no, o_name, o_id, o_email, o_pw, state
 		  FROM owner
 		 WHERE o_id = #{oId}
 	</select>
-	
+	 -->
 	<insert id="joinOwner" parameterType="Owner">
 		INSERT INTO owner
-		VALUES (o_no_SEQ.NEXTVAL,#{oName}, #{oId}, #{oEmail}, #{oPw},1 )
+		VALUES (owner_no_SEQ.NEXTVAL, #{name}, #{id}, #{pw}, #{email}, 3)
 	</insert>
 	
-	<select id="login" parameterType="Owner" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
+	
+	<select id="loginOwner" parameterType="Owner" resultType="Owner">
+		SELECT owner_no, id, pw, name, email, state
 		  FROM owner
-		 WHERE o_id = #{oId} AND o_pw = #{oPw} AND STATE = 1
+		 WHERE id = #{id} 
+		   AND pw = #{pw}
+		   AND state = 3
 	</select>
 	
-	<select id="selectOwnerByEmail" parameterType="String" resultType="Owner">
+<!-- 	<select id="selectOwnerByEmail" parameterType="String" resultType="Owner">
 		SELECT o_no, o_name, o_id, o_email, o_pw, state
 		  FROM owner
 		 WHERE o_email = #{eEmail}
@@ -46,6 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE Owner
 		   SET STATE = -1
 		 WHERE o_no = #{oNo}
-	</update>
+	</update> -->
 	
 </mapper>

@@ -23,10 +23,7 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="회원가입페이지이동">JOIN</a></li>
-                <li><a href="찜목록페이지">FAVORITE</a></li>
+            	<li><a href="로그아웃">LOGOUT</a></li>
                 <li><a href="마이페이지이동">MYPAGE</a></li>
             </ul>
         </div>
@@ -68,7 +65,7 @@
                                <tr>
                                    <td>사업장 이름</td>
                                    <td>
-                                       <input type="text" name="s_name" id="s_name" value="${restaurant.resName}">
+                                       <input type="text" name="s_name" id="s_name" value="${resName}">
                                    </td>
                                </tr>
                                <tr>
@@ -139,7 +136,7 @@
                                     <td colspan="2">
                                     	
                                         <input type="button" value="수정 하기" id="update_btn">
-                                        <input type="button" value="삭제 하기" id="remove_btn">
+                                        <input type="button" value="삭제 하기" id="delete_btn" >
                                     </td>
                                 </tr>
                             </tfoot>
