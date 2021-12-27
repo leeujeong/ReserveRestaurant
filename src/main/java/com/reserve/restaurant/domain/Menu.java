@@ -21,6 +21,6 @@ public class Menu {
 	private Long price;
 	private Long discount;
 	private String expiryDate;
-	private Long restaurant_res_no;
+	private Long restaurantResNo;
 	
 }
