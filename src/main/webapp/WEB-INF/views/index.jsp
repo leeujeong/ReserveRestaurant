@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,45 +13,56 @@
 <script src="<c:url value="/resources/js/index.js"/>"></script>
  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		fnAdminPage();
+	})
+	
+	
+	function fnAdminPage() {
+		$('#go_adminPage').click(function() {
+			location.href="/restaurant/admin/adminPage";
+		})
+	}
+</script>
 </head>
 <body>
 	
 	  <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-
-           
-            	<c:if test="${empty loginUser}">
+            
+            	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="호스트로그인페이지이동">HOSTLOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
             	<!-- 사용자 state =1 -->
             	<c:if test="${loginUser.state == 1}">
-            			<li>${loginUser.userName} 님 환영합니다</li>
-            		  <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            			<li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
+            	
             	<!-- 관리자 state 2 -->
             	<c:if test="${loginUser.state == 2}">
-            		  <li>${loginUser.userName} 님 환영합니다</li>
-            		  <li><a href="/restaurant/user/관리자">ADMIN PAGE</a></li>
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
             	</c:if>
             	
             	<!-- 사업자는 어떻게? -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+            	</c:if>
                 
-                
-         
-               
                 
             </ul>
         </div>
@@ -63,9 +75,9 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="식당검색페이지"> 식당 검색  </a></li>
+                <li><a href="/restaurant/user/search"> 식당 검색  </a></li>
                 <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
-                <li><a href="식당검색페이지"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/user/reserve"> 신규 오픈 </a></li>
             </ul>
         </div>
         <div class="cate quickmenu">
@@ -273,7 +285,7 @@
         </div>
     </section>
 
-
+	<a href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">
@@ -291,7 +303,6 @@
                         <span class="text">Copyright</span>
                         <span class="corp" style="font-weight: 800;">&copy; FindTable Corp.</span>
                         <span class="text">All Rights Reserved.</span>
-                        <a href="/restaurant/admin/adminPage">관리자 페이지 이동</a>
                     </div>
                 </div>
             </div>

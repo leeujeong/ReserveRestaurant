@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<c:url value="/resources/css/userCSS/updateUser.css"/>" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <style>
@@ -17,138 +18,8 @@
 		    color: inherit;
 		}
     </style>
-    <script>
-       $(document).ready(function(){
-          fnIngReserve();
-          fnPresentPwCheck();
-          fnPwCheck();
-          fnPw2Check();
-          fnUpdatePw();
-          fnUpdateMember();
-       });
-       
-       //진행중인 예약조회
-       function fnIngReserve(){
-          $('body').on('click', function(){
-             $.ajax({
-                
-             });
-          });
-       }// end fnIngReserve
-       
-       // 현재 비밀번호 확인 
-       let presentPwPass = false;
-       function fnPresentPwCheck() {
-          $('#pw0').keyup(function(){
-             $.ajax({
-                url: 'presentPwCheck',
-                type: 'post',
-                data: $('#f').serialize(),
-                dataType: 'json',
-                success: function(map){
-                   if (map.result) {
-                      presentPwPass = true;
-                   } else {
-                      presentPwPass = false;
-                   }
-                }
-             });
-          });
-       }  // end fnPresentPwCheck
-       
-       // 새 비밀번호 입력 검증
-       let pwPass = false;
-       function fnPwCheck() {
-          let regPw = /^[0-9]{1,10}$/; 
-          $('#pw').keyup(function(){         
-             if ( regPw.test($('#pw').val()) == false ) {
-                pwPass = false;
-             } else {
-                pwPass = true;
-             }
-          });
-       }  // end fnPwCheck
-       
-       // 새 비밀번호 입력 확인 변수와 함수
-       let pwPass2 = false;
-       function fnPw2Check(){
-          $('#pw2').keyup(function(){         
-             if ($('#pw').val() != $('#pw2').val()) {
-                pwPass2 = false;
-             } else {
-                pwPass2 = true;
-             }
-          });
-       }  // end fnPw2Check
-       
-       // 비밀번호 변경 함수
-       function fnUpdatePw() {
-          $('#updatePw_btn').click(function(){
-             if ( presentPwPass == false ) {
-                alert('현재 비밀번호를 확인하세요.');
-                return;
-             }
-             else if ( pwPass == false || pwPass2 == false ) {
-                alert('새 비밀번호 입력을 확인하세요.');
-                return;
-             }
-             $('#f').attr('action', '/restaurant/user/updatePw');
-             $('#f').submit();
-          });
-       }  // end fnUpdatePw
-       
-       // 이메일 중복체크 변수와 함수
-       let emailPass = false;
-       function fnEmailCheck() {
-          if ( $('#email').val() == '${loginUser.email}' ) {
-             emailPass = true;
-             return;
-          }
-          let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
-          if ( regEmail.test($('#email').val()) == false ) {
-             alert('이메일 형식을 확인하세요.');
-             emailPass = false;
-             return;
-          }
-          $.ajax({
-             url: '/restaurant/user/emailCheck',
-             type: 'post',
-             data: 'email=' + $('#email').val(),
-             dataType: 'json',
-             success: function(map){
-                if (map.result == null) {
-                   emailPass = true;
-                } else {
-                   alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
-                   emailPass = false;
-                }
-             },
-             error: function(){
-                emailPass = false;
-             }
-          });
-       }  // end fnEmailCheck
-       
-       
-       // 회원정보 변경 함수
-       function fnUpdateMember() {
-          fnEmailCheck();
-          $('#updateMember_btn').click(function(){
-             if ( $('#name').val() == '${loginUser.name}' && 
-                 $('#email').val() == '${loginUser.email}' ) {
-                alert('변경할 내용이 없습니다.');
-                return;
-             }
-             else if ( emailPass == false ) {
-                return;
-             }
-             $('#f').attr('action', '/restaurant/user/updateUser');
-             $('#f').submit();
-          });
-       }  // end fnUpdateMember
-       
-       
-       </script>
+   
+    
 </head>
 <body>
   
@@ -160,11 +31,32 @@
                 </a>
             </h1>
             <ul id="gnb"> 
-                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="회원가입페이지이동">JOIN</a></li>
-                <li><a href="찜목록페이지">FAVORITE</a></li>
-                <li><a href="/restaurant/user/myPage">MYPAGE</a></li>
+        	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+            			<li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 관리자 state 2 -->
+            	<c:if test="${loginUser.state == 2}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/admin/myPage">ADMIN PAGE</a></li>
+            	</c:if>
+            	
+            	<!-- 사업자는 어떻게? -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+            	</c:if>
+                
+         
             </ul>
         </div>
     </header>
@@ -204,7 +96,7 @@
                 </div>
                 <hr>
                 <form id="f" method="post">
-                	<input type="hidden" name="no" id="no" value="${loginUser.no}">
+                	<input type="hidden" name="no" id="no" value="${loginUser.userNo}">
                 	<input type="hidden" name="id" id="id" value="${loginUser.id}">
 	      
 	               	 <div class="input_row">
@@ -221,71 +113,61 @@
 	               	 <div class="input_row">
 	               	 
 	                     <div class="input_text">
-	                    	 이름 : ${loginUser.user_name}
+	                    	 이름 : ${loginUser.name}
 	                     </div>
 	                 </div>
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                           		 <div class="input_text">
 				                    	<i class="fas fa-phone-alt"></i>
 				                     </div>
 	                               <span style="display: none;">전화번호</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
-	                    	 <input id="input_text" type="text" name="user_tel" id="user_tel" value="${loginUser.user_tel}"/>
+	                    	 <input id="input_text" type="text" name="user_tel" id="user_tel" value="${loginUser.tel}"/>
 	                     </div>
 	                 </div>
 	                 
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                           		 <div class="input_text">
 				                    	<i class="far fa-envelope-open"></i>
 				                     </div>
 	                               <span style="display: none;">이메일</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
-	                    	 ${loginUser.user_email}
+	                    	 ${loginUser.email}
 	                     </div>
 	                 </div>
 	                 
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                           <div class="input_text">
 			                    	<i class="fas fa-birthday-cake"></i>
 				                </div>
 	                               <span style="display: none;">생일</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
-	                    	 ${loginUser.user_hbd}
+	                    	 ${loginUser.hbd}
 	                     </div>
 	                 </div>
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                           <div class="input_text">
 			                    	<i class="far fa-star"></i>
 				                </div>
 	                               <span style="display: none;">등급</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
-	                    	 ${loginUser.user_grade}
+	                    	 ${loginUser.grade}
 	                     </div>
 	                 </div>
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                           <div class="input_text">
 			                    	<i class="fas fa-coins"></i>
 				                </div>
 	                               <span style="display: none;">포인트</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.point}
@@ -294,15 +176,13 @@
 	               		
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           <span class="icon_id1">
 	                            <div class="input_text">
 			                    	<i class="far fa-calendar-alt"></i>
 				                </div>
 	                               <span style="display: none;">가입일</span>
-	                           </span>
 	                       </div>
 	                     <div class="input_text">
-	                    	 ${loginUser.user_date}
+	                    	 ${loginUser.userDate}
 	                     </div>
 	                 </div>
                 	

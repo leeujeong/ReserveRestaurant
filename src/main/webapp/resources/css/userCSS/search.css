@@ -1,0 +1,1226 @@
+@charset "UTF-8";
+
+/* 헤더시작 */
+/* 초기화시작 */
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    vertical-align: top;
+}
+
+body {
+    font-family: 'nanumsquare';
+}
+
+.wrap {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.wrap:after,
+ul:after,
+.cl:after,
+a:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.blind {
+    position: absolute;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    overflow: hidden;
+}
+
+
+/* 초기화끝 */
+header {
+    height: 120px;
+    padding-top: 20px;
+    padding-bottom: 120px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: white;
+    border-bottom: 1px solid silver;
+    box-shadow: 0 1px 2px lightgray;
+    margin: 0 auto;
+}
+
+header h1 {
+    padding: 25px 0;
+}
+
+header #gnb {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+header #gnb li {
+    float: left;
+    margin-right: 20px;
+}
+
+header #gnb li:last-child {
+    margin-right: 0;
+}
+
+/* 검색 시작 (현정 - 추가) */
+
+.search_wrap{
+    position:absolute;
+    left:200px;
+    top: 40px;
+    width: 400px;
+    height: 45px;
+    border : 1px solid rgb(230, 224, 224);
+}
+
+.search_text{
+    margin-left:20px;
+    margin-right:20px;
+    border: 0px;
+    outline:0;
+    width: 360px;
+    height: 43px;
+}
+
+/* 검색 끝 */
+
+
+/* 헤더끝 */
+
+
+/* 메뉴시작 */
+
+.accordion {
+    float: left;
+    margin-left: 150px;
+    margin-top: 230px;
+}
+
+.cate {
+    width: 150px;
+    position: relative;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    border-color: rgb(194, 188, 188);
+    border-radius: 3px
+}
+
+.cate:last-child {
+    border-bottom: 1px solid rgb(230, 224, 224);
+}
+
+.cate .menu {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: rgb(219, 215, 215);
+    height: 80px;
+}
+
+.cate .menu .menulink {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width: 70%;
+    padding-left: 15px;
+    line-height: 80px;
+    font-weight: 800;
+}
+
+.cate .menu .subopen {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    transform: rotate(45deg);
+}
+
+.cate ul li {
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+}
+
+.cate ul li:first-child {
+    padding-top: 20px;
+}
+
+.cate ul li:last-child {
+    padding-bottom: 20px;
+}
+
+.cate ul li a {
+    font-size: 15px;
+}
+
+
+/* 메뉴끝 */
+
+/*search_detail start*/
+
+*{
+    padding:0;
+    margin:0;
+    
+}
+body{
+    font-family: 'nanumsquare';
+}
+.search_result{
+    position:absolute;
+    left: 360px;
+    
+}
+.main_section{
+    width:1200px;
+   
+
+    margin: 0 auto;
+    margin-top : 20px;
+}
+.main_div1{
+    position:absolute;
+    top:220px;
+}
+.main_div{
+    position:relative;
+    padding-bottom:20px;
+}
+.thumnail_img{
+  overflow:hidden;
+  transition: all 0.3s ease-in-out;  
+  border-radius: 5px;
+  width:300px;
+}
+.thumnail_img:hover{
+  transform:scale(1.1);    
+}
+.board_left{
+  display:inline-block;
+  margin-left:15px;
+  padding-right:150px;
+}
+.title_name{
+    color:rgb(148, 103, 103);
+    font-size:13px;
+    font-weight: 900;
+    display:inline-block;
+    margin-bottom:15px;
+}
+
+.title_detail{
+    color:black;
+    font-weight: 900;
+}
+.title_address{
+  color:rgb(151, 126, 126);
+    font-size:13px;
+    font-weight: 900;
+}
+.board_right{
+    display:inline-block;
+    margin-left: 30px;
+    border-left:1px solid rgb(216, 222, 229); 
+    height:200px;
+    position:absolute;
+    top:35px;
+    padding-left: 30px;
+}
+.board_right_line{
+    margin-top:10px;
+    width:325px;
+    height:30px;
+    border-bottom:1px solid rgb(216, 222, 229);
+    font-size:12px;
+}
+.status{
+    display:inline-block;
+    width:40px;
+    height:20px;
+    background-color: rgb(138, 32, 32);
+    color: white;
+    font-weight:900;
+    font-size:13px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 3px;
+}
+.status_end{
+  display:inline-block;
+    width:70px;
+    height:20px;
+    background-color: rgb(202, 202, 202);
+    color: white;
+    font-weight:900;
+    font-size:13px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 3px;
+}
+.status_datail{
+  font-size:12px;
+}
+.status_price{
+    display:inline-block;
+    width:180px;
+    text-align: right;
+    position:absolute;
+    right:0;
+}
+.now_count{
+    font-size:12px;
+    color:rgb(138, 32, 32);
+    font-weight: 900;
+}
+
+/*search_detail end*/
+
+/*search_condition start*/
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-size: 14px;
+    color:rgb(109, 109, 109);
+}
+body{
+    display: flex;
+    flex-direction : column;
+    font-family: 'nanumsquare';
+}
+.search_btn_section{
+    border-top:1px solid rgb(216, 222, 229);
+    border-bottom:1px solid rgb(216, 222, 229);
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align: center;
+    position:absolute;
+    top : 140px;
+    width: 100%;
+    background-color: white;
+    
+}
+
+.search_btn{
+    border:1px solid rgb(216, 222, 229);
+    border-radius: 5px;
+    color: rgb(109, 109, 109);
+    font-weight: 900;
+    width: 90px;
+    height: 40px;
+    display:inline-block;
+    line-height:40px;
+    text-align: center;
+}
+#purpose,#addFilter, #price_person{
+   width:115px; 
+}
+
+
+
+.fa-filter{
+    color: rgb(216, 222, 229);
+}
+.search_btn:hover{
+    cursor: pointer;
+}
+
+/* start search1 */
+
+.search_condition_section1{
+    margin:0 auto;
+    display:block;
+    z-index:10;
+    background-color: white;
+    position:absolute;
+    top:202px;
+    width:100%;
+    padding-left:360px;
+    
+    
+}
+
+label.bb:before {
+    content: "\f0c8";
+    font-family: "Font Awesome 5 Free";
+    margin-right: 10px;
+    color: rgb(216, 222, 229);
+    font-size: 24px;
+}
+input#seoul_kangnam:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kangnam {
+    display: none;
+}
+
+input#seoul_kangdong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kangdong {
+    display: none;
+}
+
+input#seoul_kangbuk:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kangbuk {
+    display: none;
+}
+
+input#seoul_kangseo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kangseo {
+    display: none;
+}
+
+input#seoul_kwanak:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kwanak {
+    display: none;
+}
+
+input#seoul_kwangjin:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kwangjin {
+    display: none;
+}
+
+input#seoul_guro:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_guro {
+    display: none;
+}
+
+input#seoul_kumcheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kumcheon {
+    display: none;
+}
+
+input#seoul_nowon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_nowon {
+    display: none;
+}
+
+input#seoul_dobong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_dobong {
+    display: none;
+}
+
+input#seoul_kangbuk:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_kangbuk {
+    display: none;
+}
+
+input#seoul_dongdaemun:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_dongdaemun {
+    display: none;
+}
+
+input#seoul_dongjak:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_dongjak {
+    display: none;
+}
+
+input#seoul_mapo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_mapo {
+    display: none;
+}
+
+input#seoul_seodaemun:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_seodaemun {
+    display: none;
+}
+
+input#seoul_seocho:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_seocho {
+    display: none;
+}
+
+input#seoul_seongdong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_seongdong {
+    display: none;
+}
+
+input#seoul_seongbuk:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_seongbuk {
+    display: none;
+}
+
+input#seoul_songpa:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_songpa {
+    display: none;
+}
+
+input#seoul_yangcheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_yangcheon {
+    display: none;
+}
+
+input#seoul_yeongdeungpo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_yeongdeungpo {
+    display: none;
+}
+
+input#seoul_yongsan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_yongsan {
+    display: none;
+}
+
+input#seoul_eunpyeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_eunpyeong {
+    display: none;
+}
+input#seoul_jongro:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_jongro {
+    display: none;
+}
+input#seoul_jung:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_jung {
+    display: none;
+}
+input#seoul_jungrang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seoul_jungrang {
+    display: none;
+}
+input#gyeonggi_gapyeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gapyeong {
+    display: none;
+}
+input#gyeonggi_goyang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_goyang {
+    display: none;
+}
+input#gyeonggi_gwacheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gwacheon {
+    display: none;
+}
+
+input#gyeonggi_gwangmyeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gwangmyeong {
+    display: none;
+}
+input#gyeonggi_gwangju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gwangju {
+    display: none;
+}
+input#gyeonggi_guri:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_guri {
+    display: none;
+}
+input#gyeonggi_gunpo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gunpo {
+    display: none;
+}
+input#gyeonggi_gimpo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_gimpo {
+    display: none;
+}
+input#gyeonggi_namyangju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_namyangju {
+    display: none;
+}
+input#gyeonggi_bucheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_bucheon {
+    display: none;
+}
+
+input#gyeonggi_seongnam:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_seongnam {
+    display: none;
+}
+input#gyeonggi_suwon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_suwon {
+    display: none;
+}
+input#gyeonggi_siheung:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_siheung {
+    display: none;
+}
+input#gyeonggi_ansan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_ansan {
+    display: none;
+}
+input#gyeonggi_anyang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_anyang {
+    display: none;
+}
+input#gyeonggi_yangju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_yangju {
+    display: none;
+}
+input#gyeonggi_yangpyeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_yangpyeong {
+    display: none;
+}
+
+input#gyeonggi_yeoju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_yeoju {
+    display: none;
+}
+
+input#gyeonggi_osan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_osan {
+    display: none;
+}
+
+input#gyeonggi_yongin:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_yongin {
+    display: none;
+}
+
+input#gyeonggi_uiwang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_uiwang {
+    display: none;
+}
+
+input#gyeonggi_uijeongbu:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_uijeongbu {
+    display: none;
+}
+
+input#gyeonggi_icheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_icheon {
+    display: none;
+}
+
+input#gyeonggi_paju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_paju {
+    display: none;
+}
+
+input#gyeonggi_pyeongtak:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_pyeongtak {
+    display: none;
+}
+input#gyeonggi_pocheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_pocheon {
+    display: none;
+}
+input#gyeonggi_hanam:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_hanam {
+    display: none;
+}
+input#gyeonggi_hwaseong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gyeonggi_hwaseong {
+    display: none;
+}
+input#incheon_kanghwa:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_kanghwa {
+    display: none;
+}
+input#incheon_gyeyang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_gyeyang {
+    display: none;
+}
+input#incheon_namdong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_namdong {
+    display: none;
+}
+input#incheon_michuhol:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_michuhol {
+    display: none;
+}
+
+input#incheon_bupyeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_bupyeong {
+    display: none;
+}
+
+input#incheon_seo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_seo {
+    display: none;
+}
+
+input#incheon_yeonsu:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_yeonsu {
+    display: none;
+}
+
+input#incheon_jung:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#incheon_jung {
+    display: none;
+}
+
+input#daejeon_seo:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#daejeon_seo {
+    display: none;
+}
+
+input#daejeon_yuseong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#daejeon_yuseong {
+    display: none;
+}
+
+input#busan_gyeongnam:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#busan_gyeongnam {
+    display: none;
+}
+input#daegu_gyeongbuk:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#daegu_gyeongbuk {
+    display: none;
+}
+input#daegu_dong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#daegu_dong {
+    display: none;
+}
+input#kangwon_kangreung:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_kangreung {
+    display: none;
+}
+input#kangwon_sokcho:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_sokcho {
+    display: none;
+}
+input#kangwon_yangyang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_yangyang {
+    display: none;
+}
+input#kangwon_chuncheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_chuncheon {
+    display: none;
+}
+
+
+input#kangwon_hongcheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_hongcheon {
+    display: none;
+}
+
+input#kangwon_pyeongchang:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#kangwon_pyeongchang {
+    display: none;
+}
+
+input#chungbuk_cheongju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungbuk_cheongju {
+    display: none;
+}
+
+input#chungbuk_chungju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungbuk_chungju {
+    display: none;
+}
+
+input#chungnam_nonsan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungnam_nonsan {
+    display: none;
+}
+
+input#chungnam_boryeong:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungnam_boryeong {
+    display: none;
+}
+
+input#chungnam_cheonan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungnam_cheonan {
+    display: none;
+}
+
+input#jeonbuk_jeonju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#jeonbuk_jeonju {
+    display: none;
+}
+
+input#jeonnam_gurye:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#jeonnam_gurye {
+    display: none;
+}
+
+input#jeonnam_yeosu:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#jeonnam_yeosu {
+    display: none;
+}
+
+input#gwangju_gwangsan:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#gwangju_gwangsan {
+    display: none;
+}
+
+input#jeju:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#jeju {
+    display: none;
+}
+
+input#sejong_all:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#sejong_all {
+    display: none;
+}
+
+input#chungbuk_jecheon:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#chungbuk_jecheon {
+    display: none;
+}
+
+.search_condition_line1{
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+.search_condition_line2,  .search_condition_line3,  .search_condition_line4,  .search_condition_line5,  .search_condition_line6,  .search_condition_line7,  .search_condition_line8,
+.search_condition_line9,  .search_condition_line10,  .search_condition_line11,  .search_condition_line12{
+    margin-bottom: 15px;
+    
+}
+.search_one{
+    margin-right : 40px;
+    width: 140px;
+    display:inline-block;
+}
+
+#search1_btn_area{
+    margin-top:50px;
+    border-top: 1px solid rgb(216, 222, 229);
+    border-bottom: 1px solid rgb(216, 222, 229);
+    width:100%;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-right:50px;
+    text-align: right;
+    position:absolute;
+    top:674px;
+    background-color: white;
+}
+
+.cc{
+    vertical-align:3px;
+}
+/* end search1 */
+
+
+/* start search2 */
+
+.dateInput{
+    border: 0px;
+    width:39px;
+    outline:0;
+    cursor:pointer;
+    font-weight: 900;
+}
+
+.reset_btn, .search_submit_btn{
+    width:143px;
+    height:41px;
+    border: 1px solid rgb(216, 222, 229);
+    border-radius: 4px;
+    margin-right:7px;
+    font-size:15px;
+    font-weight: 900;
+}
+
+.reset_btn{
+    background-color: white;
+    color:rgb(103, 114, 148);
+  
+}
+
+.search_submit_btn{
+    background-color: rgb(138, 32, 32);
+    color:white;
+}
+
+/* end search2 */
+
+/* start search3 */
+/* #search3_btn_area{
+    border:0;
+    position:relative;
+} */
+
+#search3_btn_area{
+    margin-top:50px;
+    border-top: 1px solid rgb(216, 222, 229);
+    border-bottom: 1px solid rgb(216, 222, 229);
+    width:100%;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-right:50px;
+    text-align: right;
+    position:absolute;
+    top:150px;
+    background-color: white;
+}
+
+
+.search_condition_section3{
+    margin:0 auto;
+    display:block;
+    width:100%;
+
+}
+
+.min_max_price{
+    display:inline-block;
+    position:absolute;
+    left:650px;
+}
+
+.min_max_person{
+    display:inline-block;
+    position:absolute;
+    left:1050px;
+}
+
+.min_price, .max_price{
+    border: 1px solid rgb(216, 222, 229);
+    width:143px;
+    height:41px;
+    outline:0;
+    cursor:pointer;
+    border-radius: 4px;
+}
+.max_person{
+    border: 1px solid rgb(216, 222, 229);
+    width:143px;
+    height:41px;
+    outline:0;
+    cursor:pointer;
+    border-radius: 4px;
+}
+
+/* end search3*/
+
+/* start serach4 */
+
+.search_condition_section4{
+    margin:0 auto;
+    display:block;
+}
+
+input#seminar:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#seminar {
+    display: none;
+}
+
+input#concert:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#concert {
+    display: none;
+}
+
+input#corporateevent:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#corporateevent {
+    display: none;
+}
+
+input#familyevent:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#familyevent {
+    display: none;
+}
+
+input#reunion:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#reunion {
+    display: none;
+}
+
+input#drama:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#drama {
+    display: none;
+}
+
+input#fair:checked + label.bb:before {
+    content: "\f14a";
+    color: #474747;
+}
+input#fair {
+    display: none;
+}
+
+.invisible { display: none; }
+
+/*search_condition_end*/

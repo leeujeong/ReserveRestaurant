@@ -20,13 +20,13 @@ public class User {
 	private Long userNo;
 	private String id;
 	private String pw;
-	private String userName;
-	private String userTel;
-	private String userGrade;
+	private String name;
+	private String tel;
+	private String grade;
 	private Date userDate;
-	private String userHbd;
+	private String hbd;
 	private int state;
 	private int point;
-	private String userEmail;
-	
+	private String email;
+
 }
