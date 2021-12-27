@@ -27,6 +27,8 @@ public interface AdminRepository {
 	public int selectFindRecordCountOwner(Map<String, Object> map);
 	public List<String> selectFindListOwner(Map<String, Object> map); 
 	
-	public User selectUserInfo(String userNo);
+	public User selectUserInfo(Long userNo);
+	
+	public List<Owner> selectOwnerInfoRes(Long ownerNo);
 	
 }

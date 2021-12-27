@@ -78,9 +78,9 @@
            		<div class="chose">
 	                <select id="column" name="column">
 	                    <option value="" selected>:: 선택 ::</option>
-	                    <option value="ID" value1="O_ID">아이디</option>
-	                    <option value="USER_NAME" value1="O_NAME">이름</option>
-	                    <option value="USER_TEL" value="O_TEL">전화번호</option>
+	                    <option value="ID">아이디</option>
+	                    <option value="NAME">이름</option>
+	                    <option value="TEL">전화번호</option>
 	                </select>
 	                
 	                <input type="text" class="select_text" id="query" name="query">

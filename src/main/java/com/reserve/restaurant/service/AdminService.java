@@ -9,6 +9,7 @@ public interface AdminService {
 	public void	findUser(Model model);
 	public void findOwner(Model model);
 	public void selectUserInfo(Model model);
+	public void selectOwnerInfoRes(Model model);
 
 
 

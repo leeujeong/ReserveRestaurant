@@ -31,18 +31,45 @@
 	 <section class="search_section">
         <div class="search_box">
             <p class="user_search">회원 상세 페이지</p>
-            회원정보<br>
+            회원정보
             
-            회원 번호 : ${user.userNo}<br>
-            아이디 : ${user.id}<br>
-            이름 : ${user.name}<br>
-            전화번호 : ${user.tel}<br>
-            등급 : ${user.grade}<br>
-            생년월일 : ${user.hbd}<br>
-            포인트 : ${user.point}<br>
-            이메일 : ${user.email}<br>
-            가입일 : ${user.userDate }<br>
-            상태(예약중인지 아닌지) : ${user.state} 
+            회원 번호 : ${owner.ownerNo}<br>
+            아이디 : ${owner.id}<br>
+            이름 : ${owner.name}<br>
+            전화번호 : ${owner.tel}<br>
+            이메일 : ${owner.email}<br>
+			등록한 식당 정보<br>
+			<table>
+				<thead>
+					<tr>
+						<td>사업장 이름</td>
+						<td>주소</td>
+						<td>오픈시간</td>
+						<td>마감시간</td>
+						<td>전화번호</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${empty owner.restaurant}">
+						<tr>
+							<td colspan="5">등록된 사업장이 없습니다.</td>						
+						</tr>
+					</c:if>
+					<c:if test="${not empty owner.restaurant}">
+						<c:forEach var="restaurant" items="${owner.restaurant}">
+							<tr>
+								<td>${owner.restaurant.resName}</td>
+								<td>${owner.restaurant.resAddress}&nbsp;${owner.restaurant.resAddressDetail}</td>
+								<td>${owner.restaurant.resOpenTime}</td>
+								<td>${owner.restaurant.resCloseTime}</td>
+								<td>${owner.restaurant.resTel}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>			
+			
+			
         </div>
     </section>
 	

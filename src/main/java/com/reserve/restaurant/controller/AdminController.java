@@ -65,14 +65,19 @@ public class AdminController {
 	}
 	
 	@GetMapping(value="userDetailPage")
-	public String detailPage(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
+	public String userDetailPage(Long userNo, Model model) {
+		model.addAttribute("userNo", userNo);
 		service.selectUserInfo(model);
 		return "admin/userDetailPage";
 	}
 	
 	
-	
+	@GetMapping(value="ownerDetailPage")
+	public String ownerDetailPage(Long ownerNo, Model model) {
+		model.addAttribute("ownerNo", ownerNo);
+		service.selectOwnerInfoRes(model);
+		return "admin/ownerDetailPage";
+	}
 	
 	
 	

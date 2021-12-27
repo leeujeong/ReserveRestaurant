@@ -131,10 +131,10 @@ public class AdminServiceImpl implements AdminService {
 		case "ID":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "USER_NAME":
+		case "NAME":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "USER_TEL":
+		case "TEL":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
 		}
@@ -191,10 +191,10 @@ public class AdminServiceImpl implements AdminService {
 		case "ID":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "O_NAME":
+		case "NAME":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
-		case "O_TEL":
+		case "TEL":
 			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
 			break;
 		}
@@ -206,15 +206,25 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void selectUserInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-
 		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		String userNo = request.getParameter("userNo");
+		Long userNo = (Long)map.get("userNo");
 		User user = repository.selectUserInfo(userNo);
 		model.addAttribute("user", user);
 		
 	}
-
+	
+	
+	@Override
+	public void selectOwnerInfoRes(Model model) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		Map<String, Object> map = model.asMap();
+		Long ownerNo = (Long) map.get("ownerNo");
+		System.out.println("파라미터: " + ownerNo);
+		List<Owner> owner = repository.selectOwnerInfoRes(ownerNo);
+		System.out.println(owner);
+		model.addAttribute("owner", owner);
+		
+	}
 
 
 

@@ -29,11 +29,11 @@
             	<c:if test="${empty list}">
     	        	<c:forEach var="owner" items="${ownerList}">
     	        		<tr>
-    	        			<td>${owner.ONo}</td>
+    	        			<td>${owner.ownerNo}</td>
     	        			<td>
-    	        				<a href="">	${owner.OId}</a>
+    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${owner.ownerNo}">${owner.id}</a>
     	        			</td>
-    	        			<td>${owner.OName}</td>
+    	        			<td>${owner.name}</td>
     	        			<td>${owner.state}</td>
     	        		</tr>
     	        	</c:forEach>
@@ -52,7 +52,7 @@
 	            			<td>
 	            				<a href="/restaurant/admin/userDetailPage?userNo=${user.userNo}">${user.id}</a> 
 	            			</td>
-							<td>${user.userName}</td>
+							<td>${user.name}</td>
 							<td>${user.state}</td>
 	            		</tr>
             		</c:forEach>

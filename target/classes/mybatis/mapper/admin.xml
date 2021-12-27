@@ -5,6 +5,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.AdminRepository">
 
+	<resultMap type="Owner" id="OwnerMap">
+		<result column="OWNER_NO" property="ownerNo" />
+		<result column="ID" property="id" />
+		<result column="PW" property="pw" />
+		<result column="EMAIL" property="email" />
+		<result column="TEL" property="tel" />
+		<result column="NAME" property="name" />
+		<result column="STATE" property="state" />
+		<collection property="restaurant" resultMap="RestaurantMap" />
+	</resultMap>
+	<resultMap type="Restaurant" id="RestaurantMap">
+		<result column="RES_NO" property="resNo" />
+		<result column="RES_NAME" property="resName" />
+		<result column="RES_ADDRESS" property="resAddress" />
+		<result column="RES_ADDRESS_DETAIL" property="resAddressDetail" />
+		<result column="RES_OPEN_TIME" property="resOpenTime" />
+		<result column="RES_CLOSE_TIME" property="resCloseTime" />
+		<result column="RES_TEL" property="resTel" />
+		<result column="RES_CONTENT" property="resContent" />
+		<result column="RES_OPTION" property="resOption" />
+		<result column="RES_ORIGIN" property="resOrigin" />
+		<result column="RES_SAVED" property="resSaved" />
+		<result column="RES_PATH" property="resPath" />
+		<result column="OWNER_NO" property="ownerNo" />
+	</resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<select id="countUser" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
@@ -17,18 +55,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectUserList" parameterType="Map" resultType="User">
-		SELECT B.USER_NO, B.ID, B.PW, B.USER_NAME, B.USER_TEL, B.USER_GRADE, B.USER_DATE, B.USER_HBD, B.STATE, B.POINT, B.USER_EMAIL
-		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.USER_NAME, A.USER_TEL, A.USER_GRADE, A.USER_DATE, A.USER_HBD, A.STATE, A.POINT, A.USER_EMAIL
-		   		  FROM (SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
+		SELECT B.USER_NO, B.ID, B.PW, B.NAME, B.TEL, B.GRADE, B.USER_DATE, B.HBD, B.STATE, B.POINT, B.EMAIL
+		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
+		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
 		   	       		 WHERE STATE = 1) A) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
 	<select id="selectOwnerList" parameterType="Map" resultType="Owner">
-		SELECT B.O_NO, B.O_ID, B.O_PW, B.O_EMAIL, B.O_NAME, B.O_TEL, B.STATE
-		  FROM (SELECT ROWNUM AS RN, A.O_NO, A.O_ID, A.O_PW, A.O_EMAIL, A.O_NAME, A.O_TEL, A.STATE
-		   		  FROM (SELECT O_NO, O_ID, O_PW, O_EMAIL, O_NAME, O_TEL, STATE
+		SELECT B.OWNER_NO, B.ID, B.PW, B.EMAIL, B.NAME, B.TEL, B.STATE
+		  FROM (SELECT ROWNUM AS RN, A.OWNER_NO, A.ID, A.PW, A.EMAIL, A.NAME, A.TEL, A.STATE
+		   		  FROM (SELECT OWNER_NO, ID, PW, EMAIL, NAME, TEL, STATE
 		   	       		  FROM OWNER) A) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
@@ -39,20 +77,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM USERTABLE
 		 WHERE 1 = 1
 		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-		       <if test="column == 'USER_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-		       <if test="column == 'USER_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	</select>
 	
 	<!-- 검색 목록을 반환시켜주는 select -->
 	<select id="selectFindList" parameterType="Map" resultType="User">
-		SELECT B.USER_NO, B.ID, B.PW, B.USER_NAME, B.USER_TEL, B.USER_GRADE, B.USER_DATE, B.USER_HBD, B.STATE, B.POINT, B.USER_EMAIL
-		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.USER_NAME, A.USER_TEL, A.USER_GRADE, A.USER_DATE, A.USER_HBD, A.STATE, A.POINT, A.USER_EMAIL
-		   		  FROM (SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
+		SELECT B.USER_NO, B.ID, B.PW, B.NAME, B.TEL, B.GRADE, B.USER_DATE, B.HBD, B.STATE, B.POINT, B.EMAIL
+		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
+		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
 	  			  		 WHERE 1 = 1
 	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'USER_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'USER_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
+	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
@@ -61,30 +99,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		  FROM OWNER
 		 WHERE 1 = 1
-		 	   <if test="column == 'O_ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-		       <if test="column == 'O_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-		       <if test="column == 'O_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+		       <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	</select>
 	
 	<select id="selectFindListOwner" parameterType="Map" resultType="Owner">
-		SELECT B.O_NO, B.O_ID, B.O_PW, B.O_EMAIL, B.O_NAME, B.O_TEL, B.STATE
-		  FROM (SELECT ROWNUM AS RN, A.O_NO, A.O_ID, A.O_PW, A.O_EMAIL, A.O_NAME, A.O_TEL, A.STATE
-		   		  FROM (SELECT O_NO, O_ID, O_PW, O_EMAIL, O_NAME, O_TEL, STATE
+		SELECT B.OWNER_NO, B.ID, B.PW, B.EMAIL, B.NAME, B.TEL, B.STATE
+		  FROM (SELECT ROWNUM AS RN, A.OWNER_NO, A.ID, A.PW, A.EMAIL, A.NAME, A.TEL, A.STATE
+		   		  FROM (SELECT OWNER_NO, ID, PW, EMAIL, NAME, TEL, STATE
 		   	       		  FROM OWNER
 	  			  		 WHERE 1 = 1
-	  			  		 	   <if test="column == 'O_ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'O_NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'O_TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
+	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
+	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
-	<select id="selectUserInfo" parameterType="String" resultType="User">
-		SELECT USER_NO, ID, PW, USER_NAME, USER_TEL, USER_GRADE, USER_DATE, USER_HBD, STATE, POINT, USER_EMAIL
+	<select id="selectUserInfo" parameterType="Long" resultType="User">
+		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, DATE, HBD, STATE, POINT, EMAIL
 		  FROM USERTABLE
 		 WHERE USER_NO = #{userNo}
 	</select>
 	
-	
-	
+	<select id="selectOwnerInfoRes" parameterType="Long" resultMap="OwnerMap">
+		SELECT O.OWNER_NO, O.ID, O.PW, O.EMAIL, O.NAME, O.TEL, R.RES_NAME, R.RES_ADDRESS, R.RES_ADDRESS_DETAIL, R.RES_OPEN_TIME, R.RES_CLOSE_TIME, R.RES_TEL, R.RES_OPTION
+ 	      FROM OWNER O, RESTAURANT R
+ 		 WHERE O.OWNER_NO = R.OWNER_NO
+           AND O.OWNER_NO = #{ownerNo}
+	</select>
 	
 </mapper>
