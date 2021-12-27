@@ -75,10 +75,10 @@ public class UserServiceImpl implements UserService {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		user.setId(user.getId());
 		user.setPw(SecurityUtils.sha256(user.getPw()));
-		user.setUserName(SecurityUtils.xxs(user.getUserName()));
-		user.setUserTel(user.getUserTel());
-		user.setUserHbd(user.getUserHbd());
-		user.setUserEmail(user.getUserEmail());
+		user.setName(SecurityUtils.xxs(user.getName()));
+		user.setTel(user.getTel());
+		user.setHbd(user.getHbd());
+		user.setEmail(user.getEmail());
 		
 		int result = repository.insertUser(user);
 		

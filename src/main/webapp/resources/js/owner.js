@@ -1,4 +1,6 @@
 $('document').ready(function(){
+	
+
 	//시간 select
     for(let i =0; i<=24; i++){
         let append_value = "<option value='"+i+":00' >"+i+":00</option>";
@@ -10,7 +12,6 @@ $('document').ready(function(){
     }
     
     //확장자, 파일크기 확인
-    
     $('#s_file').on('change', function(){
     let origin = $(this).val();  
     let extName = origin.substring(origin.lastIndexOf(".") + 1).toUpperCase(); 
@@ -27,7 +28,6 @@ $('document').ready(function(){
         return;
     }
     });
-    
     
     //썸네일
     // $('#upload_result').empty();
@@ -78,7 +78,7 @@ $('document').ready(function(){
     
     //
     $('#delete_btn').on('click',function(){
-        if(confirm('[가게이름] 을 삭제할까요?')){
+        if(confirm('${resName} 을 삭제할까요?')){
             alert('삭제했습니다.');
         }
     });

@@ -23,10 +23,7 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li><a href="사용자페이지이동">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="호스트로그인페이지이동">HOSTLOGIN</a></li>
-                <li><a href="회원가입페이지이동">JOIN</a></li>
-                <li><a href="찜목록페이지">FAVORITE</a></li>
+               	<li><a href="로그아웃">LOGOUT</a></li>
                 <li><a href="마이페이지이동">MYPAGE</a></li>
             </ul>
         </div>
@@ -70,7 +67,7 @@
                           
                          	<c:if test="${empty list}">
                          		<div class="empty_content">  
-                         			<a href="addstore">음식점 등록하러가기</a>
+                         			<a href="addPage">음식점 등록하러가기</a>
                          		</div>
                          	</c:if>
                          	
@@ -103,6 +100,9 @@
 									</div>
                          		</c:forEach>
                          	</c:if>
+                         	<c:if test="${not empty paging}">
+								<div class="paging">${paging}</div>
+							</c:if>
                         </div>
                       </div>
                     </div>
