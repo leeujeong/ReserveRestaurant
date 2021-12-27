@@ -11,8 +11,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.reserve.restaurant.service.UserService;
-import com.reserve.restaurant.service.UserServiceImpl;
+import com.reserve.restaurant.service.OwnerService;
+import com.reserve.restaurant.service.OwnerServiceImpl;
+import com.reserve.restaurant.service.QnaService;
+import com.reserve.restaurant.service.QnaServiceImpl;
+import com.reserve.restaurant.service.RestaurantService;
+import com.reserve.restaurant.service.RestaurantServiceImpl;
 //
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -62,6 +66,21 @@ public class MybaitsConfig {
 		multipartResolver.setDefaultEncoding("UTF-8");
 		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10);
 		return multipartResolver;
+	}
+	
+	@Bean
+	public RestaurantService restaurantService() {
+		return new RestaurantServiceImpl();
+	}
+	
+	@Bean
+	public OwnerService ownerService() {
+		return new OwnerServiceImpl();
+	}
+	
+	@Bean
+	public QnaService qnaService() {
+		return new QnaServiceImpl();
 	}
 	
 }

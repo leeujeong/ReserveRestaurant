@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void login(HttpServletRequest request) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User user = new User();
 		user.setId(request.getParameter("id"));
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User loginUser = repository.login(user);
+		System.out.println(loginUser);
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 		}	

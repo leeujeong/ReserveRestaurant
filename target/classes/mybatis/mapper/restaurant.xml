@@ -2,9 +2,71 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "com.reserve.restaurant.repository.RestaurantRepository">
 
-<mapper namespace="com.reserve.restaurant.repository.RestaurantRepository">
+	<!-- 전체 목록 -->
+	<select id="selectMyRestaurantList" parameterType="Map" resultType="Restaurant">
+		<!-- SELECT *
+		FROM restaurant r, owner o
+		WHERE r.owner_o_no = o.o_no
+		AND o.o_id = #{o_id} -->
+		SELECT B.*
+		FROM (SELECT ROWNUM AS rn, A.*
+		          FROM (SELECT r.*
+		                  FROM restaurant r, owner o
+		                 WHERE r.owner_o_no = o.o_no AND o.o_id = #{id}
+		                 ORDER BY r.res_no) A) B
+		WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<!-- 전체 목록 수 -->
+	<select id="selectTotalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM restaurant r, owner o
+		 WHERE r.owner_o_no = o.o_no
+		   AND o.o_id = #{id}
+	</select>
+	
+<!-- 	
+	<select id="selectRestaurantByNo" parameterType="Long" resultType="Restaurant">
+		SELECT *
+		  FROM restaurant
+		 WHERE res_no = #{resNo}
+	</select>  -->
+	
+	<insert id="addRestaurant" parameterType="Restaurant"> 
+		INSERT INTO restaurant (res_no, res_name, address, address_detail, open_time, close_time, tel, content, res_option, origin, saved, path, owner_o_no)
+		VALUES (res_no_seq.nextval, #{resName}, #{address}, #{addressDetail} , #{opeTime}, #{closeTime}, #{tel}, #{content}, #{resOption}, #{origin}, #{saved}, #{path}, #{owneroNo})
+		<selectKey keyProperty="resNo" resultType="Long" order="AFTER">
+        	SELECT res_no_seq.currval AS resNo
+            FROM DUAL
+    	</selectKey>
+	</insert>
 	
 	
+	
+	
+	
+	
+<!-- 	
+	
+	
+	<update id="modifyRestaurant" parameterType="Restaurant">
+		UPDATE restaurant
+		   SET res_name = #{resName},
+		   	   address = #{address}, 
+		   	   address_detail = #{addressDetail}
+		   	   open_time = #{resOpenTime},
+		   	   close_time = #{resCloseTime},
+		   	   tel = #{resTel},
+		   	   content = #{resContent},
+		   	   origin = #{origin},
+		   	   saved = #{saved},
+		   	   path = #{path}
+	</update>
+	
+	<delete id ="removeRestaurant" parameterType="Long">
+		
+	</delete> -->
 	
 </mapper>

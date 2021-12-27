@@ -23,8 +23,6 @@ import com.reserve.restaurant.service.UserService;
 @RequestMapping("user/*")
 public class UserController {
 	
-	@Autowired
-	UserService service;
 
 	@Autowired
 	private UserService userService;
@@ -44,7 +42,7 @@ public class UserController {
 	
 	@GetMapping(value="selectUserByNo")
 	public String selectUserByNo(@RequestParam("userNo") Long userNo , Model model ) {
-		model.addAttribute("userInfo", service.selectUserByNo(userNo));
+		model.addAttribute("userInfo", userService.selectUserByNo(userNo));
 		
 		return "/user/updateUser";
 	}
@@ -69,29 +67,30 @@ public class UserController {
 	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> idCheck(@RequestParam("id") String id) {
-			return service.idCheck(id);
+			return userService.idCheck(id);
 	}
 	
 	//이메일 중복체크
 	@PostMapping(value= "emailCheck" , produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
-		return service.findUserByEmail(email);
+		return userService.findUserByEmail(email);
 	
 	}
 	//인증번호전송
 	@PostMapping(value = "sendAuthCode" , produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> sendAuthCode(@RequestParam("email") String email) {
-		return service.sendAuthCode(email);
+		return userService.sendAuthCode(email);
 	}
+	
 	
 	// 회원등록
 	@PostMapping(value = "insertUser")
 	public void insertUser(User user , HttpServletResponse response) {
-		service.insertUser(user, response);
+		userService.insertUser(user, response);
 	}
-	// 로그인
+
 	@PostMapping(value="login")
 	public String login(HttpServletRequest request) {
 		userService.login(request);

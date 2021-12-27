@@ -74,10 +74,6 @@ input {
     width: 370px;
 }
 
-#tel {
-    width: 370px;
-}
-
 tfoot {
     text-align: center;
 }
@@ -137,7 +133,7 @@ textarea{
     flex: 0 0 auto;
     width: 70%;
 }
-#update_btn, #delete_btn, #reset_btn{
+#update_btn, #delete_btn, #update_menu{
     width: 100px;
     background-color: rgb(160, 57, 38);
     border: none;
@@ -146,7 +142,7 @@ textarea{
     margin: 5px;
     border-radius: 10px;
 }
-#update_btn:hover, #delete_btn:hover, #reset_btn:hover{
+#update_btn:hover, #delete_btn:hover, #update_menu:hover{
     background-color:  rgba(160, 57, 38, 0.795);
 }
 
@@ -178,7 +174,7 @@ thead{
     border-bottom: 1px solid gray;
 }
 table td:first-child{
-    width: 50px;
+    width: 250px;
 }
 
 
@@ -200,5 +196,39 @@ select{
 	margin-right:30px;
 }
 
+.infobox td:first-child{
+	width:200px;
+} 
+.infobox input{
+	width:250px;
+}
+#check_id, #check_pw{
+	width:100px;
+    background-color: #da5e531605738;
+    border: none;
+    color: gray;
+    padding: 5px;
+    border-radius: 10px;
+}
+#check_id:hover, #check_pw:hover{
+    cursor: pointer;
+}
+.empty_content{
+	padding: 5px;
+}
+.list_table{
+	border:1px solid gray;
+	margin:5px;
+	border-radius:30px;
+}
 
-
+.list_table:hover{
+	cursor:pointer;
+}
+.list_table td:first-child{
+	width:300px;
+}
+.paging{
+	width: 100%;
+	color: rgb(160, 57, 38);
+}

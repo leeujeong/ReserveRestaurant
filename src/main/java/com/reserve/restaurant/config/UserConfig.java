@@ -11,10 +11,8 @@ import com.reserve.restaurant.service.UserServiceImpl;
 @Configuration
 public class UserConfig {
 
-	
-	
 	@Bean
-	public UserService service() {
+	public UserService userService() {
 		return new UserServiceImpl();
 	}
 	
