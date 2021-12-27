@@ -12,5 +12,6 @@ public interface UserRepository {
 	public User selectUserByEmail(String email);
 	public int insertUser(User user);
 	public User login(User user);
+	public User selectUserByNo(Long userNo);
 
 }
