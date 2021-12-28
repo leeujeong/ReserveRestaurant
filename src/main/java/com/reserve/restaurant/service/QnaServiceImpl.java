@@ -15,7 +15,9 @@ public class QnaServiceImpl implements QnaService {
 	//식당문의
 	@Override
 	public List<Qna> selectQnaList1() {
+		
 		Qna qna = new Qna();
+		
 		
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
 		
