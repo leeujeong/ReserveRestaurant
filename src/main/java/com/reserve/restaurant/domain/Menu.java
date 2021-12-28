@@ -17,10 +17,10 @@ import lombok.ToString;
 public class Menu {
 
 	private Long menuNo;
-	private String menu;
-	private Long price;
-	private Long discount;
-	private String expiryDate;
-	private Long restaurant_res_no;
+	private String menuName;
+	private Long menuPrice;
+	private Long menuDiscount;
+	private String menuExpiryDate;
+	private Long resNo;
 	
 }

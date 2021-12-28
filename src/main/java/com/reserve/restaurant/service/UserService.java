@@ -1,3 +1,5 @@
+
+   
 package com.reserve.restaurant.service;
 
 import java.util.Map;
@@ -15,5 +17,5 @@ public interface UserService {
 	public void insertUser(User user,HttpServletResponse response);
 	public void login(HttpServletRequest request);
 	public Map<String, Object> emailCheck(String email);
-	
+	public User selectUserByNo(Long userNo);
 }

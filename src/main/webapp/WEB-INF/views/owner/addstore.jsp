@@ -29,8 +29,8 @@
             </h1>
 
          	<ul id="gnb">
-         		<li><a href="로그아웃">LOGOUT</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+         		<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -71,6 +71,7 @@
 		                        <tr>
 		                            <td>사업장 이름</td>
 		                            <td>
+		                            	<input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                                <input type="text" name="s_name" id="s_name" placeholder="사업장 이름을 입력하세요">
 		                            </td>
 		                        </tr>
@@ -116,9 +117,6 @@
 		                                 <td>메뉴 등록하기</td>
 		                                 <td class="menu">
 		                                     <div class="menu_input">
-		                                         <!-- <div class="menu_input_box default">
-		                                             <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/><input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
-		                                         </div> -->
 		                                         <div class="menu_input_box default">
 		                                             <input type="text" name="menu" placeholder="메뉴명"/><input type="text" name="price" placeholder="가격 (원)"/>
 		                                         </div>

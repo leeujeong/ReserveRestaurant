@@ -16,10 +16,11 @@ import lombok.ToString;
 
 public class Owner {
 
-	private Long owner_no;
+	private Long ownerNo;
 	private String name;
 	private String id;
 	private String email;
 	private String pw;
+	private String tel;
 	private int state;
 }

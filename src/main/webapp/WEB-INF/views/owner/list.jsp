@@ -23,8 +23,8 @@
                 </a>
             </h1>
             <ul id="gnb">
-               	<li><a href="로그아웃">LOGOUT</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+               	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -77,20 +77,20 @@
 		                         		<table >
 		                         			<tbody>
 			                         			<tr>
-									                <td rowspan="7"><a href="detail"><img alt="${restaurant.origin}" src="/restaurant/${restaurant.path}/${restaurant.saved}"></a></td>
-									                <td>${restaurant.resName}</td>
+									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
+									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
 									            <tr>
 									            <tr>
-									                <td>${restaurant.tel}</td>
+									                <td>${restaurant.resTel}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.address} ${restaurant.addressDetail}</td>
+									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.openTime} ~ ${restaurant.closeTime}</td>
+									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.content}</td>
+									                <td>${restaurant.resContent}</td>
 									            </tr>
 									            <tr>
 									                <td>${restaurant.resOption}</td>

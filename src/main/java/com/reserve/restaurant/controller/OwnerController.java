@@ -1,8 +1,6 @@
 
 package com.reserve.restaurant.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reserve.restaurant.service.OwnerService;
+import com.reserve.restaurant.service.QnaService;
 
 @Controller
 @RequestMapping("owner/*")
@@ -23,6 +21,9 @@ public class OwnerController {
 	
 	@Autowired
 	private OwnerService ownerService;
+	
+	@Autowired
+	private QnaService qnaService;
 	
 	//등록페이지
 	@GetMapping(value="addPage")
@@ -44,65 +45,33 @@ public class OwnerController {
 	
 	//문의페이지
 	@GetMapping(value="questionPage")
-	public String questionPage() {
+	public String questionPage(Model model) {
+		model.addAttribute("qna", qnaService.selectQnaList1());
 		return "owner/question";
 	}
+	
 	//리뷰관리 페이지
 	@GetMapping(value="reviewPage")
 	public String reviewPage() {
 		return "owner/review";
 	}
 
-
+	//로그인페이지
 	@PostMapping(value="login")
 	public String loginOwner(HttpServletRequest request) {
-		ownerService.loginOwner(request);	
+		ownerService.loginOwner(request);
 		return "redirect:/";
 	}	
-	
-
+	//회원가입
 	@PostMapping(value="insertOwner")
 	public String insertOwner(HttpServletRequest request) {
 		ownerService.join(request);
 		return "redirect:/";
 	}
-	
+	//로그아웃
 	@GetMapping(value="logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-//	@GetMapping(value="leave")
-//	public String leave(@RequestParam("owner_no")Long owner_no,HttpSession session) {
-//		ownerService.leave(owner_no, session);
-//		return "redirect:/";
-//	}
-	
-//	//아이디체크
-//	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
-//	@ResponseBody
-//	public Map<String, Object> idCheck(@RequestBody("oId") String oId){
-//		return service.idCheck(oId);
-//	}
-//	//이메일체크
-//	@PostMapping(value="emailCheck", produces="application/json; charset=UTF-8")
-//	public Map<String, Object> emailCheck(@RequestBody("oEmail") String oEmail){
-//		return service.findOwnerByEmail(oEmail);
-//	}
-//	
-//	//업데이트
-//	@PostMapping(value="updateOwner")
-//	public String updateOwner(Owner owner, HttpSession session) {
-//		oservice.updateOwner(owner, session);
-//		return "redirect:/";
-//	}
-	
-	//현재 비밀번호
-//	@PostMapping(value="presentPwCheck", produces="application/json; charset=UTF-8")
-//	@ResponseBody
-//	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
-//		return service.presentPwCheck(request);
-//	}
-	
-	
 }

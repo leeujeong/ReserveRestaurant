@@ -23,8 +23,8 @@
                 </a>
             </h1>
             <ul id="gnb">
-               <li><a href="로그아웃">LOGOUT</a></li>
-               <li><a href="마이페이지이동">MYPAGE</a></li>
+               <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+               <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
