@@ -128,21 +128,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE OWNER_NO = #{owner_no}
 	</select>
 	
-	
-	
-	
 	<select id="selectOwnerInfoRes" parameterType="Long" resultType="Restaurant">
 		SELECT RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
 		  FROM RESTAURANT
 		 WHERE OWNER_NO = #{owner_no}
 	</select>
-	
-	<select id="resListByAddress" parameterType="String" resultType="Restaurant">
-		SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+
+	<select id="searchCountRes" parameterType="String" resultType="int">
+		SELECT COUNT(*)
 		  FROM RESTAURANT
 		 WHERE RES_ADDRESS LIKE '%' || TRIM(#{query}) || '%'
 		    OR RES_ADDRESS_DETAIL LIKE '%' || TRIM(#{query}) || '%'
 		    OR RES_NAME LIKE '%' || TRIM(#{query}) || '%'
+	</select>
+
+	
+	<select id="resListByAddress" parameterType="Map" resultType="Restaurant">
+		 SELECT B.RES_NO, B.RES_NAME, B.RES_ADDRESS, B.RES_ADDRESS_DETAIL, B.RES_OPEN_TIME, B.RES_CLOSE_TIME, B.RES_TEL, B.RES_OPTION
+		   FROM (SELECT ROWNUM AS RN, A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_OPTION
+		           FROM (SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+		           		   FROM RESTAURANT
+		  		   		  WHERE RES_ADDRESS LIKE '%' || TRIM(#{query}) || '%'
+		     		  	     OR RES_ADDRESS_DETAIL LIKE '%' || TRIM(#{query}) || '%'
+		     		  		 OR RES_NAME LIKE '%' || TRIM(#{query}) || '%') A) B
+		  WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
 

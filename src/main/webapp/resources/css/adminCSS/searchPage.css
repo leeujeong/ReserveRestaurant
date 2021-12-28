@@ -312,3 +312,13 @@
     font-size: 30px;
     line-height: 100px;
  }
+ 
+ .paging {
+    margin-top: 20px;
+    height: 30px;
+}
+
+.paging_area {
+    text-align: center;
+    line-height: 30px;
+}

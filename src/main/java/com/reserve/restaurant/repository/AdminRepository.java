@@ -33,8 +33,8 @@ public interface AdminRepository {
 	
 	public List<Restaurant> selectOwnerInfoRes(Long ownerNo);
 	
-	public List<Restaurant> resListByAddress(String keyWord);
-	public List<Restaurant> resListByAddressDetail(String keyWord);
+	public int searchCountRes(String query);
+	public List<Restaurant> resListByAddress(Map<String, Object> map);
 
 	
 }

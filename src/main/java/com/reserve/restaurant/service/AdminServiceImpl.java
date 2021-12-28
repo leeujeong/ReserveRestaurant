@@ -211,33 +211,47 @@ public class AdminServiceImpl implements AdminService {
 		Long userNo = (Long)map.get("userNo");
 		User user = repository.selectUserInfo(userNo);
 		model.addAttribute("user", user);
-		
 	}
 	
-	
+	// 식당 페이지 상세정보
 	@Override
 	public void selectOwnerInfoRes(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> map = model.asMap();
 		Long ownerNo = (Long) map.get("ownerNo");
-		
 		Owner owner = repository.selectOwnerInfo(ownerNo);
 		model.addAttribute("owner", owner);
-		
 		List<Restaurant> restList = repository.selectOwnerInfoRes(ownerNo);
 		model.addAttribute("restList", restList);
 		
 	}
 
 	
-
+	// 검색페이지(페이징)
 	@Override
 	public void selectResList(HttpServletRequest request, Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		String query = request.getParameter("query");
-		List<Restaurant> resList = repository.resListByAddress(query);
-		System.out.println(resList);
+		int totalRecord = repository.searchCountRes(query);
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("검색 전체 갯수 : " + totalRecord);
+		System.out.println("controller에서 넘어온 query : " + query);
+		System.out.println("beginRecord : " + pageUtils.getBeginRecord());
+		System.out.println("endRecord : " + pageUtils.getEndRecord());
+		map.put("query", query);
+		map.put("beginRecord", pageUtils.getBeginRecord());
+		map.put("endRecord", pageUtils.getEndRecord());
+		List<Restaurant> resList = repository.resListByAddress(map);
+		System.out.println("페이징 처리 된 list : " + resList);
 		model.addAttribute("resList", resList);
+		model.addAttribute("totalRecord", totalRecord);
+		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?&query=" + query));
+
+		
 	}
 
 

@@ -73,18 +73,21 @@ public class AdminController {
 		return "admin/ownerDetailPage";
 	}
 	
+	// 검색 페이지로 이동
 	@GetMapping(value="searchPage")
 	public String searchPage() {
 		return "admin/searchPage";
 	}
 	
+	// 검색 AND 페이징
 	@GetMapping(value="searchRestaurant")
 	public String searchRestaurant(HttpServletRequest request, Model model) {
-		System.out.println("전달받은 값: " + request.getParameter("query"));
+		System.out.println("전달받은 query : " + request.getParameter("query"));
 		service.selectResList(request, model);
 		return "admin/searchPage";
 	}
 	
+	// 검색된리스트에서 restaurant detail로 이동
 	@GetMapping(value="goResDetail")
 	public String goResDetail(@RequestParam(value="resNo") Long resNo) {
 		service.selectResDetail(resNo);
