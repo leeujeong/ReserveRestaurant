@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectFindRecordCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
-		 WHERE 1 = 1
+		 WHERE 1 = 1 AND STATE = 1
 		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 		       <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 		       <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
 		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
-	  			  		 WHERE 1 = 1
+	  			  		 WHERE 1 = 1 AND STATE = 1
 	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
@@ -122,11 +122,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE USER_NO = #{userNo}
 	</select>
 	
-	<select id="selectOwnerInfoRes" parameterType="Long" resultMap="OwnerMap">
-		SELECT O.OWNER_NO, O.ID, O.PW, O.EMAIL, O.NAME, O.TEL, R.RES_NAME, R.RES_ADDRESS, R.RES_ADDRESS_DETAIL, R.RES_OPEN_TIME, R.RES_CLOSE_TIME, R.RES_TEL, R.RES_OPTION
- 	      FROM OWNER O, RESTAURANT R
- 		 WHERE O.OWNER_NO = R.OWNER_NO
-           AND O.OWNER_NO = #{ownerNo}
+	<select id="selectOwnerInfo" parameterType="Long" resultType="Owner">
+		SELECT OWNER_NO, ID, NAME, EMAIL, TEL
+		  FROM OWNER
+		 WHERE OWNER_NO = #{owner_no}
 	</select>
+	
+	
+	
+	
+	<select id="selectOwnerInfoRes" parameterType="Long" resultType="Restaurant">
+		SELECT RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+		  FROM RESTAURANT
+		 WHERE OWNER_NO = #{owner_no}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

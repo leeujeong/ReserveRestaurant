@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Owner;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.AdminRepository;
 import com.reserve.restaurant.util.PageUtils;
@@ -219,10 +220,12 @@ public class AdminServiceImpl implements AdminService {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> map = model.asMap();
 		Long ownerNo = (Long) map.get("ownerNo");
-		System.out.println("파라미터: " + ownerNo);
-		List<Owner> owner = repository.selectOwnerInfoRes(ownerNo);
-		System.out.println(owner);
+		
+		Owner owner = repository.selectOwnerInfo(ownerNo);
 		model.addAttribute("owner", owner);
+		
+		List<Restaurant> restList = repository.selectOwnerInfoRes(ownerNo);
+		model.addAttribute("restList", restList);
 		
 	}
 

@@ -43,20 +43,12 @@ public class AdminController {
 	
 	@GetMapping(value="findUser")
 	public String findUser(HttpServletRequest request, Model model) {		
-		
-		System.out.println("타입:" + request.getParameter("radio"));
-		System.out.println("칼럼:" + request.getParameter("column"));
-		System.out.println("쿼리:" + request.getParameter("query"));
-		
 		String type = request.getParameter("radio");
-		
 		if (type.contains("user")) {
-			System.out.println("service user로");
 			model.addAttribute("request", request);
 			service.findUser(model);
 			return "admin/adminUser";
 		} else if (type.contains("owner")) {
-			System.out.println("service owner로");
 			model.addAttribute("request", request);
 			service.findOwner(model);
 			return "admin/adminUser";
@@ -75,6 +67,7 @@ public class AdminController {
 	@GetMapping(value="ownerDetailPage")
 	public String ownerDetailPage(Long ownerNo, Model model) {
 		model.addAttribute("ownerNo", ownerNo);
+		System.out.println("controller에서 ownerNo : " + ownerNo);
 		service.selectOwnerInfoRes(model);
 		return "admin/ownerDetailPage";
 	}
