@@ -1,5 +1,7 @@
 package com.reserve.restaurant.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 
 public interface AdminService {
@@ -10,7 +12,8 @@ public interface AdminService {
 	public void findOwner(Model model);
 	public void selectUserInfo(Model model);
 	public void selectOwnerInfoRes(Model model);
-
+	public void selectResList(HttpServletRequest request, Model model);
+	public void selectResDetail(Long resNo);
 
 
 

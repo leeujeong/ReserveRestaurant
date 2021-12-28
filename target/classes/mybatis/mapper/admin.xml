@@ -117,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectUserInfo" parameterType="Long" resultType="User">
-		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, DATE, HBD, STATE, POINT, EMAIL
+		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		  FROM USERTABLE
 		 WHERE USER_NO = #{userNo}
 	</select>
@@ -137,9 +137,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE OWNER_NO = #{owner_no}
 	</select>
 	
+	<select id="resListByAddress" parameterType="String" resultType="Restaurant">
+		SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+		  FROM RESTAURANT
+		 WHERE RES_ADDRESS LIKE '%' || TRIM(#{query}) || '%'
+		    OR RES_ADDRESS_DETAIL LIKE '%' || TRIM(#{query}) || '%'
+		    OR RES_NAME LIKE '%' || TRIM(#{query}) || '%'
+	</select>
 	
-	
-	
+
 	
 	
 	

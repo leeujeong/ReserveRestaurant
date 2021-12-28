@@ -229,9 +229,39 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	
+
+	@Override
+	public void selectResList(HttpServletRequest request, Model model) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		String query = request.getParameter("query");
+		List<Restaurant> resList = repository.resListByAddress(query);
+		System.out.println(resList);
+		model.addAttribute("resList", resList);
+	}
 
 
+	@Override
+	public void selectResDetail(Long resNo) {
 
+		
+		
+		
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 

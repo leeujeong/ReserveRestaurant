@@ -308,6 +308,6 @@
             </div>
         </div>
     </section>
-	
+	<a href="/restaurant/admin/searchPage">검색페이지 이동</a>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.reserve.restaurant.service.AdminService;
 
@@ -72,6 +73,23 @@ public class AdminController {
 		return "admin/ownerDetailPage";
 	}
 	
+	@GetMapping(value="searchPage")
+	public String searchPage() {
+		return "admin/searchPage";
+	}
+	
+	@GetMapping(value="searchRestaurant")
+	public String searchRestaurant(HttpServletRequest request, Model model) {
+		System.out.println("전달받은 값: " + request.getParameter("query"));
+		service.selectResList(request, model);
+		return "admin/searchPage";
+	}
+	
+	@GetMapping(value="goResDetail")
+	public String goResDetail(@RequestParam(value="resNo") Long resNo) {
+		service.selectResDetail(resNo);
+		return "";
+	}
 	
 	
 }
