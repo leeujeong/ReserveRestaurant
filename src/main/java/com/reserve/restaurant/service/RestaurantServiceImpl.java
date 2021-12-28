@@ -71,11 +71,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Restaurant restaurant = new Restaurant();
 		restaurant.setResName(multipartRequest.getParameter("s_name"));
-		restaurant.setTel(multipartRequest.getParameter("tel"));
-		restaurant.setAddress(multipartRequest.getParameter("address"));
-		restaurant.setAddressDetail(multipartRequest.getParameter("address_detail"));
-		restaurant.setOpenTime(multipartRequest.getParameter("open_time"));
-		restaurant.setCloseTime(multipartRequest.getParameter("close_time"));
+		restaurant.setResTel(multipartRequest.getParameter("tel"));
+		restaurant.setResAddress(multipartRequest.getParameter("address"));
+		restaurant.setResAddressDetail(multipartRequest.getParameter("address_detail"));
+		restaurant.setResOpenTime(multipartRequest.getParameter("open_time"));
+		restaurant.setResCloseTime(multipartRequest.getParameter("close_time"));
 		String[] additional_options = multipartRequest.getParameterValues("additional_option");
 		String additional_option = "";
 		for (int i = 0; i < additional_options.length; i++) {
@@ -87,8 +87,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		}
 		restaurant.setResOption(additional_option);
-		restaurant.setContent(multipartRequest.getParameter("content"));
-		restaurant.setOwneroNo((long) 1);
+		restaurant.setResContent(multipartRequest.getParameter("content"));
+		restaurant.setOwnerNo((long) 1);
 		
 		try {
 			
@@ -123,15 +123,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 				.size(150, 150)
 				.toFile(new File(realPath, "s_" + saved));
 				
-				restaurant.setPath(path);
-				restaurant.setOrigin(origin);
-				restaurant.setSaved(saved);
+				restaurant.setResPath(path);
+				restaurant.setResOrigin(origin);
+				restaurant.setResSaved(saved);
 				
 			} 
 			else {
-				restaurant.setPath("");
-				restaurant.setOrigin("");
-				restaurant.setSaved("");
+				restaurant.setResPath("");
+				restaurant.setResOrigin("");
+				restaurant.setResSaved("");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,7 +151,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			Menu menu = new Menu();
 			menu.setMenu(menus[i]);
 			menu.setPrice(Long.parseLong(prices[i]));
-			menu.setRestaurant_res_no(restaurant.resNo);
+			menu.setRestaurantResNo(restaurant.resNo);
 			menu_list.add(menu);
 		}
 		
