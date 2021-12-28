@@ -17,18 +17,18 @@
 <body>
     <header>
         <div class="wrap">
-           <h1>
-                <a href="index.html">
+            <h1>
+                <a href="#">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
-                <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+               	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
                 <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
-    
+
     <div class="container">
         <div class="row">
             <div class="col-4">
@@ -55,66 +55,24 @@
             </div>
             <div class="col-6">
                 <div class="section2">
-	                <c:if test="${state == 1}">
-	                   <h4 class="ing_title">식당 정보 문의 내역</h4>
-	                 </c:if>
-	                 <c:if test="${state == 2}">
-	                   <h4 class="ing_title">예약 문의 내역</h4>
-	                 </c:if>
+                    <h4 class="ing_title">문의 내용</h4>
                 </div>
                 <hr>
-                <div>
-                    <ul class="question_btn">
-                        <li class="store_question"><a href="selectQnaList1">식당 정보 문의</a></li>
-                        <li class="reserve_question"><a href="selectQnaList2">예약 문의</a></li>
-                    </ul>
-         
-                    <table class="question_table">
-                        <thead>
-                            <tr>
-                                <td>번호</td>
-                                <td>작성자</td>
-                                <td>제목</td>
-                                <td>문의 내용</td>
-                                <td>작성일자</td>
-                                <td>조회수</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-							<c:if test="${empty list}">
-								<tr>
-									<td colspan="6">공지사항 없음</td>
-								</tr>
-							</c:if>
-							<c:if test="${state == 1}">
-								<c:forEach var="qna" items="${list}">
-									<tr>
-										<td>${qna.qnaNo}</td>				
-										<td>${qna.qnaWriter}</td>
-										<td><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-										<td>${qna.qnaContent}</td>
-										<td>${qna.qnaDate}</td>
-										<td>${qna.qnaHit}</td>				
-									</tr>
-								</c:forEach>
-							</c:if>
-							<c:if test="${state == 2}">
-								<c:forEach var="qna" items="${list}">
-									<tr>
-										<td>${qna.qnaNo}</td>				
-										<td>${qna.qnaWriter}</td>
-										<td><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-										<td>${qna.qnaContent}</td>
-										<td>${qna.qnaDate}</td>
-										<td>${qna.qnaHit}</td>				
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                  <div class="containers">
+                    <div class="row">
+                   
+                      <div class="col-sm-9">
+                        <div class="row">
+                          <div class="col-8 col-sm-6">
+                          
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+            </div>    
+        </div> 
     </div>
     <section id="bottom">
         <div class="wrap">

@@ -1,4 +1,7 @@
 package com.reserve.restaurant.controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +23,21 @@ public class QnaController {
 	public String selectQnaList1(Model model) {
 		int state = 1;
 		model.addAttribute("list", qnaService.selectQnaList1());
-		model.addAttribute(state);
-		
-		System.out.println(model);
+		model.addAttribute("state",state);
 		return "owner/question";
 	}
 	//공지사항 2(예약문의)
 	@GetMapping(value="owner/selectQnaList2")
 	public String selectQnaList2(Model model) {
+		int state = 2;
 		model.addAttribute("list", qnaService.selectQnaList2());
+		model.addAttribute("state",state);
 		return "owner/question";
 	}
 	//공지사항 선택
 	@GetMapping(value="owner/selectQnaByqnaNo")
 	public String selectQnaByNo(@RequestParam("qnaNo") Long qnaNo, Model model) {
-		model.addAttribute("Qna", qnaService.selectQnaByNo(qnaNo));
+		model.addAttribute("qna", qnaService.selectQnaByNo(qnaNo));
 		return "qna/detail";
 	}
 	

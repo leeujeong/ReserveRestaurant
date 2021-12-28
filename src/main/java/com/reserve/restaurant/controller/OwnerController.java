@@ -36,17 +36,19 @@ public class OwnerController {
 	public String modifyPage() {
 		return "owner/info";
 	}
+	
 	//수정 페이지
 	@GetMapping(value="detail")
 	public String updatePage() {
 		return "owner/detail";
 	}
-
 	
 	//문의페이지
 	@GetMapping(value="questionPage")
 	public String questionPage(Model model) {
-		model.addAttribute("qna", qnaService.selectQnaList1());
+		int state = 1;
+		model.addAttribute("list", qnaService.selectQnaList1());
+		model.addAttribute("state",state);
 		return "owner/question";
 	}
 	
