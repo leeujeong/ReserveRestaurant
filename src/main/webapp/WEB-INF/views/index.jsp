@@ -116,19 +116,19 @@
                     <li>
                         <div class="text">
                             <h3>FindTable</h3>
-                            <p>블라블라</p>
+                            <p> 더 많은 서비스를 누려보세요!</p>
                         </div>
                     </li>
                     <li>
                         <div class="text">
-                            <h3>블라블라</h3>
-                            <p>블라블라</p>
+                            <h3>신년 식당 예약은</h3>
+                            <p>FindTable에서!</p>
                         </div>
                     </li>
                     <li>
                         <div class="text">
-                            <h3>블라블라</h3>
-                            <p>블라블라</p>
+                            <h3>원하시는 식당을 FindTable에서 찾아보세요</h3>
+                            <p>enjoy your meal!</p>
                         </div>
                     </li>
                 </ul>
