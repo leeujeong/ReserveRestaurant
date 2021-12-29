@@ -1,19 +1,11 @@
-/**
- * 
- */
- 
- $(document).ready(function() {
-	
 
-    bnr();
+ $(document).ready(function() {
+
 
     fnhover();
     fnQuickMenu();
 
-    AOS.init({
-        duration: 1000,
-        offset: 200,
-    })
+   
 
 });
 
@@ -41,49 +33,5 @@ function fnhover() {
             }
         });
     })(jQuery);
-}
-
-
-function fnSwiper() {
-
-    $(".next").click(function() {
-        bnr();
-    });
-    $(".prev").click(function() {
-    	bnr();
-        sn;
-        if (sn < 0) {
-            sn = 2;
-            $(".main .slide").css({
-                left: -(sn + 1) * 1200
-            }, 500);
-        }
-        $(".main .slide").animate({
-            left: -sn * 1200
-        }, 500);
-        $(".main .page .num").text(sn + 1);
-
-    });
-}
-
-var sn = 0
-
-function bnr() {
-    sn++;
-    if (sn >= 3) {
-        $(".main .slide").animate({
-            left: sn * -1200
-        }, 500, function() {
-            $(this).css({
-                "left": 0
-            });
-        });
-        sn = 0;
-    } else {
-        $(".main .slide").animate({
-            left: sn * -1200
-        }, 500);
-    }
-    $(".main .page .num").text(sn + 1);
 }
 
