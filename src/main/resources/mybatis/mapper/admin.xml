@@ -154,7 +154,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
-
+	<select id="selectResDetail" parameterType="Long" resultType="Restaurant">
+		SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_OPTION, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO
+		  FROM RESTAURANT
+		 WHERE RES_NO = #{resNo}
+	</select>
 	
 	
 	

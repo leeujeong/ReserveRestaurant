@@ -36,5 +36,6 @@ public interface AdminRepository {
 	public int searchCountRes(String query);
 	public List<Restaurant> resListByAddress(Map<String, Object> map);
 
+	public Restaurant selectResDetail(Long resNo);
 	
 }

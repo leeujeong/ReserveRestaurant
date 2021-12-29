@@ -122,9 +122,7 @@
 		            </div>
 		        </div>
 	    	</c:forEach>
-	    	<div class="paging">
-            	<p class="paging_area">${paging}</p>
-        	</div>
+	    	<div class="paging_area">${paging}</div>
 	    </section>
     </c:if>
     <section id="bottom">

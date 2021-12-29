@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 
+import com.reserve.restaurant.domain.Restaurant;
+
 public interface AdminService {
 
 	public void findAllUser(Model model);  
@@ -13,7 +15,8 @@ public interface AdminService {
 	public void selectUserInfo(Model model);
 	public void selectOwnerInfoRes(Model model);
 	public void selectResList(HttpServletRequest request, Model model);
-	public void selectResDetail(Long resNo);
+	public void selectResDetail(Model model, Restaurant restaurant);
+
 
 
 

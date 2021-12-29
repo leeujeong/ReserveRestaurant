@@ -164,8 +164,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		int totalRecord = repository.selectFindRecordCountOwner(map);
 		
-		System.out.println("owner갯수:" + totalRecord);
-		
 		// 전달된 페이지 번호 (전달 안 되면 page = 1 사용)
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -180,8 +178,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		// 검색된 목록 중 beginRecord ~ endRecord 사이 목록 가져오기
 		List<String> list = repository.selectFindListOwner(map);
-
-		System.out.println("owenr리스트:" +list);
 		
 		// View(employee/list.jsp)로 보낼 데이터
 		model.addAttribute("ownerList", list);
@@ -238,34 +234,29 @@ public class AdminServiceImpl implements AdminService {
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("검색 전체 갯수 : " + totalRecord);
-		System.out.println("controller에서 넘어온 query : " + query);
-		System.out.println("beginRecord : " + pageUtils.getBeginRecord());
-		System.out.println("endRecord : " + pageUtils.getEndRecord());
 		map.put("query", query);
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		List<Restaurant> resList = repository.resListByAddress(map);
-		System.out.println("페이징 처리 된 list : " + resList);
 		model.addAttribute("resList", resList);
 		model.addAttribute("totalRecord", totalRecord);
-		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?&query=" + query));
+		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));
 
 		
 	}
 
 
 	@Override
-	public void selectResDetail(Long resNo) {
-
-		
-		
-		
+	public void selectResDetail(Model model, Restaurant restaurant) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		Long resNo = restaurant.getResNo();
+		Restaurant rest = repository.selectResDetail(resNo); 
+		System.out.println(resNo);
+		System.out.println(rest);
+		model.addAttribute("rest", rest);
 	}
 
 
-	
-	
 	
 	
 	
