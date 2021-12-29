@@ -16,5 +16,5 @@ public interface QnaRepository {
 	public int updateQnaHit(Qna qNo);
 	public int insertQna(Qna Qna);
 	public int updateQna(Qna Qna);
-	public int deleteQna(Long qNo);
+	public int deleteQna(Long qnaNo);
 }

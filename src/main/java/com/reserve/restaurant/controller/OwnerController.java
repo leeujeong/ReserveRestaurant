@@ -52,6 +52,7 @@ public class OwnerController {
 		return "owner/question";
 	}
 	
+	
 	//리뷰관리 페이지
 	@GetMapping(value="reviewPage")
 	public String reviewPage() {

@@ -286,4 +286,6 @@ select{
 	display:flex;
 	text-align:center;
 }
-
+.titletable{
+	width:45%;
+}

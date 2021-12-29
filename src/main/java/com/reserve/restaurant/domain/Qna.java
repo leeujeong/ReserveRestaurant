@@ -23,5 +23,6 @@ public class Qna {
 	private Long qnaHit;
 	private Date qnaDate;
 	private Date qnaLastModified;
+	private String comment;
 	private int state;
 }

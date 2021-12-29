@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateQna" parameterType="Qna">
 		UPDATE QNA
 		   SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
-		 WHERE QNA_NO = #{qNo}
+		 WHERE QNA_NO = #{qnaNo}
 	</update>
 	
 	<delete id="deleteQna" parameterType="Long">

@@ -50,7 +50,6 @@ public class QnaServiceImpl implements QnaService {
 		return repository.deleteQna(qnaNo);
 	}
 
-	
 	// 조회수 증가
 	@Override
 	public int updateQnaHit(Qna qnaNo) {
