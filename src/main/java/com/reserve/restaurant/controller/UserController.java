@@ -33,14 +33,6 @@ public class UserController {
 		return"/user/search";
 	}
 	
-<<<<<<< HEAD
-=======
-	@GetMapping(value = "search")
-	public String search() {
-		return"/user/search";
-	}
-	
->>>>>>> refs/heads/owner_yj
 	// 마이페이지
 	@GetMapping(value="myPage")
 	public String myPage() {
@@ -79,11 +71,7 @@ public class UserController {
 	}
 	
 	//이메일 중복체크
-<<<<<<< HEAD
 	@PostMapping(value= {"emailCheck", "findId"} , produces="application/json; charset=UTF-8")
-=======
-	@PostMapping(value= "emailCheck" , produces="application/json; charset=UTF-8")
->>>>>>> refs/heads/owner_yj
 	@ResponseBody
 	public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
 		return userService.findUserByEmail(email);
@@ -116,7 +104,6 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
-<<<<<<< HEAD
 	// 업데이트페이지 이동
 	@GetMapping(value="updateUser")
 	public String updateUser() {
@@ -168,21 +155,4 @@ public class UserController {
 		return "/user/detail";
 	}
 	
-	
-=======
->>>>>>> refs/heads/owner_yj
-
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-=======
-	@GetMapping(value="updateUser")
-	public String updateUser() {
-		return "/user/updateUser";
-	}
-
->>>>>>> refs/heads/owner_yj
 }

@@ -135,8 +135,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				restaurant.setResPath("");
 				restaurant.setResOrigin("");
 				restaurant.setResSaved("");
-<<<<<<< HEAD
-=======
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -233,7 +232,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 				restaurant.setResPath("");
 				restaurant.setResOrigin("");
 				restaurant.setResSaved("");
->>>>>>> refs/heads/owner_yj
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
