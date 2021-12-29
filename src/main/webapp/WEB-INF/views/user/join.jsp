@@ -13,201 +13,201 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
  <script type="text/javascript">
-   $(document).ready(function(){
-      fnIdCheck();
-      fnEmailCheck();
-      fnSendAuthCode();
-      fnPwCheck();
-      fnPw2Check();
-      fnJoin();
-      
-      
-      $('#owner_radio, #user_radio').click(function(event){
-         if(this.value == "user") {
-            
-            $("#form").attr("action", "/restaurant/user/insertUser");
-         } else if (this.value == "owner") {
-            $("#form").attr("action", "/restaurant/owner/insertOwner");
-         }
-      });
-      
-   });
-   
-   // 비밀번호 변경 변수와 함수
-   let pwPass = false;
-   function fnPwCheck() {
-      $('#pw').keyup(function() {
-         let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;
-         if ( regPw.test($(this).val()) == false ) {
-            $('#pw_result').text('비밀번호는 8~20자의 영문 대/소문자, 숫자, 특수문자 등 3종류 이상으로 조합해주세요.').addClass('no').removeClass('ok');
-            pwPass = false;
-         } else {
-            $('#pw_result').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('no');
-            pwPass = true;
-         }
-      });
-   }  // end fnPwCheck
-   
-   // 비밀번호 입력확인 변수와 함수
-   let pwPass2 = false;
-   function fnPw2Check(){
-      $('#pwCheck').keyup(function(){
-         if ($('#pw').val() != $(this).val()) {
-            $('#pw2_result').text('비밀번호를 확인하세요.').addClass('no').removeClass('ok');
-            pwPass2 = false;
-         } else {
-            $('#pw2_result').text('동일한 비밀번호입니다.').addClass('ok').removeClass('no');
-            pwPass2 = true;
-         }
-      });
-   }  // end fnPw2Check
-   // 아이디 중복체크 변수와 함수
-   let idPass = false;
-   function fnIdCheck() {
-      $('#id').keyup(function(){
-         
+	$(document).ready(function(){
+		fnIdCheck();
+		fnEmailCheck();
+		fnSendAuthCode();
+		fnPwCheck();
+		fnPw2Check();
+		fnJoin();
+		
+		
+		$('#owner_radio, #user_radio').click(function(event){
+			if(this.value == "user") {
+				
+				$("#form").attr("action", "/restaurant/user/insertUser");
+			} else if (this.value == "owner") {
+				$("#form").attr("action", "/restaurant/owner/insertOwner");
+			}
+		});
+		
+	});
+	
+	// 비밀번호 변경 변수와 함수
+	let pwPass = false;
+	function fnPwCheck() {
+		$('#pw').keyup(function() {
+			let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;
+			if ( regPw.test($(this).val()) == false ) {
+				$('#pw_result').text('비밀번호는 8~20자의 영문 대/소문자, 숫자, 특수문자 등 3종류 이상으로 조합해주세요.').addClass('no').removeClass('ok');
+				pwPass = false;
+			} else {
+				$('#pw_result').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('no');
+				pwPass = true;
+			}
+		});
+	}  // end fnPwCheck
+	
+	// 비밀번호 입력확인 변수와 함수
+	let pwPass2 = false;
+	function fnPw2Check(){
+		$('#pwCheck').keyup(function(){
+			if ($('#pw').val() != $(this).val()) {
+				$('#pw2_result').text('비밀번호를 확인하세요.').addClass('no').removeClass('ok');
+				pwPass2 = false;
+			} else {
+				$('#pw2_result').text('동일한 비밀번호입니다.').addClass('ok').removeClass('no');
+				pwPass2 = true;
+			}
+		});
+	}  // end fnPw2Check
+	// 아이디 중복체크 변수와 함수
+	let idPass = false;
+	function fnIdCheck() {
+		$('#id').keyup(function(){
+			
             let regId = /^[a-zA-Z0-9-_]{4,}$/;
-         if ( regId.test($(this).val()) == false ) {
-            $('#id_result').text('아이디는 대문자,숫자,특수문자 -,_ 사용해서 4자 이상 입력해주세요.').addClass('no').removeClass('ok');
-            idPass = false;
-            return;
-         }
-         
-         $.ajax({
-            url: '/restaurant/user/idCheck',
-            type: 'post',
-            data: 'id=' + $(this).val(),
-            dataType: 'json',
-            success: function(map){
-               if (map.result == null) {
-                  $('#id_result').text('사용 가능한 아이디입니다').addClass('ok').removeClass('no');
-                  idPass = true;
-               } else {
-                  $('#id_result').text('사용 중인 아이디입니다').addClass('no').removeClass('ok');
-                  idPass = false;
-               }
-            },
-            error: function(xhr){
-               $('#id_result').text(xhr.responseText).addClass('no').removeClass('no');
-               idPass = false;
-            }
-         });
-      });
-   }  // end fnIdCheck
-   
-   // 이메일 중복체크 변수와 함수
-   let emailPass = false;
-   function fnEmailCheck() {
-      $('#email').blur(function(){
-         let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
-         if ( regEmail.test($(this).val()) == false ) {
-            alert('이메일 형식을 확인하세요.');
-            emailPass = false;
-            return;
-         }
-         $.ajax({
-            url: '/restaurant/user/emailCheck',
-            type: 'post',
-            data: 'email=' + $(this).val(),
-            dataType: 'json',
-            success: function(map){
-               if (map.result == null) {
-                  alert('가입 가능한 이메일입니다. 인증번호받기를 클릭해서 이메일 인증을 진행해 주세요.');
-                  emailPass = true;
-               } else {
-                  alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
-                  emailPass = false;
-               }
-            },
-            error: function(){
-               alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
-               emailPass = false;
-            }
-         })
-      });
-   }  // end fnEmailCheck
-   
-   // 이메일 인증코드 전송함수
-   function fnSendAuthCode(){
-      $('#authCode_btn').click(function(){
-         if (emailPass == false) {
-            alert('이메일을 확인하세요.');
-            return;
-         }
-         $.ajax({
-            url: '/restaurant/user/sendAuthCode',
-            type: 'post',
-            data: 'email=' + $('#email').val(),
-            dataType: 'json',
-            success: function(map) {
-               alert('인증코드가 발송되었습니다.');
-               fnVerifyAuthCode(map.authCode);
-            },
-            error: function() {
-               alert('인증코드 전송 실패');
-            }
-         });
-      });
-   }  // end fnSendAuthCode
-   
-   
-   
-   // 회원가입 함수
-   function fnJoin() {
-      $('#form').submit(function(event){
-         if ( idPass == false ) {
-            alert('아이디를 확인하세요.');
-            event.preventDefault();
-            return false;
-         }
-         else if ( pwPass == false || pwPass2 == false ) {
-            alert('비밀번호를 확인하세요.');
-            event.preventDefault();
-            return false;
-         }
-         else if ( authCodePass == false ) {
-            alert('이메일 인증을 받아야 합니다.');
-            event.preventDefault();
-            return false;
-         }
-         return true;
-      });
-   }  // end fnJoin
-   
-   
-   
-   
-   // 인증코드 검증 변수와 함수
-   let authCodePass = false;
-   function fnVerifyAuthCode(authCode) {
-      $('#verify_btn').click(function(){
-         if ( $('#authCode').val() == authCode ) {
-            alert('인증되었습니다.');
-            authCodePass = true;
-         } else {
-            alert('인증에 실패했습니다.');
-            authCodePass = false;
-         }
-      });
-   }  // end fnVerifyAuthCode
-   
-   
-   
+			if ( regId.test($(this).val()) == false ) {
+				$('#id_result').text('아이디는 대문자,숫자,특수문자 -,_ 사용해서 4자 이상 입력해주세요.').addClass('no').removeClass('ok');
+				idPass = false;
+				return;
+			}
+			
+			$.ajax({
+				url: '/restaurant/user/idCheck',
+				type: 'post',
+				data: 'id=' + $(this).val(),
+				dataType: 'json',
+				success: function(map){
+					if (map.result == null) {
+						$('#id_result').text('사용 가능한 아이디입니다').addClass('ok').removeClass('no');
+						idPass = true;
+					} else {
+						$('#id_result').text('사용 중인 아이디입니다').addClass('no').removeClass('ok');
+						idPass = false;
+					}
+				},
+				error: function(xhr){
+					$('#id_result').text(xhr.responseText).addClass('no').removeClass('no');
+					idPass = false;
+				}
+			});
+		});
+	}  // end fnIdCheck
+	
+	// 이메일 중복체크 변수와 함수
+	let emailPass = false;
+	function fnEmailCheck() {
+		$('#email').blur(function(){
+			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+			if ( regEmail.test($(this).val()) == false ) {
+				alert('이메일 형식을 확인하세요.');
+				emailPass = false;
+				return;
+			}
+			$.ajax({
+				url: '/restaurant/user/emailCheck',
+				type: 'post',
+				data: 'email=' + $(this).val(),
+				dataType: 'json',
+				success: function(map){
+					if (map.result == null) {
+						alert('가입 가능한 이메일입니다. 인증번호받기를 클릭해서 이메일 인증을 진행해 주세요.');
+						emailPass = true;
+					} else {
+						alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
+						emailPass = false;
+					}
+				},
+				error: function(){
+					alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
+					emailPass = false;
+				}
+			})
+		});
+	}  // end fnEmailCheck
+	
+	// 이메일 인증코드 전송함수
+	function fnSendAuthCode(){
+		$('#authCode_btn').click(function(){
+			if (emailPass == false) {
+				alert('이메일을 확인하세요.');
+				return;
+			}
+			$.ajax({
+				url: '/restaurant/user/sendAuthCode',
+				type: 'post',
+				data: 'email=' + $('#email').val(),
+				dataType: 'json',
+				success: function(map) {
+					alert('인증코드가 발송되었습니다.');
+					fnVerifyAuthCode(map.authCode);
+				},
+				error: function() {
+					alert('인증코드 전송 실패');
+				}
+			});
+		});
+	}  // end fnSendAuthCode
+	
+	
+	
+	// 회원가입 함수
+	function fnJoin() {
+		$('#form').submit(function(event){
+			if ( idPass == false ) {
+				alert('아이디를 확인하세요.');
+				event.preventDefault();
+				return false;
+			}
+			else if ( pwPass == false || pwPass2 == false ) {
+				alert('비밀번호를 확인하세요.');
+				event.preventDefault();
+				return false;
+			}
+			else if ( authCodePass == false ) {
+				alert('이메일 인증을 받아야 합니다.');
+				event.preventDefault();
+				return false;
+			}
+			return true;
+		});
+	}  // end fnJoin
+	
+	
+	
+	
+	// 인증코드 검증 변수와 함수
+	let authCodePass = false;
+	function fnVerifyAuthCode(authCode) {
+		$('#verify_btn').click(function(){
+			if ( $('#authCode').val() == authCode ) {
+				alert('인증되었습니다.');
+				authCodePass = true;
+			} else {
+				alert('인증에 실패했습니다.');
+				authCodePass = false;
+			}
+		});
+	}  // end fnVerifyAuthCode
+	
+	
+	
 </script>
 
 <style>
-   .no{
-      color:red;
-   }
-   .ok{
-      color:green;
-   }
+	.no{
+		color:red;
+	}
+	.ok{
+		color:green;
+	}
 </style>
     
 </head>
 
 <body>
-      
+		
 <div id="root" class="root">
 <!-- 맨윗부분 -->
 <header class="shareit_header"> 
@@ -240,13 +240,13 @@
                <div class="title">회원가입</div>
                <p>🥑🧀&nbsp;&nbsp;파인드 테이블과 함께 해주셔서 감사합니다&nbsp;&nbsp;🥑🧀</p> 
          </div>
-          <form id="form" method="post" action="/restaurant/user/insertUser">
-          <div>
-             <label for="user">user</label>
-             <input type="radio" name="radio" id="user_radio" value="user" checked>
-             <label for="owner">owner</label>
-             <input type="radio" name="radio" id="owner_radio" value="owner">
-          </div>   
+       	<form id="form" method="post" action="/restaurant/user/insertUser">
+       	<div>
+       		<label for="user">user</label>
+       		<input type="radio" name="radio" id="user_radio" value="user" checked>
+       		<label for="owner">owner</label>
+       		<input type="radio" name="radio" id="owner_radio" value="owner">
+       	</div>	
          <div class="tblForm inputForm">
             <table>
                 <colgroup>
@@ -346,22 +346,7 @@
                             <input type="hidden" name="m_szEmail">
                             <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:200px;ime-mode:disabled;" title="이메일 아이디 입력">
                             <span class="dash">  </span>
-                            <!-- 
-                               <input type="text" class="inTxt rs-w45" id="userEmail" name="userEmail" onfocus="checkLen(this.value);" onblur="checkMail(this.value);" style="width:120px;ime-mode:disabled;" title="이메일 입력">
-                               <span class="selectboxWrap" style="width:180px">
-                            -->
-                           
-                            <!-- 
-                                <select class="select selectBg" id="userEmail" name="userEmail" onchange="chgEmail(this.value, this.selectedIndex);" style="width:120px;ime-mode:disabled;"  title="이메일 선택">
-                                    <option value="">직접입력</option>
-                                    
-                                        <option value="naver.com">naver.com</option>                
-                                    
-                                        <option value="daum.net">daum.net</option>    
-                                        <option value="google.com">google.com</option>    
-                                </select>
-                             -->
-                            </span>
+                      
                             <input type="button" value="인증번호받기" id="authCode_btn"  class="tbtns rs-mt5"><br>
                         </td>
                     </tr>
@@ -371,7 +356,6 @@
                             <input type="hidden" id="m_szCertYn" name="m_szCertYn">
                             <input type="text" class="inTxt rs-w100" id="authCode" name="authCode" style="width:180px;ime-mode:disabled;" title="이메일 인증확인 입력">
                             <input type="button" value="인증하기" id="verify_btn" class="tbtns rs-mt5"><br>
-                            <span id="expired" class="key"><span id="expMins">0</span>분 <span id="expSecs">0</span>초</span>
                             
                         </td>
                     </tr>                    

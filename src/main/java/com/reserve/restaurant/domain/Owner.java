@@ -23,4 +23,7 @@ public class Owner {
 	private String pw;
 	private String tel;
 	private int state;
+	
+	private Restaurant restaurant;
+	
 }

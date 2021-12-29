@@ -13,4 +13,8 @@ public interface UserRepository {
 	public User login(User user);
 	public User selectUserByNo(Long userNo);
 
+	public int updatePw(User user);
+	public int deleteUser(Long userNo);
+	public int updateUser(User user);
+
 }

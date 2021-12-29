@@ -27,7 +27,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
+	//검색페이지
 	@GetMapping(value = "search")
 	public String search() {
 		return"/user/search";
@@ -71,7 +71,7 @@ public class UserController {
 	}
 	
 	//이메일 중복체크
-	@PostMapping(value= "emailCheck" , produces="application/json; charset=UTF-8")
+	@PostMapping(value= {"emailCheck", "findId"} , produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
 		return userService.findUserByEmail(email);
@@ -92,8 +92,8 @@ public class UserController {
 	}
 
 	@PostMapping(value="login")
-	public String login(HttpServletRequest request) {
-		userService.login(request);
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		userService.login(request,response);
 		return "redirect:/";
 	}
 	// 로그아웃
@@ -104,10 +104,55 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
-
+	// 업데이트페이지 이동
 	@GetMapping(value="updateUser")
 	public String updateUser() {
 		return "/user/updateUser";
 	}
-
+	
+	//현재 비밀번호 체크
+	@PostMapping(value="presentPwCheck", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		return userService.presentPwCheck(request);
+	}
+	
+	//사용자 비밀번호 변경하기
+	@PostMapping(value="updatePw")
+	public void updatePw(User user, HttpServletResponse response) {
+		userService.updatePw(user,response);
+		
+	}
+	
+	//사용자 탈퇴하기
+	@PostMapping(value="leave")
+	public void leave(@RequestParam("userNo") Long userNo , HttpServletResponse response ,HttpSession session) {
+		userService.deleteUser(userNo, response, session);
+		
+	}
+	
+	//사용자 정보 수정
+	@PostMapping(value="updateUser")
+	public String updateUser(User user, HttpSession session) {
+		userService.updateUser(user, session);
+		return "redirect:/user/updateUser";
+	}
+	
+	//아이디 찾기 페이지
+	@GetMapping(value = "findIdPage")
+	public String findIdPage() {
+		return"/user/findId";
+	}
+	//비밀번호 찾기 페이지
+	@GetMapping(value = "findPwPage")
+	public String findPwPage() {
+		return"/user/findPw";
+	}
+	
+	
+	@GetMapping(value = "detail")
+	public String detail() {
+		return "/user/detail";
+	}
+	
 }

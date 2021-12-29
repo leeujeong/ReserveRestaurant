@@ -135,6 +135,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				restaurant.setResPath("");
 				restaurant.setResOrigin("");
 				restaurant.setResSaved("");
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,7 +236,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.addRestaurant(restaurant);
 		

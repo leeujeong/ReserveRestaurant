@@ -29,10 +29,12 @@
             	<c:if test="${empty list}">
     	        	<c:forEach var="owner" items="${ownerList}">
     	        		<tr>
-    	        			<td></td>
-    	        			<td>${owner}</td>
-    	        			<td></td>
-    	        			<td></td>
+    	        			<td>${owner.ownerNo}</td>
+    	        			<td>
+    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${owner.ownerNo}">${owner.id}</a>
+    	        			</td>
+    	        			<td>${owner.name}</td>
+    	        			<td>${owner.state}</td>
     	        		</tr>
     	        	</c:forEach>
     	        	<c:if test="${not empty paging}">
@@ -44,12 +46,14 @@
             		</c:if>
             	</c:if>
             	<c:if test="${empty ownerList}">
-            		<c:forEach var="user" items="${list}" varStatus="vs">
+            		<c:forEach var="user" items="${list}">
 	            		<tr>	        
 	            			<td>${user.userNo}</td>    		
-	            			<td>${user}</td>
-							<td></td>
-							<td></td>
+	            			<td>
+	            				<a href="/restaurant/admin/userDetailPage?userNo=${user.userNo}">${user.id}</a> 
+	            			</td>
+							<td>${user.name}</td>
+							<td>${user.state}</td>
 	            		</tr>
             		</c:forEach>
             		<c:if test="${not empty paging}">

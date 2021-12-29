@@ -73,6 +73,7 @@
 		                            <td>
 		                            	<input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                                <input type="text" name="s_name" id="s_name" placeholder="사업장 이름을 입력하세요">
+		                                <input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                            </td>
 		                        </tr>
 		                         <tr>

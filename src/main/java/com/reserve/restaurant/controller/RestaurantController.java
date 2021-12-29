@@ -23,7 +23,14 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
-
+	
+	
+	//하나만 선택 controller
+		@GetMapping(value="owner/selectList")
+		public String selectList(@RequestParam("resNo")Long resNo, Model model) {
+			model.addAttribute("restaurant", restaurantService.selectRestaurantByNo(resNo));
+			return "owner/detail";
+		}
 	
 	//등록 form
 	@PostMapping(value="owner/addRestaurant")

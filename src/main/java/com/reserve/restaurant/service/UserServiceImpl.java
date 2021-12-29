@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void login(HttpServletRequest request) {
+	public void login(HttpServletRequest request , HttpServletResponse response) {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User user = new User();
 		user.setId(request.getParameter("id"));
@@ -47,7 +48,22 @@ public class UserServiceImpl implements UserService {
 		System.out.println(loginUser);
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
-		}	
+		} 
+		
+		if(loginUser == null) {
+			try {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('아이디와 비밀번호를 다시 확인해주세요.')");
+					out.println("location.href='/restaurant/user/loginPage'");
+					out.println("</script>");
+					out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	
@@ -132,5 +148,53 @@ public class UserServiceImpl implements UserService {
 			map.put("authCode", authCode);
 			return map;
 	}
+	
+	
+	@Override
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		User user = repository.selectUserById(request.getParameter("id"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", SecurityUtils.sha256(request.getParameter("pw0")).equals(user.getPw()));
+		return map;
+	}
+	
+	@Override
+	public void updatePw(User user, HttpServletResponse response) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		user.setPw(SecurityUtils.sha256(user.getPw()));
+		int result = repository.updatePw(user);
+		message(result, response, "비밀번호가 수정되었습니다", "비밀번호 수정 실패", "/restaurant/user/updateUser");
+	}
+	
+	
+	@Override
+	public void deleteUser(Long userNo,HttpServletResponse response , HttpSession session) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		int result = repository.deleteUser(userNo);
+		
+		message(result, response, "사용자가 삭제 되었습니다.", " 사용자가 삭제되지 않았습니다.", "/restaurant");
+		if(result > 0 ) session.invalidate();
+	}
+	
+	@Override
+	public void updateUser(User user, HttpSession session) {
+		System.out.println(user);
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		user.setEmail(user.getEmail());
+		user.setTel(user.getTel());
+		
+		
+		repository.updateUser(user);
+		
+		User loginUser = (User)session.getAttribute("loginUser");
+		loginUser.setEmail(user.getEmail());
+		loginUser.setTel(user.getTel());
+		
+		
+		
+	}
+	
+	
 	
 }

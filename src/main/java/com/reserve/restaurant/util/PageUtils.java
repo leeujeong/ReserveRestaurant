@@ -25,7 +25,7 @@ public class PageUtils {
 		2block <  6  7  8  9  10  >  page=6~10,  beginPage=6,  endPage=10
 		3block <  11 12  >           page=11~15, beginPage=11, endPage=12 
 	**********************************************************************/
-	private int pagePerBlock = 3;     // 한 블록에 표시하는 페이지 갯수(여기서 정함)
+	private int pagePerBlock = 5;     // 한 블록에 표시하는 페이지 갯수(여기서 정함)
 	private int beginPage;            // 각 블록에 표시하는 시작 페이지 번호(page, pagePerBlock로 계산)
 	private int endPage;              // 각 블록에 표시하는 종료 페이지 번호(beginPage, pagePerBlock, totalPage로 계산) 
 	
@@ -101,6 +101,7 @@ public class PageUtils {
 			sb.append("▶▶");
 		} else {
 			sb.append("<a href=\"" + path + concat + "page=" + totalPage + "\">▶▶</a>");
+			// sb.append("<a href="findAllUser?column=id&query=1&page=2>▶▶</a>");
 		}
 		
 		return sb.toString();

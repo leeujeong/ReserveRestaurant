@@ -10,11 +10,6 @@ li {
     list-style: none;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
 img {
     vertical-align: top;
 }
@@ -200,3 +195,8 @@ thead {
 .radio>input {
     margin-left: 10px;
 }
+
+
+
+
+

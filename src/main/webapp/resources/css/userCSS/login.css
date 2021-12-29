@@ -8,6 +8,10 @@
    font-family: "Regular";
    font-weight: unset!important;
 }
+li{
+	list-style-type: none;
+	list-style: none;
+}
 
 .wrap {
    position: relative;
@@ -28,7 +32,7 @@ body {
    background-color: rgb(248, 248, 248);
 }
 
-/* ¸ÇÀ§ header ºÎºÐ css */
+/* ï¿½ï¿½ï¿½ï¿½ header ï¿½Îºï¿½ css */
 
 .shareit_header div {
    display: flex;
@@ -39,14 +43,14 @@ body {
    margin-left: auto;
    margin-right: auto;
 }
-.header-logo1 {  /* ½¦¾îÀÕ ¹Ù·Î°¡±â ·Î°í */
+.header-logo1 {  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·Î°ï¿½ï¿½ï¿½ ï¿½Î°ï¿½ */
    margin-left: 39px;
    padding-left: 25px;
    color: rgb(103, 114, 148);
    font-size: 17px;
    font-family: Medium, sans-serif;
    letter-spacing: -0.43px;
-   background: url(/LoginHostUpdate/image/½¦¾îÀÕ¹Ù·Î°¡±âlogo.svg) 0px 2px no-repeat;
+   background: url(/LoginHostUpdate/image/ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ù·Î°ï¿½ï¿½ï¿½logo.svg) 0px 2px no-repeat;
 }
 a, a:hover {
    text-decoration: none;
@@ -82,7 +86,7 @@ main {
    border-radius: 10px;
 }
 
-/* ·Î±×ÀÎ ºÎºÐ */
+/* ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Îºï¿½ */
 main {
    display: block;
 }
@@ -102,7 +106,7 @@ main {
    font-weight: unset!important;
 }
 
-/* ·Î±×ÀÎ ±Û²Ã */
+/* ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Û²ï¿½ */
 .welcomelogin {
    margin-top: 56px;
    margin-bottom: 108px;
@@ -152,7 +156,7 @@ p {
    margin-inline-end: 0px;
 }
 
-/* ¾ÆÀÌµð / ÆÐ½º¿öµå */
+/* ï¿½ï¿½ï¿½Ìµï¿½ / ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 span {
    margin: 0;
    padding: 0;
@@ -215,7 +219,7 @@ a {
    color: #000;
 }
 
-/* ·Î±×ÀÎ ¹öÆ° */
+/* ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° */
 form #LoginEn {
    display: block;
    margin-bottom: 100px;
@@ -281,16 +285,14 @@ form #LoginEn {
    overflow: hidden;
    display: block;
 }
-/*Ä«Ä«¿À*/
+/*Ä«Ä«ï¿½ï¿½*/
 .social-logins.social-logins-o a:before {
    position: absolute;
    top: 70%;
    left: 70%;
    transform: translate(-50%,-50%);
 }
-.social-logins a.kakao:before {
-   background-image: url(/LoginHostUpdate/image/kakao.svg);
-}
+
 .social-logins a:before {
    background: 50% 50% no-repeat;
    background-size: contain;
@@ -300,7 +302,7 @@ form #LoginEn {
    margin: 0 auto 8px;
    content: "";
 }
-/*³×ÀÌ¹ö*/
+/*ï¿½ï¿½ï¿½Ì¹ï¿½*/
 .social-logins.social-logins-o a {
    flex: 0 0 80px;
    margin: 0 auto;
@@ -310,7 +312,7 @@ form #LoginEn {
    position: relative;
 }
 .social-logins a.naver:before {
-   background-image: url(/LoginHostUpdate/image/³×ÀÌ¹ö.svg);
+   background-image: url(/restaurant/resources/image/join/naver.svg);
 }
 .social-logins a:before {
    background: 50% 50% no-repeat;
@@ -321,16 +323,14 @@ form #LoginEn {
    margin: 0 auto 8px;
    content: "";
 }
-/*±¸±Û*/
+/*ï¿½ï¿½ï¿½ï¿½*/
 .social-logins.social-logins-o a:before {
    position: absolute;
    top: 50%;
    left: 50%;
    transform: translate(-50%,-50%);
 }
-.social-logins a.google:before {
-   background-image: url(/LoginHostUpdate/image/±¸±Ûsvg.png);
-}
+
 .social-logins a:before {
    background: 50% 50% no-repeat;
    background-size: contain;
@@ -349,3 +349,4 @@ form #LoginEn {
    text-align: center;
 }
 
+ 

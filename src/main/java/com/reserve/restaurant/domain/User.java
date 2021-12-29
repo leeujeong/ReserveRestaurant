@@ -28,5 +28,5 @@ public class User {
 	private int state;
 	private int point;
 	private String email;
-	
+
 }

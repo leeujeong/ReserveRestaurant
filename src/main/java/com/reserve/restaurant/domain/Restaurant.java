@@ -30,4 +30,5 @@ public class Restaurant {
 	public String resSaved;
 	public String resPath;
 	public Long ownerNo;
+
 }
