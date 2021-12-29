@@ -1,13 +1,11 @@
 package com.reserve.restaurant.service;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +53,11 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPageEntity("findAllUser"));
+		if (totalRecord == 0) {
+			model.addAttribute("paging", null);
+		} else {
+			model.addAttribute("paging", pageUtils.getPageEntity("findAllUser"));			
+		}
 	}
 	
 	@Override
@@ -79,10 +81,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		List<Owner> list = repository.selectOwnerList(map);
 		
+		System.out.println("allFindOwner에서 list : " + list);
+		
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("ownerList", list);
 		model.addAttribute("startNum", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPageEntity("findAllOwner"));
+		if (totalRecord == 0) {
+			model.addAttribute("paging", 0);
+		} else {
+			model.addAttribute("paging", pageUtils.getPageEntity("findAllOwner"));			
+		}
 	}
 	
 	@Override
@@ -227,21 +235,10 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 검색페이지(페이징)
 	@Override
-	public void selectResList(HttpServletRequest request, Model model, HttpServletResponse response) {
+	public void selectResList(HttpServletRequest request, Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		if (request.getParameter("query") == "") {
-			try {
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("<alert('검색어를 입력해주세요!'>");
-				out.println("history.back();");
-				out.println("</script>");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		String query = request.getParameter("query");
-		int totalRecord = repository.searchCountRes(query);
+		int totalRecord = repository.searchCountRes(query);	
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		PageUtils pageUtils = new PageUtils();
@@ -253,7 +250,7 @@ public class AdminServiceImpl implements AdminService {
 		List<Restaurant> resList = repository.resListByAddress(map);
 		model.addAttribute("resList", resList);
 		model.addAttribute("totalRecord", totalRecord);
-		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));
+		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));			
 
 		
 	}

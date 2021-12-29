@@ -19,6 +19,7 @@
 		fnFindAllOwner();
 	})
 	
+	
 	// 모든 회원 전체 검색
 	function fnFindAllUser() {
 		$('#all_user_search').click(function() {

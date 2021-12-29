@@ -187,7 +187,6 @@ function fnFindPw(){
 					
 			</form>
 			</div>
-				<div id="search_result"></div>
 				<p class="loginBottom">더 많은 서비스를 누려보세요!&nbsp;&nbsp;&nbsp;<a href="/restaurant/user/loginPage">로그인하러가기</a></p> 
 				
 	      	</main>	
