@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectFindRecordCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
-		 WHERE 1 = 1
+		 WHERE 1 = 1 AND STATE = 1
 		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 		       <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 		       <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
 		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
-	  			  		 WHERE 1 = 1
+	  			  		 WHERE 1 = 1 AND STATE = 1
 	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
 	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
@@ -117,16 +117,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectUserInfo" parameterType="Long" resultType="User">
-		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, DATE, HBD, STATE, POINT, EMAIL
+		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		  FROM USERTABLE
 		 WHERE USER_NO = #{userNo}
 	</select>
 	
-	<select id="selectOwnerInfoRes" parameterType="Long" resultMap="OwnerMap">
-		SELECT O.OWNER_NO, O.ID, O.PW, O.EMAIL, O.NAME, O.TEL, R.RES_NAME, R.RES_ADDRESS, R.RES_ADDRESS_DETAIL, R.RES_OPEN_TIME, R.RES_CLOSE_TIME, R.RES_TEL, R.RES_OPTION
- 	      FROM OWNER O, RESTAURANT R
- 		 WHERE O.OWNER_NO = R.OWNER_NO
-           AND O.OWNER_NO = #{ownerNo}
+	<select id="selectOwnerInfo" parameterType="Long" resultType="Owner">
+		SELECT OWNER_NO, ID, NAME, EMAIL, TEL
+		  FROM OWNER
+		 WHERE OWNER_NO = #{owner_no}
 	</select>
+	
+	<select id="selectOwnerInfoRes" parameterType="Long" resultType="Restaurant">
+		SELECT RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+		  FROM RESTAURANT
+		 WHERE OWNER_NO = #{owner_no}
+	</select>
+
+	<select id="searchCountRes" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM RESTAURANT
+		 WHERE RES_ADDRESS LIKE '%' || TRIM(#{query}) || '%'
+		    OR RES_ADDRESS_DETAIL LIKE '%' || TRIM(#{query}) || '%'
+		    OR RES_NAME LIKE '%' || TRIM(#{query}) || '%'
+	</select>
+
+	
+	<select id="resListByAddress" parameterType="Map" resultType="Restaurant">
+		 SELECT B.RES_NO, B.RES_NAME, B.RES_ADDRESS, B.RES_ADDRESS_DETAIL, B.RES_OPEN_TIME, B.RES_CLOSE_TIME, B.RES_TEL, B.RES_OPTION
+		   FROM (SELECT ROWNUM AS RN, A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_OPTION
+		           FROM (SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_OPTION
+		           		   FROM RESTAURANT
+		  		   		  WHERE RES_ADDRESS LIKE '%' || TRIM(#{query}) || '%'
+		     		  	     OR RES_ADDRESS_DETAIL LIKE '%' || TRIM(#{query}) || '%'
+		     		  		 OR RES_NAME LIKE '%' || TRIM(#{query}) || '%') A) B
+		  WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<select id="selectResDetail" parameterType="Long" resultType="Restaurant">
+		SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_OPTION, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO
+		  FROM RESTAURANT
+		 WHERE RES_NO = #{resNo}
+	</select>
+	
+	
+	
+	
 	
 </mapper>

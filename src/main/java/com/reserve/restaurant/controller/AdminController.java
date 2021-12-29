@@ -1,6 +1,7 @@
 package com.reserve.restaurant.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
 
 @Controller
@@ -43,20 +45,12 @@ public class AdminController {
 	
 	@GetMapping(value="findUser")
 	public String findUser(HttpServletRequest request, Model model) {		
-		
-		System.out.println("타입:" + request.getParameter("radio"));
-		System.out.println("칼럼:" + request.getParameter("column"));
-		System.out.println("쿼리:" + request.getParameter("query"));
-		
 		String type = request.getParameter("radio");
-		
 		if (type.contains("user")) {
-			System.out.println("service user로");
 			model.addAttribute("request", request);
 			service.findUser(model);
 			return "admin/adminUser";
 		} else if (type.contains("owner")) {
-			System.out.println("service owner로");
 			model.addAttribute("request", request);
 			service.findOwner(model);
 			return "admin/adminUser";
@@ -79,6 +73,25 @@ public class AdminController {
 		return "admin/ownerDetailPage";
 	}
 	
+	// 검색 페이지로 이동
+	@GetMapping(value="searchPage")
+	public String searchPage() {
+		return "admin/searchPage";
+	}
+	
+	// 검색 AND 페이징
+	@GetMapping(value="searchRestaurant")
+	public String searchRestaurant(HttpServletRequest request, Model model, HttpServletResponse response) {
+		service.selectResList(request, model,response);
+		return "admin/searchPage";
+	}
+	
+	// 검색된리스트에서 restaurant detail로 이동
+	@GetMapping(value="goResDetail")
+	public String goResDetail(Model model, Restaurant restaurant) {
+		service.selectResDetail(model, restaurant);
+		return "user/detail";
+	}
 	
 	
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.reserve.restaurant.domain.Owner;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
 
 @Repository
@@ -28,7 +29,13 @@ public interface AdminRepository {
 	public List<String> selectFindListOwner(Map<String, Object> map); 
 	
 	public User selectUserInfo(Long userNo);
+	public Owner selectOwnerInfo(Long ownerNo);
 	
-	public List<Owner> selectOwnerInfoRes(Long ownerNo);
+	public List<Restaurant> selectOwnerInfoRes(Long ownerNo);
+	
+	public int searchCountRes(String query);
+	public List<Restaurant> resListByAddress(Map<String, Object> map);
+
+	public Restaurant selectResDetail(Long resNo);
 	
 }

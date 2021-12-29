@@ -38,7 +38,7 @@
             </h1>
             <ul id="gnb">
             
-            	<li><a href="/restaurant/user/search"><i class="fas fa-search fa-lg"></i></a></li> 
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
@@ -312,6 +312,5 @@
             </div>
         </div>
     </section>
-	
 </body>
 </html>
