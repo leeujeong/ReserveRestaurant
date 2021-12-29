@@ -28,7 +28,6 @@
             </ul>
         </div>
     </header>
-
     <div class="container">
         <div class="row">
             <div class="col-4">
@@ -58,22 +57,63 @@
                     <h4 class="ing_title">문의 내용</h4>
                 </div>
                 <hr>
-                  <div class="containers">
-                    <div class="row">
+                   <div class="containers">
+                  
                    
-                      <div class="col-sm-9">
-                        <div class="row">
-                          <div class="col-8 col-sm-6">
-                          
-                         
+                     <div class="col-sm-9">
+                        
+                           
+                    
+                           <form id="qnaform" method="POST"> 
+                              <table class="qnatable">
+                                 <tbody>
+                                    <tr>
+                                       <td>작성자</td>
+                                       <td><input type="text" value="${qna.qnaWriter}" id="wirter" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>제목</td>
+                                       <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td>작성일</td>
+                                        <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>문의 내용</td>
+                                       <td><textarea rows="20" cols="70" readonly>${qna.qnaContent}</textarea></td>
+                                    </tr>
+                                 <!--    <tr>
+                                       <td>댓글달기 : </td>
+                                       <td><textarea rows="3" cols="50" >댓글을 남겨보세요</textarea>
+                                        <input type="submit" value="댓글달기" id="update_btn">
+                                    </td>
+                                    </tr> -->
+                                 </tbody>
+                              </table>
+                             	<div class="comment">
+                             		<div class="commenttitle">댓글달기</div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             	</div>
+                           </form>
+                              
+                        
+                        <div class="bottombtn">
+                           <input type="button" value="목록보기" id="list_btn">
+                           <input type="reset" value="삭제하기" id="reset_btn">
                         </div>
-                      </div>
                     </div>
-                  </div>
-                 </div>
+                  </div> 
             </div>    
         </div> 
     </div>
+    <script>
+
+       $('#update_btn').click(function(){
+         alert('댓글이 달렸습니다.');
+       });
+    </script>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

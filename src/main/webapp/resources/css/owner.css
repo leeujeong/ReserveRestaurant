@@ -131,7 +131,8 @@ textarea{
 }
 .col-sm-9 {
     flex: 0 0 auto;
-    width: 70%;
+    width: 100%;
+
 }
 #update_btn, #delete_btn, #update_menu{
     width: 100px;
@@ -243,10 +244,46 @@ select{
 	text-align:center;
 	padding-top: 15px;
 }
+.qnatable{
+	width:100%	
+}
 .question_table td{
 	text-align:center;
 }
 .question_table td:first-child{
+	width:20%;
+}
+.qnatable td:first-child.{
 	width:100px;
+}
+.qnatable input, .qnatable textarea{
+	border: none;
+	outline: none;
+}
+.qnatable td{
+	border-bottom:0.5px solid silver;
+}
+.comment{
+	display: flex;
+	margin: 10px;
+	flex-flow:row nowrap;
+	justify-content:space-between;
+	text-align:center;
+}
+.commenttitle{
+	font-size:14px;
+	width:100px;
+	height:30px;
+	margin: 20px 0 0 0;
+	padding:10px;
+}
+.content_btn{
+	width:30px;
+	background-color: silver;
+	padding:10px
+}
+.bottombtn{
+	display:flex;
+	text-align:center;
 }
 

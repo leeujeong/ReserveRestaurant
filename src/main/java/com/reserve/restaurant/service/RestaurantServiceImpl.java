@@ -155,7 +155,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
 			menu.setResNo(restaurant.resNo);
-			menu_list.add(menu);
+			menu_list.add(menu);	
 		}
 		
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
