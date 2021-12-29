@@ -31,18 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="OWNER_NO" property="ownerNo" />
 	</resultMap>
 
-
-
-
-
-
-
-
-
-
-
-
-
 	<select id="countUser" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
