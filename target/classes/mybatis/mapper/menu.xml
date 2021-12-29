@@ -17,12 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 메뉴추가 -->
 	<insert id="addMenu" parameterType="Menu">
-    	INSERT into menu (menu_no, menu, price, restaurant_res_no)
+    	INSERT into menu (menu_no, menu_name, menu_price, res_no)
 	    SELECT menu_no_seq.NEXTVAL, A.* FROM(
 	    <foreach item="item" collection="list" separator="UNION ALL" >
-	        select #{item.menu} as menu,
-	        #{item.price} as price,
-	        #{item.restaurant_res_no} as res_no
+	        select #{item.menuName} as menu,
+	        #{item.menuPrice} as price,
+	        #{item.resNo} as res_no
 	        from dual
 	    </foreach>) A
 	</insert>

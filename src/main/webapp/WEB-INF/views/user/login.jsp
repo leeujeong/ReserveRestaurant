@@ -31,16 +31,10 @@ li{
   
   	margin:  0 40px;
   }
-  
-
-
-
-
-
-
 </style>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		fnLogin();
  		console.log("document ready");
  		console.log($("#user_radio"));
  		$("#user_radio, #owner_radio").click(function(event){
@@ -52,6 +46,19 @@ li{
 			}
 		});
  	});
+ 	
+	function fnLogin(){
+		$('#loginForm').submit(function(event){
+			let regId = /^[a-zA-Z0-9-_]{4,}$/;  
+			let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;  
+			if ( regId.test($('#id').val())  == false || regPw.test($('#pw').val())  == false ) {
+				alert('아이디와 비밀번호를 형식을 확인하세요.');
+				event.preventDefault();
+				return false;
+			} 
+			
+		});
+	}
  </script>
 
 </head>
@@ -105,7 +112,7 @@ li{
                      <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요"></label>
       
                      <div class="FindIdPw">
-                        <a href="아이디 비밀번호 찾기 창으로 이동">아이디/비밀번호 찾기</a>
+                        <a href="/restaurant/user/findIdPage">아이디<a>/<a href="/restaurant/user/findPwPage">비밀번호 찾기</a>
                      </div>
                      <button type="submit" class="LoginEnter" id="LoginEn" >로그인</button>  
                </form>
