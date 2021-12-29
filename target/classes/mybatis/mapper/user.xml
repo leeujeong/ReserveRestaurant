@@ -37,4 +37,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE ID = #{id} AND PW = #{pw}
 	</select>
 	
+	
+	<update id="updatePw" parameterType="User">
+		UPDATE USERTABLE
+		   SET PW = #{pw}
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="deleteUser" parameterType="Long">
+	DELETE 
+	  FROM USERTABLE
+	 WHERE USER_NO = #{userNo}
+	</update>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE USERTABLE
+		   SET TEL = #{tel}
+		     , EMAIL = #{email}
+		 WHERE USER_NO = #{userNo}
+	</update>
+	
+	
+	
+	
 </mapper>
