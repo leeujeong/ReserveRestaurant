@@ -291,6 +291,16 @@ ul:after,
      font-size: 13px;
  }
  
+  .rest_address {
+  	width: 300px;
+    border: none;
+ }
+ 
+ .rest_address:focus {
+     outline: none;
+ }
+ 
+/*
  #address {
      position: absolute;
      top: 0;
@@ -301,6 +311,7 @@ ul:after,
      padding: 0;
      border: 0;
  }
+ */
  
  .search_comment {
      width: 1000px;

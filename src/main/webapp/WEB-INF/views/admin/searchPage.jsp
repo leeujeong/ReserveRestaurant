@@ -105,18 +105,20 @@
 	    	<c:forEach var="restaurant" items="${resList}">
 		        <div class="rest_info">
 		            <div>
-		                <img src="/이미지/식당사진/중식집2/c0118280_50a2660a59dfb.jpeg" class="rest_img">
+		                <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}">
 		            </div>
 		            <div>
 		                <span class="rest_name">
 		                	<a href="/restaurant/admin/goResDetail?resNo=${restaurant.resNo}">${restaurant.resName}</a>
 		                </span>
 		                <span class="rest_time">${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</span><br>
-		                <p class="rest_address">${restaurant.resAddress}&nbsp;${restaurant.resAddressDetail}</p>
-		                <input id="address" value="${restaurant.resAddress}&nbsp;${restaurant.resAddressDetail}" readonly>
+		                <!-- <p class="rest_address" id="address">${restaurant.resAddress}&nbsp;${restaurant.resAddressDetail}</p>  -->
+		                <input type="text" id="address" class="rest_address" value="${restaurant.resAddress} ${restaurant.resAddressDetail}" readonly>
+		                <!-- 
 		                <button class="copy_address">
 		                    <i class="far fa-copy"></i>복사
 		                </button>
+		                 -->
 		                <p class="rest_tel">${restaurant.resTel}</p>
 		                <p class="rest_option">${restaurant.resOption}</p>
 		            </div>

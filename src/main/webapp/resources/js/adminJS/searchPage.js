@@ -9,8 +9,8 @@ $(document).ready(function() {
 function fnCopyAddress() {
         $('.copy_address').click(
             function() {
-                var inputbox = document.getElementById('address');
-                inputbox.select();
+                var addressBox = document.getElementById('address');
+                addressBox.select();
                 document.execCommand('Copy');
                 alert('주소가 복사 되었습니다.');
             }
