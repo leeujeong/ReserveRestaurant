@@ -71,7 +71,7 @@
 	    	        	<c:if test="${not empty paging}">
 		            		<tfoot>
 				                <tr>
-				                    <td colspan="4">${paging}</td>
+				                    <td colspan="4" class="paging_row">${paging}</td>
 				                </tr>
 		            		</tfoot>
 	            		</c:if>    	        	
@@ -118,25 +118,16 @@
    	        			<td>${list[4].name}</td>
    	        			<td>${list[4].state}</td>
    	        		</tr>
-    	        	<c:if test="${empty list}">
+    	        	<c:if test="${empty ownerList}">
 	    	        	<c:if test="${not empty paging}">
 		            		<tfoot>
 				                <tr>
-				                    <td colspan="4">${paging}</td>
+				                    <td colspan="4" class="paging_row">${paging}</td>
 				                </tr>
 		            		</tfoot>
 	            		</c:if>    	        	
     	        	</c:if>
             	</c:if>
-           		<c:if test="${empty ownerList}">
-            		<c:if test="${not empty paging}">
-	            		<tfoot>
-			                <tr>
-			                    <td colspan="4">${paging}</td>
-			                </tr>
-	            		</tfoot>
-            		</c:if>            		
-           		</c:if>
             </tbody>
         </table>
     </section>
