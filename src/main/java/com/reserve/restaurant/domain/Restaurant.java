@@ -1,5 +1,6 @@
 package com.reserve.restaurant.domain;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,5 +30,8 @@ public class Restaurant {
 	public String resSaved;
 	public String resPath;
 	public Long ownerNo;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> refs/heads/owner_yj
 }

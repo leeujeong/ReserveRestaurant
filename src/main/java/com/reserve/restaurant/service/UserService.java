@@ -1,3 +1,5 @@
+
+   
 package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
@@ -18,6 +20,7 @@ public interface UserService {
 	public void login(HttpServletRequest request ,HttpServletResponse response);
 	public Map<String, Object> emailCheck(String email);
 	public User selectUserByNo(Long userNo);
+<<<<<<< HEAD
 	public Map<String, Object> presentPwCheck(HttpServletRequest request);
 	public void updatePw(User user, HttpServletResponse response);
 	public void deleteUser(Long userNo , HttpServletResponse response , HttpSession session);
@@ -49,3 +52,6 @@ public interface UserService {
 		}
 	}
 }
+=======
+}
+>>>>>>> refs/heads/owner_yj

@@ -479,7 +479,9 @@ CREATE TABLE notice (
 
     notice_date  		DATE,
 
-    notice_lastmodified 	DATE
+    notice_lastmodified 	DATE,
+
+    s
 
 );
 

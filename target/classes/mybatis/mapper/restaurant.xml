@@ -6,15 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 전체 목록 -->
 	<select id="selectMyRestaurantList" parameterType="Map" resultType="Restaurant">
-		<!-- SELECT *
-		FROM restaurant r, owner o
-		WHERE r.owner_o_no = o.o_no
-		AND o.o_id = #{o_id} -->
 		SELECT B.*
 		FROM (SELECT ROWNUM AS rn, A.*
 		          FROM (SELECT r.*
 		                  FROM restaurant r, owner o
-		                 WHERE r.owner_o_no = o.o_no AND o.o_id = #{id}
+		                 WHERE r.owner_no = o.owner_no 
+		                   AND o.id = #{id}
 		                 ORDER BY r.res_no) A) B
 		WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
@@ -23,18 +20,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectTotalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM restaurant r, owner o
-		 WHERE r.owner_o_no = o.o_no
-		   AND o.o_id = #{id}
+		 WHERE r.owner_no = o.owner_no
+		   AND o.id = #{id}
 	</select>
-	
-<!-- 	
-	<select id="selectRestaurantByNo" parameterType="Long" resultType="Restaurant">
+
+	<!-- 식당 하나조회 -->
+	<select id="selectList" parameterType="Long" resultType="Restaurant">
 		SELECT *
 		  FROM restaurant
 		 WHERE res_no = #{resNo}
+<<<<<<< HEAD
 	</select>  -->
 	
 	
+=======
+	</select>
+
+	<!-- 식당추가 -->
+>>>>>>> refs/heads/owner_yj
 	<insert id="addRestaurant" parameterType="Restaurant"> 
 		INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, res_origin, res_saved, res_path, owner_no)
 		VALUES (res_no_seq.nextval, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{resOrigin}, #{resSaved}, #{resPath}, #{ownerNo})
@@ -44,30 +47,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	</selectKey>
 	</insert>
 	
-	
-	
-	
-	
-	
-<!-- 	
-	
-	
-	<update id="modifyRestaurant" parameterType="Restaurant">
+	<!-- 음식점 수정 -->
+ 	<update id="modifyRestaurant" parameterType="Restaurant">
 		UPDATE restaurant
 		   SET res_name = #{resName},
-		   	   address = #{address}, 
-		   	   address_detail = #{addressDetail}
-		   	   open_time = #{resOpenTime},
-		   	   close_time = #{resCloseTime},
-		   	   tel = #{resTel},
-		   	   content = #{resContent},
-		   	   origin = #{origin},
-		   	   saved = #{saved},
-		   	   path = #{path}
+		   	   res_address = #{resAddress}, 
+		   	   res_address_detail = #{resAddressDetail}
+		   	   res_open_time = #{resOpenTime},
+		   	   res_close_time = #{resCloseTime},
+		   	   res_tel = #{resTel},
+		   	   res_content = #{resContent},
+		   	   res_origin = #{resOrigin},
+		   	   res_saved = #{resSaved},
+		   	   res_path = #{resPath}
+		 WHERE res_no = #{resNo}
 	</update>
 	
-	<delete id ="removeRestaurant" parameterType="Long">
-		
-	</delete> -->
+	<!-- 음식점 삭제 -->
+	<delete id="deleteRestaurant" parameterType="Long">
+		DELETE
+			  FROM restaurant
+			 WHERE res_no = #{resNo}
+	</delete>
+	
+	
+
 	
 </mapper>

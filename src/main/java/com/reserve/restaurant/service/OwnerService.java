@@ -1,7 +1,6 @@
 package com.reserve.restaurant.service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 
 public interface OwnerService {

@@ -13,6 +13,35 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	$(document).ready(function(){
+	    //삭제
+	    $('#delete_btn').on('click',function(){
+	        if(confirm('${restautant.resName} 을 삭제할까요?')){
+	            alert(+' 을 삭제했습니다.');
+	            $('#f2').attr('action', 'deleteRestaurant');
+	            $('#f2').submit();
+	        }
+	    });
+	
+	
+	    //회원정보 수정 함수 
+		$('#update_btn').on('click', function(){
+			if($('#s_name').val() == '${restaurant.resName}'&&
+				$('#tel').val() == '${restaurant.resTel}' &&
+				$('#address_kakao').val() == '${restaurant.resAddressDetail}' &&
+				$('#content').val() == '${resContent}'){
+					alert('수정할 내용이 없습니다.');
+					return;
+				}
+			alert('수정했습니다');
+			$('#f2').attr('action','modifyRestaurant').submit();	
+		});
+	});
+	
+	
+	</script>
 </head>
 <body>
     <header>
@@ -23,8 +52,8 @@
                 </a>
             </h1>
             <ul id="gnb">
-            	<li><a href="로그아웃">LOGOUT</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+            	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -65,17 +94,18 @@
                                <tr>
                                    <td>사업장 이름</td>
                                    <td>
-                                       <input type="text" name="s_name" id="s_name" value="${resName}">
+                                   		<input type="hidden" name="resNo" id="resNo" value="${restaurant.resNo}">
+                                       	<input type="text" name="s_name" id="s_name" value="${restaurant.resName}">
                                    </td>
                                </tr>
                                <tr>
                                    <td>운영시간</td>
                                    <td>
                                        <select name="open_time" id="open_time">
-                                           <option value="${restaurant.openTime}">${restaurant.openTime}</option>
+                                           <option value="${restaurant.resOpenTime}">${restaurant.resOpenTime}</option>
                                        </select> ~
                                        <select name="close_time" id="close_time">
-                                           <option value="${restaurant.closeTime}">${restaurant.closeTime}</option>
+                                           <option value="${restaurant.resCloseTime}">${restaurant.resCloseTime}</option>
                                            
                                        </select>
                                    </td>
@@ -83,15 +113,32 @@
                                <tr>
                                    <td>전화번호</td>
                                    <td>
-                                       <input type="text" name="tel" id="tel" placeholder="기존 전화번호">
+                                       <input type="text" name="tel" id="tel" value="${restaurant.resTel}">
                                    </td>
                                </tr>
                                <tr>
-                                   <!--다중사진 등록가능-->
+                                    <td> 식당위치</td>
+                                    <td>
+	                                    <div class="address_box">
+	                                    	<label class="address">주소</label>
+	                                       <input type="text" id="address_kakao" name="address" value="${restaurant.resAddress}" readonly />
+	                                    </div>
+	                                    <div class="address_box">
+	                                   		<label>상세주소</label>
+                                       		<input type="text" name="address_detail" value="${restaurant.resAddressDetail}"/>
+	                                    </div>
+                                    </td>
+                                </tr>
+                               <tr>
                                    <td>사진 등록</td>
                                    <td>
                                        <input type="file" name="s_file" id="s_file" multiple>
-                                       <div id="upload_result"></div>
+                                       <div id="upload_result">
+	                                       <c:if test="${not empty restaurant.resOrigin}">
+		                                       <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}">
+		                                       
+	                                       </c:if>
+                                       </div>
                                    </td>
                                </tr>
                                <tr>
@@ -128,7 +175,7 @@
                                 </tr>
                                 <tr>
                                     <td>상세 설명</td>
-                                    <td><textarea rows="5" cols="44" id="content">${restaurant.content}</textarea></td>
+                                    <td><textarea rows="5" cols="44" id="content">${restaurant.resContent}</textarea></td>
                                 </tr>
                             </tbody>
                             <tfoot>

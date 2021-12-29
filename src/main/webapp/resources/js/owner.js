@@ -29,12 +29,6 @@ $('document').ready(function(){
     }
     });
     
-    //썸네일
-    // $('#upload_result').empty();
-    // $.each(map.thumnails, function(i,thumbnail){
-    //     ('#upload_result')
-    //     .append($('<div>').html($('<img>').attr('src','/reserve/' + map.path + '/' + thumbnail))
-    // });
     
     
     //가게 주소등록
@@ -59,7 +53,7 @@ $('document').ready(function(){
     //let num = 1;
     document.querySelector(".plus_btn").addEventListener("click", function(e){
         e.preventDefault();
-        //let input_num = num + 1;
+
         let clone_menu_input_box = document.querySelector(".menu_input_box").cloneNode();
         let input_menu = document.createElement("input");
         input_menu.setAttribute("type", "text");
@@ -75,18 +69,4 @@ $('document').ready(function(){
         clone_menu_input_box.appendChild(input_menu_price);
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
     });
-    
-    //
-    $('#delete_btn').on('click',function(){
-        if(confirm('${resName} 을 삭제할까요?')){
-            alert('삭제했습니다.');
-        }
-    });
-
-
-    //회원정보 수정 함수 버튼 클릭시 기존 정보들 넘어오게
-	$('#update_btn').on('click', function(){
-		alert('안녕');
-	
-	});
 });

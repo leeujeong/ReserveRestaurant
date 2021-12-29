@@ -39,7 +39,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public void login(HttpServletRequest request , HttpServletResponse response) {
+=======
+	public void login(HttpServletRequest request) {
+>>>>>>> refs/heads/owner_yj
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User user = new User();
 		user.setId(request.getParameter("id"));

@@ -13,5 +13,5 @@ public interface OwnerRepository {
 //	public Owner selectOwnerByEmail(String oEmail);
 //	public int updatePw(Owner owner);
 //	public int updateOwner(Owner owner);
-	public int leaveOwner(Long owner_no);
+//	public int leaveOwner(Long owner_no);
 }

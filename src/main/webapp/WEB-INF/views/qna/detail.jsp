@@ -28,7 +28,6 @@
             </ul>
         </div>
     </header>
-
     <div class="container">
         <div class="row">
             <div class="col-4">
@@ -55,62 +54,66 @@
             </div>
             <div class="col-6">
                 <div class="section2">
-                    <h4 class="ing_title">사업장 관리</h4>
+                    <h4 class="ing_title">문의 내용</h4>
                 </div>
                 <hr>
-                  <div class="containers">
-                    <div class="row">
+                   <div class="containers">
+                  
                    
-                      <div class="col-sm-9">
-                        <div class="row">
-                          <div class="col-8 col-sm-6">
-                          
-                         	<c:if test="${empty list}">
-                         		<div class="empty_content">  
-                         			<a href="addPage">음식점 등록하러가기</a>
-                         		</div>
-                         	</c:if>
-                         	
-                         	<c:if test="${not empty list}">
-                         		<c:forEach var="restaurant" items="${list}">
-	                         		<div class="list_table">
-		                         		<table >
-		                         			<tbody>
-			                         			<tr>
-									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
-									            <tr>
-									            <tr>
-									                <td>${restaurant.resTel}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resContent}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOption}</td>
-		            							</tr>
-		                         			</tbody>
-	                         			</table>
-									</div>
-                         		</c:forEach>
-                         	</c:if>
-                         	<c:if test="${not empty paging}">
-								<div class="paging">${paging}</div>
-							</c:if>
+                     <div class="col-sm-9">
+                        
+                           
+                    
+                           <form id="qnaform" method="POST"> 
+                              <table class="qnatable">
+                                 <tbody>
+                                    <tr>
+                                       <td>작성자</td>
+                                       <td><input type="text" value="${qna.qnaWriter}" id="wirter" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>제목</td>
+                                       <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td>작성일</td>
+                                        <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>문의 내용</td>
+                                       <td><textarea rows="20" cols="70" readonly>${qna.qnaContent}</textarea></td>
+                                    </tr>
+                                 <!--    <tr>
+                                       <td>댓글달기 : </td>
+                                       <td><textarea rows="3" cols="50" >댓글을 남겨보세요</textarea>
+                                        <input type="submit" value="댓글달기" id="update_btn">
+                                    </td>
+                                    </tr> -->
+                                 </tbody>
+                              </table>
+                             	<div class="comment">
+                             		<div class="commenttitle">댓글달기</div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             	</div>
+                           </form>
+                              
+                        
+                        <div class="bottombtn">
+                           <input type="button" value="목록보기" id="list_btn">
+                           <input type="reset" value="삭제하기" id="reset_btn">
                         </div>
-                      </div>
                     </div>
-                  </div>
-                 </div>
+                  </div> 
             </div>    
         </div> 
     </div>
+    <script>
+
+       $('#update_btn').click(function(){
+         alert('댓글이 달렸습니다.');
+       });
+    </script>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

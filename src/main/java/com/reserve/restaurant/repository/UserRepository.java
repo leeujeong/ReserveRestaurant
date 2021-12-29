@@ -12,8 +12,12 @@ public interface UserRepository {
 	public int insertUser(User user);
 	public User login(User user);
 	public User selectUserByNo(Long userNo);
+<<<<<<< HEAD
 	public int updatePw(User user);
 	public int deleteUser(Long userNo);
 	public int updateUser(User user);
 	
+=======
+
+>>>>>>> refs/heads/owner_yj
 }

@@ -17,7 +17,7 @@ import lombok.ToString;
 public class Qna {
 
 	private Long qnaNo;
-	private String qnaWiter;
+	private String qnaWriter;
 	private String qnaTitle;
 	private String qnaContent;
 	private Long qnaHit;
