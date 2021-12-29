@@ -1,4 +1,4 @@
-/* 초기화시작 */
+ /* 초기화시작 */
 
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 * {
@@ -8,6 +8,11 @@
 
 li {
     list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 img {
@@ -23,31 +28,6 @@ body {
     margin: 0 auto;
     position: relative;
 }
-
-.wrap:after,
-ul:after,
-.cl:after{
-    content: "";
-    clear: both;
-    display: block;
-}
-
-.logo_img {
-	content: "";
-    clear: both;
-    display: block;
-}
-.blind {
-    position: absolute;
-    left: -9999px;
-    width: 0;
-    height: 0;
-    font-size: 0;
-    overflow: hidden;
-}
-
-
-/* 초기화끝 */
 
  /* 헤더시작 */
  
@@ -198,6 +178,7 @@ ul:after,
  }
  
  #search_form {
+ 	 display: lnline-block;
      text-align: center;
      height: 50px;
      width: 1000px;

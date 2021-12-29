@@ -1,6 +1,7 @@
 package com.reserve.restaurant.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,8 +81,8 @@ public class AdminController {
 	
 	// 검색 AND 페이징
 	@GetMapping(value="searchRestaurant")
-	public String searchRestaurant(HttpServletRequest request, Model model) {
-		service.selectResList(request, model);
+	public String searchRestaurant(HttpServletRequest request, Model model, HttpServletResponse response) {
+		service.selectResList(request, model,response);
 		return "admin/searchPage";
 	}
 	

@@ -1,11 +1,13 @@
 package com.reserve.restaurant.service;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,8 +227,19 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 검색페이지(페이징)
 	@Override
-	public void selectResList(HttpServletRequest request, Model model) {
+	public void selectResList(HttpServletRequest request, Model model, HttpServletResponse response) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		if (request.getParameter("query") == "") {
+			try {
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("<alert('검색어를 입력해주세요!'>");
+				out.println("history.back();");
+				out.println("</script>");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		String query = request.getParameter("query");
 		int totalRecord = repository.searchCountRes(query);
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
