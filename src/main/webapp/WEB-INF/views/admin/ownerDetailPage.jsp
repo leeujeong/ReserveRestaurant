@@ -14,14 +14,85 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body>
-
-	<h1>hello</h1>	
+    <header>
+        <div class="wrap">
+            <h1>
+                <a href="index.html">
+                    <img src="/restaurant/resources/image/index/projectlogo.png">
+                </a>
+            </h1>
+            <ul id="gnb">
+                <li>${loginUser.id} 님 환영합니다</li>
+                <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </div>
+    </header>
+	 <section class="search_section">
+        <div class="search_box">
+            <p class="user_search">회원 상세 페이지</p>
+            
+            회원 번호 : ${owner.ownerNo}<br>
+            아이디 : ${owner.id}<br>
+            이름 : ${owner.name}<br>
+            전화번호 : ${owner.tel}<br>
+            이메일 : ${owner.email}<br>
+        </div>
+        <div>
+        	<table>
+        		<thead>
+        			<tr>
+        				<td>식당명</td>
+        				<td>주소</td>
+        				<td>영업시간</td>
+        				<td>전화번호</td>
+        			</tr>
+        		</thead>
+        		<tbody>
+        		<c:if test="${empty restList}">
+					<tr>
+						<td colspan="4">등록된 사업장이 없습니다.</td>
+					</tr>        		
+        		</c:if>
+        		<c:if test="${not empty restList}">
+        			<c:forEach var="restaurant" items="${restList}">
+        				<tr>
+        					<td>${restaurant.resName}</td>
+        					<td>${restaurant.resAddress} ~ ${restaurant.resAddressDetail}</td>
+        					<td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+        					<td>${restaurant.resTel}</td>
+        				</tr>
+        			</c:forEach>
+        		</c:if>
+        		</tbody>
+        	</table>
+        </div>
+    </section>
 	
-	회원 번호 : 
 	
-	<c:forEach var="o" items="owner">
-		 ${o}
-	</c:forEach>
-	      
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>
