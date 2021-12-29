@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 -->
 	<insert id="joinOwner" parameterType="Owner">
 		INSERT INTO owner
-		VALUES (owner_no_SEQ.NEXTVAL, #{name}, #{id}, #{pw}, #{email}, 3)
+		VALUES (owner_no_SEQ.NEXTVAL, #{id}, #{pw}, #{email}, #{tel}, #{name}, 3)
 	</insert>
 	
 	

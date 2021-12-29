@@ -346,23 +346,7 @@
                             <input type="hidden" name="m_szEmail">
                             <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:200px;ime-mode:disabled;" title="이메일 아이디 입력">
                             <span class="dash">  </span>
-                            <!-- 
-	                            <input type="text" class="inTxt rs-w45" id="userEmail" name="userEmail" onfocus="checkLen(this.value);" onblur="checkMail(this.value);" style="width:120px;ime-mode:disabled;" title="이메일 입력">
-	                            <span class="selectboxWrap" style="width:180px">
-                            -->
-                           
-                            <!-- 
-                                <select class="select selectBg" id="userEmail" name="userEmail" onchange="chgEmail(this.value, this.selectedIndex);" style="width:120px;ime-mode:disabled;"  title="이메일 선택">
-                                    <option value="">직접입력</option>
-                                    
-                                        <option value="naver.com">naver.com</option>                
-                                    
-                                        <option value="daum.net">daum.net</option>    
-
-                                        <option value="google.com">google.com</option>    
-                                </select>
-                             -->
-                            </span>
+                      
                             <input type="button" value="인증번호받기" id="authCode_btn"  class="tbtns rs-mt5"><br>
                         </td>
                     </tr>
@@ -372,7 +356,6 @@
                             <input type="hidden" id="m_szCertYn" name="m_szCertYn">
                             <input type="text" class="inTxt rs-w100" id="authCode" name="authCode" style="width:180px;ime-mode:disabled;" title="이메일 인증확인 입력">
                             <input type="button" value="인증하기" id="verify_btn" class="tbtns rs-mt5"><br>
-                            <span id="expired" class="key"><span id="expMins">0</span>분 <span id="expSecs">0</span>초</span>
                             
                         </td>
                     </tr>                    
