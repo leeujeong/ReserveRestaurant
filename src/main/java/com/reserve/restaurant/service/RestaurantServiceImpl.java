@@ -77,6 +77,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurant.setResOpenTime(multipartRequest.getParameter("open_time"));
 		restaurant.setResCloseTime(multipartRequest.getParameter("close_time"));
 		String[] additional_options = multipartRequest.getParameterValues("additional_option");
+		System.out.println(additional_options.toString());
 		String additional_option = "";
 		for (int i = 0; i < additional_options.length; i++) {
 			if(i == 0) {
@@ -88,7 +89,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		}
 		restaurant.setResOption(additional_option);
 		restaurant.setResContent(multipartRequest.getParameter("content"));
-		restaurant.setOwnerNo((long) 1);
+		restaurant.setOwnerNo(Long.parseLong(multipartRequest.getParameter("ownerNo")));
 		
 		try {
 			
@@ -136,7 +137,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.addRestaurant(restaurant);
 		
@@ -149,9 +150,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		for(int i = 0; i < menus.length; i++) {
 			Menu menu = new Menu();
-			menu.setMenu(menus[i]);
-			menu.setPrice(Long.parseLong(prices[i]));
-			menu.setRestaurantResNo(restaurant.resNo);
+			menu.setMenuName(menus[i]);
+			menu.setMenuPrice(Long.parseLong(prices[i]));
+			menu.setResNo(restaurant.resNo);
 			menu_list.add(menu);
 		}
 		

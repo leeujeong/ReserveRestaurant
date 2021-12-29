@@ -50,8 +50,9 @@ public class OwnerServiceImpl implements OwnerService {
 		Owner owner = new Owner();
 		owner.setId(request.getParameter("id"));
 		owner.setPw(SecurityUtils.sha256(request.getParameter("pw")));
-		owner.setName(SecurityUtils.xxs(request.getParameter("userName")));
-		owner.setEmail(request.getParameter("userEmail"));
+		owner.setName(SecurityUtils.xxs(request.getParameter("name")));
+		owner.setEmail(request.getParameter("email"));
+		owner.setTel(request.getParameter("tel"));
 		
 		
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);

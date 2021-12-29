@@ -206,13 +206,7 @@ header #gnb li:last-child {
            padding:10px;
            margin:5px;
         }
-        #updatePw_btn{
-           background-color: lightgreen;
-           border: none;
-           color: white;
-        }
-        
-
+    
         
 /* footer시작 */
 
@@ -305,7 +299,7 @@ header #gnb li:last-child {
             display: table-cell;
             width: 50%;
             font-size: 18px;
-            color: #c6c6c6;
+            color: #6e6b6b;
             outline: none;
             border: none;
         }
@@ -313,7 +307,7 @@ header #gnb li:last-child {
             display: table-cell;
             width: 100%;
             font-size: 18px;
-            color: #c6c6c6;
+            color: #6e6b6b;
             outline: none;
             border: none;
         }
@@ -325,3 +319,4 @@ header #gnb li:last-child {
             background-size: 229px 196px;
             background-position: -206px -97px;
         }
+      
