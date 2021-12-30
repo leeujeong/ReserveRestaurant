@@ -89,6 +89,7 @@
                 </tr>
             </thead>
             <tbody>
+            <c:if test="${not empty bookList}">
                 <tr>
                     <td>${bookList[0].restaurant.resName }</td>
                     <td>${bookList[0].restaurant.resAddress}&nbsp;${bookList[0].restaurant.resAddressDetail}</td>
@@ -124,11 +125,19 @@
                     <td>${bookList[4].bookRequest}</td>
                     <td>${bookList[4].bookDate}<span class="book_time">${bookList[4].bookHours}</span></td>
                 </tr>
+            </c:if>
+            <c:if test="${empty bookList}">
+            	<tr rowspan="5">
+            		<td colspan="5" class="notBook">최근 예약 식당이 없습니다.</td>
+            	</tr>
+            </c:if>
             </tbody>
             <tfoot>
-                <tr class="paging_foot">
-                    <td colspan="5">여기는 페이징 처리 하는곳 ajax하기</td>
-                </tr>
+	            <c:if test="${not empty bookList}">
+	                <tr class="paging_foot">
+	                    <td colspan="5">${paging}</td>
+	                </tr>            
+	            </c:if>
             </tfoot>
         </table>
     </section>
@@ -147,7 +156,7 @@
                     </ul>
                     <div class="footer_copy">
                         <a href="#" target="_blank">
-                    <img src="/restaurant/resources/image/index/projectlogo.png">
+                    <img src="/restaurant/resources/image/index/projectlogo.png" class="footer_logo_image">
                         </a>
                         <span class="text">Copyright</span>
                         <span class="corp" style="font-weight: 800;">&copy; FindTable Corp.</span>

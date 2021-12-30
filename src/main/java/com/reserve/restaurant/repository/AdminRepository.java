@@ -29,7 +29,7 @@ public interface AdminRepository {
 	public int selectFindRecordCountOwner(Map<String, Object> map);
 	public List<String> selectFindListOwner(Map<String, Object> map); 
 	
-	public User selectUserInfo(Long userNo);
+	public User selectUserInfo(String userNo);
 	public Owner selectOwnerInfo(Long ownerNo);
 	
 	public List<Restaurant> selectOwnerInfoRes(Long ownerNo);
@@ -39,10 +39,11 @@ public interface AdminRepository {
 
 	public Restaurant selectResDetail(Long resNo);
 	
-	public int countUserLog(Long userNo);
+	public int countUserLog(String userNo);
 	
-	public List<Book> selectBookList(Long userNo);
+	public List<Book> selectBookList(Map<String, Object> map);
 	
+	public int countBookList(String userNo);
 	
 	
 	

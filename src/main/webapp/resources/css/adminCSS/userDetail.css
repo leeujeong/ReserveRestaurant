@@ -31,8 +31,7 @@
         
         .wrap:after,
         ul:after,
-        .cl:after,
-        a:after {
+        .cl:after {
             content: "";
             clear: both;
             display: block;
@@ -261,4 +260,11 @@
         .paging_foot {
             height: 35px;
             font-size: 20px;
+        }
+        .notBook {
+        	font-size: 40px;
+        }
+        .footer_logo_image {
+        	display: block;
+        	margin: 0 auto;
         }

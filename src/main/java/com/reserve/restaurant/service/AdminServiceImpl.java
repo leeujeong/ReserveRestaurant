@@ -214,12 +214,32 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void selectUserInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		Map<String, Object> map = model.asMap();
-		Long userNo = (Long)map.get("userNo");
+		Map<String, Object> m = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)m.get("request");
+		String userNo = request.getParameter("userNo");
+		
+		int totalRecord = repository.countBookList(userNo);
+		System.out.println("serviceImpl에서 totalRecord : " + totalRecord);
+		
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
+		System.out.println("serviecImpl : " + page);
+		
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRecord", pageUtils.getBeginRecord());
+		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("userNo", userNo);
+		
+		List<Book> bookList = repository.selectBookList(map);
+		
+		model.addAttribute("paging", pageUtils.getPageEntity("userDetailPage?userNo=" + userNo));
+		
 		User user = repository.selectUserInfo(userNo);
 		int countLog = repository.countUserLog(userNo);
-		List<Book> bookList = repository.selectBookList(userNo);
-		System.out.println(bookList);
 		model.addAttribute("bookList", bookList);
 		model.addAttribute("countLog", countLog);
 		model.addAttribute("user", user);

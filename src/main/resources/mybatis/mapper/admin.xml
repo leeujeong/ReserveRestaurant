@@ -61,13 +61,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<!-- 사용자최근 예약 목록 -->
-	<select id="selectBookList" parameterType="Long" resultMap="BookMap">
-		SELECT R.RES_NAME, R.RES_ADDRESS, R.RES_ADDRESS_DETAIL, B.BOOK_PEOPLE, B.BOOK_REQUEST, B.BOOK_HOURS, B.BOOK_DATE
-		  FROM RESTAURANT R, BOOK B
-		 WHERE R.RES_NO = B.RES_NO
-		   AND USER_NO = #{userNo}
+	<select id="selectBookList" parameterType="map" resultMap="BookMap">
+		SELECT D.RES_NAME, D.RES_ADDRESS, D.RES_ADDRESS_DETAIL, D.BOOK_PEOPLE, D.BOOK_REQUEST, D.BOOK_HOURS, D.BOOK_DATE
+		  FROM (SELECT ROWNUM AS RN, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.BOOK_PEOPLE, A.BOOK_REQUEST, A.BOOK_HOURS, A.BOOK_DATE
+		  		  FROM (SELECT RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, BOOK_PEOPLE, BOOK_REQUEST, BOOK_HOURS, BOOK_DATE
+		  	      		  FROM RESTAURANT R, BOOK B 
+		 		 		 WHERE R.RES_NO = B.RES_NO
+		   		   		   AND USER_NO = #{userNo}) A) D
+		 WHERE D.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
+	<select id="countBookList" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM BOOK
+		 WHERE USER_NO = #{userNo}
+	</select>
 
 	<select id="countUser" resultType="int">
 		SELECT COUNT(*)
@@ -142,7 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
-	<select id="selectUserInfo" parameterType="Long" resultType="User">
+	<select id="selectUserInfo" parameterType="String" resultType="User">
 		SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		  FROM USERTABLE
 		 WHERE USER_NO = #{userNo}
@@ -186,12 +194,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE RES_NO = #{resNo}
 	</select>
 	
-	<select id="countUserLog" parameterType="Long" resultType="int">
+	<select id="countUserLog" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERLOG
 		 WHERE USER_NO = #{userNo}
 	</select>
 	
-	
+
 	
 </mapper>
