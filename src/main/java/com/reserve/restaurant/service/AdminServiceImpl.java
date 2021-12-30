@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
@@ -209,13 +210,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 		
-
+	// 회원 최근 예약 목록
 	@Override
 	public void selectUserInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> map = model.asMap();
 		Long userNo = (Long)map.get("userNo");
 		User user = repository.selectUserInfo(userNo);
+		int countLog = repository.countUserLog(userNo);
+		List<Book> bookList = repository.selectBookList(userNo);
+		System.out.println(bookList);
+		model.addAttribute("bookList", bookList);
+		model.addAttribute("countLog", countLog);
 		model.addAttribute("user", user);
 	}
 	

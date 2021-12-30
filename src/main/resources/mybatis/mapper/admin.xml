@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="STATE" property="state" />
 		<collection property="restaurant" resultMap="RestaurantMap" />
 	</resultMap>
+	
 	<resultMap type="Restaurant" id="RestaurantMap">
 		<result column="RES_NO" property="resNo" />
 		<result column="RES_NAME" property="resName" />
@@ -30,6 +31,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="RES_PATH" property="resPath" />
 		<result column="OWNER_NO" property="ownerNo" />
 	</resultMap>
+
+	<resultMap type="Book" id="BookMap">
+		<result column="BOOK_NO" property="bookNo"/>
+		<result column="BOOK_TYPE" property="bookType"/>
+		<result column="BOOK_PEOPLE" property="bookPeople"/>
+		<result column="BOOK_REQUEST" property="bookRequest"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="RES_NO" property="resNo"/>
+		<result column="BOOK_STATE" property="bookState"/>
+		<result column="BOOK_HOURS" property="bookHours"/>
+		<result column="BOOK_DATE" property="bookDate"/>
+		<collection property="user" resultMap="UserMap" />
+		<collection property="restaurant" resultMap="RestaurantMap" />
+	</resultMap>
+	
+	<resultMap type="User" id="UserMap">
+		<result column="USER_NO" property="userNo" />
+		<result column="ID" property="id" />
+		<result column="PW" property="pw" />
+		<result column="NAME" property="name" />
+		<result column="TEL" property="tel" />
+		<result column="GRADE" property="grade" />
+		<result column="USER_DATE" property="userDate" />
+		<result column="HBD" property="hbd" />
+		<result column="STATE" property="state" />
+		<result column="POINT" property="point" />
+		<result column="EMAIL" property="email" />
+	</resultMap>
+	
+	<!-- 사용자최근 예약 목록 -->
+	<select id="selectBookList" parameterType="Long" resultMap="BookMap">
+		SELECT R.RES_NAME, R.RES_ADDRESS, R.RES_ADDRESS_DETAIL, B.BOOK_PEOPLE, B.BOOK_REQUEST, B.BOOK_HOURS, B.BOOK_DATE
+		  FROM RESTAURANT R, BOOK B
+		 WHERE R.RES_NO = B.RES_NO
+		   AND USER_NO = #{userNo}
+	</select>
+
 
 	<select id="countUser" resultType="int">
 		SELECT COUNT(*)
@@ -148,7 +186,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE RES_NO = #{resNo}
 	</select>
 	
-	
+	<select id="countUserLog" parameterType="Long" resultType="int">
+		SELECT COUNT(*)
+		  FROM USERLOG
+		 WHERE USER_NO = #{userNo}
+	</select>
 	
 	
 	

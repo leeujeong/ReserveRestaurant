@@ -78,7 +78,7 @@ public class AdminController {
 		return "admin/searchPage";
 	}
 	
-	// 검색 AND 페이징
+	// 검색
 	@GetMapping(value="searchRestaurant")
 	public String searchRestaurant(HttpServletRequest request, Model model) {
 		service.selectResList(request, model);
