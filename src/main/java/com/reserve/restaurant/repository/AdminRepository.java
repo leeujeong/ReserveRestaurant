@@ -43,7 +43,7 @@ public interface AdminRepository {
 	
 	public List<Book> selectBookList(Map<String, Object> map);
 	
-	public int countBookList(String userNo);
+	public int countBookList(Long userNo);
 	
 	
 	

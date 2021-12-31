@@ -21,13 +21,16 @@
     	
     	// 전체 목록 함수 + page 전역변수
     	var page = 1;
-    	var userNo= 2;
+    	// var userNo= $('#userNo');
+    	var userNo = '${user.userNo}';
     	function fnAllBookList() {
+    		alert(userNo);
     		$.ajax({
 				url: '/restaurant/admin/userBookList?page' + page + '&userNo' + userNo,
 				type: 'get',
 				dataType: 'json',
 				success: function(map) {
+					alert(map);
 					fnPrintBookList(map);
 					fnPrintPaging(map.pageUtils);
 				}

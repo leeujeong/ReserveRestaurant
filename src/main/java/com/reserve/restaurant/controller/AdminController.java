@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
@@ -71,8 +72,9 @@ public class AdminController {
 	// userDetail에서 bookList ajax처리
 	@GetMapping(value="userBookList")
 	@ResponseBody
-	public Map<String, Object> userBookList(Integer page, String userNo) {
-		Map<String, Object> map = service.userBookList(page, userNo);
+	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
+		System.out.println("ajax에서 넘어온 userNo : " + userNo);
+		Map<String, Object> map = service.userBookList(userNo, page);
 		return map;
 	}
 	

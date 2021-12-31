@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE D.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
-	<select id="countBookList" parameterType="String" resultType="int">
+	<select id="countBookList" parameterType="Long" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOOK
 		 WHERE USER_NO = #{userNo}

@@ -18,7 +18,7 @@ public interface AdminService {
 	public void selectOwnerInfoRes(Model model);
 	public void selectResList(HttpServletRequest request, Model model);
 	public void selectResDetail(Model model, Restaurant restaurant);
-	public Map<String, Object> userBookList(Integer page, String userNo);
+	public Map<String, Object> userBookList(Long userNo, Integer page);
 
 
 

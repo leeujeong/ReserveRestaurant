@@ -210,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 		
-	// 회원 최근 예약 목록
+	// 회원상세 정보
 	@Override
 	public void selectUserInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
@@ -218,50 +218,53 @@ public class AdminServiceImpl implements AdminService {
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		String userNo = request.getParameter("userNo");
 		
-		int totalRecord = repository.countBookList(userNo);
-		System.out.println("serviceImpl에서 totalRecord : " + totalRecord);
+		// int totalRecord = repository.countBookList(userNo);
 		
-		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		int page = Integer.parseInt(opt.orElse("1"));
+		// Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		// int page = Integer.parseInt(opt.orElse("1"));
 		
-		System.out.println("serviecImpl : " + page);
+		// PageUtils pageUtils = new PageUtils();
+		// pageUtils.setPageEntity(totalRecord, page);
 		
-		PageUtils pageUtils = new PageUtils();
-		pageUtils.setPageEntity(totalRecord, page);
+		// Map<String, Object> map = new HashMap<String, Object>();
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("userNo", userNo);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
-		map.put("userNo", userNo);
-		
-		List<Book> bookList = repository.selectBookList(map);
+		// List<Book> bookList = repository.selectBookList(map);
 		
 		// model.addAttribute("paging", pageUtils.getPageEntity("userDetailPage?userNo=" + userNo));
 		
 		User user = repository.selectUserInfo(userNo);
 		int countLog = repository.countUserLog(userNo);
-		model.addAttribute("bookList", bookList);
+		// model.addAttribute("bookList", bookList);
 		model.addAttribute("countLog", countLog);
 		model.addAttribute("user", user);
 	}
 	
 	// userDetail에서 BookList ajax처리
 	@Override
-	public Map<String, Object> userBookList(Integer page, String userNo) {
+	public Map<String, Object> userBookList(Long userNo, Integer page) {
+		System.out.println("controller에서 넘어온 userNo : " + userNo);
+		System.out.println("controller에서 넘어온 page : " + page);
+		
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		
 		int totalRecord = repository.countBookList(userNo);
+
+		System.out.println("totalRecord : " + totalRecord);
+		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
 		
-		System.out.println("ajax : " + totalRecord);
 		
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("userNo", userNo);
-		List<Book> bookList = repository.selectBookList(m);	// 목록
 		
-		System.out.println("ajax : " + bookList);
+		List<Book> bookList = repository.selectBookList(m);	// 목록
+		System.out.println("bookList : " + bookList);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bookList", bookList);				// 목록
