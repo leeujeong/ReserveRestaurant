@@ -21,16 +21,14 @@
     	
     	// 전체 목록 함수 + page 전역변수
     	var page = 1;
-    	// var userNo= $('#userNo');
     	var userNo = '${user.userNo}';
     	function fnAllBookList() {
-    		alert(userNo);
     		$.ajax({
-				url: '/restaurant/admin/userBookList?page' + page + '&userNo' + userNo,
+				url: '/restaurant/admin/userBookList',
 				type: 'get',
+				data: "page=" + page + "&userNo=" + userNo,
 				dataType: 'json',
 				success: function(map) {
-					alert(map);
 					fnPrintBookList(map);
 					fnPrintPaging(map.pageUtils);
 				}
@@ -41,43 +39,97 @@
     	function fnPrintBookList(map) {
     		// 페이지 처리 모든 정보를 변수 p에 저장
     		var p = map.pageUtils;
+    		var tbody = '';
     		// 목록 만들기
     		if (p.totalRecord == 0) {
     			$('<tr rowspan="5">')
-    			append( $('<td colspan="5">').text('최근 예약 식당이 없습니다.') )
-    			.appendTo('#book_list');
+    			.append( $('<td colspan="5">').text('최근 예약 식당이 없습니다.') )
+    			.appendTo('#bookList');
+    		} else if (p.totalRecord == 1) {
+    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			$('#bookList').append(tbody);
+    		} else if (p.totalRecord == 2) {
+    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
+    			$('#bookList').append(tbody);
+    		} else if (p.totalRecord == 3) {
+    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
+    			$('#bookList').append(tbody);    			
+    		} else if (p.totalRecord == 4) {
+    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[3].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[3].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookDate + '</td></tr>';
+    			$('#bookList').append(tbody);    			
     		} else {
-	    		$('<tr>')
-	    		.append( $('<td>').text(map.bookList[0].restaurant.resName) )
-	    		.append( $('<td>').text(map.bookList[0].restaurant.resAddress) )
-	    		.append( $('<td>').text(map.bookList[0].bookPeople) )
-	    		.append( $('<td>').text(map.bookList[0].bookRequest) )
-	    		.append( $('<td>').text(map.bookList[0].bookDate) )
-	    		$('<tr>')
-	    		.append( $('<td>').text(map.bookList[1].restaurant.resName) )
-	    		.append( $('<td>').text(map.bookList[1].restaurant.resAddress) )
-	    		.append( $('<td>').text(map.bookList[1].bookPeople) )
-	    		.append( $('<td>').text(map.bookList[1].bookRequest) )
-	    		.append( $('<td>').text(map.bookList[1].bookDate) )
-	    		$('<tr>')
-	    		.append( $('<td>').text(map.bookList[2].restaurant.resName) )
-	    		.append( $('<td>').text(map.bookList[2].restaurant.resAddress) )
-	    		.append( $('<td>').text(map.bookList[2].bookPeople) )
-	    		.append( $('<td>').text(map.bookList[2].bookRequest) )
-	    		.append( $('<td>').text(map.bookList[2].bookDate) )
-	    		$('<tr>')
-	    		.append( $('<td>').text(map.bookList[3].restaurant.resName) )
-	    		.append( $('<td>').text(map.bookList[3].restaurant.resAddress) )
-	    		.append( $('<td>').text(map.bookList[3].bookPeople) )
-	    		.append( $('<td>').text(map.libookListst[3].bookRequest) )
-	    		.append( $('<td>').text(map.bookList[3].bookDate) )
-	    		$('<tr>')
-	    		.append( $('<td>').text(map.bookList[4].restaurant.resName) )
-	    		.append( $('<td>').text(map.bookList[4].restaurant.resAddress) )
-	    		.append( $('<td>').text(map.bookList[4].bookPeople) )
-	    		.append( $('<td>').text(map.bookList[4].bookRequest) )
-	    		.append( $('<td>').text(map.bookList[4].bookDate) )
-	    		.appendTo('#book_list')
+    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[3].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[3].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookDate + '</td></tr>';
+    			tbody += '<tr><td>' + map.bookList[4].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[4].restaurant.resAddress + '</td>';
+    			tbody += '<td>' + map.bookList[4].bookPeople + '</td>';
+    			tbody += '<td>' + map.bookList[4].bookRequest + '</td>';
+    			tbody += '<td>' + map.bookList[4].bookDate + '</td></tr>';
+    			$('#bookList').append(tbody);    			
     		}
     	}
     	
@@ -131,6 +183,10 @@
     		});
     	}  // end fnChangePage
 
+    	
+    	
+    	
+    	
     	function fnReturn() {
     		$('#return_btn').click(function() {
     			location.href="/restaurant/admin/userAdminPage";
@@ -201,7 +257,7 @@
                     <td>예약 일자</td>
                 </tr>
             </thead>
-            <tbody id="book_list"></tbody>
+            <tbody id="bookList"></tbody>
             <tfoot>
 	            <c:if test="${not empty bookList}">
 	                <tr class="paging_foot">
