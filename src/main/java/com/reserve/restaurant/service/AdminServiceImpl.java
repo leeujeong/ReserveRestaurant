@@ -259,6 +259,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		
 		Map<String, Object> m = new HashMap<String, Object>();
+		System.out.println("beginRecord : " + pageUtils.getBeginRecord());
+		System.out.println("endRecord : " + pageUtils.getEndRecord());
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("userNo", userNo);

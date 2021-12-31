@@ -40,7 +40,10 @@
     		$('#bookList').empty();
     		// 페이지 처리 모든 정보를 변수 p에 저장
     		var p = map.pageUtils;
+    		var endRecord = p.endRecord;
+    		var beginRecord = p.beginRecord;
     		var tbody = '';
+    		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td><td></td></tr>';
     		// 목록 만들기
     		if (p.totalRecord == 0) {
     			$('<tr rowspan="5">')
@@ -49,14 +52,35 @@
     		} else {
     			$.each (map.bookList, function(i, book) {
 	   				tbody += '<tr>'
-   	    			tbody += '<td>' + book.restaurant.resName + '</td>';
-   	    			tbody += '<td>' + book.restaurant.resAddress + '</td>';
-   	    			tbody += '<td>' + book.bookPeople + '</td>';
-   	    			tbody += '<td>' + book.bookRequest + '</td>';
-   	    			tbody += '<td>' + book.bookDate + '</td>'
+   	    			tbody += '<td height="30px">' + book.restaurant.resName + '</td>';
+   	    			tbody += '<td height="30px">' + book.restaurant.resAddress + '</td>';
+   	    			tbody += '<td height="30px">' + book.bookPeople + '</td>';
+   	    			tbody += '<td height="30px">' + book.bookRequest + '</td>';
+   	    			tbody += '<td height="30px">' + book.bookDate + '</td>'
    	    			tbody += '</tr>';
     			});
-  	     		$('#bookList').append(tbody);
+    			
+    			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
+    				tbody += addRow;
+    			}
+    			$('#bookList').append(tbody);
+    			/*
+	    		if (endRecord - beginRecord == 0) {
+	    			tbody += addRow; tbody += addRow; tbody += addRow; tbody += addRow;
+	      	     	$('#bookList').append(tbody);
+	    		} else if (endRecord - beginRecord == 1) {
+	    			tbody += addRow; tbody += addRow; tbody += addRow;
+	    			$('#bookList').append(tbody);
+	    		} else if (endRecord - beginRecord == 2) {
+	    			tbody += addRow; tbody += addRow;
+	        		$('#bookList').append(tbody);
+	    		} else if (endRecord - beginRecord == 3) {
+	    			tbody += addRow;
+	    			$('#bookList').append(tbody);
+	    		} else if (endRecord - beginRecord == 4) {
+	    			$('#bookList').append(tbody);
+	    		}
+	    		*/
     		}
     		
     	}  // end fnPrintBookList
