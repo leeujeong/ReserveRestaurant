@@ -1,5 +1,7 @@
 package com.reserve.restaurant.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
@@ -57,11 +60,20 @@ public class AdminController {
 		return "admin/adminUser";
 	}
 	
+	// userDetail 보여주는 page
 	@GetMapping(value="userDetailPage")
 	public String userDetailPage(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		service.selectUserInfo(model);
 		return "admin/userDetailPage";
+	}
+	
+	// userDetail에서 bookList ajax처리
+	@GetMapping(value="userBookList")
+	@ResponseBody
+	public Map<String, Object> userBookList(Integer page, String userNo) {
+		Map<String, Object> map = service.userBookList(page, userNo);
+		return map;
 	}
 	
 	

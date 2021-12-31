@@ -15,15 +15,125 @@
     <script>
     	$(document).ready(function() {
     		fnReturn();
+    		fnAllBookList();
+    		fnChangePage();
     	})
     	
+    	// 전체 목록 함수 + page 전역변수
+    	var page = 1;
+    	var userNo= 2;
+    	function fnAllBookList() {
+    		$.ajax({
+				url: '/restaurant/admin/userBookList?page' + page + '&userNo' + userNo,
+				type: 'get',
+				dataType: 'json',
+				success: function(map) {
+					fnPrintBookList(map);
+					fnPrintPaging(map.pageUtils);
+				}
+    		})
+    	}
+    	
+    	// 예약목록 리스트만 출력하는 함수
+    	function fnPrintBookList(map) {
+    		// 페이지 처리 모든 정보를 변수 p에 저장
+    		var p = map.pageUtils;
+    		// 목록 만들기
+    		if (p.totalRecord == 0) {
+    			$('<tr rowspan="5">')
+    			append( $('<td colspan="5">').text('최근 예약 식당이 없습니다.') )
+    			.appendTo('#book_list');
+    		} else {
+	    		$('<tr>')
+	    		.append( $('<td>').text(map.bookList[0].restaurant.resName) )
+	    		.append( $('<td>').text(map.bookList[0].restaurant.resAddress) )
+	    		.append( $('<td>').text(map.bookList[0].bookPeople) )
+	    		.append( $('<td>').text(map.bookList[0].bookRequest) )
+	    		.append( $('<td>').text(map.bookList[0].bookDate) )
+	    		$('<tr>')
+	    		.append( $('<td>').text(map.bookList[1].restaurant.resName) )
+	    		.append( $('<td>').text(map.bookList[1].restaurant.resAddress) )
+	    		.append( $('<td>').text(map.bookList[1].bookPeople) )
+	    		.append( $('<td>').text(map.bookList[1].bookRequest) )
+	    		.append( $('<td>').text(map.bookList[1].bookDate) )
+	    		$('<tr>')
+	    		.append( $('<td>').text(map.bookList[2].restaurant.resName) )
+	    		.append( $('<td>').text(map.bookList[2].restaurant.resAddress) )
+	    		.append( $('<td>').text(map.bookList[2].bookPeople) )
+	    		.append( $('<td>').text(map.bookList[2].bookRequest) )
+	    		.append( $('<td>').text(map.bookList[2].bookDate) )
+	    		$('<tr>')
+	    		.append( $('<td>').text(map.bookList[3].restaurant.resName) )
+	    		.append( $('<td>').text(map.bookList[3].restaurant.resAddress) )
+	    		.append( $('<td>').text(map.bookList[3].bookPeople) )
+	    		.append( $('<td>').text(map.libookListst[3].bookRequest) )
+	    		.append( $('<td>').text(map.bookList[3].bookDate) )
+	    		$('<tr>')
+	    		.append( $('<td>').text(map.bookList[4].restaurant.resName) )
+	    		.append( $('<td>').text(map.bookList[4].restaurant.resAddress) )
+	    		.append( $('<td>').text(map.bookList[4].bookPeople) )
+	    		.append( $('<td>').text(map.bookList[4].bookRequest) )
+	    		.append( $('<td>').text(map.bookList[4].bookDate) )
+	    		.appendTo('#book_list')
+    		}
+    	}
     	
     	
+    	
+    	// 페이징 출력 함수
+    	function fnPrintPaging(p) {
+    		// 페이징 영역 초기화
+    		$('#paging').empty();
+    		// 1페이지로 이동
+    		if (page == 1) {
+    			$('<div class="disable_link">&lt;&lt;</div>').appendTo('#paging');
+    			//$('<div>').addClass('disable_link').html('&lt;&lt;').appendTo('#paging');
+    		} else {
+    			$('<div class="enable_link" data-page="1">&lt;&lt;</div>').appendTo('#paging');
+    			//$('<div>').addClass('enable_link').html('&lt;&lt;').attr('data-page', 1).appendTo('#paging');
+    		}
+    		// 이전 블록으로 이동
+    		if (page <= p.pagePerBlock) {
+    			$('<div class="disable_link">&lt;</div>').appendTo('#paging');
+    		} else {
+    			$('<div class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;</div>').appendTo('#paging');
+    		}
+    		// 페이지 번호
+    		for (let i = p.beginPage; i <= p.endPage; i++) {
+    			if (i == page) {
+    				$('<div class="disable_link now_page">'+i+'</div>').appendTo('#paging');
+    			} else {
+    				$('<div class="enable_link" data-page="'+i+'">'+i+'</div>').appendTo('#paging');
+    			}
+    		}
+    		// 다음 블록으로 이동
+    		if (p.endPage == p.totalPage) {
+    			$('<div class="disable_link">&gt;</div>').appendTo('#paging');
+    		} else {
+    			$('<div class="enable_link" data-page="'+(p.endPage+1)+'">&gt;</div>').appendTo('#paging');
+    		}
+    		// 마지막 페이지로 이동
+    		if (page == p.totalPage) {
+    			$('<div class="disable_link">&gt;&gt;</div>').appendTo('#paging');
+    		} else {
+    			$('<div class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;</div>').appendTo('#paging');
+    		}
+    	}  // end fnPrintPaging
+    	
+    	// 페이징 링크 처리 함수(전역변수 page값을 바꾸고, fnFindAllMember() 호출)
+    	function fnChangePage(){
+    		$('body').on('click', '.enable_link', function(){
+    			page = $(this).data('page');
+    			fnAllBookList();
+    		});
+    	}  // end fnChangePage
+
     	function fnReturn() {
     		$('#return_btn').click(function() {
     			location.href="/restaurant/admin/userAdminPage";
     		})
     	}
+    	
     </script>
 </head>
 <body>
@@ -88,54 +198,11 @@
                     <td>예약 일자</td>
                 </tr>
             </thead>
-            <tbody>
-            <c:if test="${not empty bookList}">
-                <tr>
-                    <td>${bookList[0].restaurant.resName }</td>
-                    <td>${bookList[0].restaurant.resAddress}&nbsp;${bookList[0].restaurant.resAddressDetail}</td>
-                    <td>${bookList[0].bookPeople}</td>
-                    <td>${bookList[0].bookRequest}</td>
-                    <td>${bookList[0].bookDate}<span class="book_time">${bookList[0].bookHours}</span></td>
-                </tr>
-                <tr>
-                    <td>${bookList[1].restaurant.resName }</td>
-                    <td>${bookList[1].restaurant.resAddress}&nbsp;${bookList[1].restaurant.resAddressDetail}</td>
-                    <td>${bookList[1].bookPeople}</td>
-                    <td>${bookList[1].bookRequest}</td>
-                    <td>${bookList[1].bookDate}<span class="book_time">${bookList[1].bookHours}</span></td>
-                </tr>
-                <tr>
-                    <td>${bookList[2].restaurant.resName }</td>
-                    <td>${bookList[2].restaurant.resAddress}&nbsp;${bookList[2].restaurant.resAddressDetail}</td>
-                    <td>${bookList[2].bookPeople}</td>
-                    <td>${bookList[2].bookRequest}</td>
-                    <td>${bookList[2].bookDate}<span class="book_time">${bookList[2].bookHours}</span></td>
-                </tr>
-                <tr>
-                    <td>${bookList[3].restaurant.resName }</td>
-                    <td>${bookList[3].restaurant.resAddress}&nbsp;${bookList[3].restaurant.resAddressDetail}</td>
-                    <td>${bookList[3].bookPeople}</td>
-                    <td>${bookList[3].bookRequest}</td>
-                    <td>${bookList[3].bookDate}<span class="book_time">${bookList[3].bookHours}</span></td>
-                </tr>
-                <tr>
-                    <td>${bookList[4].restaurant.resName }</td>
-                    <td>${bookList[4].restaurant.resAddress}&nbsp;${bookList[4].restaurant.resAddressDetail}</td>
-                    <td>${bookList[4].bookPeople}</td>
-                    <td>${bookList[4].bookRequest}</td>
-                    <td>${bookList[4].bookDate}<span class="book_time">${bookList[4].bookHours}</span></td>
-                </tr>
-            </c:if>
-            <c:if test="${empty bookList}">
-            	<tr rowspan="5">
-            		<td colspan="5" class="notBook">최근 예약 식당이 없습니다.</td>
-            	</tr>
-            </c:if>
-            </tbody>
+            <tbody id="book_list"></tbody>
             <tfoot>
 	            <c:if test="${not empty bookList}">
 	                <tr class="paging_foot">
-	                    <td colspan="5">${paging}</td>
+	                    <td colspan="5" id="paging"></td>
 	                </tr>            
 	            </c:if>
             </tfoot>

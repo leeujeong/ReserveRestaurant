@@ -236,7 +236,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		List<Book> bookList = repository.selectBookList(map);
 		
-		model.addAttribute("paging", pageUtils.getPageEntity("userDetailPage?userNo=" + userNo));
+		// model.addAttribute("paging", pageUtils.getPageEntity("userDetailPage?userNo=" + userNo));
 		
 		User user = repository.selectUserInfo(userNo);
 		int countLog = repository.countUserLog(userNo);
@@ -244,6 +244,41 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("countLog", countLog);
 		model.addAttribute("user", user);
 	}
+	
+	// userDetail에서 BookList ajax처리
+	@Override
+	public Map<String, Object> userBookList(Integer page, String userNo) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		int totalRecord = repository.countBookList(userNo);
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
+		
+		System.out.println("ajax : " + totalRecord);
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
+		m.put("userNo", userNo);
+		List<Book> bookList = repository.selectBookList(m);	// 목록
+		
+		System.out.println("ajax : " + bookList);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookList", bookList);				// 목록
+		map.put("pageUtils", pageUtils);	// 페이징 처리를 위해서
+		
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 식당 페이지 상세정보
 	@Override
