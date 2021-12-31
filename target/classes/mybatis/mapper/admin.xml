@@ -67,7 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		  FROM (SELECT RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, BOOK_PEOPLE, BOOK_REQUEST, BOOK_HOURS, BOOK_DATE
 		  	      		  FROM RESTAURANT R, BOOK B 
 		 		 		 WHERE R.RES_NO = B.RES_NO
-		   		   		   AND USER_NO = #{userNo}) A) D
+		   		   		   AND USER_NO = #{userNo}
+		   		   		 ORDER BY R.RES_NO) A) D
 		 WHERE D.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 

@@ -33,10 +33,11 @@
 					fnPrintPaging(map.pageUtils);
 				}
     		})
-    	}
+    	}  // end fnAllBookList
     	
     	// 예약목록 리스트만 출력하는 함수
     	function fnPrintBookList(map) {
+    		$('#bookList').empty();
     		// 페이지 처리 모든 정보를 변수 p에 저장
     		var p = map.pageUtils;
     		var tbody = '';
@@ -45,15 +46,37 @@
     			$('<tr rowspan="5">')
     			.append( $('<td colspan="5">').text('최근 예약 식당이 없습니다.') )
     			.appendTo('#bookList');
-    		} else if (p.totalRecord == 1) {
-    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    		} else {
+    			$.each (map.bookList, function(i, book) {
+	   				tbody += '<tr>'
+   	    			tbody += '<td>' + book.restaurant.resName + '</td>';
+   	    			tbody += '<td>' + book.restaurant.resAddress + '</td>';
+   	    			tbody += '<td>' + book.bookPeople + '</td>';
+   	    			tbody += '<td>' + book.bookRequest + '</td>';
+   	    			tbody += '<td>' + book.bookDate + '</td>'
+   	    			tbody += '</tr>';
+    			});
+  	     		$('#bookList').append(tbody);
+    		}
+    		
+    	}  // end fnPrintBookList
+    		
+    		/*else if (p.totalRecord == 1) {
+    			tbody += '<tr>';
+    			tbody += '<td>' + map.bookList[0].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
     			$('#bookList').append(tbody);
     		} else if (p.totalRecord == 2) {
-    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[0].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
@@ -62,116 +85,130 @@
     			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
     			$('#bookList').append(tbody);
     		} else if (p.totalRecord == 3) {
-    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
-    			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
-    			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
-    			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
-    			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
-    			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
-    			$('#bookList').append(tbody);    			
+    			$.each (map.bookList, function(i, list) {
+	   				tbody += '<tr>'
+   	    			tbody += '<td>' + list.restaurant.resName + '</td>';
+   	    			tbody += '<td>' + list.restaurant.resAddress + '</td>';
+   	    			tbody += '<td>' + list.bookPeople + '</td>';
+   	    			tbody += '<td>' + list.bookRequest + '</td>';
+   	    			tbody += '<td>' + list.bookDate + '</td>'
+   	    			tbody += '</tr>';
+   	    			tbody += '<tr><td></td><td><td></td></td><td></td><td></td></tr>'
+   	     			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+   	     			$('#bookList').append(tbody);
+    			})
     		} else if (p.totalRecord == 4) {
-    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[0].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[1].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[2].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[3].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tobdy += '<td>' + map.bookList[3].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[3].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[3].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[3].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[3].bookDate + '</td></tr>';
-    			$('#bookList').append(tbody);    			
+    			tbody += '<td>' + map.bookList[3].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr><td></td><td></td><td></td><td></td><td></td></tr>'
+    			$('#bookList').append(tbody);
     		} else {
-    			tbody += '<tr><td>' + map.bookList[0].restaurant.resName + '</td>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[0].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[0].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[0].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[0].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[0].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[1].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[0].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[1].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[1].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[1].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[1].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[1].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[2].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[1].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[2].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[2].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[2].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[2].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[2].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[3].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[2].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[3].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[3].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[3].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[3].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[3].bookDate + '</td></tr>';
-    			tbody += '<tr><td>' + map.bookList[4].restaurant.resName + '</td>';
+    			tbody += '<td>' + map.bookList[3].bookDate + '</td>'
+    			tbody += '</tr>';
+    			tbody += '<tr>'
+    			tbody += '<td>' + map.bookList[4].restaurant.resName + '</td>';
     			tbody += '<td>' + map.bookList[4].restaurant.resAddress + '</td>';
     			tbody += '<td>' + map.bookList[4].bookPeople + '</td>';
     			tbody += '<td>' + map.bookList[4].bookRequest + '</td>';
-    			tbody += '<td>' + map.bookList[4].bookDate + '</td></tr>';
-    			$('#bookList').append(tbody);    			
-    		}
-    	}
-    	
-    	
-    	
+    			tbody += '<td>' + map.bookList[4].bookDate + '</td>'
+    			tbody += '</tr>';
+    			$('#bookList').append(tbody);
+    		} */ 
+    		
     	// 페이징 출력 함수
     	function fnPrintPaging(p) {
     		// 페이징 영역 초기화
     		$('#paging').empty();
     		// 1페이지로 이동
     		if (page == 1) {
-    			$('<div class="disable_link">&lt;&lt;</div>').appendTo('#paging');
-    			//$('<div>').addClass('disable_link').html('&lt;&lt;').appendTo('#paging');
+    			$('<span class="disable_link">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
-    			$('<div class="enable_link" data-page="1">&lt;&lt;</div>').appendTo('#paging');
-    			//$('<div>').addClass('enable_link').html('&lt;&lt;').attr('data-page', 1).appendTo('#paging');
+    			$('<span class="enable_link" data-page="1">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
     		// 이전 블록으로 이동
     		if (page <= p.pagePerBlock) {
-    			$('<div class="disable_link">&lt;</div>').appendTo('#paging');
+    			$('<span class="disable_link">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
-    			$('<div class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;</div>').appendTo('#paging');
+    			$('<span class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
     		// 페이지 번호
     		for (let i = p.beginPage; i <= p.endPage; i++) {
     			if (i == page) {
-    				$('<div class="disable_link now_page">'+i+'</div>').appendTo('#paging');
+    				$('<span class="disable_link now_page">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
     			} else {
-    				$('<div class="enable_link" data-page="'+i+'">'+i+'</div>').appendTo('#paging');
+    				$('<span class="enable_link" data-page="'+i+'">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
     			}
     		}
     		// 다음 블록으로 이동
     		if (p.endPage == p.totalPage) {
-    			$('<div class="disable_link">&gt;</div>').appendTo('#paging');
+    			$('<span class="disable_link">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
-    			$('<div class="enable_link" data-page="'+(p.endPage+1)+'">&gt;</div>').appendTo('#paging');
+    			$('<span class="enable_link" data-page="'+(p.endPage+1)+'">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
     		// 마지막 페이지로 이동
     		if (page == p.totalPage) {
-    			$('<div class="disable_link">&gt;&gt;</div>').appendTo('#paging');
+    			$('<span class="disable_link">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
-    			$('<div class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;</div>').appendTo('#paging');
+    			$('<span class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
     	}  // end fnPrintPaging
     	
@@ -259,11 +296,9 @@
             </thead>
             <tbody id="bookList"></tbody>
             <tfoot>
-	            <c:if test="${not empty bookList}">
-	                <tr class="paging_foot">
-	                    <td colspan="5" id="paging"></td>
-	                </tr>            
-	            </c:if>
+                <tr class="paging_foot">
+                    <td colspan="5" id="paging"></td>
+                </tr>            
             </tfoot>
         </table>
     </section>

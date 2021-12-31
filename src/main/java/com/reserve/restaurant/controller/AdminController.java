@@ -73,8 +73,9 @@ public class AdminController {
 	@GetMapping(value="userBookList")
 	@ResponseBody
 	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
-		System.out.println("ajax에서 넘어온 userNo : " + userNo);
+		System.out.println("ajax에서 넘어온 : " + userNo);
 		Map<String, Object> map = service.userBookList(userNo, page);
+		System.out.println("controller: " + map.get("bookList").toString());
 		return map;
 	}
 	
