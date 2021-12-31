@@ -77,12 +77,20 @@ public class AdminController {
 		return map;
 	}
 	
-	
+	// ownerDetail 보여주는 page
 	@GetMapping(value="ownerDetailPage")
 	public String ownerDetailPage(Long ownerNo, Model model) {
 		model.addAttribute("ownerNo", ownerNo);
-		service.selectOwnerInfoRes(model);
+		service.selectOwnerInfo(model);
 		return "admin/ownerDetailPage";
+	}
+	
+	// ownerDetail에서 resList ajax처리
+	@GetMapping(value="ownerResList")
+	@ResponseBody
+	public Map<String, Object> ownerResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long ownerNo) {
+		Map<String, Object> map = service.ownerResList(ownerNo, page);
+		return map;
 	}
 	
 	// 검색 페이지로 이동

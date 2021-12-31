@@ -202,6 +202,10 @@
     	function fnPrintPaging(p) {
     		// 페이징 영역 초기화
     		$('#paging').empty();
+    		if (p.totalRecord == 0) {
+    			$('#paging').text('');
+    			return true;
+    		}
     		// 1페이지로 이동
     		if (page == 1) {
     			$('<span class="disable_link">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');

@@ -60,6 +60,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="EMAIL" property="email" />
 	</resultMap>
 	
+	<!-- 사업자별 등록 식당 리스트 -->
+	<select id="selectResList" parameterType="map" resultType="Restaurant">
+	SELECT B.RES_NO, B.RES_NAME, B.RES_ADDRESS, B.RES_ADDRESS_DETAIL, B.RES_OPEN_TIME, B.RES_CLOSE_TIME, B.RES_TEL, B.RES_CONTENT, B.RES_ORIGIN, B.RES_SAVED, B.RES_PATH, B.OWNER_NO
+	  FROM (SELECT ROWNUM AS RN, A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_CONTENT, A.RES_ORIGIN, A.RES_SAVED, A.RES_PATH, A.OWNER_NO
+	  		  FROM (SELECT RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO
+		  	          FROM RESTAURANT
+		 	 	     WHERE OWNER_NO = #{ownerNo}) A) B
+     WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<!-- 사업자별 등록 식당 갯수 -->
+	<select id="countOwnerRes" parameterType="Long" resultType="int">
+		SELECT COUNT(*)
+		  FROM RESTAURANT
+		 WHERE OWNER_NO = #{ownerNo}
+	</select>
+	
 	<!-- 사용자최근 예약 목록 -->
 	<select id="selectBookList" parameterType="map" resultMap="BookMap">
 		SELECT D.RES_NAME, D.RES_ADDRESS, D.RES_ADDRESS_DETAIL, D.BOOK_PEOPLE, D.BOOK_REQUEST, D.BOOK_HOURS, D.BOOK_DATE
@@ -72,23 +89,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE D.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 
+	<!-- 사용자 예약갯수 -->
 	<select id="countBookList" parameterType="Long" resultType="int">
 		SELECT COUNT(*)
 		  FROM BOOK
 		 WHERE USER_NO = #{userNo}
 	</select>
 
+	<!-- 일반 회원 수 -->
 	<select id="countUser" resultType="int">
 		SELECT COUNT(*)
 		  FROM USERTABLE
 		 WHERE STATE = 1
 	</select>
 
+	<!-- 사업자 회원 수 -->
 	<select id="countOwner" resultType="int">
 		SELECT COUNT(*)
 		  FROM OWNER
 	</select>
 	
+	<!-- 일반 회원 리스트 -->
 	<select id="selectUserList" parameterType="Map" resultType="User">
 		SELECT B.USER_NO, B.ID, B.PW, B.NAME, B.TEL, B.GRADE, B.USER_DATE, B.HBD, B.STATE, B.POINT, B.EMAIL
 		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
@@ -98,6 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
+	<!-- 사업자 회원 리스트 -->
 	<select id="selectOwnerList" parameterType="Map" resultType="Owner">
 		SELECT B.OWNER_NO, B.ID, B.PW, B.EMAIL, B.NAME, B.TEL, B.STATE
 		  FROM (SELECT ROWNUM AS RN, A.OWNER_NO, A.ID, A.PW, A.EMAIL, A.NAME, A.TEL, A.STATE

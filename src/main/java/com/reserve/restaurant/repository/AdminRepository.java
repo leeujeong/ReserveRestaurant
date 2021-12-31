@@ -45,6 +45,8 @@ public interface AdminRepository {
 	
 	public int countBookList(Long userNo);
 	
+	public int countOwnerRes(Long ownerNo);
 	
+	public List<Restaurant> selectResList(Map<String, Object> map);
 	
 }

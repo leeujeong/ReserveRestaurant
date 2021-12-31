@@ -210,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 		
-	// 회원상세 정보
+	// 일반회원상세 정보
 	@Override
 	public void selectUserInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
@@ -245,28 +245,20 @@ public class AdminServiceImpl implements AdminService {
 	// userDetail에서 BookList ajax처리
 	@Override
 	public Map<String, Object> userBookList(Long userNo, Integer page) {
-		System.out.println("controller에서 넘어온 userNo : " + userNo);
-		System.out.println("controller에서 넘어온 page : " + page);
-		
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		
 		int totalRecord = repository.countBookList(userNo);
-
-		System.out.println("totalRecord : " + totalRecord);
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
 		
 		
 		Map<String, Object> m = new HashMap<String, Object>();
-		System.out.println("beginRecord : " + pageUtils.getBeginRecord());
-		System.out.println("endRecord : " + pageUtils.getEndRecord());
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("userNo", userNo);
 		
 		List<Book> bookList = repository.selectBookList(m);	// 목록
-		System.out.println("bookList : " + bookList);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bookList", bookList);				// 목록
@@ -276,28 +268,47 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 식당 페이지 상세정보
+	// 사업자회원 상세정보
 	@Override
-	public void selectOwnerInfoRes(Model model) {
+	public void selectOwnerInfo(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> map = model.asMap();
 		Long ownerNo = (Long) map.get("ownerNo");
 		Owner owner = repository.selectOwnerInfo(ownerNo);
+		int count = repository.countOwnerRes(ownerNo);
+		model.addAttribute("count", count);
 		model.addAttribute("owner", owner);
 		List<Restaurant> restList = repository.selectOwnerInfoRes(ownerNo);
 		model.addAttribute("restList", restList);
 		
 	}
 
+	// ownerDetail에서 resList ajax처리
+	@Override
+	public Map<String, Object> ownerResList(Long ownerNo, Integer page) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		int totalRecord = repository.countOwnerRes(ownerNo);
+		
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
+		m.put("ownerNo", ownerNo);
+		
+		List<Restaurant> resList = repository.selectResList(m);	// 목록
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resList", resList);				// 목록
+		map.put("pageUtils", pageUtils);	// 페이징 처리를 위해서
+		
+		return map;
+	}
+	
+	
+	
+	
 	
 	// 검색페이지(페이징)
 	@Override
