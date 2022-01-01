@@ -30,5 +30,11 @@ public class Restaurant {
 	private String resSaved;
 	private String resPath;
 	private Long ownerNo;
+<<<<<<< HEAD
 
+=======
+	
+	
+	
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 }

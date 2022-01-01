@@ -157,6 +157,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
 			menu.setResNo(restaurant.getResNo());
+<<<<<<< HEAD
 			menu_list.add(menu);	
 		}
 	
@@ -255,6 +256,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
 			menu.setResNo(restaurant.getResNo());
+=======
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 			menu_list.add(menu);
 		}
 		

@@ -17,6 +17,38 @@
 		    text-decoration: none;
 		    color: inherit;
 		}
+		.container{
+		 border: 1px solid #eaedf0;
+		 border-radius: 10px;
+		}
+		
+		.col{
+		 width: 300px;
+		 font-family: "nanumsquare";
+			font-size: 17px;
+			margin: 15px 0;
+			text-align: center;
+			border-bottom: 1px solid #eaedf0;
+		}
+		nav{
+			display: block;
+			margin: 0 auto;
+		}
+		.detail_text{
+			font-family: "nanumsquare";
+			font-size: 17px;
+			text-align: center;
+			font-weight: bold;
+		}
+		.page_area{
+			
+			display:flex;
+			margin-left: 200px;
+			
+		}
+		
+		
+		
     </style>
     
 </head>
@@ -31,8 +63,8 @@
             </h1>
             <ul id="gnb">
             
-            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
-            	
+            		<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
                 	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
@@ -68,7 +100,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="menu_nav">
-                    <h2 class="menu_title">예약내역</h2>
+                    <h2 class="menu_title">예약 내역</h2>
                     <ul>
                         <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
                         <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
@@ -91,41 +123,60 @@
             </div>
             
             <div class="col-6">
-                 
+                
                 <div>
-                    <h3 class="ing_title" style="font-size: 30px" >FindTable에서 더욱 많은 서비스를 만나보세요!</h3>
+                    <h2 class="ing_title"> 예약 세부 내역</h2>
                 </div>
                 <hr>
-                <div class="ing_menu">
-                
-                </div> 
-                <table>
-                     <tbody>
-                     <c:forEach var="reserve" items="ingReserve">
-                        <tr>
-                           <td>
-                              <div id="paging"></div>
-                           </td>
-                        </tr>
-                     </c:forEach>
-                     </tbody> 
-               </table>
-            
-               
-                 
-                
-                <div>
-                    <div class="empty_box">
-                        <img class="empty_img" src="/restaurant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
-                    </div>
-                    <div class="empty_comment">
-                    </div>
-                </div>
+				<div class="container" style="margin-top: 0"">
+	               
+	                <c:if test="${detail !=null}">
+	                 <c:forEach var="detail" items="${detail}">
+						  <div class="row row-cols-2">
+						    <div class="col"><span class="detail_text">예약번호</span></div>
+						    <div class="col">No.${detail.bookNo}</div>
+						    
+						    <div class="col"><span class="detail_text">이름</span></div>
+						    <div class="col">${loginUser.name}</div>
+						   
+						    <div class="col"><span class="detail_text">인원</span></div>
+						    <div class="col">${detail.bookPeople}명</div>
+						   
+						    <div class="col"><span class="detail_text">예약타입</span></div>
+						    <div class="col">${detail.bookType}</div>
+						   
+						    <div class="col"><span class="detail_text">예약날짜</span></div>
+						    <div class="col">${detail.bookDate}</div>
+						   
+						    <div class="col"><span class="detail_text">예약시간</span></div>
+						    <div class="col">${detail.bookHours}시</div>
+						   
+						    <div class="col"><span class="detail_text">요청사항</span></div>
+						    <div class="col">${detail.bookRequest}</div>
+						   
+						    <div class="col"><span class="detail_text">식당이름</span></div>
+						    <div class="col">${detail.restaurant.resName}</div>
+						   
+						    <div class="col"><span class="detail_text">연락처</span></div>
+						    <div class="col">${detail.restaurant.resTel}</div>
+						   
+						    <div class="col"><span class="detail_text">주소</span></div>
+						    <div class="col">${detail.restaurant.resAddress} ${detail.restaurant.resAddressDetail}</div>
+					 	<c:if test="${not empty paging}">
+					 		<div class="page_area">
+					 			${paging}
+					 		</div>	
+					    </c:if>
+				
+						  </div>
+	                 </c:forEach>
+					 </c:if>
+					</div>
+				</div>
+						
+									      
               
-            </div>
-        </div>
-        
-     </div>
+     		</div>
 	    <section id="bottom">
 	        <div class="wrap">
 	            <div class="footer">

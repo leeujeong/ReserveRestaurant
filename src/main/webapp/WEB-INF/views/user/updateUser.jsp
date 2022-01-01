@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <link href="<c:url value="/resources/css/userCSS/updateUser.css"/>" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -29,6 +30,8 @@
 		fnUpdateUser();
 		fnEmailCheck();
 		fnInit();
+		
+		
 	});
    	
 // 현재 비밀번호 확인 변수와 함수
@@ -159,7 +162,8 @@
 			}
 			else if ( emailPass == false ) {
 				return;
-			}
+			} 
+			
 			$('#f').attr('action', '/restaurant/user/updateUser');
 			$('#f').submit();
 		});
@@ -207,6 +211,9 @@
                 </a>
             </h1>
             <ul id="gnb"> 
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
         	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
@@ -244,9 +251,8 @@
                 <div class="menu_nav">
                     <h2 class="menu_title">예약내역</h2>
                     <ul>
-                        <li><a href="ingReserve" class="menu_sub_title">진행중</a></li>
-                        <li><a href="endReserve" class="menu_sub_title"> 완료</a></li>
-                        <li><a href="cancleReserve" class="menu_sub_title">취소 / 환불</a></li>
+                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
+                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -381,10 +387,10 @@
 	                     </div>
 	                 </div><br>
 	                 <div class="bottom_btns">
-	                	<input type="button" value="비밀번호변경하기" id="updatePw1_btn" class="bottom_btn">
-	                	<input type="button" value="회원정보변경하기" id="updateUser_btn" class="bottom_btn">
-	                	<input type="button" value="초기화" id="reset_btn" class="bottom_btn">
-	                	<input type="button" value="탈퇴하기" id="leave_btn" class="bottom_btn">
+	                	<input type="button" value="비밀번호변경하기" id="updatePw1_btn" class="bottom_btn btn btn-danger">
+	                	<input type="button" value="회원정보변경하기" id="updateUser_btn" class="bottom_btn btn btn-danger">
+	                	<input type="button" value="초기화" id="reset_btn" class="bottom_btn btn btn-danger">
+	                	<input type="button" value="탈퇴하기" id="leave_btn" class="bottom_btn btn btn-danger">
 	                 </div>
                 </form>
                 

@@ -31,17 +31,46 @@ li{
   
   	margin:  0 40px;
   }
+
+  .radio_box{
+  	border: 1px solid crimson;
+  	width: 150px;
+  	margin: 0 auto;
+  	padding: 10px;
+  	border-radius: 7px;
+  	
+  }
+  
+  .radio_box > input{
+  	margin-left: 10px;
+  }
+  
+  .check_img1{
+  	display: none;
+  }
+  .check_img2{
+  	display: none;
+  }
+  
+  .no{
+  	display: none;
+  }
+  .ok{
+  display: inline;
+  }
 </style>
 <script type="text/javascript">
  	$(document).ready(function(){
  		fnLogin();
- 		console.log("document ready");
- 		console.log($("#user_radio"));
  		$("#user_radio, #owner_radio").click(function(event){
- 			console.log($("#loginForm"));
  			if(this.value == "user") {
 				$("#loginForm").attr("action", "/restaurant/user/login");
+				$('.check_img1').addClass('ok').removeClass('no');
+				$('.check_img2').addClass('no').removeClass('ok');
 			} else if (this.value == "owner") {
+				$('.check_img2').addClass('ok').removeClass('no');
+				$('.check_img1').addClass('no').removeClass('ok');
+				
 				$("#loginForm").attr("action", "/restaurant/owner/login");
 			}
 		});
@@ -96,12 +125,13 @@ li{
                   <div class="title">로그인</div>
                   <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;기다리고 있었습니다.&nbsp;&nbsp;🥩</p> 
             </div>
-      			<div>
-		       		<label for="user">user</label>
-		       		<input type="radio" name="radio" id="user_radio" value="user" checked>
-		       		<label for="owner">owner</label>
-		       		<input type="radio" name="radio" id="owner_radio" value="owner">
+      			<div class="radio_box">
+		       		<label for="user_radio">회원</label><span class="check_img1">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="user_radio" value="user" checked >&nbsp;
+		       		<label for="owner_radio">사업자</label><span class="check_img2">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="owner_radio" value="owner">
 		       	</div>	
+		       	<br>
                <form id="loginForm" method="post" action="/restaurant/user/login">
                      <label for="id" class="loginMiddle">
                      <span>아이디</span>

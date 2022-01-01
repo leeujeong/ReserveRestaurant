@@ -138,9 +138,8 @@ public class UserController {
 	
 	//사용자 정보 수정
 	@PostMapping(value="updateUser")
-	public String updateUser(User user, HttpSession session) {
-		userService.updateUser(user, session);
-		return "redirect:/user/updateUser";
+	public void updateUser(User user, HttpSession session, HttpServletResponse response) {
+		userService.updateUser(user, session,response);
 	}
 	
 	//아이디 찾기 페이지
@@ -160,4 +159,22 @@ public class UserController {
 		return "/user/detail";
 	}
 	
+<<<<<<< HEAD
+=======
+	//시간중복체크
+		@PostMapping(value="hourCheck", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> hourCheck(@RequestParam("bookHours") String bookHours) {
+			System.out.println(bookHours + "컨트롤러");	
+			return userService.hourCheck(bookHours);
+		}
+	
+	
+
+	
+	
+	
+	
+	
+>>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 }
