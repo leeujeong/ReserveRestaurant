@@ -19,7 +19,10 @@
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'owner_yj' of https://github.com/leeujeong/ReserveRestaurant.git
 # Package Files #
 *.properties
 
