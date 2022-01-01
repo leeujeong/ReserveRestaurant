@@ -58,7 +58,7 @@ td {
 }
 
 tr td:first-child {
-    width: 150px;
+/*     width: 150px; */
     text-align: center;
 }
 
@@ -174,9 +174,9 @@ thead{
 .question_table td{
     border-bottom: 1px solid gray;
 }
-table td:first-child{
+/* table td:first-child{
     width: 250px;
-}
+} */
 
 
 .addtable td:first-child{
@@ -286,4 +286,6 @@ select{
 	display:flex;
 	text-align:center;
 }
-
+.titletable{
+	width:45%;
+}

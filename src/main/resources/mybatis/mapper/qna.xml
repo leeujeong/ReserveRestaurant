@@ -8,14 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectQnaList1" resultType="Qna">
 		SELECT *
 		  FROM QNA
-		 WHERE STATE = 1
+		 WHERE QNA_STATE = 1
 		 ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectQnaList2" resultType="Qna">
 		SELECT *
 		  FROM QNA
-		 WHERE STATE = 2
+		 WHERE QNA_STATE = 2
 		 ORDER BY QNA_NO DESC
 	</select>
 	
@@ -30,17 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET QNA_HIT = QNA_HIT + 1
 		 WHERE QNA_NO = #{qnaNo}
 	</update>
-
+<!-- 
 	<insert id="insertQna" parameterType="Qna">
 		INSERT INTO QNA
 		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, QNA_HIT, SYSDATE)
-	</insert>
+	</insert> -->
 	
-	<update id="updateQna" parameterType="Qna">
+	<!-- <update id="updateQna" parameterType="Qna">
 		UPDATE QNA
 		   SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
-		 WHERE QNA_NO = #{qNo}
-	</update>
+		 WHERE QNA_NO = #{qnaNo}
+	</update> -->
 	
 	<delete id="deleteQna" parameterType="Long">
 		DELETE

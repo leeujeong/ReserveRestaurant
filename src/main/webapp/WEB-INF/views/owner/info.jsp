@@ -13,7 +13,204 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	 <script type="text/javascript">
+   
+	   $(document).ready(function(){
+			fnPresentPwCheck();
+			fnPwCheck();
+			fnPw2Check();
+			fnUpdatePw();
+			fnLeave();
+			fnUpdateUser();
+			fnEmailCheck();
+			fnInit();
+	});
+   	
+// 현재 비밀번호 확인
+	let presentPwPass = false;
+	function fnPresentPwCheck() {
+		$('#pw0').blur(function(){
+			$.ajax({
+				url: 'presentPwCheck',
+				type: 'post',
+				data: $('#f3').serialize(),
+				dataType: 'json',
+				success: function(map){
+					if (map.result) {
+						alert(' 현재 비밀번호와 일치합니다.');
+						presentPwPass = true;
+					} else {
+						presentPwPass = false;
+						alert('현재 비밀번호와 일치하지 않습니다. 다시 한번 입력해주세요.');
+					}
+				}
+			});
+		});
+	}  // end fnPresentPwCheck
+	
+	// 새 비밀번호 입력
+	let pwPass = false;
+	function fnPwCheck() {
+		let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;
+		$('#pw').keyup(function(){			
+			if ( regPw.test($('#pw').val()) == false ) {
+				$('#pw_result').text('비밀번호는 8~20자의 영문 대/소문자, 숫자, 특수문자 등 3종류 이상으로 조합해주세요.').addClass('no').removeClass('ok');
+				pwPass = false;
+			} else {
+				$('#pw_result').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('no');
+				pwPass = true;
+			}
+		});
+	}  // end fnPwCheck
+	
+	
+	// 새 비밀번호 입력 확인
+	let pwPass2 = false;
+	function fnPw2Check(){
+		$('#pw2').keyup(function(){			
+			if ($('#pw').val() != $('#pw2').val()) {
+				$('#pw2_result').text('비밀번호를 확인하세요.').addClass('no').removeClass('ok');
+				pwPass2 = false;
+			} else {
+				$('#pw2_result').text('동일한 비밀번호입니다.').addClass('ok').removeClass('no');
+				pwPass2 = true;
+			}
+		});
+	}  // end fnPw2Check
+	
+	// 비밀번호 변경 함수
+	function fnUpdatePw() {
+		$('#updatePw1_btn').click(function(){
+			if ( presentPwPass == false ) {
+				alert('현재 비밀번호를 확인하세요.');
+				return;
+			}
+			else if ( pwPass == false || pwPass2 == false ) {
+				alert('새 비밀번호 입력을 확인하세요.');
+				return;
+			}
+			else if ( $('#pw0').val() == $('#pw').val() ) {
+				alert('현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.');
+				return;
+			}
+			$('#f3').attr('action', 'updatePw');
+			$('#f3').submit();
+		});
+	}  // end fnUpdatePw
+   
+   
+	// 회원 탈퇴 함수
+	function fnLeave(){
+		$('#leave_btn').click(function(){
+			if (confirm('탈퇴할까요?')){
+				$('#f3').attr('action', 'delete');
+				$('#f3').submit();
+			}
+		});
+	}  // end fnLeave
+	
+	// 이메일 중복체크 변수와 함수
+	let emailPass = false;
+	function fnEmailCheck() {
+		if ( $('#email').val() == '${loginUser.email}' ) {
+			emailPass = true;
+			return;
+		}
+		let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+		if ( regEmail.test($('#email').val()) == false ) {
+			emailPass = false;
+			alert('이메일 형식을 체크해주세요.');
+			return;
+		}
+		$.ajax({
+			url: 'emailCheck',
+			type: 'post',
+			data: 'email=' + $('#email').val(),
+			dataType: 'json',
+			success: function(map){
+				if (map.result == null) {
+					emailPass = true;
+				} else {
+					alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
+					emailPass = false;
+				}
+			},
+			error: function(){
+				emailPass = false;
+			}
+		});
+	}  // end fnEmailCheck
+	
+	
+	// 회원정보 변경 함수
+	function fnUpdateUser() {
+		fnEmailCheck();
+		$('#updateUser_btn').click(function(){
+			if ( $('#tel').val() == '${loginUser.tel}' && 
+				 $('#email').val() == '${loginUser.email}' ) {
+				alert('변경할 내용이 없습니다.');
+				return;
+			}
+			else if ( emailPass == false ) {
+				return;
+			}
+			$('#f3').attr('action', 'updateOwner');
+			$('#f3').submit();
+		});
+	}  // end fnUpdateMember
+	
+	//초기화
+	
+	function fnInit() {
+		$('#reset_btn').click(function () {
+			$('#tel').val('');
+			$('#email').val('');
+			$('#pw0').val('');
+			$('#pw2').val('');
+			$('#pw').val('');
+			
+		});
+	}
+	
+	
+   </script>
+   
+	<style type="text/css">
+   .no{
+   
+   	color: red;
+   	font-size: 12px;
+   	
+   }
+   .ok{
+   	color: green;
+   font-size: 12px;
+   }
+   .infobtnbox{
+    width: 100%;
+    display: flex;
+    margin: 20px 30px 20px 10px;
+   	display:flex;
+   }
+   .bottom_btn{
+    width: 120px;
+    background-color: rgb(160, 57, 38);
+    border: none;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+   }
+   .bottom_btn:hover{
+    background-color:  rgba(160, 57, 38, 0.795);
+	}
+	.infobox input{
+	padding:5px;
+	}
+   </style>
+   
 </head>
+
 <body>
     <header>
         <div class="wrap">
@@ -37,6 +234,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -49,7 +247,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,57 +258,62 @@
                 <hr>
                 <div>
                     <form id="f3" method="POST" enctype="multipart/form-data">
+                    	<input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
                         <table class="infobox">
                             <tbody>
                                 <tr>
                                     <td>이름</td>
                                     <td>
-                                        <input type="text" name="o_name" id="o_name" value="<%-- ${내이름} --%>"/>
+                                        <input type="text" name="name" id="name" value="${loginUser.name}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>아이디</td>
                                     <td>
-                                        <input type="text" value="<%-- ${내 아이디} --%>" name="o_id" id="o_id"/>
-                                        <input type="button" value="중복확인" name="check_id" id="check_id"/>
+                                        <input type="text" value="${loginUser.id}" name="id" id="id"/>
+                                         <p id="id_result"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>전화번호</td>
                                     <td>
-                                        <input type="text" name="tel" id="tel" value="<%-- ${내 전화번호} --%>"/>
+                                        <input type="text" name="tel" id="tel" value="${loginUser.tel}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>이메일</td>
                                     <td>
-                                        <input type="password" name="email" id="email">
+                                        <input type="text" name="email" id="email" value="${loginUser.email}">
+                                         <p id="email_result"></p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>비밀번호</td>
+                                	<td>현재 비밀번호 :</td>
+                                	<td><input class="input_text" type="text" name="pw0" id="pw0"></td>
+                                </tr>
+                                <tr>
+                                    <td>새 비밀번호 :</td>
                                     <td>
-                                        <input type="password" name="o_pw" id="o_pw">
+                                        <input class="input_text" type="text" name="pw" id="pw">
+                                         <p id="pw_result"></p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>비밀번호 확인</td>
+                                    <td>새 비밀번호 확인 :</td>
                                     <td>
-                                        <input type="password" name="o_pw2" id="o_pw2"/>
+                                       <input class="input_text" type="text" name="pw2" id="pw2">
                                         <input type="button" value="비밀번호 확인" name="check_pw" id="check_pw"/>
-                                        <br><span>동일한지 체크하는 </span>
+                                        <p id="pw2_result"></p>
                                     </td>
                                 </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="submit" value="수정 하기" id="update_btn">
-                                        <input type="reset" value="초기화 하기" id="reset_btn">
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                           </table>
+                              <div class="infobtnbox">
+            					<input type="button" value="비밀번호변경하기" id="updatePw1_btn" class="bottom_btn">
+                                  <input type="button" value="회원정보변경하기" id="updateUser_btn" class="bottom_btn">
+                                  <input type="reset" value="초기화 하기" id="reset_btn" class="bottom_btn">
+                                  <input type="button" value="탈퇴하기" id="leave_btn" class="bottom_btn">
+                              </div>
                     </form>
                 </div>
             </div>
@@ -139,12 +342,12 @@
         </div>
     </section>
     
-    <script>
+   <!--  <script>
     //아아디체크
     let idPass = false;
     let regId = /^[a-zA-Z0-9-_]{4,10}$/;
     function fnIdCheck(){
-        $('#o_id').keyup(function(){
+        $('#ownerId').keyup(function(){
             if( regId.text($(this).val() == false)){
                 $('#id_result').text('아이디는 영어 소문자, 대문자, 숫자포함 4 ~ 10자리로 입력해주세요').addClass('no').removeClass('ok');
                 idPass = false;
@@ -171,53 +374,7 @@
             });
         });
     }       
-    //비밀번호 체크
-    let pwPass = false;
-
-    function fnPwCheck() {
-        $('#o_pw').keyup(function() {
-            let regPw = /^[a-z0-9]{1,10}$/;  
-            if ( regPw.test($(this).val()) == false ) {
-                $('#pw_result').text('비밀번호는 영어 소문자와 숫자포함 1 ~ 10 자리 입니다.').addClass('no').removeClass('ok');
-                pwPass = false;
-            } else {
-                $('#pw_result').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('no');
-                pwPass = true;
-            }
-        });
-    }   
-
-
-    //이메일 체크
-let emailPass = false;
-	function fnEmailCheck() {
-		$('#email').blur(function(){
-			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
-			if ( regEmail.test($(this).val()) == false ) {
-				alert('이메일 형식을 확인하세요.');
-				emailPass = false;
-				return;
-			}
-			$.ajax({
-				url: 'owner/emailCheck',
-				type: 'post',
-				data: 'email=' + $(this).val(),
-				dataType: 'json',
-				success: function(map){
-					if (map.result == null) {
-						alert('가입 가능한 이메일입니다. 인증번호받기를 클릭해서 이메일 인증을 진행해 주세요.');
-						emailPass = true;
-					} else {
-						alert('이미 사용 중인 이메일입니다. 다른 이메일을 입력하세요.');
-						emailPass = false;
-					}
-				},
-				error: function(){
-					emailPass = false;
-				}
-			})
-		});
-	}  
-</script>
+  
+</script> -->
 </body>
 </html>

@@ -64,44 +64,53 @@
                         
                            
                     
-                           <form id="qnaform" method="POST"> 
-                              <table class="qnatable">
+                           <form id="qnaform" method="POST" action="questionPage"> 
+                               <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+                               <input type="hidden" value="${qna.commment}" name="commnet">
+                               <table class="qnatable">
                                  <tbody>
                                     <tr>
                                        <td>작성자</td>
-                                       <td><input type="text" value="${qna.qnaWriter}" id="wirter" readonly></td>
+                                       <td><input type="text" value="${qna.qnaWriter}" id="qnaWriter" readonly></td>
                                     </tr>
                                     <tr>
                                        <td>제목</td>
-                                       <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                       <td><input type="text" value="${qna.qnaTitle}" id="qnaTitle" readonly></td>
                                     </tr>
                                     <tr>
                                         <td>작성일</td>
-                                        <td><input type="text" value="${qna.qnaTitle}" id="title" readonly></td>
+                                        <td><input type="text" value="${qna.qnaDate}" id="qnaDate" readonly></td>
                                     </tr>
                                     <tr>
                                        <td>문의 내용</td>
-                                       <td><textarea rows="20" cols="70" readonly>${qna.qnaContent}</textarea></td>
+                                       <td><textarea rows="20" cols="70" name="qnaContent" readonly>${qna.qnaContent}</textarea></td>
                                     </tr>
-                                 <!--    <tr>
-                                       <td>댓글달기 : </td>
-                                       <td><textarea rows="3" cols="50" >댓글을 남겨보세요</textarea>
-                                        <input type="submit" value="댓글달기" id="update_btn">
-                                    </td>
-                                    </tr> -->
                                  </tbody>
                               </table>
-                             	<div class="comment">
+                              <c:if test="${empty qna.qnaComment}">
+                              	<div class="comment">
                              		<div class="commenttitle">댓글달기</div>
                              		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
                              		 <input type="submit" value="댓글달기" id="content_btn">
                              	</div>
+                         	</c:if>
+                            <c:if test="${not empty qna.qnaComment}">
+                            	<div class="comment">
+                             		<div class="commenttitle">${resName} 의 댓글 : </div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${comment}</textarea>
+                             		
+                             	</div>
+                              	<div class="comment">
+                             		<div class="commenttitle">댓글달기</div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             	</div>
+                         	</c:if>
                            </form>
-                              
-                        
+                           
                         <div class="bottombtn">
-                           <input type="button" value="목록보기" id="list_btn">
-                           <input type="reset" value="삭제하기" id="reset_btn">
+                           <input type="button" value="목록보기" id="list_btn" >
+                           <input type="reset" value="삭제하기" id="delete_btn">
                         </div>
                     </div>
                   </div> 
@@ -109,10 +118,19 @@
         </div> 
     </div>
     <script>
+    $('#list_btn').on('click', function(){
+    	alert('목록으로 이동');
+    	location.href='questionPage'
+    });
+    
+    $('#delete_btn').on('click',function(){
+        if(confirm('게시글을 삭제할까요?')){
+            alert( '삭제했습니다.');
+            $('#qnaform').attr('action', 'deleteQna');
+            $('#qnaform').submit();
+        }
+    });
 
-       $('#update_btn').click(function(){
-         alert('댓글이 달렸습니다.');
-       });
     </script>
     <section id="bottom">
         <div class="wrap">

@@ -27,9 +27,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    </foreach>) A
 	</insert>
 	
+	<!-- 메뉴불러오기 -->
+	<select id="selectMenu" parameterType="Long" resultType="Menu">
+		SELECT *
+		  FROM menu
+		 WHERE res_no = #{resNo}
+	</select>
 	
-	<delete id ="removeRestaurant" parameterType="Long">
+	<!-- <delete id ="removeRestaurant" parameterType="Long">
 		
-	</delete> 
+	</delete>  -->
 	
 </mapper>

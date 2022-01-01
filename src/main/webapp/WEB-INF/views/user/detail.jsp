@@ -23,6 +23,7 @@
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
+	    fnReviewScroll();
 	});
 
 	function fnQuickMenu() {
@@ -48,6 +49,13 @@
 	            }
 	        });
 	    })(jQuery);
+	}
+	//해당위치로 스크롤 이동
+	function fnReviewScroll(){
+		$('#reviewbtn').click(function(){
+			var offset = $('.review_section').offset();
+			$('html, body').animate({scrollTop : offset.top}, 400);
+		});
 	}
  </script>
  
@@ -143,7 +151,8 @@
         </image>
         <div class="rest_detail">
             <p>식당이름</p>
-            <p>★4.5</p>
+            <p>★4.5</p><button id="reviewbtn">리뷰 보기 >></button>
+            <input type="button" onclick="location.href='/restaurant/user/reviewPage'" value="리뷰작성하기">
             <span>(45)</span>
             <p>09 : 00 ~ 18 : 00</p>
             <p>010-0000-0000</p>
@@ -178,19 +187,17 @@
         </ul>
     </section>
     <section class="review_section">
-        <div class="review_title">추천 리뷰
-            <a href="">
-                <span>모두보기 ></span>
-            </a>
+        <div class="review_title">방문자 리뷰
+                <a href="#"><span>더보기 ></span></a>
         </div>
+        <!-- 리뷰 총점 -->
         <div class="review_aver">
             <span>★4.0
                 <span class="total_review">(10)</span>
             </span>
         </div>
+        <!-- c태그 if문과 foreach문을 활용하여 li하나만 남겨둘것임 -->
         <ul class="review_list">
-        
-        	<!-- c태그 if문과 foreach문을 활용하여 li하나만 남겨둘것임 -->
             <li>
                 <a href="">
                     <img src="/이미지/양식/steak2.jpeg" width="300px" height="100%" class="review">
