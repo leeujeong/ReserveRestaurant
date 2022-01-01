@@ -165,7 +165,7 @@
 			                         				</tr>
 										          	<tr>
 										          		<td>예약자 성함 : ${book.get("NAME")}</td>
-										          		<td>예약번호 : ${book.get("BOOK_NO")}  , 홀/ 룸: ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</td>
+										          		<td>예약번호 : ${book.get("BOOK_NO")}  , 홀 / 룸 : ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</td>
 										          	</tr>
 									          	</c:forEach>
 		                         			</tbody>
