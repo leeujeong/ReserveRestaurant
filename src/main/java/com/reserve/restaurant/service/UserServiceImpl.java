@@ -3,6 +3,7 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.Message;
@@ -45,7 +46,6 @@ public class UserServiceImpl implements UserService {
 		user.setId(request.getParameter("id"));
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
 		User loginUser = repository.login(user);
-		System.out.println(loginUser);
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 		} 
@@ -178,21 +178,27 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void updateUser(User user, HttpSession session) {
-		System.out.println(user);
+	public void updateUser(User user, HttpSession session, HttpServletResponse response) {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		user.setEmail(user.getEmail());
 		user.setTel(user.getTel());
 		
 		
-		repository.updateUser(user);
-		
+		int result = repository.updateUser(user);
+		message(result, response, "회원정보가 수정되었습니다", "회원정보 수정 실패", "/restaurant/user/updateUser");
 		User loginUser = (User)session.getAttribute("loginUser");
 		loginUser.setEmail(user.getEmail());
 		loginUser.setTel(user.getTel());
-		
-		
-		
+	}
+	
+	@Override
+	public Map<String, Object> hourCheck(String bookHours) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<User> list = repository.hourCheck(bookHours);
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", list);
+		return map;
 	}
 	
 	

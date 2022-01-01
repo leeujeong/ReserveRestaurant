@@ -5,33 +5,77 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <link href="<c:url value="/resources/css/userCSS/detail.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/js/userJS/detail.js"/>" rel="stylesheet">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
- 
-   <!-- 합쳐지고 최소화된 최신 CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
-   <!-- 제이쿼리 --> 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-   <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
- <script>
- $(document).ready(function() {
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script>
+	$(document).ready(function() {
+	
+		fnSelectHour();
+		fnSelectBookingList();
+		
+	 
 	    fnhover();
 	    fnQuickMenu();
-	});
+	    fnBooking();
+	    fnHourCheck();
+	  	  $('#exampleModalCenteredScrollable').modal('hide');
+		
+	  	  $('#exampleModalCenteredScrollable').modal('show');
+	  
+		
+	    // input 상자 눌러서 인원수 늘리기
+      	$('#bookPeople').on({
+      		"click" : function(){
+      			var number = ($(this).attr('value'));
 
+      			if(number==100){ // 숫자가 9이상이라면 초기화
+      				$(this).attr('value', '0');
+      			}else{
+      				var plus_num = parseInt(number) + 1;
+      				$(this).attr('value', plus_num);
+      			}
+      		}
+	});  
+	    //달력
+      	$("#datepicker").datepicker();
+  	  
+    	$.datepicker.setDefaults({
+    	    dateFormat: 'yy-mm-dd',
+    	    prevText: '이전 달',
+    	    nextText: '다음 달',
+    	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+    	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+    	    showMonthAfterYear: true,
+    	    yearSuffix: '년',
+    	    showOn : 'button'
+    	});
+    	
+ });// Pageload 끝
+ 
+	    
+ 
 	function fnQuickMenu() {
 	    var currentPosition = parseInt($(".quickmenu").css("top"));
 	    $(window).scroll(function() {
 	        var position = $(window).scrollTop();
 	        $(".quickmenu").stop().animate({ "top": position + currentPosition + "px" }, 1000);
 	    });
-	}
+	}  //QuickMenu 끝
 
 	function fnhover() {
 	    (function($) {
@@ -48,18 +92,150 @@
 	            }
 	        });
 	    })(jQuery);
-	}
+	}  // hover 끝
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//시간 선택
+	 var hour = 0;
+	 function fnSelectHour() {
+		 $('.bookHours').on('click', function(){
+				hour = $(this).data('hour');
+				let result = $(this).val();
+				$('#date_result').text(result+ '시를 선택하셨습니다.');
+			});
+	 }
+	
+	//예약 등록하기
+	function fnBooking() {
+		$('#booking_btn').click(function(){
+			alert('예약하시겠습니까?');
+			let booking = JSON.stringify({
+				bookDate : $('#datepicker').val(),
+				bookPeople : $('#bookPeople').val(),
+			    bookHours : hour,
+				bookType : $('input:radio[name="bookType"]:checked').val(),
+				bookRequest : $('#bookRequest').val(),
+				userNo : $('#userNo').val(),
+				resNo : $('#resNo').val(),
+				resOrigin : $('#resOrigin').val(),
+				resSaved : $('#resSaved').val(),
+				resPath :$('#resPath').val()
+			});
+			console.log(booking);
+			$.ajax({
+				url : '/restaurant/book/booking',
+				type : 'post',
+				data : booking,
+				contentType : 'application/json',
+				dataType : 'json',
+				success : function (map) {
+					if(map.result > 0 ){
+						alert( map.result.bookDate +','+ map.result.bookHours +'시 에 예약 되었습니다.');
+						$('#exampleModalCenteredScrollable').modal('hide');
+						//if(confirm('예약 현황을 보러 가시겠습니까?')){
+						//	location.href="/restaurant/book/selectBookingList?bookNo="+map.bookNo;
+						//}
+						 
+					} else{
+						alert('예약 실패');
+					}
+				},
+				error : function (xhr) {
+					
+				}
+			});
+		});
+	} // booking 끝
+	
+	function fnSelectBookingList() {
+		$('#myBooking').click(function(){
+			$('#f2').attr('action', '/restaurant/book/selectBookingList');
+			$('#f2').submit();
+		});
+		
+	}//selectbookinglist끝
+	
+	let hourPass = false;
+	function fnHourCheck() {
+	//	$('#id').keyup(function(){
+			
+    //        let regId = /^[a-zA-Z0-9-_]{4,}$/;
+	//		if ( regId.test($(this).val()) == false ) {
+	//			$('#id_result').text('아이디는 대문자,숫자,특수문자 -,_ 사용해서 4자 이상 입력해주세요.').addClass('no').removeClass('ok');
+	//			idPass = false;
+	//			return;
+	//		}
+	      $('.bookHours').on('click', function(){
+	    	  bookHours = $(this).data('hour');
+	      
+			$.ajax({
+				url: '/restaurant/user/hourCheck',
+				type: 'post',
+				data: 'bookHours='+bookHours,
+				dataType: 'json',
+				success: function(map){
+						alert(map.result);
+						console.log(map.result);
+				},
+				error: function(xhr){
+					
+				}
+			});
+	      });
+	}  // end fnIdCheck
+	
+	
+	
  </script>
  
  <style>
+ /* modal 박스 css시작*/
  a{
  	color: black;
+ 	text-decoration: none;
  }
+ label{
+ 	cursor: pointer;
+ }
+ #request{
+ 	outline: none;
+ 	border: 1px solid silver;
+ 	border-radius: 5px;
+ }
+.reserve_div{
+	margin-bottom: 30px;
+}
+.reserve_text{
+	font-family: nanumsquare;
+	font-size: 19px;
+	font-weight: bold;
+}
+.bookHours{
+	margin: 3px 3px;
+}
+.check_img1{
+	display: none;
+	margin-right: 20px;
+}
+.ok{
+	display: inline;
+}
+/*modal 박스 css 끝*/
+  .input_box{
+  	width: 120px;
+  	height: 50px;
+  	border: 1px solid silver;
+  	border-radius: 5px;
+  	outline: none;
+  	font-size: 13px;
+  	text-align: center;
+  	margin-bottom: 30px;
+  	cursor: pointer;
+  }
  </style>
 </head>
 <body>
-
-	
 	  <header>
         <div class="wrap">
             <h1 style="padding-top: 0">
@@ -67,10 +243,12 @@
                     <img  src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
                 
+                
             </h1>
             <ul id="gnb">
             
-            		<li><a href="/restaurant/user/search"><i class="fas fa-search fa-lg"></i></a></li>
+            
+            			<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
@@ -108,9 +286,9 @@
                 <a href="#" class="menulink">Reservation</a>
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
-            <ul>
-                <li><a href="/restaurant/user/search"> 식당 검색  </a></li>
-                <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
+            <ul style="text-align: center;">
+                <li><a href="/restaurant/user/search"> 식당검색  </a></li>
+                <li><a href="식당검색페이지">할인되는식당</a></li>
                 <li><a href="/restaurant/user/reserve"> 신규 오픈 </a></li>
             </ul>
         </div>
@@ -135,21 +313,105 @@
             </ul>
         </div>
     </div>
-    
+ 
 	
     <section class="rest_section">
-        <image src="/restaurant/resources/image/index/rest1.jpg" class="main_image" style="width: 300px;" style="height: 200px;">
-          
+        <image src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;">
+         
         </image>
         <div class="rest_detail">
-            <p>식당이름</p>
+            <p>${rest.resName}</p>
             <p>★4.5</p>
             <span>(45)</span>
-            <p>09 : 00 ~ 18 : 00</p>
-            <p>010-0000-0000</p>
+            <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
+            <p>전화번호 : ${rest.resTel }</p>
+            <div class="comment_box">
+				주인장이 남기는 말<br>            
+	            <p>${rest.resContent}</p>
+            </div>
             
-            <input type="button" value="예약하기" class="reserve_btn" onclick="location.href='/restaurant/user/reserve'">
+            <!--******************************************* 예약하기********************************************** -->
+           
+			<div class="modal fade show" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: block;" aria-modal="true" role="dialog">
+			  <div class="modal-dialog modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalCenteredScrollable">${rest.resName} 예약하기</h5>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			      	<form id="f" method="post">
+			      		<div class="reserve_div">
+							 <span class="reserve_text">날짜 선택 </span>			      		
+				      		 <input type="text" id="datepicker" name="bookDate" class="input_box"> 
+			      		</div>
+			      		<hr>
+			      		<div class="reserve_div">
+                        	<span class="reserve_text">&nbsp;&nbsp;&nbsp;인원 &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                       	   	<input type="text" name="bookPeople" id="bookPeople" class="input_box" value="1">&nbsp;&nbsp;명 
+                             <br>
+                       	</div>
+                       	<hr>
+                       	
+                       	<div class="reserve_div">
+                        	<span class="reserve_text">예약시간 </span><span id="date_result" style="color: green">&nbsp;:  </span><br>
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="12" value="오후12:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="13" value="오후13:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="14" value="오후14:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="15" value="오후15:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="16" value="오후16:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="17" value="오후17:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="18" value="오후18:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="19" value="오후19:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="20" value="오후20:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="21" value="오후21:00">
+                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="22" value="오후22:00">
+                        </div>
+                        <hr>
+                        <div class="reserve_div">
+                        <span class="reserve_text">예약타입 </span>	 
+                        	<br><br>
+                        	&nbsp;<label for="hall">홀</label><span class="check_img1"></span>
+                        	<input name="bookType" type="radio" value="홀" id="hall"  >
+                        	&nbsp;<label for="room">룸</label><span class="check_img1"></span>
+                        	<input name="bookType" type="radio" value="룸" id="room" >
+                        	&nbsp;<label for="booth">부스</label><span class="check_img1"></span>
+                        	<input name="bookType" type="radio" value="부스테이블" id="booth" >
+                        	&nbsp;<label for="bar">바</label><span class="check_img1"></span>
+                        	<input name="bookType" type="radio" value="바" id="bar" >
+                         
+                        </div>
+                        <hr>
+                        
+                        <div class="reserve_div">
+                        	<span class="reserve_text">요청사항 </span><br>	 
+                        	<textarea rows="5" cols="50" name="bookRequest" id="bookRequest"></textarea>
+                        </div>
+			      		
+			      	</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			        <input type="button" class="btn btn-danger" id="booking_btn" value="${rest.resName}으로 정했습니다." >
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		      <div class="bd-example">
+				  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
+				    예약하기
+				  </button>
+				  <p></p>
+				 <form id="f2" method="post">
+					  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
+					  <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}">
+				 </form>
+				   
+				  
+				</div>
         </div>
+        
+        
     </section>
     <section class="menu_section">
         <div class="menu_title">메뉴</div>
@@ -224,7 +486,6 @@
                     </div>
                 </a>
             </li>
-
         </ul>
 
 
@@ -286,7 +547,7 @@
 	
 	
 	    <section class="icon_section">
-		    <div class="picture_title">위치</div>
+		    <div class="picture_title">오시는 길</div>
 				 <p style="margin-top:-12px">
 			    <em class="link">
 			        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
@@ -336,6 +597,9 @@
     </section>
     
     <section id="bottom">
+    
+   
+    
         <div class="wrap">
             <div class="footer">
                 <div class="footer_inner">
@@ -366,7 +630,8 @@
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
-
+    	
+    	
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		
@@ -374,7 +639,7 @@
 		var geocoder = new kakao.maps.services.Geocoder();
 		
 		// 주소로 좌표를 검색합니다  //해당식당 주소를 변수로 넣을예정..?
-		geocoder.addressSearch('서울 마포구 서강로 136', function(result, status) {
+		geocoder.addressSearch( '${rest.resAddress}'+'${rest.resAddressDetail}' , function(result, status) {
 			console.log(geocoder);
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
@@ -394,7 +659,7 @@
 		
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">해당식당이름</div>'
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${rest.resName}</div>'
 		        });
 		        infowindow.open(map, marker);
 		
@@ -403,8 +668,20 @@
 		    } 
 		});    
     </script>
+    <input type="hidden" id="resNo" name="resNo" value="${rest.resNo}">
     
+	<input type="hidden" id="resAddress" value="${rest.resAddress}">
+	<input type="hidden" id="resAddressDetail" value="${rest.resAddressDetail}">
+	<input type="hidden" id="resOrigin" value="${rest.resOrigin}">
+	<input type="hidden" id="resSaved" value="${rest.resSaved}">
+	<input type="hidden" id="resPath" value="${rest.resPath}">
+
+		
 	
-	
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

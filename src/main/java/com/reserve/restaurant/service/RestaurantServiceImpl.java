@@ -152,7 +152,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			Menu menu = new Menu();
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
-			menu.setResNo(restaurant.resNo);
+			menu.setResNo(restaurant.getResNo());
 			menu_list.add(menu);
 		}
 		
