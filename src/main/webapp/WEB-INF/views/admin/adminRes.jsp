@@ -19,16 +19,95 @@
 	})
 
 	function fnResList() {
+		var page = 1;
 		$.ajax({
 			url: '/restaurant/admin/selectResList',
 			type: 'get',
+			data: page,
 			dataType: 'json',
-			success: function() {
-				
+			success: function(map) {
+				fnPrintResList(map);
+				fnPrintPaging(map.pageUtils);
 			}
 		})
 	} // end fnResList()
 	
+	function fnPrintResList(map) {
+		$('#tbody').empty();
+		var p = map.pageUtils;
+		// var endRecord = p.endRecord;
+		// var beginRecord = p.beginRecord;
+		var tbody = '';
+		var addRow = '<tr><td></td><td></td><td></td><td></td></tr>';
+		if (p.totalRecord == 0) {
+			$('<tr rowspan="5">')
+			.append( $('<td colspan="4">').text('등록된 식당이 없습니다.') )
+			.appendTo('#tbody');
+		} else {
+			$.each (map.resList, function(i, res) {
+				tbody += '<tr>'
+				tbody += '<td>' + map.resList.resName + '</td>'
+				tbody += '<td>' + map.resList.resAddress + map.resList.resAddressDetail + '</td>'
+				tbody += '<td>' + map.resList.resOpenTime + map.resList.resCloseTime + '</td>'
+				tbody += '<td>' + map.resList.resTel + '</td>'
+				tbody += '<tr>'
+			})
+			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
+				tbody += addRow;
+			}
+			$('#tbody').append(tbody);
+		}
+	}
+	
+	function fnPrintPaging(p) {
+		// 페이징 영역 초기화
+		$('#paging').empty();
+		if (p.totalRecord == 0) {
+			$('#paging').text('');
+			return true;
+		}
+		// 1페이지로 이동
+		if (page == 1) {
+			$('<span class="disable_link">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		} else {
+			$('<span class="enable_link" data-page="1">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		}
+		// 이전 블록으로 이동
+		if (page <= p.pagePerBlock) {
+			$('<span class="disable_link">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		} else {
+			$('<span class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		}
+		// 페이지 번호
+		for (let i = p.beginPage; i <= p.endPage; i++) {
+			if (i == page) {
+				$('<span class="disable_link now_page">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
+			} else {
+				$('<span class="enable_link" data-page="'+i+'">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
+			}
+		}
+		// 다음 블록으로 이동
+		if (p.endPage == p.totalPage) {
+			$('<span class="disable_link">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		} else {
+			$('<span class="enable_link" data-page="'+(p.endPage+1)+'">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		}
+		// 마지막 페이지로 이동
+		if (page == p.totalPage) {
+			$('<span class="disable_link">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		} else {
+			$('<span class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
+		}
+	}  // end fnPrintPaging
+	
+	// 페이징 링크 처리 함수(전역변수 page값을 바꾸고, fnFindAllMember() 호출)
+	function fnChangePage(){
+		$('body').on('click', '.enable_link', function(){
+			page = $(this).data('page');
+			fnResList();
+		});
+	}  // end fnChangePage
+
 	
 </script>
 </head>

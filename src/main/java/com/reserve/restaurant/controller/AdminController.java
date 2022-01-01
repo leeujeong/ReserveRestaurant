@@ -123,8 +123,9 @@ public class AdminController {
 	// 식당전체 리스트 가져오기
 	@GetMapping(value="selectResList")
 	@ResponseBody
-	public Map<String, Object> selectResList() {
+	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resList", service.resList(page));
 		return map;
 	}
 	

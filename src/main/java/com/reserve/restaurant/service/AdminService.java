@@ -20,6 +20,7 @@ public interface AdminService {
 	public void selectResDetail(Model model, Restaurant restaurant);
 	public Map<String, Object> userBookList(Long userNo, Integer page);
 	public Map<String, Object> ownerResList(Long ownerNo, Integer page);
+	public Map<String, Object> resList(Integer page);
 
 
 

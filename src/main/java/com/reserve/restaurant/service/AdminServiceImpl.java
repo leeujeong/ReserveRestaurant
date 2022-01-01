@@ -332,7 +332,6 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-
 	@Override
 	public void selectResDetail(Model model, Restaurant restaurant) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
@@ -343,8 +342,29 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("rest", rest);
 	}
 
+	// 전체 사업장 리스트 출력
+	@Override
+	public Map<String, Object> resList(Integer page) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		
+		int totalRecord = repository.countRes();
+		System.out.println("총 사업장 갯수 : " + totalRecord);
+		
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
 
-	
+		List<Restaurant> list = repository.selectRes(m);
+		System.out.println(list);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resList", list);
+		map.put("pageUtils", pageUtils);
+		return map;
+	}
 	
 	
 	

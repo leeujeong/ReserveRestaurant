@@ -48,5 +48,6 @@ public interface AdminRepository {
 	public int countOwnerRes(Long ownerNo);
 	
 	public List<Restaurant> selectResList(Map<String, Object> map);
-	
+	public List<Restaurant> selectRes(Map<String, Object> map);
+	public int countRes();
 }
