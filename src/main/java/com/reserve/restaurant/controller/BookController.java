@@ -21,35 +21,17 @@ import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.service.BookService;
 
 @Controller
-
+@RequestMapping("book/*")
 public class BookController {
 
 	@Autowired
 	BookService service;
 	 
-
-	@PostMapping(value = "insertBook")
-	public String insertNotice(Book book ) {
-		System.out.println(book);
-		service.insertBook(book);
-		return "redirect:user/myPage";
-	}
-
 	@PostMapping(value = "booking" , produces ="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> booking (@RequestBody Book book, HttpServletRequest request){
 	  return service.booking(book, request);
-
 	}
-
-
-	
-
-	
-
-
-
-	
 	
 	@RequestMapping(value = "selectBookingList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String selectBookingList (@RequestParam("userNo") Long userNo, HttpServletRequest request, Model model) {
