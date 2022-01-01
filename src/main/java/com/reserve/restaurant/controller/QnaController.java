@@ -43,6 +43,7 @@ public class QnaController {
 		return "owner/question";
 	}
 	
+	
 	//공지사항 작성
 //	@PostMapping(value="insertQna")
 //	public String insertQna(Qna Qna) {

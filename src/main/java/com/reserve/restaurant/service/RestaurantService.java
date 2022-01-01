@@ -1,12 +1,14 @@
 package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Restaurant;
 
 public interface RestaurantService {
@@ -16,8 +18,8 @@ public interface RestaurantService {
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
-	
-	
+	//메뉴 불러오기
+	public List<Menu> selectMenu(Long resNo);
 	
 	
 	//message method

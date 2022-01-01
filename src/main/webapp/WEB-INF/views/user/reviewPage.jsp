@@ -23,7 +23,6 @@
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
-	    fnReviewScroll();
 	});
 
 	function fnQuickMenu() {
@@ -50,13 +49,7 @@
 	        });
 	    })(jQuery);
 	}
-	//해당위치로 스크롤 이동
-	function fnReviewScroll(){
-		$('#reviewbtn').click(function(){
-			var offset = $('.review_section').offset();
-			$('html, body').animate({scrollTop : offset.top}, 400);
-		});
-	}
+	
  </script>
  
  <style>

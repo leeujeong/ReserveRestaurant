@@ -29,6 +29,12 @@ $('document').ready(function(){
     }
     });
     
+    //썸네일
+    // $('#upload_result').empty();
+    // $.each(map.thumnails, function(i,thumbnail){
+    //     ('#upload_result')
+    //     .append($('<div>').html($('<img>').attr('src','/reserve/' + map.path + '/' + thumbnail))
+    // });
     
     
     //가게 주소등록
@@ -53,7 +59,7 @@ $('document').ready(function(){
     //let num = 1;
     document.querySelector(".plus_btn").addEventListener("click", function(e){
         e.preventDefault();
-
+        //let input_num = num + 1;
         let clone_menu_input_box = document.querySelector(".menu_input_box").cloneNode();
         let input_menu = document.createElement("input");
         input_menu.setAttribute("type", "text");
@@ -69,4 +75,27 @@ $('document').ready(function(){
         clone_menu_input_box.appendChild(input_menu_price);
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
     });
+    
+    	    //삭제
+	    $('#delete_btn').on('click',function(){
+	        if(confirm("${restaurant.resName} 을 삭제할까요?")){
+	            $('#f2').attr('action', 'deleteRestaurant');
+	            $('#f2').submit();
+	        }
+	    });
+	
+	
+	    //회원정보 수정 함수 
+		$('#update_btn').on('click', function(){
+			if($('#s_name').val() == '${restaurant.resName}'&&
+				$('#tel').val() == '${restaurant.resTel}' &&
+				$('#address_kakao').val() == '${restaurant.resAddressDetail}' &&
+				$('#content').val() == '${resContent}'){
+					alert('수정할 내용이 없습니다.');
+					return;
+				}
+			alert('수정했습니다');
+			$('#f2').attr('action','modifyRestaurant').submit();	
+    });
+    
 });

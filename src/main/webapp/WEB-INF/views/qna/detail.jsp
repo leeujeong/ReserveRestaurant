@@ -65,14 +65,13 @@
                            
                     
                            <form id="qnaform" method="POST" action="questionPage"> 
-                              <table class="qnatable">
+                               <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+                               <input type="hidden" value="${qna.commment}" name="commnet">
+                               <table class="qnatable">
                                  <tbody>
                                     <tr>
                                        <td>작성자</td>
-                                       <td>
-                                       <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
-                                       <input type="text" value="${qna.qnaWriter}" id="qnaWriter" readonly>
-                                       </td>
+                                       <td><input type="text" value="${qna.qnaWriter}" id="qnaWriter" readonly></td>
                                     </tr>
                                     <tr>
                                        <td>제목</td>
@@ -88,18 +87,18 @@
                                     </tr>
                                  </tbody>
                               </table>
-                              <c:if test="${empty list}">
+                              <c:if test="${empty qna.qnaComment}">
                               	<div class="comment">
                              		<div class="commenttitle">댓글달기</div>
                              		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
                              		 <input type="submit" value="댓글달기" id="content_btn">
                              	</div>
                          	</c:if>
-                            <c:if test="${not empty list}">
+                            <c:if test="${not empty qna.qnaComment}">
                             	<div class="comment">
                              		<div class="commenttitle">${resName} 의 댓글 : </div>
                              		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${comment}</textarea>
-                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             		
                              	</div>
                               	<div class="comment">
                              		<div class="commenttitle">댓글달기</div>
@@ -108,8 +107,7 @@
                              	</div>
                          	</c:if>
                            </form>
-                              
-                        
+                           
                         <div class="bottombtn">
                            <input type="button" value="목록보기" id="list_btn" >
                            <input type="reset" value="삭제하기" id="delete_btn">

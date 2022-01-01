@@ -37,6 +37,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -49,7 +50,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -71,28 +72,25 @@
                                 <td>조회수</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!--jsp 11 freeboard jsp 참고-->
-                            <tr>
-                                <td>1</td>
-                                <td>이유정</td>
-                                <td>랄랄랄</td>
-                                <td>썸네일처럼</td>
-                                <td><a href="#">마싯당 마시서</a></td>
-                                <td>2021-12-21</td>
-                                <td>hit</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>2</td>
-                                <td>이유정</td>
-                                <td>랄랄랄</td>
-                                <td>썸네일처럼</td>
-                                <td><a href="#">드릅게 맛도없어</a></td>
-                                <td>2021-12-21</td>
-                                <td>hit</td>
-                            </tr>
-                        </tbody>
+                       <tbody>
+							<c:if test="${empty reviewList}">
+								<tr>
+									<td colspan="7">등록된 리뷰 없음</td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty reviewList}">
+								<c:forEach var="review" items="${reviewList}">
+									<tr>
+										<td>${qna.qnaNo}</td>				
+										<td>${qna.qnaWriter}</td>
+										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+										<%-- <td>${qna.qnaContent}</td> --%>
+										<td>${qna.qnaDate}</td>
+										<td>${qna.qnaHit}</td>				
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
                     </table>
                 </div>
             </div>

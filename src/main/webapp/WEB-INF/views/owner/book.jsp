@@ -11,8 +11,87 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
+	<link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<script src="<c:url value="/resources/js/main.js"/>"></script>
+	
+<!--   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script> -->
+
+	
+	<link href='/assets/demo-to-codepen.css' rel='stylesheet' />
+	
+	
+  <script>
+
+/*   document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar'); 
+	  
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+		   headerToolbar: { left: 'prev,next today',
+			  				center: 'title', 
+			  				right: 'dayGridMonth,timeGridWeek,timeGridDay' }, 
+			  				initialDate: '2021-04-12',
+			  				navLinks: true,
+			  				views selectable: true, 
+			  				selectMirror: true, 
+			  				select: function(){
+			  					console.log(arg);
+			  				var title = prompt('입력할 일정:');
+				  				if(title){
+				  					calendar.addEvent({
+				  						title: title,
+				  						start: arg.start, 	
+				  						end: arg.end, 
+				  						allDay: arg.allDay, 
+				  						backgroundColor:"yellow", 
+				  						textColor:"blue"
+				  					})
+				  				}
+				  				calendar.unselect()
+			  				},eventClick: function(arg) { // 있는 일정 클릭시,
+			  					 console.log("#등록된 일정 클릭#");
+			  				 	 console.log(arg.event); 
+			  					if (confirm('Are you sure you want to delete this event?')) {
+			  						arg.event.remove() 
+			  					}
+			  				}, editable: true, 
+			  				   dayMaxEvents: true, // allow "more" link when too many events 
+			  				   events: 
+			  				  function(info, successCallback, failureCallback){
+			  					   $.ajax({
+			  						  type:"get",
+			  						  url:"bookPage",
+			  						  dataType:"json"
+			  					   });
+			  					   
+			  				   }
+			  				    });
+	  						calendar.render();
+	  		}); */
+			  				
+</script>
+	
+	
+	
+	
+	<style>
+	
+/* 	    html, body {
+	      margin: 0;
+	      padding: 0;
+	      font-size: 14px;
+	    }
+	
+	    #calendar {
+	      max-width: 1100px;
+	      margin: 40px auto;
+	    }
+	     */
+
+	</style>
+	
 </head>
 <body>
     <header>
@@ -23,8 +102,8 @@
                 </a>
             </h1>
             <ul id="gnb">
-               	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+               	<li><a href="/restaurant/owner/logout" style="font-weight: 400;">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage"style="font-weight: 400;">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -56,62 +135,48 @@
             </div>
             <div class="col-6">
                 <div class="section2">
-                    <h4 class="ing_title">사업장 관리</h4>
+                    <h4 class="ing_title">예약 관리</h4>
                 </div>
                 <hr>
                   <div class="containers">
-                    <div class="row">
-                   
+                    <div class="row">     
                       <div class="col-sm-9">
                         <div class="row">
                           <div class="col-8 col-sm-6">
                           
+							<!-- 
+  							<div id='calendar'></div>
+ -->
                          	<c:if test="${empty list}">
                          		<div class="empty_content">  
-                         			<a href="addPage">음식점 등록하러가기</a>
+                         			예약이 없습니다.
                          		</div>
                          	</c:if>
                          	
                          	<c:if test="${not empty list}">
-                         		<c:forEach var="restaurant" items="${list}">
+                         		
                          			<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
 	                         		<div class="list_table">
 		                         		<table >
 		                         			<tbody>
-			                         			<tr>
-									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
-									            <tr>
-									            <tr>
-									                <td>${restaurant.resTel}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resContent}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOption}</td>
-		            							</tr>
+			                         		<c:forEach var="book" items="${list}">
+									          	<tr>
+									          		<td>예약자 성함</td>
+									          		<td>예약번호 : ${book.bookNo}  , 홀/ 룸: ${book.bookType}, 인원수:${book.bookPeople}, 예약시간 : ${book.bookHours}, 예약날짜: ${book.bookDate}</td>
+									          	</tr>
+									          </c:forEach>
 		                         			</tbody>
 	                         			</table>
 									</div>
-                         		</c:forEach>
+                         		
                          	</c:if>
-                         	<c:if test="${not empty paging}">
-								<div class="paging">${paging}</div>
-							</c:if>
-                        </div>
                       </div>
                     </div>
                   </div>
                  </div>
             </div>    
         </div> 
+    </div>
     </div>
     <section id="bottom">
         <div class="wrap">

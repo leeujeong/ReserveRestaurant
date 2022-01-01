@@ -43,6 +43,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -55,7 +56,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -73,12 +74,11 @@
 		                            <td>
 		                            	<input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                                <input type="text" name="s_name" id="s_name" placeholder="사업장 이름을 입력하세요">
-		                                <input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                            </td>
 		                        </tr>
 		                         <tr>
 		                             <td>운영시간</td>
-		                             <td>
+		                            <td>
 		                                 <select name="open_time" id="open_time">
 		                                     <option value="">--오픈 시간--</option>
 		                                 </select> ~

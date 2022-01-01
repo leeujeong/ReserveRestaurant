@@ -62,13 +62,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 		map.put("id", oid);
 		
 		List<Restaurant> list = repository.selectMyRestaurantList(map);
+
 		
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPageEntity("managePage"));
 		
 	}
-	
+	//등록
 	@Override
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Restaurant restaurant = new Restaurant();
@@ -79,7 +80,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurant.setResOpenTime(multipartRequest.getParameter("open_time"));
 		restaurant.setResCloseTime(multipartRequest.getParameter("close_time"));
 		String[] additional_options = multipartRequest.getParameterValues("additional_option");
-		System.out.println(additional_options.toString());
+		System.out.println("추가옵션" + additional_options.toString());
 		String additional_option = "";
 		for (int i = 0; i < additional_options.length; i++) {
 			if(i == 0) {
@@ -155,17 +156,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 			Menu menu = new Menu();
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
-			menu.setResNo(restaurant.resNo);
+			menu.setResNo(restaurant.getResNo());
 			menu_list.add(menu);	
 		}
+	
 		
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
 		menu_repository.addMenu(menu_list);
+		
 		
 		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "managePage");
 		
 	}
 
+	//수정
 	@Override
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Restaurant restaurant = new Restaurant();
@@ -176,6 +180,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurant.setResAddressDetail(multipartRequest.getParameter("address_detail"));
 		restaurant.setResOpenTime(multipartRequest.getParameter("open_time"));
 		restaurant.setResCloseTime(multipartRequest.getParameter("close_time"));
+		restaurant.setOwnerNo(Long.parseLong(multipartRequest.getParameter("ownerNo")));
 		String[] additional_options = multipartRequest.getParameterValues("additional_option");
 		String additional_option = "";
 		for (int i = 0; i < additional_options.length; i++) {
@@ -193,9 +198,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		try {
 			
 			
-			MultipartFile file = multipartRequest.getFile("s_file");
-			
-			System.out.println("file " + file);
+			MultipartFile file = multipartRequest.getFile("newFile");
 			
 			
 			
@@ -238,7 +241,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		}
 
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
-		int result = repository.addRestaurant(restaurant);
+		int result = repository.modifyRestaurant(restaurant);
 		
 	
 		
@@ -251,17 +254,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 			Menu menu = new Menu();
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
-			menu.setResNo(restaurant.resNo);
+			menu.setResNo(restaurant.getResNo());
 			menu_list.add(menu);
 		}
 		
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
 		menu_repository.addMenu(menu_list);
 		
+		
+		System.out.println("메뉴:"+menu_list);
 		message(result, response, "식당이 수정되었습니다.","식당수정이 실패했습니다.", "managePage");
 		
 		
 	}
+	
+
 	//하나만 골라
 	@Override
 	public Restaurant selectList(Long resNo) {
@@ -292,6 +299,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.deleteRestaurant(resNo);
 		message(result, response, "음식점이 삭제되었습니다.", "삭제 실패", "managePage");
+	}
+	
+	
+	//메뉴고르기
+	@Override
+	public List<Menu> selectMenu(Long resNo) {
+		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
+		return repository.selectMenu(resNo);
+		
 	}
 
 	

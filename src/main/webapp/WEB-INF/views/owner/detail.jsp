@@ -14,12 +14,12 @@
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<script>
 	$(document).ready(function(){
 	    //삭제
 	    $('#delete_btn').on('click',function(){
 	        if(confirm('${restautant.resName} 을 삭제할까요?')){
-	            alert(+' 을 삭제했습니다.');
 	            $('#f2').attr('action', 'deleteRestaurant');
 	            $('#f2').submit();
 	        }
@@ -35,12 +35,23 @@
 					alert('수정할 내용이 없습니다.');
 					return;
 				}
-			alert('수정했습니다');
 			$('#f2').attr('action','modifyRestaurant').submit();	
 		});
 	});
 	
 	
+	</script>
+	<script>
+
+	//체크박스 값 부르기
+		$( document ).ready(function() {
+            const db_options = "${restaurant.resOption}";
+            const options = db_options.split(',');
+
+            $.each(options, function(index, el) {
+                $("input[name='additional_option'][value=" + el +"]").prop("checked", true);
+            })
+        }); 
 	</script>
 </head>
 <body>
@@ -66,6 +77,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -78,7 +90,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,12 +101,13 @@
                 <hr>
                 <div>
                     <form id="f2" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
+                        <input type="hidden" name="resNo" id="resNo" value="${restaurant.resNo}">
                         <table>
                             <tbody>
                                <tr>
                                    <td>사업장 이름</td>
                                    <td>
-                                   		<input type="hidden" name="resNo" id="resNo" value="${restaurant.resNo}">
                                        	<input type="text" name="s_name" id="s_name" value="${restaurant.resName}">
                                    </td>
                                </tr>
@@ -132,9 +145,15 @@
                                <tr>
                                    <td>사진 등록</td>
                                    <td>
-                                       <input type="file" name="s_file" id="s_file" multiple>
+                                   		<input type="file" name="newFile" id="newFile" multiple>
+                                   	<%-- 	<c:if test="${not empty restaurant.origin}">
+                                   			기존 사진 : ${restaurant.origin}
+                                   			<img alt="${restaurant.origin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}" width="500px">
+                                   		</c:if> --%>
+                                    
                                        <div id="upload_result">
 	                                       <c:if test="${not empty restaurant.resOrigin}">
+	                                       		기존 사진 : ${restaurant.resOrigin}
 		                                       <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}">
 		                                       
 	                                       </c:if>
@@ -144,11 +163,13 @@
                                <tr>
 	                                <td>메뉴 등록하기</td>
 	                                <td class="menu">
-	                                    <div class="menu_input">
-	                                        <div class="menu_input_box default">
-	                                            <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/><input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
-	                                        </div>
-	                                    </div>
+	                                	<c:forEach var="menu" items="${menu_list}">
+		                                	<div class="menu_input">
+		                                        <div class="menu_input_box default">
+		                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
+		                                        </div>
+		                                    </div>
+	                                	</c:forEach>
 	                                    <button class="plus_btn">
 	                                        <i class="far fa-plus-square" ></i>
 	                                    </button>
@@ -159,7 +180,7 @@
                         			 <td>
 	                                     <input type="checkbox" name="additional_option" value="corkage">
 	                                     <label for="corkage">콜키지</label>
-	                                     <input type="checkbox" name="additional_option" value="night">
+	                                     <input type="checkbox" name="additional_option" value=night>
 	                                     <label for="night">심야 영업</label>
 	                                     <input type="checkbox" name="additional_option" value="babyseat">
 	                                     <label for="babyseat">아기 의자</label>
@@ -173,15 +194,15 @@
 	                                     <label for="wifi">와이파이</label>
 		                             </td>
                                 </tr>
+                              
                                 <tr>
                                     <td>상세 설명</td>
-                                    <td><textarea rows="5" cols="44" id="content">${restaurant.resContent}</textarea></td>
+                                    <td><textarea rows="5" cols="44" id="content" name="content">${restaurant.resContent}</textarea></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                    	
                                         <input type="button" value="수정 하기" id="update_btn">
                                         <input type="button" value="삭제 하기" id="delete_btn" >
                                     </td>
@@ -215,5 +236,6 @@
             </div>
         </div>
     </section>
+   
 </body>
 </html>

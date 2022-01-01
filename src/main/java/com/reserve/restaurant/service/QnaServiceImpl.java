@@ -1,9 +1,10 @@
 package com.reserve.restaurant.service;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.repository.QnaRepository;
 
@@ -29,20 +30,21 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public Qna selectQnaByNo(Long qnaNo) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		
 		return repository.selectQnaByNo(qnaNo);
 	}
 	//문읭 삽입
-	@Override
-	public int insertQna(Qna Qna) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.insertQna(Qna);
-	}
+//	@Override
+//	public int insertQna(Qna Qna) {
+//		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+//		return repository.insertQna(Qna);
+//	}
 	//문의 수정
-	@Override
-	public int updateQna(Qna Qna) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.updateQna(Qna);
-	}
+//	@Override
+//	public int updateQna(Qna Qna) {
+//		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+//		return repository.updateQna(Qna);
+//	}
 	//문의 삭제
 	@Override
 	public int deleteQna(Long qnaNo) {
@@ -51,11 +53,11 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	// 조회수 증가
-	@Override
-	public int updateQnaHit(Qna qnaNo) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.updateQnaHit(qnaNo);
-	}
+//	@Override
+//	public int updateQnaHit(Qna qnaNo) {
+//		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+//		return repository.updateQnaHit(qnaNo);
+//	}
 
 
 }

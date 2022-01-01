@@ -25,22 +25,24 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 	
 	
-	//하나만 선택 controller
-		@GetMapping(value="owner/selectList")
-		public String selectList(@RequestParam("resNo")Long resNo, Model model) {
-			model.addAttribute("restaurant", restaurantService.selectRestaurantByNo(resNo));
-			return "owner/detail";
-		}
+
+	//하나만 선택
+	@GetMapping(value="owner/selectList")
+	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
+		
+		model.addAttribute("restaurant", restaurantService.selectList(resNo));
+		model.addAttribute("menu_list", restaurantService.selectMenu(resNo));
+		
+		
+		return "owner/detail";
+	}
 	
 	//등록 form
 	@PostMapping(value="owner/addRestaurant")
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.addRestaurant(multipartRequest, response);
 	}	
-	
-
-	
-	
+	//
 	@GetMapping(value="owner/managePage")
 	public String managePage(HttpServletRequest request, Model model) throws IOException {
 		
@@ -55,12 +57,6 @@ public class RestaurantController {
 		return "owner/list";
 	}
 
-	//하나만 선택
-	@GetMapping(value="owner/selectList")
-	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
-		model.addAttribute("restaurant", restaurantService.selectList(resNo));
-		return "owner/detail";
-	}
 	//삭제
 	@PostMapping(value="owner/deleteRestaurant")
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
@@ -71,5 +67,12 @@ public class RestaurantController {
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.modifyRestaurant(multipartRequest, response);
 	}
+	
+//	//메뉴 불러오기
+//	@GetMapping(value="owner/selectMenu")
+//	public String selectMenu(Long resNo, Model model){
+//		restaurantService.selectMenu(resNo);
+//		return "owner/detail";
+//	}
 	
 }

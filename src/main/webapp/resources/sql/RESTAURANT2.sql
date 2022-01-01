@@ -126,7 +126,9 @@ CREATE TABLE qna (
 
     qna_date       	DATE,
 
-    qna_lastmodified 	DATE
+    qna_lastmodified 	DATE,
+    
+    comment     varchar2(2000 byte)
 
 );
 
@@ -479,9 +481,7 @@ CREATE TABLE notice (
 
     notice_date  		DATE,
 
-    notice_lastmodified 	DATE,
-
-    s
+    notice_lastmodified 	DATE
 
 );
 
@@ -805,7 +805,6 @@ ALTER TABLE userlog
         REFERENCES usertable ( user_no )
 
             ON DELETE CASCADE;
-            
+
 select * from tab;
 select * from user_sequences;
-select * from restaurant;
