@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
 				out.println("alert('회원 등록 실패하였습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
-				out.close();
+				out.close(); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
