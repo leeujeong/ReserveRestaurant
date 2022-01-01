@@ -1,5 +1,7 @@
 package com.reserve.restaurant.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.reserve.restaurant.domain.User;
@@ -15,5 +17,6 @@ public interface UserRepository {
 	public int updatePw(User user);
 	public int deleteUser(Long userNo);
 	public int updateUser(User user);
+	public List<User> hourCheck(String bookHours);
 	
 }
