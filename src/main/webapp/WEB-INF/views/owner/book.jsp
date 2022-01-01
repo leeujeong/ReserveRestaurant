@@ -159,12 +159,15 @@
 	                         		<div class="list_table">
 		                         		<table >
 		                         			<tbody>
-			                         		<c:forEach var="book" items="${list}">
-									          	<tr>
-									          		<td>예약자 성함</td>
-									          		<td>예약번호 : ${book.bookNo}  , 홀/ 룸: ${book.bookType}, 인원수:${book.bookPeople}, 예약시간 : ${book.bookHours}, 예약날짜: ${book.bookDate}</td>
-									          	</tr>
-									          </c:forEach>
+			                         			<c:forEach var="book" items="${list}">
+			                         				<tr>
+			                         					<td colspan="2">${book.get("RES_NAME")}</td>
+			                         				</tr>
+										          	<tr>
+										          		<td>예약자 성함 : ${book.get("NAME")}</td>
+										          		<td>예약번호 : ${book.get("BOOK_NO")}  , 홀/ 룸: ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</td>
+										          	</tr>
+									          	</c:forEach>
 		                         			</tbody>
 	                         			</table>
 									</div>

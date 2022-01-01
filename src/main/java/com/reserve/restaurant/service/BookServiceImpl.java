@@ -61,8 +61,8 @@ public class BookServiceImpl implements BookService {
 
 		
 		model.addAttribute("list", list);
-		if(list != null) {
-			request.getSession().setAttribute("bookingInfo", list);
-		}
+//		if(list != null) {
+//			request.getSession().setAttribute("bookingInfo", list);
+//		}
 	}
 }
