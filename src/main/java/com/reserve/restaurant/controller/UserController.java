@@ -159,8 +159,7 @@ public class UserController {
 		return "/user/detail";
 	}
 	
-<<<<<<< HEAD
-=======
+
 	//시간중복체크
 		@PostMapping(value="hourCheck", produces="application/json; charset=UTF-8")
 		@ResponseBody
@@ -169,12 +168,4 @@ public class UserController {
 			return userService.hourCheck(bookHours);
 		}
 	
-	
-
-	
-	
-	
-	
-	
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 }

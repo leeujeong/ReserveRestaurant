@@ -19,9 +19,6 @@ public interface UserRepository {
 	public int updatePw(User user);
 	public int deleteUser(Long userNo);
 	public int updateUser(User user);
-<<<<<<< HEAD
 
-=======
 	public List<User> hourCheck(String bookHours);
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 }

@@ -1,37 +1,27 @@
+
+   
 package com.reserve.restaurant.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-<<<<<<< HEAD
-
-import javax.servlet.http.HttpServletRequest;
-=======
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Book;
-<<<<<<< HEAD
-import com.reserve.restaurant.domain.Restaurant;
-import com.reserve.restaurant.domain.User;
-import com.reserve.restaurant.repository.BookRepository;
-import com.reserve.restaurant.repository.RestaurantRepository;
-import com.reserve.restaurant.repository.UserRepository;
-=======
 import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
+
 
 public class BookServiceImpl implements BookService {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -45,8 +35,6 @@ public class BookServiceImpl implements BookService {
 		return map;
 	}
 	
-<<<<<<< HEAD
-=======
 	@Override
 	public void selectBookingList(Long userNo, Model model) {
 		BookRepository repository = sqlSession.getMapper(BookRepository.class);
@@ -147,23 +135,10 @@ public class BookServiceImpl implements BookService {
 		model.addAttribute("paging" , pageUtils.getPageEntity("FindCancelList")); 
 		
 		
->>>>>>> branch 'main' of https://github.com/leeujeong/ReserveRestaurant.git
 	}
 
 	@Override
-	public void bookList(Model model) {
-//		
-//		User user = new User();
-//		user.setName(request.getParameter("name"));
-//		UserRepository userrepository = sqlSession.getMapper(UserRepository.class);
-//		User userInfo = userrepository.login(user);
-//		request.getSession().setAttribute("userInfo", userInfo);
-//		
-//		Restaurant restaurant = new Restaurant();
-//		restaurant.setResName(request.getParameter("resName"));
-//		RestaurantRepository resrepository = sqlSession.getMapper(Restau)
-//		Restaurant resInfo = resrepository.
-//		
+	public void bookList(Model model) {	
 		
 		BookRepository repository = sqlSession.getMapper(BookRepository.class);
 		
@@ -183,8 +158,7 @@ public class BookServiceImpl implements BookService {
 
 		
 		model.addAttribute("list", list);
-//		if(list != null) {
-//			request.getSession().setAttribute("bookingInfo", list);
-//		}
+
 	}
+
 }
