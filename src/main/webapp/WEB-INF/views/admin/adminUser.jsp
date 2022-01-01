@@ -74,7 +74,8 @@
     </header>
     <section class="search_section">
         <div class="search_box">
-            <p class="user_search">회원 검색</p>
+            <p class="user_search">회원 조회</p>
+            <input type="button" value="관리자 메인 페이지로 이동" class="go_adminMain" onclick="location.href='/restaurant/admin/adminPage'">
             <form id="search_form" action="/restaurant/admin/findUser">
            		<div class="chose">
 	                <select id="column" name="column">

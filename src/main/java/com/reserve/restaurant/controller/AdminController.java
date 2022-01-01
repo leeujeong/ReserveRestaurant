@@ -1,5 +1,6 @@
 package com.reserve.restaurant.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -111,6 +112,20 @@ public class AdminController {
 	public String goResDetail(Model model, Restaurant restaurant) {
 		service.selectResDetail(model, restaurant);
 		return "user/detail";
+	}
+	
+	// 식당조회 페이지로 이동
+	@GetMapping(value="resAdminPage")
+	public String resAdminPage() {
+		return "admin/adminRes";
+	}
+	
+	// 식당전체 리스트 가져오기
+	@GetMapping(value="selectResList")
+	@ResponseBody
+	public Map<String, Object> selectResList() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		return map;
 	}
 	
 	

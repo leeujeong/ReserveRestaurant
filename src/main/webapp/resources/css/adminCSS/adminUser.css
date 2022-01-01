@@ -111,6 +111,7 @@
         }
         
         .user_search {
+        	display: inline-block;
             font-size: 30px;
             padding-bottom: 10px;
         }
@@ -164,6 +165,7 @@
             background-color: crimson;
             color: white;
             border-radius: 15px;
+            transition: 0.3s;
         }
         
         #all_user_search:hover,
@@ -171,6 +173,7 @@
             background-color: crimson;
             color: white;
             border-radius: 15px;
+            transition: 0.3s;
         }
         
         #column {
@@ -231,4 +234,19 @@
         
         .radio>input {
             margin-left: 10px;
+        }
+        .go_adminMain {
+            margin-left: 30px;
+            width: 200px;
+            height: 30px;
+            background-color: white;
+            border-radius: 15px;
+            border: 1px solid crimson;
+        }
+        
+        .go_adminMain:hover {
+            background-color: crimson;
+            color: white;
+            border-radius: 15px;
+            transition: 0.3s;
         }
