@@ -15,11 +15,12 @@
 <script>
 	$(document).ready(function() {
 		fnResList();
+		fnChangePage();
 		
 	})
 
+	var page = 1;
 	function fnResList() {
-		var page = 1;
 		$.ajax({
 			url: '/restaurant/admin/selectResList',
 			type: 'get',
@@ -35,8 +36,8 @@
 	function fnPrintResList(map) {
 		$('#tbody').empty();
 		var p = map.pageUtils;
-		// var endRecord = p.endRecord;
-		// var beginRecord = p.beginRecord;
+		var endRecord = p.endRecord;
+		var beginRecord = p.beginRecord;
 		var tbody = '';
 		var addRow = '<tr><td></td><td></td><td></td><td></td></tr>';
 		if (p.totalRecord == 0) {
@@ -46,10 +47,10 @@
 		} else {
 			$.each (map.resList, function(i, res) {
 				tbody += '<tr>'
-				tbody += '<td>' + map.resList.resName + '</td>'
-				tbody += '<td>' + map.resList.resAddress + map.resList.resAddressDetail + '</td>'
-				tbody += '<td>' + map.resList.resOpenTime + map.resList.resCloseTime + '</td>'
-				tbody += '<td>' + map.resList.resTel + '</td>'
+				tbody += '<td>' + res.resName + '</td>'
+				tbody += '<td>' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
+				tbody += '<td>' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
+				tbody += '<td>' + res.resTel + '</td>'
 				tbody += '<tr>'
 			})
 			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
@@ -73,7 +74,7 @@
 			$('<span class="enable_link" data-page="1">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
 		}
 		// 이전 블록으로 이동
-		if (page <= p.pagePerBlock) {
+		if (p.page <= p.pagePerBlock) {
 			$('<span class="disable_link">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
 		} else {
 			$('<span class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
@@ -93,7 +94,7 @@
 			$('<span class="enable_link" data-page="'+(p.endPage+1)+'">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
 		}
 		// 마지막 페이지로 이동
-		if (page == p.totalPage) {
+		if (p.page == p.totalPage) {
 			$('<span class="disable_link">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
 		} else {
 			$('<span class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');

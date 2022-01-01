@@ -348,7 +348,6 @@ public class AdminServiceImpl implements AdminService {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		
 		int totalRecord = repository.countRes();
-		System.out.println("총 사업장 갯수 : " + totalRecord);
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
@@ -358,11 +357,11 @@ public class AdminServiceImpl implements AdminService {
 		m.put("endRecord", pageUtils.getEndRecord());
 
 		List<Restaurant> list = repository.selectRes(m);
-		System.out.println(list);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resList", list);
 		map.put("pageUtils", pageUtils);
+		
 		return map;
 	}
 	

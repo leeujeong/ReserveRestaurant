@@ -1,6 +1,5 @@
 package com.reserve.restaurant.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,8 +123,7 @@ public class AdminController {
 	@GetMapping(value="selectResList")
 	@ResponseBody
 	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resList", service.resList(page));
+		Map<String, Object> map = service.resList(page);
 		return map;
 	}
 	
