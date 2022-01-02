@@ -61,21 +61,20 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/main/mainPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li>${loginUser.id} 님 환영합니다</li>
                 <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </div>
     </header>
     <section class="search_section">
         <div class="search_box">
             <p class="user_search">회원 조회</p>
-            <input type="button" value="관리자 메인 페이지로 이동" class="go_adminMain" onclick="location.href='/restaurant/admin/adminPage'">
             <form id="search_form" action="/restaurant/admin/findUser">
            		<div class="chose">
 	                <select id="column" name="column">

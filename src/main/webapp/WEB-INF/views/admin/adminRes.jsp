@@ -16,6 +16,7 @@
 	$(document).ready(function() {
 		fnResList();
 		fnChangePage();
+		fnFind();
 		
 	})
 
@@ -24,7 +25,7 @@
 		$.ajax({
 			url: '/restaurant/admin/selectResList',
 			type: 'get',
-			data: page,
+			data: "page=" + page,
 			dataType: 'json',
 			success: function(map) {
 				fnPrintResList(map);
@@ -33,24 +34,51 @@
 		})
 	} // end fnResList()
 	
-	function fnPrintResList(map) {
+	// 검색 함수
+	function fnFind() {
+		$('#search_btn').click(function(event) {
+			var column = $('#column').val();
+			var query = $('#query').val();
+			if ($('#column').val() == '') {
+				alert('검색 카테고리를 선택하세요');
+				return;
+			} else if ($('#query').val() == '') {
+				alert('검색어를 입력하세요')
+				return;
+			}
+			$.ajax({
+				url: '/restaurant/admin/findRes',
+				type: 'get',
+				data: 'page=' + page + '&column=' + column + '&query=' + query,
+				dataType: 'json',
+				success: function(map) {
+					fnPrintFindResList(map);
+					fnPrintPaging(map.pageUtils);
+				}
+			})
+			// $('#search_form').attr('action', '/restaurant/admin/findRes');
+			// $('#search_form').submit();
+		})		
+	} // end fnFind()
+	
+	function fnPrintFindResList(map) {
 		$('#tbody').empty();
 		var p = map.pageUtils;
 		var endRecord = p.endRecord;
 		var beginRecord = p.beginRecord;
 		var tbody = '';
-		var addRow = '<tr><td></td><td></td><td></td><td></td></tr>';
+		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td></tr>';
 		if (p.totalRecord == 0) {
 			$('<tr rowspan="5">')
 			.append( $('<td colspan="4">').text('등록된 식당이 없습니다.') )
 			.appendTo('#tbody');
 		} else {
-			$.each (map.resList, function(i, res) {
+			$.each (map.list, function(i, res) {
 				tbody += '<tr>'
-				tbody += '<td>' + res.resName + '</td>'
-				tbody += '<td>' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
-				tbody += '<td>' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
-				tbody += '<td>' + res.resTel + '</td>'
+				tbody += '<td height="30px">' + res.resName + '</td>'
+				tbody += '<td height="30px">' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
+				tbody += '<td height="30px">' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
+				tbody += '<td height="30px">' + res.resTel + '</td>'
 				tbody += '<tr>'
 			})
 			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
@@ -59,6 +87,35 @@
 			$('#tbody').append(tbody);
 		}
 	}
+	
+	function fnPrintResList(map) {
+		$('#tbody').empty();
+		var p = map.pageUtils;
+		var endRecord = p.endRecord;
+		var beginRecord = p.beginRecord;
+		var tbody = '';
+		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td></tr>';
+		if (p.totalRecord == 0) {
+			$('<tr rowspan="5">')
+			.append( $('<td colspan="4">').text('등록된 식당이 없습니다.') )
+			.appendTo('#tbody');
+		} else {
+			$.each (map.resList, function(i, res) {
+				tbody += '<tr>'
+				tbody += '<td height="30px">' + res.resName + '</td>'
+				tbody += '<td height="30px">' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
+				tbody += '<td height="30px">' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
+				tbody += '<td height="30px">' + res.resTel + '</td>'
+				tbody += '<tr>'
+			})
+			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
+				tbody += addRow;
+			}
+			$('#tbody').append(tbody);
+		}
+	}
+	
+	
 	
 	function fnPrintPaging(p) {
 		// 페이징 영역 초기화
@@ -116,14 +173,14 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/main/mainPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li>${loginUser.id} 님 환영합니다</li>
                 <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </div>
     </header>
@@ -131,9 +188,20 @@
         <div class="xx">
             <span class="res_title">식당 목록</span>
             <div class="comment_box">
-                <span class="res_comment">총 00개의 사업장이 등록되어있습니다</span>
+                <span class="res_comment">총 ${totalRecord}개의 사업장이 등록되어있습니다</span>
             </div>
         </div>
+        <form id="search_form">
+	        <select id="column" name="column">
+	            <option value="" selected>:: 선택 ::</option>
+	            <option value="RES_NAME">이름</option>
+	            <option value="RES_ADDRESS">주소(시,구)</option>
+	            <option value="RES_ADDRESS_DETAIL">주소(상세주소)</option>
+	            <option value="RES_TEL">전화번호</option>
+	        </select>
+	        <input type="text" class="select_text" id="query" name="query">
+	        <input type="button" value="검색" id="search_btn">
+        </form>
         <table class="res_list_table">
             <thead>
                 <tr>

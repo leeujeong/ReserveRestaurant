@@ -344,10 +344,12 @@ public class AdminServiceImpl implements AdminService {
 
 	// 전체 사업장 리스트 출력
 	@Override
-	public Map<String, Object> resList(Integer page) {
+	public Map<String, Object> resList(Integer page, Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		
 		int totalRecord = repository.countRes();
+		
+		model.addAttribute("totalReocrd", totalRecord);
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
@@ -365,7 +367,31 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 	}
 	
-	
+	// 사업장 검색
+	@Override
+	public Map<String, Object> findRes(Integer page, HttpServletRequest request) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		Map<String, Object> m1 = new HashMap<String, Object>();
+		m1.put("column", request.getParameter("column"));
+		m1.put("query", request.getParameter("query"));
+		System.out.println("column : " + request.getParameter("column"));
+		System.out.println("query : " + request.getParameter("query"));
+		int totalRecord = repository.countFindRes(m1);
+		System.out.println("serviceImpl : " + totalRecord);
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
+		Map<String, Object> m2 = new HashMap<String, Object>();
+		m2.put("beginRecord", pageUtils.getBeginRecord());
+		m2.put("endRecord", pageUtils.getEndRecord());
+		m2.put("column", request.getParameter("column"));
+		m2.put("query", request.getParameter("query"));
+		List<Restaurant> list = repository.findRes(m2);
+		System.out.println("serviceImpl에서 최종 list : " + list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("pageUtils", pageUtils);
+		return map;
+	}
 	
 	
 	

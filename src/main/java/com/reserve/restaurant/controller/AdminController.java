@@ -122,10 +122,20 @@ public class AdminController {
 	// 식당전체 리스트 가져오기
 	@GetMapping(value="selectResList")
 	@ResponseBody
-	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page) {
-		Map<String, Object> map = service.resList(page);
+	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model) {
+		Map<String, Object> map = service.resList(page, model);
 		return map;
 	}
 	
+	// 식당검색 ajax
+	@GetMapping(value="findRes")
+	@ResponseBody
+	public Map<String, Object> findRes(@RequestParam(value="page", required=false, defaultValue="1") Integer page, HttpServletRequest request) {
+		Map<String, Object> map = service.findRes(page, request);
+		return map;
+	}
+	
+	
+ 	
 	
 }

@@ -50,4 +50,6 @@ public interface AdminRepository {
 	public List<Restaurant> selectResList(Map<String, Object> map);
 	public List<Restaurant> selectRes(Map<String, Object> map);
 	public int countRes();
+	public List<Restaurant> findRes(Map<String, Object> map);
+	public int countFindRes(Map<String, Object> map);
 }

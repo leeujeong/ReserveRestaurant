@@ -34,7 +34,7 @@
 	  <header>
         <div class="wrap">
             <h1>
-                <a href="/restaurant/">
+                <a href="/restaurant/main/mainPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
                 

@@ -12,14 +12,13 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/admin/adminPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li>${loginUser.id} 님 환영합니다</li>
-                <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </div>
     </header>
@@ -32,7 +31,7 @@
             </div>
             <div class="admin_rest">
                 <a href="/restaurant/admin/resAdminPage" class="admin_go_link">
-                    <span class="admin_go">식당 조회</span>
+                    <span class="admin_go">사업장 조회</span>
                 </a>
             </div>
         </div>
