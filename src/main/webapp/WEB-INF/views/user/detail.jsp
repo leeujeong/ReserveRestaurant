@@ -18,7 +18,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
 <script>
 	$(document).ready(function() {
 	
@@ -188,48 +187,65 @@
  </script>
  
  <style>
- /* modal 박스 css시작*/
- a{
- 	color: black;
- 	text-decoration: none;
- }
- label{
- 	cursor: pointer;
- }
- #request{
- 	outline: none;
- 	border: 1px solid silver;
- 	border-radius: 5px;
- }
-.reserve_div{
-	margin-bottom: 30px;
-}
-.reserve_text{
-	font-family: nanumsquare;
-	font-size: 19px;
-	font-weight: bold;
-}
-.bookHours{
-	margin: 3px 3px;
-}
-.check_img1{
-	display: none;
-	margin-right: 20px;
-}
-.ok{
-	display: inline;
-}
+	 /* modal 박스 css시작*/
+	 a{
+	 	color: black;
+	 	text-decoration: none;
+	 	font-weight: normal
+	 }
+	 label{
+	 	cursor: pointer;
+	 }
+	 #request{
+	 	outline: none;
+	 	border: 1px solid silver;
+	 	border-radius: 5px;
+	 }
+	.reserve_div{
+		margin-bottom: 30px;
+	}
+	.reserve_text{
+		font-family: nanumsquare;
+		font-size: 19px;
+		font-weight: bold;
+	}
+	.bookHours{
+		margin: 3px 3px;
+	}
+	.check_img1{
+		display: none;
+		margin-right: 20px;
+	}
+	.ok{
+		display: inline;
+	}
+	.reviewbox{
+		display:flex;
+	}
+	.reviewimg{
+		width:200px;
+		height:250px;
+	}
+	.reviewmultiple{
+		width:300px;
+		
+	}
+	.reviewdaterate span{
+		font-size:14px;
+		font-weight:400;
+	}
+	
 /*modal 박스 css 끝*/
   .input_box{
-  	width: 120px;
-  	height: 50px;
-  	border: 1px solid silver;
-  	border-radius: 5px;
-  	outline: none;
-  	font-size: 13px;
-  	text-align: center;
-  	margin-bottom: 30px;
-  	cursor: pointer;
+	  	width: 120px;
+	  	height: 50px;
+	  	border: 1px solid silver;
+	  	border-radius: 5px;
+	  	outline: none;
+	  	font-size: 13px;
+	  	text-align: center;
+	  	margin-bottom: 30px;
+	  	cursor: pointer;
   }
  </style>
 </head>
@@ -318,9 +334,8 @@
          
         </image>
         <div class="rest_detail">
-            <p>${rest.resName}</p>
-            <p>★4.5</p>
-            <span>(45)</span>
+            <p>${review.get("RES_NAME")}</p>
+            <span>★4.5</span> &nbsp;<span>(45)</span>
             <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
             <p>전화번호 : ${rest.resTel }</p>
             <div class="comment_box">
@@ -404,8 +419,6 @@
 					  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
 					  <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}">
 				 </form>
-				   
-				  
 				</div>
         </div>
         
@@ -437,58 +450,40 @@
             </li>
         </ul>
     </section>
+    
+    <!-- ---------------------- 리뷰에서 받아오는 -------------------------->
     <section class="review_section">
-        <div class="review_title">추천 리뷰
-            <a href="">
-                <span>모두보기 ></span>
-            </a>
+        <div class="review_title">방문자 리뷰
+            <a href="/restaurant/user/moreReview">더 보기 >> </a>
         </div>
         <div class="review_aver">
-            <span>★4.0
-                <span class="total_review">(10)</span>
-            </span>
+            <span>${avgReview}</span>
+            <span class="total_review">${totalCount}</span>
+            
         </div>
-        <ul class="review_list">
-        
-        	<!-- c태그 if문과 foreach문을 활용하여 li하나만 남겨둘것임 -->
-            <li>
-                <a href="">
-                    <img src="/이미지/양식/steak2.jpeg" width="300px" height="100%" class="review">
-                    <div class="review_content">
-                        <span>reviewWriter</span>
-                        <span>reviewRate</span>
-                        <p>reviewDate</p>
-                        <p>reviewContent</p>
-                    </div>
-                </a>
-            </li>
-            <li style="height: 300px;">
-                <a href="">
-                    <img src="/이미지/양식/salad1.jpeg" width="300px" height="100%" class="review">
-                    <div class="review_content">
-                        <span>작성자</span>
-                        <span>★4.0</span>
-                        <p>2021.12.08</p>
-                        <p>오늘은 마라탕을 태어나서 처음 먹었다 맛있었다 또 먹을거다</p>
-                    </div>
-                </a>
-            </li>
-            <li style="height: 300px;">
-                <a href="">
-                    <img src="/이미지/양식/pizza.jpeg" width="300px" height="100%" class="review">
-                    <div class="review_content">
-                        <span>작성자</span>
-                        <span>★4.0</span>
-                        <p>2021.12.08</p>
-                        <p>오늘은 마라탕을 태어나서 처음 먹었다 맛있었다 또 먹을거다</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-
-
-
-
+        <div >
+        	<c:if test="${empty reviewlist}">작성된 리뷰가 없습니다.</c:if>
+           
+            <c:if test="${not empty reviewlist}">
+            <div class="reviewbox">
+            	<c:forEach var="review" items="${reviewlist}">
+            	<div class="reviewmultiple">
+            		<h3>${review.get("RES_NAME")}</h3>
+            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+	                    <div class="review_content">
+	                        <p>${review.get("REVIEW_WRITER")}</p>
+	                        <div class="reviewdaterate">
+		                        <span>${review.get("REVIEW_DATE")}</span>
+		                        <span>${review.get("REVIEW_RATE")}</span>
+	                        </div>
+	                        
+	                        <p>${review.get("REVIEW_CONTENT")}</p>
+	                    </div>
+            	</div>
+            	</c:forEach>
+            </div>
+            </c:if>
+        </div>
     </section>
     <section class="picture_section">
         <!-- 해당 이미지를 누르면 해당 리뷰로 이동한다 -->

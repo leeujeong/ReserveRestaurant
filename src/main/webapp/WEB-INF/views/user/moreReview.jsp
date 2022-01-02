@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
-	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
+	<link href="<c:url value="/resources/css/owner1.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/userCSsS/detail.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/userJS/detail.js"/>"></script>
@@ -22,7 +22,7 @@
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
-	});
+	})
 
 	function fnQuickMenu() {
 	    var currentPosition = parseInt($(".quickmenu").css("top"));
@@ -69,61 +69,19 @@
 	  text-align:center;
 	  width:5em;
 	}
-	.col-6 {
-	    width: 700px;
+	.returnbtn{
+		font-weight:800;
 	}
-	.star-rating input {
-	  display:none;
+	.average{
+		font-size: 20px;
 	}
-	
-	.star-rating label {
-	  color:#ccc;
-	  cursor:pointer;
+	.scores{
+		color:red;
+		font-size: 20px;
 	}
-	
-	.star-rating :checked ~ label {
-	  color:#f90;
+	.container{
+		width:900px;
 	}
-	
-	.star-rating label:hover,
-	.star-rating label:hover ~ label {
-	  color:#fc0;
-	}
- 	#reviewbtn{
-	 	width: 100px;
-	    background-color: rgb(160, 57, 38);
-	    border: none;
-	    color: white;
-	    padding: 5px;
-	    margin: 30px 5px;
-	    border-radius: 10px;
- 	}
- 	.reviewdone_btn{
- 		font-size:16px;
- 		width:150px;
- 		background-color: rgb(160, 57, 38);
-	    border: none;
-	    color: white;
-	    padding: 7px;
-	    margin:5px;
-	    border-radius: 10px;
-	    
- 	}
- 	.main_image{
- 		padding:0;
- 		width:200px;
- 	}
- 	
- 	.returndetailbtn{
- 		font-size:16px;
- 		width:160px;
- 		background-color: rgb(160, 57, 38);
-	    border: none;
-	    color: white;
-	    padding: 7px;
-	    margin:5px;
-	    border-radius: 10px;
- 	}
  </style>
 </head>
 <body>
@@ -203,67 +161,84 @@
         </div>
     </div>
         <div class="container">
-		  <div class="row">
-		    <div class="col-4">
-		     <img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="main_image"/>
-			 <h3 >${review.get("RES_NAME")}</h3>
-			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/user/detail'">  	
-		    </div>
-		    <div class="col-6">
-			    <form action="/restaurant/user/insertReview" id="reviewform" method="POST" enctype="multipart/form-data">
-			    	<input type="hidden" name="resNo" value="${bookingInfo}">
-			    	<table>
-			    		<tbody>
-			    			<tr>
-			    				<td>작성자</td>
-			    				<td><input type="text" name="reviewWriter" value="${loginUser.name}"></td>
-			    			</tr>
-			    			<tr>
-                               <td>사진 등록</td>
-                               <td>
-                                  <input type="file" name="r_file" id="r_file" multiple>
-                                  <div id="upload_result"> 
-                                 	 	
-                                  </div>
-                               </td>
-			    			<tr>
-			    				<td>별점</td>
-			    				<td>
-									<div class="star-rating">
-									  <input type="radio" id="5-stars" name="rating" value="5" />
-									  <label for="5-stars" class="star">&#9733;</label>
-									  <input type="radio" id="4-stars" name="rating" value="4" />
-									  <label for="4-stars" class="star">&#9733;</label>
-									  <input type="radio" id="3-stars" name="rating" value="3" />
-									  <label for="3-stars" class="star">&#9733;</label>
-									  <input type="radio" id="2-stars" name="rating" value="2" />
-									  <label for="2-stars" class="star">&#9733;</label>
-									  <input type="radio" id="1-star" name="rating" value="1" />
-									  <label for="1-star" class="star">&#9733;</label>
-									</div>
-								</td>
-			    			</tr>
-			    			<tr>
-			    				<td colspan="2"><textarea rows="3" cols="70" name="reviewContent" placeholder="리뷰를 작성해주세요"></textarea></td>
-			    			</tr>
-			    		</tbody>
-			    		<tfoot>
-			    		<tr>
-				    		<td colspan="2">
-				    			 <button class="reviewdone_btn">리뷰 작성 완료</button>
-				    		</td>
-			    		</tr>
-			    		</tfoot>
-			    	</table>
-			    </form>
-		    </div>
-		  </div>
+		 <section>
+	 	<div>
+	 		<div>
+	 		<a href="/restaurant/user/detail" class="returnbtn"> << 돌아가기</a>
+	 		</div>
+	 		<div class="reviewrating">
+			  <div class="row">
+			    <div class="col-4">
+				    <h5><span>total count 개의 리뷰</span></h5>
+				    <strong>( 4.5 )</strong>
+			    </div>
+			    <div class="col-6 average">
+				    <div>
+			 			<ul>
+			 				<li>
+			 					<span class="score">5점</span>
+			 					<span class="progress">
+			 						<span class="bar" style="52%;"></span>
+			 					</span>
+			 					<span class="count">251</span>
+			 				</li>
+			 				<li>
+			 					<span class="progress">
+			 						<span class="bar" style="%;"></span>
+			 					</span>
+			 					<span class="count">251</span>
+			 				</li>
+			 				<li>
+			 					<span class="score">5점</span>
+			 					<span class="progress">
+			 						<span class="bar" style="52%;"></span>
+			 					</span>
+			 					<span class="count">251</span>
+			 				</li>
+			 				<li>
+			 					<span class="score">5점</span>
+			 					<span class="progress">
+			 						<span class="bar" style="52%;"></span>
+			 					</span>
+			 					<span class="count">251</span>
+			 				</li>
+			 				<li>
+			 					<span class="score">5점</span>
+			 					<span class="progress">
+			 						<span class="bar" style="52%;"></span>
+			 					</span>
+			 					<span class="count">251</span>
+			 				</li>
+			 			</ul>
+			 		</div>
+	 			</div>
+			  </div>
+			</div>
+	 		
+	 		<c:if  test="${empty reviewlist}">
+	 			<div>
+	 				작성된 리뷰가 없습니다.
+	 			</div>
+	 		</c:if>
+	 		<c:if test="${not empty reviewlist}">
+	 			<div>
+	 				${review.reviewWriter}
+	 			</div>
+	 			<div>
+	 				${review.reviewDate} ${review.reviewRate}
+	 			</div>
+	 			<div>
+	 				${review.reviewOrgin}
+	 			</div>
+	 			<div>
+	 				${reivew.reviewContetnt}
+	 			</div>
+	 		</c:if>
+	 	</div>
+	 </section>
+       
 		</div>
   
-	
-		 
-
-    
     <section id="bottom">
         <div class="wrap">
             <div class="footer">
