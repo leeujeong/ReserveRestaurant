@@ -17,7 +17,7 @@
 		fnResList();
 		fnChangePage();
 		fnFind();
-		
+		alert('${totalRecord}');
 	})
 
 	var page = 1;
