@@ -8,6 +8,7 @@
     padding: 0;
 }
 
+
 li {
     list-style: none;
 }
@@ -64,7 +65,7 @@ header {
     background-color: white;
     border-bottom: 1px solid silver;
     box-shadow: 0 1px 2px lightgray;
-    margin: 0 auto;
+    margin: 0 auto;x
 }
 
 header h1 {
@@ -76,7 +77,6 @@ header #gnb {
     right: 0;
     top: 50px;
     font-size: 18px;
-    font-weight: bold;
 }
 
 header #gnb li {
@@ -91,127 +91,127 @@ header #gnb li:last-child {
 
 /* 헤더끝 */
   
-  
-        .container{
-        	margin-top: 200px;
-        }
-      
-       
-        
-        
-       
-     
-      
-        
-        @font-face {
-            font-family: 'NanumSquare';
-            font-weight: 400;
-            src: url(NanumSquareR.eot);
-            src: url(NanumSquareR.eot?#iefix) format('embedded-opentype'), url(NanumSquareR.woff) format('woff'), url(NanumSquareR.ttf) format('truetype');
-        }
-        
-        @font-face {
-            font-family: 'NanumSquare';
-            font-weight: 700;
-            src: url(NanumSquareB.eot);
-            src: url(NanumSquareB.eot?#iefix) format('embedded-opentype'), url(NanumSquareB.woff) format('woff'), url(NanumSquareB.ttf) format('truetype');
-        }
-        
-        @font-face {
-            font-family: 'NanumSquare';
-            font-weight: 800;
-            src: url(NanumSquareEB.eot);
-            src: url(NanumSquareEB.eot?#iefix) format('embedded-opentype'), url(NanumSquareEB.woff) format('woff'), url(NanumSquareEB.ttf) format('truetype');
-        }
-        
-        @font-face {
-            font-family: 'NanumSquare';
-            font-weight: 300;
-            src: url(NanumSquareL.eot);
-            src: url(NanumSquareL.eot?#iefix) format('embedded-opentype'), url(NanumSquareL.woff) format('woff'), url(NanumSquareL.ttf) format('truetype');
-        }
-        
-        ul,li {
-            list-style-type: none;
-        }
-        
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        
-        a:hover {
-            cursor: pointer;
-        }
-        
-        .row {
-            display: flex;
-            margin: 30px 10px;
-        }
-        
-        .col-4 {
-            width: 200px;
-            height: 600px;
-            margin: 30px;
-            padding: 30px 10px;
-        }
-        
-        .menu_nav {
-            padding: 0 0 30px 0;
-        }
-        
-        .menu_title {
-            padding: 5px;
-        }
-        
-        .menu_nav li {
-            padding: 5px;
-        }
-        
-        .col-6 {
-            width: 900px;
-        }
-        
-        .ing_title {
-            padding-bottom: 10px;
-        }
-        
-        .ing_menu ul {
-            display: flex;
-            padding: 10px;
-        }
-        
-        .ing_menu li {
-            padding-right: 25px;
-        }
-        
-        .empty_box {
-            width: 100%;
-        }
-        
-        .empty_img {
-            margin: 100px 0 0 120px;
-        }
-        
-        .empty_comment {
-            width: 100%;
-            margin: 0 0 0 140px;
-        }
-        .myInfo{
-           width: 100%;
-           padding: 0 80px;
-        }
-        .myInfo input{
-           width:300px;
-           padding:10px;
-           margin:5px;
-        }
-        #updatePw_btn{
-           background-color: lightgreen;
-           border: none;
-           color: white;
-        }
-        
+
+ .container{
+ 	margin-top: 200px;
+ }
+
+
+ 
+ 
+
+
+
+ 
+ @font-face {
+     font-family: 'NanumSquare';
+     font-weight: 400;
+     src: url(NanumSquareR.eot);
+     src: url(NanumSquareR.eot?#iefix) format('embedded-opentype'), url(NanumSquareR.woff) format('woff'), url(NanumSquareR.ttf) format('truetype');
+ }
+ 
+ @font-face {
+     font-family: 'NanumSquare';
+     font-weight: 700;
+     src: url(NanumSquareB.eot);
+     src: url(NanumSquareB.eot?#iefix) format('embedded-opentype'), url(NanumSquareB.woff) format('woff'), url(NanumSquareB.ttf) format('truetype');
+ }
+ 
+ @font-face {
+     font-family: 'NanumSquare';
+     font-weight: 800;
+     src: url(NanumSquareEB.eot);
+     src: url(NanumSquareEB.eot?#iefix) format('embedded-opentype'), url(NanumSquareEB.woff) format('woff'), url(NanumSquareEB.ttf) format('truetype');
+ }
+ 
+ @font-face {
+     font-family: 'NanumSquare';
+     font-weight: 300;
+     src: url(NanumSquareL.eot);
+     src: url(NanumSquareL.eot?#iefix) format('embedded-opentype'), url(NanumSquareL.woff) format('woff'), url(NanumSquareL.ttf) format('truetype');
+ }
+ 
+ ul,li {
+     list-style-type: none;
+ }
+ 
+ a {
+     text-decoration: none;
+     color: black;
+ }
+ 
+ a:hover {
+     cursor: pointer;
+ }
+ 
+ .row {
+     display: flex;
+     margin: 30px 10px;
+ }
+ 
+ .col-4 {
+     width: 20%;
+     height: 600px;
+     margin: 30px;
+     padding: 30px 10px;
+ }
+ 
+ .menu_nav {
+     padding: 0 0 30px 0;
+ }
+ 
+ .menu_title {
+     padding: 5px;
+ }
+ 
+ .menu_nav li {
+     padding: 5px;
+ }
+ 
+ .col-6 {
+     width: 70%;
+ }
+ 
+ .ing_title {
+     padding-bottom: 10px;
+ }
+ 
+ .ing_menu ul {
+     display: flex;
+     padding: 10px;
+ }
+ 
+ .ing_menu li {
+     padding-right: 25px;
+ }
+ 
+ .empty_box {
+     width: 100%;
+ }
+ 
+ .empty_img {
+     margin: 100px 0 0 120px;
+ }
+ 
+ .empty_comment {
+     width: 100%;
+     margin: 0 0 0 140px;
+ }
+ .myInfo{
+    width: 100%;
+    padding: 0 80px;
+ }
+ .myInfo input{
+    width:300px;
+    padding:10px;
+    margin:5px;
+ }
+ #updatePw_btn{
+    background-color: lightgreen;
+    border: none;
+    color: white;
+ }
+ 
 
         
 /* footer시작 */

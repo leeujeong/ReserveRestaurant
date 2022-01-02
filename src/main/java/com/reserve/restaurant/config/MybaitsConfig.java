@@ -19,6 +19,8 @@ import com.reserve.restaurant.service.QnaService;
 import com.reserve.restaurant.service.QnaServiceImpl;
 import com.reserve.restaurant.service.RestaurantService;
 import com.reserve.restaurant.service.RestaurantServiceImpl;
+import com.reserve.restaurant.service.ReviewService;
+import com.reserve.restaurant.service.ReviewServiceImpl;
 //
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -88,5 +90,8 @@ public class MybaitsConfig {
 	public BookService bookService() {
 		return new BookServiceImpl();
 	}
-	
+	@Bean
+	public ReviewService reviewService() {
+		return new ReviewServiceImpl();
+	}
 }

@@ -10,12 +10,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="<c:url value="/resources/css/userCSS/myPage.css"/>" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <style>
+<link href="<c:url value="/resources/css/userCSS/datail.css"/>" rel="stylesheet">
+<style>
  
  		a {
 		    text-decoration: none;
 		    color: inherit;
+		    font-weight: normal;
 		}
 		.container{
 		 border: 1px solid #eaedf0;
@@ -120,15 +121,15 @@
                         <li><a href="#"> 본인 인증 / 재인증</a></li>
                     </ul>
                 </div>
-            </div>
-            
+          
+        </div>    
             <div class="col-6">
                 
                 <div>
                     <h2 class="ing_title"> 예약 세부 내역</h2>
                 </div>
                 <hr>
-				<div class="container" style="margin-top: 0"">
+				<div class="container" style="margin-top: 0;">
 	               
 	                <c:if test="${detail !=null}">
 	                 <c:forEach var="detail" items="${detail}">
@@ -172,11 +173,9 @@
 	                 </c:forEach>
 					 </c:if>
 					</div>
-				</div>
-						
-									      
-              
-     		</div>
+				</div>					      
+       </div>       
+     </div>
 	    <section id="bottom">
 	        <div class="wrap">
 	            <div class="footer">
