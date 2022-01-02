@@ -11,6 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.reserve.restaurant.service.BookService;
+import com.reserve.restaurant.service.BookServiceImpl;
 import com.reserve.restaurant.service.OwnerService;
 import com.reserve.restaurant.service.OwnerServiceImpl;
 import com.reserve.restaurant.service.QnaService;
@@ -81,6 +83,10 @@ public class MybaitsConfig {
 	@Bean
 	public QnaService qnaService() {
 		return new QnaServiceImpl();
+	}
+	@Bean
+	public BookService bookService() {
+		return new BookServiceImpl();
 	}
 	
 }

@@ -207,7 +207,7 @@ tr {
 
 .main_image {
     padding-right: 30px;
-    position: relative;
+	width:200px;
 }
 
 .rest_detail {
@@ -594,6 +594,7 @@ li:nth-of-type(4) {
 }
 
 
+
 /* footer시작 */
 
 .footer {
@@ -636,3 +637,11 @@ li:nth-of-type(4) {
 .footer_copy img {
     margin-bottom: 10px;
 }
+
+
+/*reviewPage*/
+.main_image {
+    padding-right: 30px;
+    width:100%;
+}
+

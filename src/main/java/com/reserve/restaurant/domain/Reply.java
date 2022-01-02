@@ -1,7 +1,6 @@
 package com.reserve.restaurant.domain;
 
 import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,20 +14,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class User {
+public class Reply {
 
-	private Long userNo;
-	private String id;
-	private String pw;
-	private String name;
-	private String tel;
-	private String grade;
-	private Date userDate;
-	private String hbd;
-	private int state;
-	private int point;
-	private String email;
-	
-	private Book book;
-
+	private Long replyNo;
+	private String replyWriter;
+	private String replyTitle;
+	private String replyContent;
+	private Date replyDate;
+	private Date replyLastModified;
+//	private Long
 }

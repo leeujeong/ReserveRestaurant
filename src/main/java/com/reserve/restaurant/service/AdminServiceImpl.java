@@ -229,7 +229,6 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("owner", owner);
 		List<Restaurant> restList = repository.selectOwnerInfoRes(ownerNo);
 		model.addAttribute("restList", restList);
-		
 	}
 
 	
@@ -261,8 +260,6 @@ public class AdminServiceImpl implements AdminService {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Long resNo = restaurant.getResNo();
 		Restaurant rest = repository.selectResDetail(resNo); 
-		System.out.println(resNo);
-		System.out.println(rest);
 		model.addAttribute("rest", rest);
 	}
 

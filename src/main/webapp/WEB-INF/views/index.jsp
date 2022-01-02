@@ -77,9 +77,9 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/user/search"> 식당 검색  </a></li>
+                <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
                 <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
-                <li><a href="/restaurant/user/reserve"> 신규 오픈 </a></li>
+                <li><a href="#"> 신규 오픈 </a></li>
             </ul>
         </div>
         
@@ -115,20 +115,20 @@
                 <ul class="slide">
                     <li>
                         <div class="text">
-                            <h3>FindTable</h3>
-                            <p>블라블라</p>
+                            <h3>Welcome FindTable</h3>
+                            <p><strong>🍖Bon Appetit🍖</strong></p>
                         </div>
                     </li>
                     <li>
                         <div class="text">
-                            <h3>블라블라</h3>
-                            <p>블라블라</p>
+                            <h3>2022년 식당 예약은</h3>
+                            <p><strong>FindTable에서..</strong></p>
                         </div>
                     </li>
                     <li>
                         <div class="text">
-                            <h3>블라블라</h3>
-                            <p>블라블라</p>
+                            <h3>원하시는 식당을 FindTable에서 찾아보세요</h3>
+                            <p><strong>Enjoy your meal !</strong></p>
                         </div>
                     </li>
                 </ul>

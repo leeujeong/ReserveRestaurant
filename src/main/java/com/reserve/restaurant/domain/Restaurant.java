@@ -1,5 +1,6 @@
 package com.reserve.restaurant.domain;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,18 +17,20 @@ import lombok.ToString;
 
 public class Restaurant {
 
-	public Long resNo;
-	public String resName;
-	public String resAddress;
-	public String resAddressDetail;
-	public String resOpenTime;
-	public String resCloseTime;
-	public String resTel;
-	public String resContent;
-	public String resOrigin;
-	public String resOption;
-	public String resSaved;
-	public String resPath;
-	public Long ownerNo;
+	private Long resNo;
+	private String resName;
+	private String resAddress;
+	private String resAddressDetail;
+	private String resOpenTime;
+	private String resCloseTime;
+	private String resTel;
+	private String resContent;
+	private String resOrigin;
+	private String resOption;
+	private String resSaved;
+	private String resPath;
+	private Long ownerNo;
+
+	
 	
 }
