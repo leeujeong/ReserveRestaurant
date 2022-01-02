@@ -74,7 +74,7 @@
                         <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
                     </ul>
                 </div>
-                <div class="menu_nav">
+                <div class="menu_nav"> 
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
                         <li><a href="#">문의 내역</a></li>

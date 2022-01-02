@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 		user.setPw(SecurityUtils.sha256(user.getPw()));
 		int result = repository.updatePw(user);
 		message(result, response, "비밀번호가 수정되었습니다", "비밀번호 수정 실패", "/restaurant/user/updateUser");
-	}
+	}	
 	
 	
 	@Override
