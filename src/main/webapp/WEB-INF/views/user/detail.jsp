@@ -39,7 +39,6 @@
       	$('#bookPeople').on({
       		"click" : function(){
       			var number = ($(this).attr('value'));
-
       			if(number==100){ // 숫자가 9이상이라면 초기화
       				$(this).attr('value', '0');
       			}else{
@@ -76,7 +75,6 @@
 	        $(".quickmenu").stop().animate({ "top": position + currentPosition + "px" }, 1000);
 	    });
 	}  //QuickMenu 끝
-
 	function fnhover() {
 	    (function($) {
 	        $('.cate ul').hide();
@@ -682,6 +680,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-

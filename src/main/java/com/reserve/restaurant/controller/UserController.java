@@ -62,6 +62,11 @@ public class UserController {
 	public String loginPage() {
 		return "user/login";
 	}
+	//리뷰작성 페이지
+	@GetMapping(value="reviewPage")
+	public String reviewPage() {
+		return "user/reviewPage";
+	}
 	
 	//아이디 중복체크
 	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
@@ -154,6 +159,7 @@ public class UserController {
 		return "/user/detail";
 	}
 	
+
 	//시간중복체크
 		@PostMapping(value="hourCheck", produces="application/json; charset=UTF-8")
 		@ResponseBody
@@ -161,12 +167,5 @@ public class UserController {
 			System.out.println(bookHours + "컨트롤러");	
 			return userService.hourCheck(bookHours);
 		}
-	
-	
-
-	
-	
-	
-	
 	
 }

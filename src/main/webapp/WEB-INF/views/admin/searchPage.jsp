@@ -12,12 +12,29 @@
 <script src="<c:url value="/resources/js/adminJS/searchPage.js"/>"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+	$(document).ready(function() {
+		fnPrevent();
+		
+	})
+
+	function fnPrevent() {
+		$('#search_form').submit(function(event) {
+			if ($('#query').val() == '') {
+				alert('검색어를 입력하세요');
+				event.preventDefault();
+			}
+		})
+		
+		
+	}
+</script>
 </head>
 <body>
 	  <header>
         <div class="wrap">
             <h1>
-                <a href="/restaurant/">
+                <a href="/restaurant/main/mainPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
                 
@@ -89,7 +106,7 @@
     <section class="search_section">
         <form id="search_form" action="/restaurant/admin/searchRestaurant">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="식당이름 / 지역(OO구 or OO동)" class="search_area" name="query">
+            <input type="text" placeholder="식당이름 / 지역(OO구 or OO동)" class="search_area" name="query" id="query">
             <button class="search_btn">검색</button>
         </form>
     </section>

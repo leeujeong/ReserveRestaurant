@@ -28,5 +28,5 @@ public class Book {
 	
 	private Restaurant restaurant;
 	
-	
+	private User user;
 }

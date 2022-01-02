@@ -76,17 +76,26 @@ $('document').ready(function(){
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
     });
     
-    //
-    $('#delete_btn').on('click',function(){
-        if(confirm('${resName} 을 삭제할까요?')){
-            alert('삭제했습니다.');
-        }
-    });
-
-
-    //회원정보 수정 함수 버튼 클릭시 기존 정보들 넘어오게
-	$('#update_btn').on('click', function(){
-		alert('안녕');
+    	    //삭제
+	    $('#delete_btn').on('click',function(){
+	        if(confirm("${restaurant.resName} 을 삭제할까요?")){
+	            $('#f2').attr('action', 'deleteRestaurant');
+	            $('#f2').submit();
+	        }
+	    });
 	
-	});
+	
+	    //회원정보 수정 함수 
+		$('#update_btn').on('click', function(){
+			if($('#s_name').val() == '${restaurant.resName}'&&
+				$('#tel').val() == '${restaurant.resTel}' &&
+				$('#address_kakao').val() == '${restaurant.resAddressDetail}' &&
+				$('#content').val() == '${resContent}'){
+					alert('수정할 내용이 없습니다.');
+					return;
+				}
+			alert('수정했습니다');
+			$('#f2').attr('action','modifyRestaurant').submit();	
+    });
+    
 });

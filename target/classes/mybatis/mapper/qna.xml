@@ -6,46 +6,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.reserve.restaurant.repository.QnaRepository">
 	
 	<select id="selectQnaList1" resultType="Qna">
-		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		SELECT *
 		  FROM QNA
-		 WHERE STATE = 1
-		 ORDER BY Q_NO DESC
+		 WHERE QNA_STATE = 1
+		 ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectQnaList2" resultType="Qna">
-		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		SELECT *
 		  FROM QNA
-		 WHERE STATE = 1
-		 ORDER BY Q_NO DESC
+		 WHERE QNA_STATE = 2
+		 ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectQnaByNo" parameterType="Long" resultType="Qna">
-		SELECT Q_NO, WRITER, TITLE, CONTENT, HIT, Q_DATE
+		SELECT *
 		  FROM QNA
-		 WHERE Q_NO = #{aNo}
+		 WHERE QNA_NO = #{qnaNo}
 	</select>
 	
 	<update id="updateQnaHit" parameterType="Long">
 		UPDATE QNA
-		   SET HIT = HIT + 1
-		 WHERE Q_NO = #{qNo}
+		   SET QNA_HIT = QNA_HIT + 1
+		 WHERE QNA_NO = #{qnaNo}
 	</update>
-
+<!-- 
 	<insert id="insertQna" parameterType="Qna">
 		INSERT INTO QNA
-		VALUES (QNA_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, HIT, SYSDATE)
-	</insert>
+		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, QNA_HIT, SYSDATE)
+	</insert> -->
 	
-	<update id="updateQna" parameterType="Qna">
+	<!-- <update id="updateQna" parameterType="Qna">
 		UPDATE QNA
-		   SET TITLE = #{title}, CONTENT = #{content}
-		 WHERE Q_NO = #{qNo}
-	</update>
+		   SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
+		 WHERE QNA_NO = #{qnaNo}
+	</update> -->
 	
 	<delete id="deleteQna" parameterType="Long">
 		DELETE
 		  FROM QNA
-		 WHERE Q_NO = #{qNo}
+		 WHERE QNA_NO = #{qnaNo}
 	</delete>
 	
 </mapper>

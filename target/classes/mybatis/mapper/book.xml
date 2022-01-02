@@ -5,11 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.BookRepository">
 
-	
-	
-	
 
-	<insert id="insertBook" parameterType="Book">
+	<!-- 사업자가 등록된 예약 불러올때 -->
+	 <select id="bookList" resultType="Map">
+ 	SELECT b.book_no, b.book_type, b.book_people, b.book_request, b.book_hours, b.book_date, u.name, r.res_name
+	 	  FROM BOOK b, restaurant r, usertable u
+	 	 WHERE b.res_no = r.res_no
+	 	   AND b.user_no = u.user_no
+	 	   AND r.owner_no = #{ownerNo}
+	 </select>
+	 
+   
+   
+   	<insert id="insertBook" parameterType="Book">
 	<selectKey keyProperty="bookNo" order="BEFORE" resultType="Long">
 			SELECT BOOK_NO_SEQ.NEXTVAL
 			  FROM DUAL
@@ -135,8 +143,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						ORDER BY B.BOOK_NO DESC)A)B
 	     WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
-	
-	
-	 
-
 </mapper>

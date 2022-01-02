@@ -14,15 +14,13 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Qna {
+public class Reply {
 
-	private Long qnaNo;
-	private String qnaWriter;
-	private String qnaTitle;
-	private String qnaContent;
-	private Long qnaHit;
-	private Date qnaDate;
-	private Date qnaLastModified;
-	private String qnaComment;
-	private int state;
+	private Long replyNo;
+	private String replyWriter;
+	private String replyTitle;
+	private String replyContent;
+	private Date replyDate;
+	private Date replyLastModified;
+//	private Long
 }

@@ -11,6 +11,6 @@ public class AdminConfig {
 
 	@Bean
 	public AdminService service() {
-		return new AdminServiceImpl();
+		return new AdminServiceImpl(); 
 	}
 }

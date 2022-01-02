@@ -15,8 +15,10 @@ public interface UserRepository {
 	public int insertUser(User user);
 	public User login(User user);
 	public User selectUserByNo(Long userNo);
+
 	public int updatePw(User user);
 	public int deleteUser(Long userNo);
 	public int updateUser(User user);
+
 	public List<User> hourCheck(String bookHours);
 }

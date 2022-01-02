@@ -1,13 +1,16 @@
 package com.reserve.restaurant.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
@@ -58,19 +61,36 @@ public class AdminController {
 		return "admin/adminUser";
 	}
 	
+	// userDetail 보여주는 page
 	@GetMapping(value="userDetailPage")
-	public String userDetailPage(Long userNo, Model model) {
-		model.addAttribute("userNo", userNo);
+	public String userDetailPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		service.selectUserInfo(model);
 		return "admin/userDetailPage";
 	}
 	
+	// userDetail에서 bookList ajax처리
+	@GetMapping(value="userBookList")
+	@ResponseBody
+	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
+		Map<String, Object> map = service.userBookList(userNo, page);
+		return map;
+	}
 	
+	// ownerDetail 보여주는 page
 	@GetMapping(value="ownerDetailPage")
 	public String ownerDetailPage(Long ownerNo, Model model) {
 		model.addAttribute("ownerNo", ownerNo);
-		service.selectOwnerInfoRes(model);
+		service.selectOwnerInfo(model);
 		return "admin/ownerDetailPage";
+	}
+	
+	// ownerDetail에서 resList ajax처리
+	@GetMapping(value="ownerResList")
+	@ResponseBody
+	public Map<String, Object> ownerResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long ownerNo) {
+		Map<String, Object> map = service.ownerResList(ownerNo, page);
+		return map;
 	}
 	
 	// 검색 페이지로 이동
@@ -79,10 +99,10 @@ public class AdminController {
 		return "admin/searchPage";
 	}
 	
-	// 검색 AND 페이징
+	// 검색
 	@GetMapping(value="searchRestaurant")
-	public String searchRestaurant(HttpServletRequest request, Model model, HttpServletResponse response) {
-		service.selectResList(request, model,response);
+	public String searchRestaurant(HttpServletRequest request, Model model) {
+		service.selectResList(request, model);
 		return "admin/searchPage";
 	}
 	
@@ -93,5 +113,29 @@ public class AdminController {
 		return "user/detail";
 	}
 	
+	// 식당조회 페이지로 이동
+	@GetMapping(value="resAdminPage")
+	public String resAdminPage() {
+		return "admin/adminRes";
+	}
+	
+	// 식당전체 리스트 가져오기
+	@GetMapping(value="selectResList")
+	@ResponseBody
+	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model) {
+		Map<String, Object> map = service.resList(page, model);
+		return map;
+	}
+	
+	// 식당검색 ajax
+	@GetMapping(value="findRes")
+	@ResponseBody
+	public Map<String, Object> findRes(@RequestParam(value="page", required=false, defaultValue="1") Integer page, HttpServletRequest request) {
+		Map<String, Object> map = service.findRes(page, request);
+		return map;
+	}
+	
+	
+ 	
 	
 }

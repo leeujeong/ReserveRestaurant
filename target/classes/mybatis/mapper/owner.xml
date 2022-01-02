@@ -5,19 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.OwnerRepository">
 	
-	<!--  -->
-<!-- 	<select id="selectOwnerById" parameterType="String" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
-		  FROM owner
-		 WHERE o_id = #{oId}
-	</select>
-	 -->
+	<!-- 회원가입 -->
 	<insert id="joinOwner" parameterType="Owner">
 		INSERT INTO owner
 		VALUES (owner_no_SEQ.NEXTVAL, #{id}, #{pw}, #{email}, #{tel}, #{name}, 3)
 	</insert>
 	
-	
+	<!-- 로그인 -->
 	<select id="loginOwner" parameterType="Owner" resultType="Owner">
 		SELECT owner_no, id, pw, name, email, state
 		  FROM owner
@@ -26,29 +20,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND state = 3
 	</select>
 	
-<!-- 	<select id="selectOwnerByEmail" parameterType="String" resultType="Owner">
-		SELECT o_no, o_name, o_id, o_email, o_pw, state
-		  FROM owner
-		 WHERE o_email = #{eEmail}
+	<!-- 아이디찾기 -->
+	<select id="selectOwnerById" parameterType="String" resultType="Owner">
+		SELECT *
+		 FROM owner
+		WHERE ID = #{id}
 	</select>
 	
+	<!-- 회원 선택 -->
+	<select id="selectOwnerByNo" parameterType="Long" resultType="Owner">
+		SELECT *
+		  FROM owner
+		 WHERE owner_no = #{ownerNo}
+	</select>
+	
+	<!-- 사업자 이메일 -->
+	<select id="selectOWnerByEmail" parameterType="String" resultType="Owner">
+		SELECT *
+		  FROM owner
+		 WHERE email = #{email}
+	</select>
+	
+	<!-- 비밀번호 수정 -->
 	<update id="updatePw" parameterType="Owner">
-		UPDATE Owner
-		   SET o_pw = #{oPw}
-		 WHERE o_id = #{oId}
+		UPDATE owner
+		   SET pw = #{pw}
+		 WHERE id = #{id}
 	</update>
 	
+	<!-- 회원삭제 -->
+	<update id="deleteOwner" parameterType="Long">
+		DELETE
+		  FROM owner
+		 WHERE owner_no = #{ownerNo}
+	</update>
+	
+	<!-- 회원 수정 -->
 	<update id="updateOwner" parameterType="Owner">
-		UPDATE Owner
-		   SET o_id = #{oId},
-		       EMAIL = #{oEmail}
-		 WHERE o_no = #{oNo}
+		UPDATE owner
+		   SET id = #{id}
+		   	, email = #{email}
+		   	, tel = #{tel}
+		 WHERE owner_no = #{ownerNo}
 	</update>
-	
-	<update id="leaveOwner" parameterType="Long">
-		UPDATE Owner
-		   SET STATE = -1
-		 WHERE o_no = #{oNo}
-	</update> -->
-	
 </mapper>

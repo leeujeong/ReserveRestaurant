@@ -27,30 +27,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    </foreach>) A
 	</insert>
 	
+	<!-- 메뉴불러오기 -->
+	<select id="selectMenu" parameterType="Long" resultType="Menu">
+		SELECT *
+		  FROM menu
+		 WHERE res_no = #{resNo}
+	</select>
 	
-	
-	
-	
-	
-<!-- 	
-	
-	
-	<update id="modifyRestaurant" parameterType="Restaurant">
-		UPDATE restaurant
-		   SET res_name = #{resName},
-		   	   address = #{address}, 
-		   	   address_detail = #{addressDetail}
-		   	   open_time = #{resOpenTime},
-		   	   close_time = #{resCloseTime},
-		   	   tel = #{resTel},
-		   	   content = #{resContent},
-		   	   origin = #{origin},
-		   	   saved = #{saved},
-		   	   path = #{path}
-	</update>
-	
-	<delete id ="removeRestaurant" parameterType="Long">
+	<!-- <delete id ="removeRestaurant" parameterType="Long">
 		
-	</delete> -->
+	</delete>  -->
 	
 </mapper>

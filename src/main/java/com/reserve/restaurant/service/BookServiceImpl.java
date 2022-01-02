@@ -1,3 +1,5 @@
+
+   
 package com.reserve.restaurant.service;
 
 import java.util.HashMap;
@@ -17,8 +19,9 @@ import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 
+
 public class BookServiceImpl implements BookService {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -133,5 +136,29 @@ public class BookServiceImpl implements BookService {
 		
 		
 	}
-	
+
+	@Override
+	public void bookList(Model model) {	
+		
+		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		
+		Map<String, Object> m = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)m.get("request");
+		
+		Long ownerNo = (Long) m.get("ownerNo");
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("ownerNo", ownerNo);
+		
+		
+		List<Book> list = repository.bookList(map);
+		
+		System.out.println(list);
+		System.out.println("사용자 번호 " + ownerNo);
+
+		
+		model.addAttribute("list", list);
+
+	}
+
 }
