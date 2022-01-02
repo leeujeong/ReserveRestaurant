@@ -28,7 +28,6 @@
             </ul>
         </div>
     </header>
-
     <div class="container">
         <div class="row">
             <div class="col-4">
@@ -37,7 +36,6 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
-                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -50,69 +48,90 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
+                        <li><a href="modifyPage">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-6">
                 <div class="section2">
-                    <h4 class="ing_title">사업장 관리</h4>
+                    <h4 class="ing_title">문의 내용</h4>
                 </div>
                 <hr>
-                  <div class="containers">
-                    <div class="row">
+                   <div class="containers">
+                  
                    
-                      <div class="col-sm-9">
-                        <div class="row">
-                          <div class="col-8 col-sm-6">
-                          
-                         	<c:if test="${empty list}">
-                         		<div class="empty_content">  
-                         			<a href="addPage">음식점 등록하러가기</a>
-                         		</div>
+                     <div class="col-sm-9">
+                        
+                           
+                    
+                           <form id="qnaform" method="POST" action="questionPage"> 
+                               <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+                               <input type="hidden" value="${qna.commment}" name="commnet">
+                               <table class="qnatable">
+                                 <tbody>
+                                    <tr>
+                                       <td>작성자</td>
+                                       <td><input type="text" value="${qna.qnaWriter}" id="qnaWriter" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>제목</td>
+                                       <td><input type="text" value="${qna.qnaTitle}" id="qnaTitle" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td>작성일</td>
+                                        <td><input type="text" value="${qna.qnaDate}" id="qnaDate" readonly></td>
+                                    </tr>
+                                    <tr>
+                                       <td>문의 내용</td>
+                                       <td><textarea rows="20" cols="70" name="qnaContent" readonly>${qna.qnaContent}</textarea></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <c:if test="${empty qna.qnaComment}">
+                              	<div class="comment">
+                             		<div class="commenttitle">댓글달기</div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             	</div>
                          	</c:if>
-                         	
-                         	<c:if test="${not empty list}">
-                         		<c:forEach var="restaurant" items="${list}">
-                         			<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
-	                         		<div class="list_table">
-		                         		<table >
-		                         			<tbody>
-			                         			<tr>
-									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
-									            <tr>
-									            <tr>
-									                <td>${restaurant.resTel}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resContent}</td>
-									            </tr>
-									            <tr>
-									                <td>${restaurant.resOption}</td>
-		            							</tr>
-		                         			</tbody>
-	                         			</table>
-									</div>
-                         		</c:forEach>
+                            <c:if test="${not empty qna.qnaComment}">
+                            	<div class="comment">
+                             		<div class="commenttitle">${resName} 의 댓글 : </div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${comment}</textarea>
+                             		
+                             	</div>
+                              	<div class="comment">
+                             		<div class="commenttitle">댓글달기</div>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+                             		 <input type="submit" value="댓글달기" id="content_btn">
+                             	</div>
                          	</c:if>
-                         	<c:if test="${not empty paging}">
-								<div class="paging">${paging}</div>
-							</c:if>
+                           </form>
+                           
+                        <div class="bottombtn">
+                           <input type="button" value="목록보기" id="list_btn" >
+                           <input type="reset" value="삭제하기" id="delete_btn">
                         </div>
-                      </div>
                     </div>
-                  </div>
-                 </div>
+                  </div> 
             </div>    
         </div> 
     </div>
+    <script>
+    $('#list_btn').on('click', function(){
+    	alert('목록으로 이동');
+    	location.href='questionPage'
+    });
+    
+    $('#delete_btn').on('click',function(){
+        if(confirm('게시글을 삭제할까요?')){
+            alert( '삭제했습니다.');
+            $('#qnaform').attr('action', 'deleteQna');
+            $('#qnaform').submit();
+        }
+    });
+
+    </script>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

@@ -2,23 +2,25 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Restaurant;
 
 public interface RestaurantService {
 
 	public void selectMyRestaurantList(Model model);
-	public Restaurant selectRestaurantByNo(Long resNo);
+	public Restaurant selectList(Long resNo);
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
-	public Map<String, Object> removeRestaurant(Long resNo);
+	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
+	//메뉴 불러오기
+	public List<Menu> selectMenu(Long resNo);
+	
 	
 	//message method
 	public default void message(int result, HttpServletResponse response, 
@@ -43,5 +45,4 @@ public interface RestaurantService {
 			e.printStackTrace();
 		}
 	}
-	
 }

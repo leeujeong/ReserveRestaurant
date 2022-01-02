@@ -15,20 +15,16 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class User {
+public class Review {
 
-	private Long userNo;
-	private String id;
-	private String pw;
-	private String name;
-	private String tel;
-	private String grade;
-	private Date userDate;
-	private String hbd;
-	private int state;
-	private int point;
-	private String email;
-	
-	private Book book;
-
+	private Long reviewNo;
+	private String reviewWriter;
+	private String reviewContent;
+	private String reviewOrigin;
+	private String reviewSaved;
+	private String reviewPath;
+	private Date reviewDate;
+	private int reviewRate;
+	private Long UserNo;
+	private Long ResNo;
 }

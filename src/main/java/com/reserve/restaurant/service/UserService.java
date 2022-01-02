@@ -1,3 +1,5 @@
+
+   
 package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
@@ -21,8 +23,8 @@ public interface UserService {
 	public Map<String, Object> presentPwCheck(HttpServletRequest request);
 	public void updatePw(User user, HttpServletResponse response);
 	public void deleteUser(Long userNo , HttpServletResponse response , HttpSession session);
-	public void updateUser(User user, HttpSession session);
-
+	public void updateUser(User user, HttpSession session , HttpServletResponse response);
+	public Map<String, Object> hourCheck(String bookHours);
 	
 
 	//message method

@@ -59,5 +59,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	<resultMap type="Book" id="BookMap"> 
+		<result column="BOOK_NO" property="bookNo"/>
+		<result column="BOOK_TYPE" property="bookType"/>
+		<result column="BOOK_PEOPLE" property="bookPeople"/>
+		<result column="BOOK_REQUEST" property="bookRequest"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="RES_NO" property="resNo"/>
+		<result column="BOOK_STATE" property="bookState"/>
+		<result column="BOOK_HOURS" property="bookHours"/>
+		<result column="BOOK_DATE" property="bookDate"/>
+	</resultMap>
+	
+	<resultMap type="User" id="UserMap">
+		<result column="USER_NO" property="userNo"/>
+		<result column="ID"  property="id"/>
+		<result column="PW"  property="pw"/>
+		<result column="NAME"  property="name"/>
+		<result column="TEL"  property="tel"/>
+		<result column="GRADE"  property="grade"/>
+		<result column="USER_DATE"  property="userDate"/>
+		<result column="HBD"  property="hbd"/>
+		<result column="STATE"  property="state"/>
+		<result column="POINT"  property="point"/>
+		<result column="EMAIL"  property="email"/>
+		<collection property="book" resultMap="BookMap"/>
+	</resultMap>
+	
+	<select id="hourCheck" parameterType="String" resultMap="UserMap">
+		SELECT U.USER_NO, U.ID, U.PW, U.NAME, U.TEL, U.GRADE, U.USER_DATE, U.HBD, U.STATE, U.POINT, U.EMAIL, B.BOOK_HOURS
+		  FROM USERTABLE U, BOOK B
+		 WHERE U.USER_NO(+) = B.USER_NO
+		   AND B.BOOK_HOURS = #{bookHours}
+	</select>
 	
 </mapper>
