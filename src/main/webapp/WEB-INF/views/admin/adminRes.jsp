@@ -67,7 +67,7 @@
 		var endRecord = p.endRecord;
 		var beginRecord = p.beginRecord;
 		var tbody = '';
-		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td></tr>';
+		var addRow = '<tr><td></td><td></td><td></td><td></td></tr>';
 		if (p.totalRecord == 0) {
 			$('<tr rowspan="5">')
 			.append( $('<td colspan="4">').text('등록된 식당이 없습니다.') )
@@ -75,10 +75,10 @@
 		} else {
 			$.each (map.list, function(i, res) {
 				tbody += '<tr>'
-				tbody += '<td height="30px">' + res.resName + '</td>'
-				tbody += '<td height="30px">' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
-				tbody += '<td height="30px">' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
-				tbody += '<td height="30px">' + res.resTel + '</td>'
+				tbody += '<td>' + res.resName + '</td>'
+				tbody += '<td>' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
+				tbody += '<td>' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
+				tbody += '<td>' + res.resTel + '</td>'
 				tbody += '<tr>'
 			})
 			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
@@ -94,7 +94,7 @@
 		var endRecord = p.endRecord;
 		var beginRecord = p.beginRecord;
 		var tbody = '';
-		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td></tr>';
+		var addRow = '<tr><td></td><td></td><td></td><td></td></tr>';
 		if (p.totalRecord == 0) {
 			$('<tr rowspan="5">')
 			.append( $('<td colspan="4">').text('등록된 식당이 없습니다.') )
@@ -102,10 +102,10 @@
 		} else {
 			$.each (map.resList, function(i, res) {
 				tbody += '<tr>'
-				tbody += '<td height="30px">' + res.resName + '</td>'
-				tbody += '<td height="30px">' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
-				tbody += '<td height="30px">' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
-				tbody += '<td height="30px">' + res.resTel + '</td>'
+				tbody += '<td>' + res.resName + '</td>'
+				tbody += '<td>' + res.resAddress + '&nbsp;' + res.resAddressDetail + '</td>'
+				tbody += '<td>' + res.resOpenTime + '&nbsp;~&nbsp;' + res.resCloseTime + '</td>'
+				tbody += '<td>' + res.resTel + '</td>'
 				tbody += '<tr>'
 			})
 			for (let i = 0; i < 4 - (endRecord - beginRecord) ; i++) {
@@ -187,9 +187,6 @@
     <section class="res_section">
         <div class="xx">
             <span class="res_title">식당 목록</span>
-            <div class="comment_box">
-                <span class="res_comment">총 ${totalRecord}개의 사업장이 등록되어있습니다</span>
-            </div>
         </div>
         <form id="search_form">
 	        <select id="column" name="column">
@@ -200,7 +197,7 @@
 	            <option value="RES_TEL">전화번호</option>
 	        </select>
 	        <input type="text" class="select_text" id="query" name="query">
-	        <input type="button" value="검색" id="search_btn">
+	        <input type="button" value="검색" id="search_btn" class="search_btn">
         </form>
         <table class="res_list_table">
             <thead>
@@ -211,7 +208,8 @@
                     <td>전화번호</td>
                 </tr>
             </thead>
-            <tbody id="tbody"></tbody>
+            <tbody id="tbody">
+            </tbody>
             <tfoot>
                 <tr>
                     <td colspan="4" id="paging"></td>
