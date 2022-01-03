@@ -14,13 +14,15 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Reply {
 
-	private Long replyNo;
-	private String replyWriter;
-	private String replyTitle;
-	private String replyContent;
-	private Date replyDate;
-	private Date replyLastModified;
-//	private Long
+public class Notice {
+
+	private Long noticeNo;
+	private String noticeWriter;
+	private String noticeTitle;
+	private String noticeContent;
+	private Long noticeHit;
+	private Date noticeDate;
+	private Date noticeLastmodified;
+	
 }

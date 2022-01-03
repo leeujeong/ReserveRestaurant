@@ -321,7 +321,7 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항"> 공지사항 </a></li>
+                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
                 <li><a href="리뷰"> Q&A </a></li>
             </ul>
@@ -345,7 +345,7 @@
             <p>${review.get("RES_NAME")}</p>
             <span>★4.5</span> &nbsp;<span>(45)</span>
             <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
-            <p>전화번호 : ${rest.resTel }</p>
+            <p>전화번호 : ${rest.resTel}</p>
             <div class="comment_box">
 				주인장이 남기는 말<br>            
 	            <p>${rest.resContent}</p>

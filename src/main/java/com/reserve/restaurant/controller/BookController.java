@@ -25,25 +25,25 @@ import com.reserve.restaurant.service.BookService;
 public class BookController {
 
 	@Autowired
-	BookService service;
+	private BookService bookService;
 	 
 	@PostMapping(value = "booking" , produces ="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> booking (@RequestBody Book book, HttpServletRequest request){
-	  return service.booking(book, request);
+	  return bookService.booking(book, request);
 	}
 	
 	@RequestMapping(value = "selectBookingList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String selectBookingList (@RequestParam("userNo") Long userNo, HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		service.selectBookingList(userNo, model);
+		bookService.selectBookingList(userNo, model);
 		return "user/booking"; 
 	}
 	
 	@GetMapping(value = "selectBookingDetail")
 	public String selectBookingDetail(@RequestParam("resNo") Long userNo, Model model, HttpServletRequest request) {
 		model.addAttribute("request", request);
-		service.selectBookingDetail(userNo, model);
+		bookService.selectBookingDetail(userNo, model);
 		return "user/bookingDetail";
 	}
 	
@@ -51,7 +51,7 @@ public class BookController {
 	
 	@GetMapping(value = "bookingCancel")
 	public void bookingCancel(@RequestParam("bookNo")Long bookNo, HttpServletResponse response) {
-		service.bookingCancel(bookNo, response);
+		bookService.bookingCancel(bookNo, response);
 	}
 	
 	
@@ -59,7 +59,7 @@ public class BookController {
 	@GetMapping(value = "findCancelList")
 	public String findCancelList(Model model, HttpServletRequest request) {
 		model.addAttribute("request", request);
-		service.FindCancelList(model);
+		bookService.FindCancelList(model);
 		return "user/bookingCancel";
 	}
 	
