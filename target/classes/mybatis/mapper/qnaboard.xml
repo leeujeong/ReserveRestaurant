@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reserve.restaurant.repository.QnaBoardRepository">
+	
+	<select id="selectQnaBoardList" resultType="Qna">
+  		SELECT QNA_NO, QNA_WRITER, QNA_CONTENT, QNA_TITLE, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED
+		  FROM QNA
+		 WHERE STATE = 1
+		 ORDER BY QNA_NO DESC
+	</select>
+	
+	<select id="selectQnaBoardByNo" parameterType="Long" resultType="Qna">
+		SELECT QNA_NO, QNA_WRITER, QNA_CONTENT, QNA_TITLE, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED
+		  FROM QNA
+		 WHERE QNA_NO = #{qnaNo}
+	</select>
+	
+	<insert id="insertBoardQna" parameterType="Qna">
+		INSERT INTO QNA
+		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE , 1)
+	</insert>
+	
+	<update id="updateBoardQna" parameterType="Qna">
+		UPDATE QNA
+           SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
+         WHERE QNA_NO = #{qnaNo}
+	</update>
+	
+	<update id="updateQnaBoardHit" parameterType="Qna">
+		UPDATE QNA 
+		   SET QNA_HIT = QNA_HIT + 1 
+		 WHERE QNA_NO = #{qnaNo}
+	</update>
+	
+	<delete id="deleteBoardQna" parameterType="Long">
+	    DELETE
+		  FROM QNA
+		 WHERE QNA_NO = #{qnaNo}
+	</delete>
+
+</mapper>

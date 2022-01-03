@@ -28,6 +28,6 @@ public class UserConfig {
 		return new NoticeServiceImpl();
 	}
 	
-	
+
 	
 }

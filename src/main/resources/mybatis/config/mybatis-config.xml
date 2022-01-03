@@ -19,8 +19,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.reserve.restaurant.domain.Menu" alias="Menu"/>
 		<typeAlias type="com.reserve.restaurant.domain.Book" alias="Book"/>
 		<typeAlias type="com.reserve.restaurant.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.reserve.restaurant.domain.Review" alias="Review"/>
 		
-
 
 	</typeAliases>
 	
