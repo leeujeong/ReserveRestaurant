@@ -22,6 +22,7 @@ import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.OwnerService;
 import com.reserve.restaurant.service.QnaService;
+import com.reserve.restaurant.service.ReviewService;
 
 @Controller
 @RequestMapping("owner/*")
@@ -36,6 +37,9 @@ public class OwnerController {
 	
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	//등록페이지
 	@GetMapping(value="addPage")
@@ -89,7 +93,12 @@ public class OwnerController {
 	
 	//리뷰관리 페이지
 	@GetMapping(value="reviewPage")
-	public String reviewPage() {
+	public String reviewPage(HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession();
+		model.addAttribute("request", request);
+		
+		reviewService.reviewList(model);
 		return "owner/review";
 	}
 

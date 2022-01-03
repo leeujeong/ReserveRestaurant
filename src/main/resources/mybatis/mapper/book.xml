@@ -144,8 +144,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	     WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
-	<select id="selectBookBybookNo" parameterType="Long" resultType="Book">
-		SELECT *
+	<!-- bookNo 를 받는곳 -->
+	<select id="selectBookBybookNo" parameterType="Long" resultType="Restaurant">
+		SELECT B.*
 		FROM BOOK A, RESTAURANT B
 		WHERE A.RES_NO = B.RES_NO AND BOOK_NO = #{bookNo}
 	</select>

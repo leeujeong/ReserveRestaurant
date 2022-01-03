@@ -89,7 +89,7 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항"> 공지사항 </a></li>
+                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
                 <li><a href="/restaurant/qnaboard/qnalist"> Q&A </a></li>
             </ul>

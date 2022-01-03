@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Restaurant;
 
 public interface BookRepository {
 		
@@ -16,5 +17,9 @@ public interface BookRepository {
 	public int selectTotalResCount();
 	public Integer selectCancelCount();
 	public List<Book> selectCancelList(Map<String, Object> map);
+	
+	
+	public Restaurant selectBookBybookNo(Long bookNo);
+	
 }
  

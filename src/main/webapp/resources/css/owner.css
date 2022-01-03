@@ -134,7 +134,7 @@ textarea{
     width: 100%;
 
 }
-#update_btn, #delete_btn, #update_menu{
+#update_btn, #delete_btn, #update_menu, #list_btn, #content_btn{
     width: 100px;
     background-color: rgb(160, 57, 38);
     border: none;

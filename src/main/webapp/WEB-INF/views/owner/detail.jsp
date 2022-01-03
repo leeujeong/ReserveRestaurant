@@ -41,6 +41,19 @@
 	
 	
 	</script>
+		<style>
+		.image_container img{
+			width:100px;
+			height:70px;
+			padding:3px;
+		}
+		#upload_result{
+			display:block;
+			width:100px;
+			height:70px;
+			padding:3px;
+		}
+	</style>
 	<script>
 
 	//체크박스 값 부르기
@@ -145,19 +158,33 @@
                                <tr>
                                    <td>사진 등록</td>
                                    <td>
-                                   		<input type="file" name="newFile" id="newFile" multiple>
-                                   	<%-- 	<c:if test="${not empty restaurant.origin}">
-                                   			기존 사진 : ${restaurant.origin}
-                                   			<img alt="${restaurant.origin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}" width="500px">
-                                   		</c:if> --%>
-                                    
+                                     <input type="file" name="newFile" id="newFile" accept="image/*" onchange="setThumbnail(event);" multiple/> 
+		                                  <h6>올릴 이미지 : </h6><div class="image_container"></div> 
+		                                  
+                                       
                                        <div id="upload_result">
 	                                       <c:if test="${not empty restaurant.resOrigin}">
-	                                       		기존 사진 : ${restaurant.resOrigin}
+	                                       <div class="image_container">
+	                                       		기존 사진 :
 		                                       <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}">
+	                                       </div>
 		                                       
 	                                       </c:if>
                                        </div>
+                                       <script> 
+		                                  	function setThumbnail(event) {
+		                                  		for (var image of event.target.files) {
+		                                  			var reader = new FileReader(); reader.onload = function(event) {
+		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result);
+		                                  				document.querySelector("div.image_container").appendChild(img); 
+		                                  				};
+		                                  				console.log(image);
+		                                  				reader.readAsDataURL(image); 
+		                                  			}
+		                                  		} 
+		                                  </script>
+                                       
+                                       
                                    </td>
                                </tr>
                                <tr>

@@ -13,6 +13,24 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	
+	<style>
+		#list_btn, #content_btn{
+			width: 100px;
+		    background-color: rgb(160, 57, 38);
+		    border: none;
+		    color: white;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
+		#list_btn:hover, #content_btn:hover{
+			background-color:  rgba(160, 57, 38, 0.795);
+		}
+		.bottombtn{
+			   justify-content: center;
+		}
+	</style>
 </head>
 <body>
     <header>
@@ -66,7 +84,7 @@
                     
                            <form id="qnaform" method="POST" action="questionPage"> 
                                <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
-                               <input type="hidden" value="${qna.commment}" name="commnet">
+                        <%--        <input type="hidden" value="${qna.qnaCommment}" name="commnet"> --%>
                                <table class="qnatable">
                                  <tbody>
                                     <tr>
@@ -97,7 +115,7 @@
                             <c:if test="${not empty qna.qnaComment}">
                             	<div class="comment">
                              		<div class="commenttitle">${resName} 의 댓글 : </div>
-                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${comment}</textarea>
+                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${qna.qnaComment}</textarea>
                              		
                              	</div>
                               	<div class="comment">

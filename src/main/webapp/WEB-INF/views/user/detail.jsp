@@ -247,6 +247,15 @@
 	  	margin-bottom: 30px;
 	  	cursor: pointer;
   }
+  .dateinput{
+  	border:none;
+  	outline:none;
+  }
+  
+      
+   .wrapper{ width: 400px; height: 400px; border: 1px solid red; position: relative; overflow: hidden; } .wrapper img{ width: 400px; position: absolute; top: 0; transition: left 0.4s ease-out; } .wrapper img:nth-child(1){ left: 0; } .wrapper img:nth-child(2){ left: 400px; } .wrapper img:nth-child(3){ left: 800px; } .wrapper img:nth-child(4){ left: 1200px; } .wrapper img:nth-child(5){ left: 1600px; }
+  
+  
  </style>
 </head>
 <body>
@@ -312,7 +321,7 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항"> 공지사항 </a></li>
+                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
                 <li><a href="리뷰"> Q&A </a></li>
             </ul>
@@ -330,14 +339,13 @@
  
 	
     <section class="rest_section">
-        <image src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;">
+        <img src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
          
-        </image>
         <div class="rest_detail">
             <p>${review.get("RES_NAME")}</p>
             <span>★4.5</span> &nbsp;<span>(45)</span>
             <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
-            <p>전화번호 : ${rest.resTel }</p>
+            <p>전화번호 : ${rest.resTel}</p>
             <div class="comment_box">
 				주인장이 남기는 말<br>            
 	            <p>${rest.resContent}</p>
@@ -452,13 +460,18 @@
     </section>
     
     <!-- ---------------------- 리뷰에서 받아오는 -------------------------->
+    
+
+
+    
+    
     <section class="review_section">
         <div class="review_title">방문자 리뷰
             <a href="/restaurant/user/moreReview">더 보기 >> </a>
         </div>
         <div class="review_aver">
-            <span>${avgReview}</span>
-            <span class="total_review">${totalCount}</span>
+            <span><%-- ${avgReview} --%></span>
+            <span class="total_review"><%-- ${totalCount} --%></span>
             
         </div>
         <div >
@@ -473,7 +486,7 @@
 	                    <div class="review_content">
 	                        <p>${review.get("REVIEW_WRITER")}</p>
 	                        <div class="reviewdaterate">
-		                        <span>${review.get("REVIEW_DATE")}</span>
+		                        <span><input type="text" class="dateinput" max="9999-12-31" value="${review.get('REVIEW_DATE')}"></span>
 		                        <span>${review.get("REVIEW_RATE")}</span>
 	                        </div>
 	                        
