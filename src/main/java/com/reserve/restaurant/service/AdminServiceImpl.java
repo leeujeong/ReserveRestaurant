@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -331,13 +332,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void selectResDetail(Model model, Restaurant restaurant) {
+	public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		Long resNo = restaurant.getResNo();
 		Restaurant rest = repository.selectResDetail(resNo); 
-		System.out.println(resNo);
-		System.out.println(rest);
-		model.addAttribute("rest", rest);
+		if (rest != null) {
+			request.getSession().setAttribute("rest", rest);
+		} 
+		
 	}
 
 	// 전체 사업장 리스트 출력
@@ -384,7 +386,6 @@ public class AdminServiceImpl implements AdminService {
 		m2.put("column", request.getParameter("column"));
 		m2.put("query", request.getParameter("query"));
 		List<Restaurant> list = repository.findRes(m2);
-		System.out.println("serviceImpl에서 최종 list : " + list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("pageUtils", pageUtils);

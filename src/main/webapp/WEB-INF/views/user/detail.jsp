@@ -31,7 +31,7 @@
 	    fnHourCheck();
 	  	  $('#exampleModalCenteredScrollable').modal('hide');
 		
-	  	  $('#exampleModalCenteredScrollable').modal('show');
+	  	 
 	  
 		
 	    // input 상자 눌러서 인원수 늘리기

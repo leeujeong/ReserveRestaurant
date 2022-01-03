@@ -2,6 +2,7 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
@@ -9,9 +10,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface ReviewService {
 
-	public void reviewList(Model model);
+	public void reviewList(Model model, Long resNo ,HttpServletRequest request);
 	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
-	public void moreReview(Model mode);
+	public void moreReview(Model model);
 	//	public int avgReviewRate(Long resNo);
 //	public int totalReview(Long resNo);
 	

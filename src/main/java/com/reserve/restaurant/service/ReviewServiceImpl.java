@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
+import com.reserve.restaurant.repository.AdminRepository;
 import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
 
@@ -31,13 +33,15 @@ public class ReviewServiceImpl implements ReviewService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response ) {
+		Long resNo = Long.parseLong(multipartRequest.getParameter("resNo"));
+		
 		Review review = new Review();
 		review.setReviewWriter(multipartRequest.getParameter("reviewWriter"));
 		review.setReviewContent(multipartRequest.getParameter("reviewContent"));
 		review.setReviewRate(Integer.parseInt(multipartRequest.getParameter("rating")));
 		review.setUserNo(Long.parseLong(multipartRequest.getParameter("userNo")));
-		review.setResNo(Long.parseLong(multipartRequest.getParameter("resNo")));
+		review.setResNo(resNo);
 		try {
 			
 			MultipartFile file = multipartRequest.getFile("r_file");
@@ -81,37 +85,38 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
 		int result = repository.insertReview(review);
+//		if (result > 0 ) {
+//			request.getSession().setAttribute("reviewList", list);
+//		}
 		
-		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "detail");
+		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 실패했습니다.", "detail?resNo="+resNo);
 		
 	}
 
 	@Override
-	public void reviewList(Model model) {
+	public void reviewList(Model model , Long resNo ,HttpServletRequest request) {
 		
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
 		
 		Map<String, Object> m = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)m.get("request");
-		
 		Long userNo = (Long) m.get("userNo");
-		Long resNo = (Long)m.get("resNo");
 		
 		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("userNo", userNo);
 		
+		map.put("resNo", resNo);
 		
 		//평균과 전체 글수
 //		int avgReview = repository.avgReviewRate(resNo);
 //		int totalCount = repository.totalReview(resNo);
 //		
 		List<Review> list = repository.reviewList(map);
-
 		
-		model.addAttribute("reviewlist", list);
+		if (list != null) {
+			request.getSession().setAttribute("reviewList", list);
+		}
+		model.addAttribute("reviewList", list);
 //		model.addAttribute("avgReview", avgReview);
 //		model.addAttribute("totalCount", totalCount);
-		
 	}
 	
 	//리뷰 더보기

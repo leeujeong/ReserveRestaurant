@@ -1,7 +1,9 @@
 package com.reserve.restaurant.controller;
 
 
+import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -182,17 +184,12 @@ public class UserController {
 	
 	//사업장 디테일 보여주는 페이지
 	@GetMapping(value = "detail")
-	public String detail(HttpServletRequest request,Model model) {
-		HttpSession session = request.getSession();
+	public String detail(Long resNo, HttpSession session, Model model, HttpServletResponse response, HttpServletRequest request) {
 		User user = (User)session.getAttribute("loginUser");
-		
 		model.addAttribute("userNo", user.getUserNo());
-		model.addAttribute("request", request);
-		model.addAttribute("resNo", request.getParameter("resNo"));
-		
-		reviewService.reviewList(model);
-		
-		return "/user/detail";
+		model.addAttribute("resNo", resNo);
+		reviewService.reviewList(model ,resNo,request);
+		return "user/detail";	
 	}
 	
 

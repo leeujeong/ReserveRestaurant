@@ -25,7 +25,7 @@ $(document).ready(function () {
 			const book_no = this.getAttribute("data-bookNo");
 			location.href="/restaurant/user/reviewPage?bookNo=" + book_no;
 		}
-		
+	  
 	});
 	
 });
