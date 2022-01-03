@@ -30,6 +30,7 @@
 	    fnBooking();
 	    fnHourCheck();
 	  	  $('#exampleModalCenteredScrollable').modal('hide');
+	  	  $('#exampleModalCenteredScrollable').modal('show');
 		
 	  	 
 	  
@@ -339,16 +340,16 @@
  
 	
     <section class="rest_section">
-        <img src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
+        <img src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
          
         <div class="rest_detail">
-            <p>${review.get("RES_NAME")}</p>
+            <p>${restaurant.resName}</p>
             <span>★4.5</span> &nbsp;<span>(45)</span>
-            <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
-            <p>전화번호 : ${rest.resTel}</p>
+            <p>영업시간 : ${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</p>
+            <p>전화번호 : ${restaurant.resTel}</p>
             <div class="comment_box">
 				주인장이 남기는 말<br>            
-	            <p>${rest.resContent}</p>
+	            <p>${restaurant.resContent}</p>
             </div>
             
             <!--******************************************* 예약하기********************************************** -->
@@ -486,7 +487,7 @@
 	                    <div class="review_content">
 	                        <p>${review.get("REVIEW_WRITER")}</p>
 	                        <div class="reviewdaterate">
-		                        <span><input type="text" class="dateinput" max="9999-12-31" value="${review.get('REVIEW_DATE')}"></span>
+		                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
 		                        <span>${review.get("REVIEW_RATE")}</span>
 	                        </div>
 	                        
@@ -674,13 +675,13 @@
 		    } 
 		});    
     </script>
-    <input type="hidden" id="resNo" name="resNo" value="${rest.resNo}">
-    
-	<input type="hidden" id="resAddress" value="${rest.resAddress}">
-	<input type="hidden" id="resAddressDetail" value="${rest.resAddressDetail}">
-	<input type="hidden" id="resOrigin" value="${rest.resOrigin}">
-	<input type="hidden" id="resSaved" value="${rest.resSaved}">
-	<input type="hidden" id="resPath" value="${rest.resPath}">
+    <input type="hidden" id="resNo" name="resNo" value="${restaurant.resNo}">
+    <input type="text" id="rest" value="${rest.resAddress}">
+	<input type="text" id="resAddress" value="${restaurant.resAddress}">
+	<input type="text" id="resAddressDetail" value="${restaurant.resAddressDetail}">
+	<input type="hidden" id="resOrigin" value="${restaurant.resOrigin}">
+	<input type="hidden" id="resSaved" value="${restaurant.resSaved}">
+	<input type="hidden" id="resPath" value="${restaurant.resPath}">
 
 		
 	

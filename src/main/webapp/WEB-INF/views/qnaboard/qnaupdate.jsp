@@ -125,69 +125,43 @@
 		 <tbody> 
 		 <tr> 
 		 <th scope="row">글 번호</th>
-		 <td>${qnaBoardDetail.qnaNo}</td> 
+		 <td>${qna.qnaNo}</td> 
 		 
 		  
 		 <th scope="row">조회수</th> 
-		 <td>${qnaBoardDetail.qnaHit}</td>
+		 <td>${qna.qnaHit}</td>
 		 </tr>
 		 
 		 <tr> 
 		 <th scope="row">작성일</th>
-		 <td>${qnaBoardDetail.qnaDate}</td> 
+		 <td>${qna.qnaDate}</td> 
 		 
 		  
 		 <th scope="row">최종수정일</th> 
-		 <td>${qnaBoardDetail.qnaLastModified}</td>
+		 <td>${qna.qnaLastModified}</td>
 		 </tr>
 		 
 		 <tr>
 		 <th scope="row">작성자</th> 
-		 <td colspan="5">${qnaBoardDetail.qnaWriter}</td> 
+		 <td colspan="5">${qna.qnaWriter}</td> 
 		 <tr>
          </tbody>
           </table>
-	<form id="f" method="post" action="/restaurant/qnaboard/updateQnaPage">
+	<form id="f" method="post" action="/restaurant/qnaboard/updateBoardQna">
        <label>제목</label>
-       <input type="hidden" name=qnaHit value="${qnaBoardDetail.qnaHit}">
-       <input type="hidden" name=qnaDate value="${qnaBoardDetail.qnaDate}">
-       <input type="hidden" name=qnaLastModified value="${qnaBoardDetail.qnaLastModified}">
-       <input type="hidden" name=qnaWriter value="${qnaBoardDetail.qnaWriter}">
-       <input class="form-control mt-4 mb-2" type="text" name="qnaTitle" id="qnaTitle" value="${qnaBoardDetail.qnaTitle}"><br><br>
+       <input class="form-control mt-4 mb-2" type="text" name="qnaTitle" id="qnaTitle" value="${qna.qnaTitle}"><br><br>
        <div class="form-group">
-       <textarea class="summernote" name="qnaContent" id="summernote" value="${qnaBoardDetail.qnaContent}">${qnaBoardDetail.qnaContent}</textarea><br><br>
+       <textarea class="summernote" placeholder="수정할 내용을 입력해주세요" name="qnaContent" id="summernote">${qna.qnaContent}</textarea><br><br>
        </div>
-       <input type="hidden" name="qnaNo" value="${qnaBoardDetail.qnaNo}" id="qnaNo">
-       <button class="btn btn-primary" value="수정" id="update_btn">수정</button>
-       <!-- <input type="button" class="btn btn-primary" value="수정" id="update_btn"> -->
-       <input type="button" class="btn btn-danger" value="삭제" id="delete_btn">
+       <input type="hidden" name="qnaNo" value="${qna.qnaNo}" id="qnaNo">
+       <c:if test="${loginUser.name == qna.qnaWriter}">
+	       <button class="btn btn-primary" value="수정" id="update_btn">수정</button>
+	       <!-- <input type="button" class="btn btn-primary" value="수정" id="update_btn"> -->
+	       <input type="button" class="btn btn-danger" value="삭제" id="delete_btn">
+       </c:if>
        <input type="button" class="btn btn-secondary mb-3"  value="목록" onclick="location.href='/restaurant/qnaboard/qnalist'">
     </form>
     
-    
-	<script>
-		$('#delete_btn').click(function() {
-			if (confirm('삭제하시겠습니까?')) {
-				location.href="/restaurant/qnaboard/deleteBoardQna?qnaNo=" + ${qnaBoardDetail.qnaNo};
-			}
-		})
-	</script>
-      
-      <hr>
-      작성자 : ${reply.replyWriter}
-      작성일 : ${reply.replyDate}
-      내용 : ${reply.replyContent}
-      <hr>
-      
-     
-	      <form action="/restaurant/qnaboard/qnaReply">
-	      	<input type="hidden" name="writer" value="${loginUser.name}">
-	      	<input type="hidden" name="qnaNo" value="${qnaBoardDetail.qnaNo}">
-	      	<input type="text" name="content" placeholder="Q&A 답글을 남겨주세요">
-	      	<button>등록</button>
-	      </form>      
-      
-      
       <!-- 
        <button type="button" class="btn btn-primary" onclick="location.href='/qnaboard/qnaupdate/${qnadetail.qnaNo}'">수정</button> 
  	   <button type="button" class="btn btn-danger" onclick="location.href='/qnaboard/${qnadetail.qnaNo}'">삭제</button>  

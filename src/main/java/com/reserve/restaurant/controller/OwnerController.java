@@ -92,15 +92,27 @@ public class OwnerController {
 	}
 	
 	//리뷰관리 페이지
-	@GetMapping(value="reviewPage")
-	public String reviewPage(HttpServletRequest request, Model model, Long resNo ) {
-		
-		HttpSession session = request.getSession();
-		model.addAttribute("request", request);
-		
-		reviewService.reviewList(model,resNo, request);
-		return "owner/review";
-	}
+//	@GetMapping(value="reviewPage")
+//	public String reviewPage(HttpServletRequest request, Model model) {
+//		
+//		HttpSession session = request.getSession();
+//		model.addAttribute("request", request);
+//		
+//		reviewService.reviewList(model);
+//		return "owner/review";
+//	}
+//	
+	
+	//리뷰관리 페이지
+	   @GetMapping(value="reviewPage")
+	   public String reviewPage(HttpServletRequest request, Model model, Long resNo) {
+	      
+	      HttpSession session = request.getSession();
+	      model.addAttribute("request", request);
+	      
+	      reviewService.reviewList(model,resNo);
+	      return "owner/review";
+	   }
 
 	//로그인페이지
 	@PostMapping(value="login")

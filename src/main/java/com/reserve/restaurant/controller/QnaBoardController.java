@@ -1,5 +1,10 @@
 package com.reserve.restaurant.controller;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,19 +52,26 @@ public class QnaBoardController {
 
 	
 	@PostMapping(value="updateBoardQna")
-	public String updateBoardQna(Qna Qna) {
-		qnaBoardService.updateBoardQna(Qna);
-		return "redirect:selectQnaBoardByNo?qanNo=" + Qna.getQnaNo();
+	public void updateBoardQna(HttpServletRequest request, HttpServletResponse response) {
+		qnaBoardService.updateBoardQna(request, response);
 	}
 	
 	@GetMapping(value="deleteBoardQna")
-	public String deleteBoardQna(@RequestParam("qNo") Long qNo) {
-		qnaBoardService.deleteBoardQna(qNo);
-		return "redirect:selectQnaBoardList";
+	public void deleteBoardQna(Long qnaNo, HttpServletResponse response) {
+		qnaBoardService.deleteBoardQna(qnaNo, response);
 	}
 	
+	@PostMapping(value="updateQnaPage")
+	public String updateQnaPage(Qna qna, Model model) {
+		model.addAttribute("qna", qna);
+		return "qnaboard/qnaupdate";
+	}
 	
-	
-	
+	@GetMapping(value="qnaReply")
+	public String qnaReply(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Long qnaNo = Long.parseLong(request.getParameter("qnaNo"));
+		qnaBoardService.insertQnaReply(request, response, model);
+		return "forward:/qnaboard/selectQnaBoardByNo?qnaNo=" + qnaNo;
+	}
 	
 }

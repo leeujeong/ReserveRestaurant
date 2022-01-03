@@ -207,7 +207,7 @@
 		    <div class="col-4">
 		     <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="main_image"/>
 			 <h3 >${restaurant.resName}</h3>
-			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/admin/goResDetail?resNo=' + ${restaurant.resNo}">  	
+			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/user/detail?resNo='+'${restaurant.resNo}'">  	
 		    </div>
 		    <div class="col-6">
 			    <form action="/restaurant/user/insertReview" id="reviewform" method="POST" enctype="multipart/form-data">

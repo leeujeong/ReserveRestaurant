@@ -13,6 +13,37 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<style>
+		.reviewimg{
+			width:200px;
+			height:100px;
+		}
+		.dateinput{
+			border:none;
+			outline:none;
+		}
+	</style>
+	<script>
+	/* $(document).ready(function(){
+
+    		$('#ondisplay').click(function(){
+    			if($('#reply_form').css("display") == "none"){
+    				$('#reply_form').show();
+    			}
+    		});
+  
+    	
+    		$('#offdisplay').click(function(){
+    			if($('#reply_form').css("display") != "none"){
+    				$('#reply_formt').hide();
+    			}
+    		});
+    
+		
+	}); */
+    	
+    	
+    </script>
 </head>
 <body>
     <header>
@@ -66,40 +97,89 @@
                                 <td>번호</td>
                                 <td>작성자</td>
                                 <td>식당명</td>
+                                <!-- <td>내용</td> -->
                                 <td>사진</td>
                                 <td>리뷰 내용</td>
                                 <td>작성일자</td>
                                 <td>조회수</td>
+                                <td></td>
                             </tr>
                         </thead>
                        <tbody>
-							<c:if test="${empty reviewList}">
+							<c:if test="${empty reviewlist}">
 								<tr>
 									<td colspan="7">등록된 리뷰 없음</td>
 								</tr>
 							</c:if>
-							<c:if test="${not empty reviewList}">
-								<c:forEach var="review" items="${reviewList}">
-									<tr>
-										<td>${review.reviewNo}</td>				
-										<td>${review.get("REVIEW_WRITER")}</td>
-										<td>${review.get("RES_NAME")}</td>
-										<td>
-											<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
-										</td>
-										<td>${review.reviewContent}</td>
-										<td>${review.get("REVIEW_DATE")}</td>
-										<td>${review.reviewHit}</td>				
-									</tr>
+							<c:if test="${not empty reviewlist}">
+								<c:forEach var="review" items="${reviewlist}">
+								<%-- 	<c:if test="${review.state == 0}"> --%>
+										<tr>
+											<td>${review.reviewNo}</td>				
+											<td>${review.get("REVIEW_WRITER")}</td>
+											<td>${review.get("RES_NAME")}</td>
+											<%-- <td>
+												<div class="replyinput">
+													<!-- depth만큼 들여쓰기 -->
+													<c:forEach begin="1" end="${review.depth}">&nbsp;</c:forEach>
+													
+													<!-- 댓글(depth 1 이상) ㄴ -->
+													<c:if test="${review.depth >= 1}">ㄴ</c:if>
+													
+													<!-- 20자 이내는 그대로 표시 -->
+													<c:if test="${review.content.length() < 20}">
+														<a href="view.review?fNo=${review.fNo}">${review.content}</a>&nbsp;&nbsp;&nbsp;
+													</c:if>
+													
+													<!-- 20자 넘어가면 20자만 표시 -->
+													<c:if test="${review.content.length() >= 20}">
+														<a href="view.review?fNo=${review.fNo}">${review.content.substring(0, 20)}</a>&nbsp;&nbsp;&nbsp;
+													</c:if>
+													
+													<a class="reply_link">댓글달기</a>
+													
+												</div>
+											</td> --%>
+											<td>
+												<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+											</td>
+											<td>${review.reviewContent}</td>
+											<td><input type="text" value="${review.get('REVIEW_DATE')}" class="dateinput"></td>
+											<td>${review.reviewHit}</td>
+											<td><button onclick="ondisplay">댓글달기</button><button onclick="offdisplay">댓글 숨기기</button></td>				
+										</tr>
+											<tr id="reply_form">
+												<td colspan="6">
+													<form action="insertReply/review" method="post">
+														<!-- 원글의 DEPTH, GROUPNO, GROUPORD를 넘겨줌. -->
+														<input type="hidden" name="depth" value="${review.depth}">
+														<input type="hidden" name="groupNo" value="${review.groupNo}">
+														<input type="hidden" name="groupOrd" value="${review.groupOrd}">
+														<input type="text" name="writer" value="${loginUser.id}" readonly>
+														<input type="text" name="content" placeholder="내용">
+														<button>댓글달기</button>
+													</form>
+												</td>
+											</tr>
+										
+								<%-- 	</c:if> --%>
+									
 								</c:forEach>
-							</c:if>
+							<</c:if> 
 						</tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    
+<!--     <script>
+    	function ondisplay(){
+    		$('#form').show();
+    	}
+    	function offdisplay(){
+    		$('#form').hide();
+    	}   
+    </script> -->
        <form id="f" method="post">
          <div class="card mb-2" style="width: 1000px;">
             <div class="card-header bg-light">

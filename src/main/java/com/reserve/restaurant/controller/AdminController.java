@@ -3,7 +3,6 @@ package com.reserve.restaurant.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
-import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.AdminService;
-import com.reserve.restaurant.service.ReviewService;
 
 @Controller
 @RequestMapping("admin/*")
@@ -24,7 +21,6 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
-	
 	
 	@GetMapping(value="adminPage") 
 	public String adminPage() {
@@ -112,7 +108,7 @@ public class AdminController {
 	
 	// 검색된리스트에서 restaurant detail로 이동
 	@GetMapping(value="goResDetail")
-	public String goResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
+	public String goResDetail(Model model, Restaurant restaurant , HttpServletRequest request) {
 		adminService.selectResDetail(model, restaurant,request);
 		return "user/detail";
 	}
