@@ -88,7 +88,7 @@
             <ul>
                 <li><a href="공지사항"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+                <li><a href="/restaurant/qnaboard/qnalist"> Q&A </a></li>
             </ul>
         </div>
         <div class="cate quickmenu">
