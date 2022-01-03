@@ -25,4 +25,6 @@ public class Qna {
 	private Date qnaLastModified;
 	private String qnaComment;
 	private int state;
+	
+	private Reply reply;
 }

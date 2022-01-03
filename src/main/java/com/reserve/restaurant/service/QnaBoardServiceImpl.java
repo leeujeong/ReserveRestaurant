@@ -28,10 +28,14 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 	
 	@Override
-	public Qna selectQnaBoardByNo(Long qanNo) {
+	public void selectQnaBoardByNo(Long qnaNo, Model model) {
 		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		return repository.selectQnaBoardByNo(qanNo);
-	
+		Qna qna = repository.selectQnaInfo(qnaNo);
+		Reply reply = repository.selectReplyInfo(qnaNo);
+		model.addAttribute("qna", qna);
+		model.addAttribute("reply", reply);
+		// Map<String, Object> map = repository.selectQnaBoardByNo(qnaNo);
+		// return map;
 	}
 	
 	@Override

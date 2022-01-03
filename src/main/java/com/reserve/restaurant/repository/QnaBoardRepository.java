@@ -12,7 +12,9 @@ import com.reserve.restaurant.domain.Reply;
 public interface QnaBoardRepository {
 
 	public List<Qna> selectQnaBoardList();
-	public Qna selectQnaBoardByNo(Long qanNo);
+	// public Map<String, Object> selectQnaBoardByNo(Long qanNo);
+	public Qna selectQnaInfo(Long qnaNo);
+	public Reply selectReplyInfo(Long qnaNo);
 	public int updateQnaBoardHit(Qna qanNo);
 	public int insertBoardQna(Qna Qna);
 	public int updateBoardQna(Map<String, Object> map);

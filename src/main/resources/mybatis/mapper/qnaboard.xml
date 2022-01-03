@@ -4,19 +4,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.reserve.restaurant.repository.QnaBoardRepository">
 	
+	<resultMap type="Qna" id="QnaMap">
+		<result column="QNA_NO" property="qnaNo" />
+		<result column="QNA_WRITER" property="qnaWriter" />
+		<result column="QNA_TITLE" property="qnaTitle" />
+		<result column="QNA_CONTENT" property="qnaContent" />
+		<result column="QNA_HIT" property="qnaHit" />
+		<result column="QNA_DATE" property="qnaDate" />
+		<result column="QNA_LASTMODIFIED" property="qnaLastModified" />
+		<result column="QNA_COMMENT" property="qnaComment" />
+		<result column="STATE" property="state" />
+	    <collection property="reply" resultMap="ReplyMap" />
+	</resultMap>
+	
+	<resultMap type="Reply" id="ReplyMap">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="REPLY_WRITER" property="replyWriter" />
+		<result column="REPLY_TITLE" property="replyTitle" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="REPLY_LASTMODIFIED" property="replyLastModified" />
+		<result column="QNA_NO" property="qnaNo" />
+	</resultMap>
+	
 	<select id="selectQnaBoardList" resultType="Qna">
   		SELECT QNA_NO, QNA_WRITER, QNA_CONTENT, QNA_TITLE, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED
 		  FROM QNA
 		 WHERE STATE = 1
 		 ORDER BY QNA_NO DESC
 	</select>
-	
-	<select id="selectQnaBoardByNo" parameterType="Long" resultType="Qna">
-		SELECT QNA_NO, QNA_WRITER, QNA_CONTENT, QNA_TITLE, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED
-		  FROM QNA
-		 WHERE QNA_NO = #{qnaNo}
+	<!-- 
+	<select id="selectQnaBoardByNo" parameterType="Long" resultMap="QnaMap">
+		SELECT Q.QNA_NO, Q.QNA_WRITER, Q.QNA_CONTENT, Q.QNA_TITLE, Q.QNA_HIT, Q.QNA_DATE, Q.QNA_LASTMODIFIED, R.REPLY_NO, R.REPLY_WRITER, R.REPLY_CONTENT, R.REPLY_DATE, R.REPLY_LASTMODIFIED
+		  FROM QNA Q, REPLY R
+		 WHERE Q.QNA_NO = R.QNA_NO
+		   AND Q.QNA_NO = #{qnaNo}
 	</select>
-	
+	 -->
+	 <select id="selectQnaInfo" parameterType="Long" resultType="Qna">
+	 	SELECT QNA_NO, QNA_WRITER, QNA_CONTENT, QNA_TITLE, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED
+	 	  FROM QNA
+	 	 WHERE QNA_NO = #{qnaNo}
+	 </select>
+	 
+	 <select id="selectReplyInfo" parameterType="Long" resultType="Reply">
+	 	SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE, REPLY_LASTMODIFIED
+	 	  FROM REPLY
+	 	 WHERE QNA_NO = #{qnaNo}
+	 </select>
+	 
+	 
 	<insert id="insertBoardQna" parameterType="Qna">
 		INSERT INTO QNA
 		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE , 1)
@@ -49,5 +86,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM REPLY
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
-
+	
 </mapper>

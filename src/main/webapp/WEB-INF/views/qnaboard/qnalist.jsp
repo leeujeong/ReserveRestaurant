@@ -111,12 +111,12 @@
               <table class="table table-list-search">
                   <thead>
                      <tr>
-                           <th>글 번호</th>
-                           <th>작성자</th>
-                           <th>제목</th>
-                           <th>조회수</th>
-                           <th>등록일</th>
-                           <th>최종수정일</th>
+	                     <th>글 번호</th>
+	                     <th>작성자</th>
+	                     <th>제목</th>
+	                     <th>조회수</th>
+	                     <th>등록일</th>
+	                     <th>최종수정일</th>
                      </tr>
                   </thead>
                   <tbody>

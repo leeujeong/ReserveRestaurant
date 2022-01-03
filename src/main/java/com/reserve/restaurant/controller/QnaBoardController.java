@@ -1,7 +1,5 @@
 package com.reserve.restaurant.controller;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,12 +41,10 @@ public class QnaBoardController {
 	
 	@GetMapping(value = "selectQnaBoardByNo")
 	public String selectQnaBoardByNo(@RequestParam("qnaNo") Long qnaNo, Model model) {
-		model.addAttribute("qnaBoardDetail", qnaBoardService.selectQnaBoardByNo(qnaNo));
+		// model.addAttribute("map", qnaBoardService.selectQnaBoardByNo(qnaNo));
+		qnaBoardService.selectQnaBoardByNo(qnaNo, model);
 		return "qnaboard/qnadetail";
 	}
-	/* model.addAttribute("qnaBoardDetail", qnaBoardService.selectQnaBoardByNo(qnaNo)); 
-	 * model.addAttribute("qnaBoardDetail", qnaBoardService.selectQnaBoardByNo(qnaNo));
-	 * */
 
 	
 	@PostMapping(value="updateBoardQna")
