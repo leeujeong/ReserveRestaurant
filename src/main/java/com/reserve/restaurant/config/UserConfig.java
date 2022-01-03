@@ -7,6 +7,8 @@ import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.BookServiceImpl;
 import com.reserve.restaurant.service.NoticeService;
 import com.reserve.restaurant.service.NoticeServiceImpl;
+import com.reserve.restaurant.service.ReplyService;
+import com.reserve.restaurant.service.ReplyServiceImpl;
 import com.reserve.restaurant.service.UserService;
 import com.reserve.restaurant.service.UserServiceImpl;
 
@@ -26,6 +28,11 @@ public class UserConfig {
 	@Bean
 	public NoticeService noticeService() {
 		return new NoticeServiceImpl();
+	}
+	
+	@Bean
+	public ReplyService replyService() {
+		return new ReplyServiceImpl();
 	}
 	
 }

@@ -20,7 +20,7 @@ import com.reserve.restaurant.service.AdminService;
 public class AdminController {
 	
 	@Autowired
-	AdminService service;
+	private AdminService adminService;
 	
 	@GetMapping(value="adminPage") 
 	public String adminPage() {
@@ -35,14 +35,14 @@ public class AdminController {
 	@GetMapping(value="findAllUser")
 	public String allFindUser(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		service.findAllUser(model);
+		adminService.findAllUser(model);
 		return "admin/adminUser";
 	}
 	
 	@GetMapping(value="findAllOwner")
 	public String allFindOwner(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		service.findAllOwner(model);
+		adminService.findAllOwner(model);
 		return "admin/adminUser";
 	}
 	
@@ -51,11 +51,11 @@ public class AdminController {
 		String type = request.getParameter("radio");
 		if (type.contains("user")) {
 			model.addAttribute("request", request);
-			service.findUser(model);
+			adminService.findUser(model);
 			return "admin/adminUser";
 		} else if (type.contains("owner")) {
 			model.addAttribute("request", request);
-			service.findOwner(model);
+			adminService.findOwner(model);
 			return "admin/adminUser";
 		}
 		return "admin/adminUser";
@@ -65,7 +65,7 @@ public class AdminController {
 	@GetMapping(value="userDetailPage")
 	public String userDetailPage(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		service.selectUserInfo(model);
+		adminService.selectUserInfo(model);
 		return "admin/userDetailPage";
 	}
 	
@@ -73,7 +73,7 @@ public class AdminController {
 	@GetMapping(value="userBookList")
 	@ResponseBody
 	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
-		Map<String, Object> map = service.userBookList(userNo, page);
+		Map<String, Object> map = adminService.userBookList(userNo, page);
 		return map;
 	}
 	
@@ -81,7 +81,7 @@ public class AdminController {
 	@GetMapping(value="ownerDetailPage")
 	public String ownerDetailPage(Long ownerNo, Model model) {
 		model.addAttribute("ownerNo", ownerNo);
-		service.selectOwnerInfo(model);
+		adminService.selectOwnerInfo(model);
 		return "admin/ownerDetailPage";
 	}
 	
@@ -89,7 +89,7 @@ public class AdminController {
 	@GetMapping(value="ownerResList")
 	@ResponseBody
 	public Map<String, Object> ownerResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long ownerNo) {
-		Map<String, Object> map = service.ownerResList(ownerNo, page);
+		Map<String, Object> map = adminService.ownerResList(ownerNo, page);
 		return map;
 	}
 	
@@ -102,14 +102,14 @@ public class AdminController {
 	// 검색
 	@GetMapping(value="searchRestaurant")
 	public String searchRestaurant(HttpServletRequest request, Model model) {
-		service.selectResList(request, model);
+		adminService.selectResList(request, model);
 		return "admin/searchPage";
 	}
 	
 	// 검색된리스트에서 restaurant detail로 이동
 	@GetMapping(value="goResDetail")
 	public String goResDetail(Model model, Restaurant restaurant) {
-		service.selectResDetail(model, restaurant);
+		adminService.selectResDetail(model, restaurant);
 		return "user/detail";
 	}
 	
@@ -123,7 +123,7 @@ public class AdminController {
 	@GetMapping(value="selectResList")
 	@ResponseBody
 	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model) {
-		Map<String, Object> map = service.resList(page, model);
+		Map<String, Object> map = adminService.resList(page, model);
 		return map;
 	}
 	
@@ -131,7 +131,7 @@ public class AdminController {
 	@GetMapping(value="findRes")
 	@ResponseBody
 	public Map<String, Object> findRes(@RequestParam(value="page", required=false, defaultValue="1") Integer page, HttpServletRequest request) {
-		Map<String, Object> map = service.findRes(page, request);
+		Map<String, Object> map = adminService.findRes(page, request);
 		return map;
 	}
 	

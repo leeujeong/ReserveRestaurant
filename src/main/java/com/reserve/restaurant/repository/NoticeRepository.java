@@ -1,6 +1,7 @@
 package com.reserve.restaurant.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,5 @@ public interface NoticeRepository {
 	public int updateNotice(Notice notice);
 	public int updateNoticeHit(Long noticeNo);
 	public int deleteNotice(Long noticeNo);
-	
 	
 }

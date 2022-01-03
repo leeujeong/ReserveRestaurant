@@ -18,9 +18,14 @@ public class Reply {
 
 	private Long replyNo;
 	private String replyWriter;
-	private String replyTitle;
 	private String replyContent;
 	private Date replyDate;
-	private Date replyLastModified;
-//	private Long
+	private Date replyLastmodified;
+	private Long noticeNo;
+	private Long qnaNo;
+	private Long reviewNo;
+	private Long replyDepth;
+	private Long replyGroupNo;
+	private Long replyGroupOrd;
+	
 }

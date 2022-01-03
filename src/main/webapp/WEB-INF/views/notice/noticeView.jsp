@@ -18,7 +18,54 @@
  
 <script type="text/javascript">
 	$(document).ready(function() {
+		fnDeleteNotice();
+		
+	});
+	
+	
+	function fnReplyInsert() {
+		$('#reply_btn').on('click', function () {
+			if( $('#replyContent').val() == '' ) {
+				alert('댓글 내용을 입력해주세요.');
+			} else if ( $('#replyWriter').val() == '' ) {
+				alert('로그인이 필요합니다.');
+				location.href='/restaurant/user/loginPage';
+			}
 			
+			$.ajax({
+				url :'/restaurant/reply/addReply',
+				type : 'post',
+				contentType: 'application/json',
+				data : JSON.stringify({
+					replyWriter : $('#replyWriter').val(),
+					replyContent : $('#replyContent').val(),
+					noticeNo :$('#noticeNo').val()
+					
+				}),
+				dataType : 'json',
+				success : function (map) {
+					if(map.result > 0){
+					alert('성공');
+						
+					} else{
+						
+						alert('실패');
+					}
+				},
+				error: function(xhr){
+					if (xhr.status == 500) {
+						alert(xhr.responseText);
+					} else if (xhr.status == 501) {
+						alert(xhr.responseText);
+					}
+				}
+			});
+		});
+	}// fnreplyInsert
+	
+	
+	
+	function fnDeleteNotice() {
 		$('#delete_btn').on('click', function () {
 			if(confirm('삭제할까요?')){
 				$('#f').attr('action', '/restaurant/notice/deleteNotice');
@@ -26,8 +73,9 @@
 			}
 		});
 		
-		
-	});
+	}// fndeleteNotice
+	
+	
 	
 	
 	 
@@ -49,6 +97,16 @@ h3{margin-left: 100px;}
 }
 .top_btn{
 	float: right;
+}
+
+#f{
+	margin-top: 100px;
+}
+
+.mb-3{
+	margin-top: 50px;
+	border-bottom: 1px solid silver;
+	border-top:  1px solid silver;
 }
 	
 </style>
@@ -135,7 +193,7 @@ h3{margin-left: 100px;}
     </div>
 	
 	<div class="container">
-			 <div style="width: 600px; margin-left: 100px;">
+			 <div style="width: 600px;">
 	             <h2 class="ing_title">FindTable에서 알려드립니다 !</h2>
              </div>
 	         <hr>
@@ -162,37 +220,7 @@ h3{margin-left: 100px;}
 			  </div>
 		
 			<div>
-			
-			댓글 목록
-			
-			</div>
 		
-		  
-	</div>
-		<form id="f" method="post">
-			<div class="card mb-2" style="width: 1000px;">
-				<div class="card-header bg-light">
-				        <i class="fa fa-comment fa"></i> 댓글
-				</div>
-				<div class="card-body">
-					<ul class="list-group list-group-flush">
-					    <li class="list-group-item">
-						<div class="form-inline mb-2" style="display: flex">
-							<label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label>
-							<input type="text" class="form-control ml-2" placeholder="로그인유저 이름" id="replyId" style="width: 100px; margin-right: 710px;" value="${loginUser.name}" >
-							<input type="text" class="form-control ml-2" placeholder="등록일" id="" style="width: 120px;" value="${notice.noticeDate}" >
-							<input type="hidden" name="noticeNo" value="${notice.noticeNo}">
-						</div>
-						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-						<input type="button" class="btn btn-dark mt-3" value="댓글작성하기">
-					    </li>
-					</ul>
-				</div>
-			</div>
-		</form>
-
-
-
 
 
 

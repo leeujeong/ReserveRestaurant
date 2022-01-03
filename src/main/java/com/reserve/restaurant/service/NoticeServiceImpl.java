@@ -1,12 +1,15 @@
 package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -92,9 +95,18 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public void updateNotice(Notice notice, HttpServletResponse response) {
+	public void updateNotice(Notice notice, HttpServletResponse response, HttpServletRequest request) {
 		NoticeRepository repository = sqlSession.getMapper(NoticeRepository.class);
 		int result = repository.updateNotice(notice);
+		
+		HttpSession session = request.getSession();
+		
+		// 게시글을 열면 session에 "open"값 저장하기로 함.
+		// 조회수 증가.
+		if (session.getAttribute("open") == null) {
+			session.setAttribute("open", true);
+			repository.updateNoticeHit(notice.getNoticeNo());
+		}		
 		message(result, response, "수정되었습니다", "수정 실패하였습니다", "/restaurant/notice/findNoticeByNo?noticeNo="+notice.getNoticeNo());
 	}
 	
@@ -105,6 +117,8 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		message(result, response, "삭제 되었습니다", "삭제되지 않았습니다", "/restaurant/notice/selectNoticeList");
 	}
+	
+	
 	
 	
 }

@@ -134,7 +134,6 @@ table tr td{
 		    <tr>
 		      <th scope="col">번호</th>
 		      <th scope="col">제목</th>
-		      <th scope="col">내용</th>
 		      <th scope="col">작성자</th>
 		      <th scope="col">날짜</th>
 		    </tr>
@@ -151,7 +150,6 @@ table tr td{
 		  		<tr>
 		  			<th scope="row">${notice.noticeNo}</th>
 		  			<td><a href="/restaurant/notice/findNoticeByNo?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
-		  			<td>${notice.noticeContent}</td>
 		  			<td>${notice.noticeWriter}</td>
 		  			<td>${notice.noticeDate}</td>
 		  		</tr>
@@ -161,7 +159,7 @@ table tr td{
 		   
 		  </tbody>
 		  <tfoot>
-		  		<c:if test="${loginUser.state == 2 }">
+		  		<c:if test="${loginUser.state == 2}">
 				   <td style="border: none;"><input class="btn btn-danger" type="button" value="글쓰기" onclick="location.href='/restaurant/notice/insertPage'"></td>
 		  		</c:if>
 		  </tfoot>

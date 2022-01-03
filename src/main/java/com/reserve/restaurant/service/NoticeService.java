@@ -2,6 +2,7 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,8 @@ public interface NoticeService {
 	public List<Notice> selectNoticeList( HttpServletRequest request);
 	public Notice findNoticeByNo(Long noticeNo, HttpServletRequest request , HttpServletResponse response);
 	public void addNotice(Notice notice,  HttpServletResponse response);
-	public void updateNotice(Notice notice , HttpServletResponse response);
+	public void updateNotice(Notice notice , HttpServletResponse response, HttpServletRequest request);
 	public void deleteNotice(Long noticeNo , HttpServletResponse response);
-	
-	
 
 	//message method
 	public default void message(int result, HttpServletResponse response, 
