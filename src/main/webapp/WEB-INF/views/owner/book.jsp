@@ -37,7 +37,10 @@
 		    googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
 		
 		
-		    events:  'en.usa#holiday@group.v.calendar.google.com', 
+		    events:  
+		    	
+		    	
+		    	, 
 		
 		    eventClick: function(arg) {
 		

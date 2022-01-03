@@ -250,9 +250,9 @@ select{
 .question_table td{
 	text-align:center;
 }
-.question_table td:first-child{
+/* .question_table td:first-child{
 	width:20%;
-}
+} */
 .qnatable td:first-child.{
 	width:100px;
 }
