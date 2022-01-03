@@ -81,12 +81,15 @@
 							<c:if test="${not empty reviewList}">
 								<c:forEach var="review" items="${reviewList}">
 									<tr>
-										<td>${qna.qnaNo}</td>				
-										<td>${qna.qnaWriter}</td>
-										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-										<%-- <td>${qna.qnaContent}</td> --%>
-										<td>${qna.qnaDate}</td>
-										<td>${qna.qnaHit}</td>				
+										<td>${review.reviewNo}</td>				
+										<td>${review.get("REVIEW_WRITER")}</td>
+										<td>${review.get("RES_NAME")}</td>
+										<td>
+											<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+										</td>
+										<td>${review.reviewContent}</td>
+										<td>${review.get("REVIEW_DATE")}</td>
+										<td>${review.reviewHit}</td>				
 									</tr>
 								</c:forEach>
 							</c:if>
@@ -96,6 +99,31 @@
             </div>
         </div>
     </div>
+    
+       <form id="f" method="post">
+         <div class="card mb-2" style="width: 1000px;">
+            <div class="card-header bg-light">
+                    <i class="fa fa-comment fa"></i> 댓글
+            </div>
+            <div class="card-body">
+               <ul class="list-group list-group-flush">
+                   <li class="list-group-item">
+                  <div class="form-inline mb-2" style="display: flex">
+                     <label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label>
+                     <input type="text" class="form-control ml-2" placeholder="로그인유저 이름" id="replyId" style="width: 100px; margin-right: 710px;" value="${loginUser.name}" >
+                     <input type="text" class="form-control ml-2" placeholder="등록일" id="" style="width: 120px;" value="${notice.noticeDate}" >
+                  </div>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <input type="button" class="btn btn-dark mt-3" value="댓글작성하기">
+                   </li>
+               </ul>
+            </div>
+         </div>
+      </form>
+    
+    
+    
+    
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

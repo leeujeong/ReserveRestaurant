@@ -1,7 +1,6 @@
 package com.reserve.restaurant.domain;
 
 import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,16 +14,15 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Review {
 
-	private Long reviewNo;
-	private String reviewWriter;
-	private String reviewContent;
-	private String reviewOrigin;
-	private String reviewSaved;
-	private String reviewPath;
-	private Date reviewDate;
-	private int reviewRate;
-	private Long userNo;
-	private Long resNo;
+public class Notice {
+
+	private Long noticeNo;
+	private String noticeWriter;
+	private String noticeTitle;
+	private String noticeContent;
+	private Long noticeHit;
+	private Date noticeDate;
+	private Date noticeLastmodified;
+	
 }

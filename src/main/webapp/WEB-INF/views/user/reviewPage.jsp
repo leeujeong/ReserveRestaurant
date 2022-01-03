@@ -7,11 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <link href="<c:url value="/resources/css/userCSS/detail.css"/>" rel="stylesheet">
 <link href="c:<url value="/resources/js/userJS/detail.js"/>" rel="stylesheet">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
@@ -205,13 +205,14 @@
         <div class="container">
 		  <div class="row">
 		    <div class="col-4">
-		     <img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="main_image"/>
-			 <h3 >${review.get("RES_NAME")}</h3>
-			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/user/detail'">  	
+		     <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="main_image"/>
+			 <h3 >${restaurant.resName}</h3>
+			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/admin/goResDetail?resNo=' + ${restaurant.resNo}">  	
 		    </div>
 		    <div class="col-6">
 			    <form action="/restaurant/user/insertReview" id="reviewform" method="POST" enctype="multipart/form-data">
-			    	<input type="hidden" name="resNo" value="${bookingInfo}">
+			    	<input type="hidden" name="resNo" value="${restaurant.resNo}">
+			    	<input type="hidden" name="userNo" value="${loginUser.userNo}">
 			    	<table>
 			    		<tbody>
 			    			<tr>
@@ -259,11 +260,6 @@
 		    </div>
 		  </div>
 		</div>
-  
-	
-		 
-
-    
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

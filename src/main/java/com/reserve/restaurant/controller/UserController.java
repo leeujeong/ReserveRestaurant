@@ -70,24 +70,13 @@ public class UserController {
 	public String loginPage() {
 		return "user/login";
 	}
+	
 	//리뷰작성 페이지
 	@GetMapping(value="reviewPage")
 	public String reviewPage(HttpServletRequest request,Model model) {
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-	//	Book book = (Book)session.getAttribute("bookingInfo");
-		String bookNo = (String) request.getParameter("bookNo");
-		
-				
-		model.addAttribute("userNo", user.getUserNo());
-		model.addAttribute("name", user.getName());
-		
-	//	model.addAttribute("resNo", book.getResNo());
-		model.addAttribute("request", request);
-		
-		
-		
-//		reviewService.reviewList(model);
+		User user = (User) session.getAttribute("loginUser");	
+		bookService.selectBookBybookNo(request, model);
 		return "user/reviewPage";
 	}
 	
@@ -133,7 +122,7 @@ public class UserController {
 	public void insertUser(User user , HttpServletResponse response) {
 		userService.insertUser(user, response);
 	}
-
+//
 	@PostMapping(value="login")
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		userService.login(request,response);
@@ -199,6 +188,7 @@ public class UserController {
 		
 		model.addAttribute("userNo", user.getUserNo());
 		model.addAttribute("request", request);
+		model.addAttribute("resNo", request.getParameter("resNo"));
 		
 		reviewService.reviewList(model);
 		
@@ -219,5 +209,6 @@ public class UserController {
 		@PostMapping(value="insertReview")
 		public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 			reviewService.insertReview(multipartRequest, response);
+			
 		}	
 }
