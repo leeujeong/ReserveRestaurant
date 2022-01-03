@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.User;
+import com.reserve.restaurant.service.BookService;
+import com.reserve.restaurant.service.ReviewService;
 import com.reserve.restaurant.service.UserService;
 
 @Controller
@@ -26,8 +30,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private BookService bookService;
 	
-	
+	//검색페이지
 	@GetMapping(value = "search")
 	public String search() {
 		return"/user/search";
@@ -62,6 +70,41 @@ public class UserController {
 	public String loginPage() {
 		return "user/login";
 	}
+	//리뷰작성 페이지
+	@GetMapping(value="reviewPage")
+	public String reviewPage(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+	//	Book book = (Book)session.getAttribute("bookingInfo");
+		String bookNo = (String) request.getParameter("bookNo");
+		
+				
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("name", user.getName());
+		
+	//	model.addAttribute("resNo", book.getResNo());
+		model.addAttribute("request", request);
+		
+		
+		
+//		reviewService.reviewList(model);
+		return "user/reviewPage";
+	}
+	
+	//리뷰 더보기
+	@GetMapping(value="moreReview")
+	public String moreReview(HttpServletRequest request,Model model) {
+		HttpSession session  = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+				
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("request", request);
+		
+		reviewService.moreReview(model);
+			return "user/moreReview";
+		}
+		
+	
 	
 	//아이디 중복체크
 	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
@@ -71,7 +114,7 @@ public class UserController {
 	}
 	
 	//이메일 중복체크
-	@PostMapping(value= "emailCheck" , produces="application/json; charset=UTF-8")
+	@PostMapping(value= {"emailCheck", "findId"} , produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
 		return userService.findUserByEmail(email);
@@ -92,8 +135,8 @@ public class UserController {
 	}
 
 	@PostMapping(value="login")
-	public String login(HttpServletRequest request) {
-		userService.login(request);
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		userService.login(request,response);
 		return "redirect:/";
 	}
 	// 로그아웃
@@ -104,10 +147,77 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
-
+	// 업데이트페이지 이동
 	@GetMapping(value="updateUser")
 	public String updateUser() {
 		return "/user/updateUser";
 	}
+	
+	//현재 비밀번호 체크
+	@PostMapping(value="presentPwCheck", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		return userService.presentPwCheck(request);
+	}
+	
+	//사용자 비밀번호 변경하기
+	@PostMapping(value="updatePw")
+	public void updatePw(User user, HttpServletResponse response) {
+		userService.updatePw(user,response);
+		
+	}
+	
+	//사용자 탈퇴하기
+	@PostMapping(value="leave")
+	public void leave(@RequestParam("userNo") Long userNo , HttpServletResponse response ,HttpSession session) {
+		userService.deleteUser(userNo, response, session);
+		
+	}
+	
+	//사용자 정보 수정
+	@PostMapping(value="updateUser")
+	public void updateUser(User user, HttpSession session, HttpServletResponse response) {
+		userService.updateUser(user, session,response);
+	}
+	
+	//아이디 찾기 페이지
+	@GetMapping(value = "findIdPage")
+	public String findIdPage() {
+		return"/user/findId";
+	}
+	//비밀번호 찾기 페이지
+	@GetMapping(value = "findPwPage")
+	public String findPwPage() {
+		return"/user/findPw";
+	}
+	
+	//사업장 디테일 보여주는 페이지
+	@GetMapping(value = "detail")
+	public String detail(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("request", request);
+		
+		reviewService.reviewList(model);
+		
+		return "/user/detail";
+	}
+	
 
+	//시간중복체크
+		@PostMapping(value="hourCheck", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> hourCheck(@RequestParam("bookHours") String bookHours) {
+			System.out.println(bookHours + "컨트롤러");	
+			return userService.hourCheck(bookHours);
+		}
+	
+		
+	//리뷰작성
+		@PostMapping(value="insertReview")
+		public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+			reviewService.insertReview(multipartRequest, response);
+		}	
 }

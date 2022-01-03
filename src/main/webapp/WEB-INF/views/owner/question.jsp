@@ -23,8 +23,8 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li><a href="로그아웃">LOGOUT</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>></li>
+                <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -37,6 +37,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -49,19 +50,24 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-6">
                 <div class="section2">
-                    <h4 class="ing_title">문의 내역</h4>
+	                <c:if test="${state == 1}">
+	                   <h4 class="ing_title">식당 정보 문의 내역</h4>
+	                 </c:if>
+	                 <c:if test="${state == 2}">
+	                   <h4 class="ing_title">예약 문의 내역</h4>
+	                 </c:if>
                 </div>
                 <hr>
                 <div>
                     <ul class="question_btn">
-                        <li class="store_question">식당 정보 문의</li>
-                        <li class="reserve_question">예약 문의</li>
+                        <li class="store_question"><a href="selectQnaList1">식당 정보 문의</a></li>
+                        <li class="reserve_question"><a href="selectQnaList2">예약 문의</a></li>
                     </ul>
          
                     <table class="question_table">
@@ -69,8 +75,7 @@
                             <tr>
                                 <td>번호</td>
                                 <td>작성자</td>
-                                <td>제목</td>
-                                <td>문의 내용</td>
+                                <td class="titletable">제목</td>
                                 <td>작성일자</td>
                                 <td>조회수</td>
                             </tr>
@@ -78,30 +83,30 @@
                         <tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<td colspan="6">공지사항 없음</td>
+									<td colspan="5">공지사항 없음</td>
 								</tr>
 							</c:if>
-							<c:if test="$list.state == 1}">
+							<c:if test="${state == 1}">
 								<c:forEach var="qna" items="${list}">
 									<tr>
-										<td>${qna.qNo}</td>				
-										<td>${qna.writer}</td>
-										<td><a href="selectQnaByNo?qNo=${qna.qNo}">${qna.title}</a></td>
-										<td>${qna.content}</td>
-										<td>${qna.qDate}</td>
-										<td>${qna.hit}</td>				
+										<td>${qna.qnaNo}</td>				
+										<td>${qna.qnaWriter}</td>
+										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+										<%-- <td>${qna.qnaContent}</td> --%>
+										<td>${qna.qnaDate}</td>
+										<td>${qna.qnaHit}</td>				
 									</tr>
 								</c:forEach>
 							</c:if>
-							<c:if test="${list.state == 2}">
+							<c:if test="${state == 2}">
 								<c:forEach var="qna" items="${list}">
 									<tr>
-										<td>${qna.qNo}</td>				
-										<td>${qna.writer}</td>
-										<td><a href="selectQnaByNo?qNo=${qna.qNo}">${qna.title}</a></td>
-										<td>${qna.content}</td>
-										<td>${qna.qDate}</td>
-										<td>${qna.hit}</td>				
+										<td>${qna.qnaNo}</td>				
+										<td>${qna.qnaWriter}</td>
+										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+									<%-- 	<td>${qna.qnaContent}</td> --%>
+										<td>${qna.qnaDate}</td>
+										<td>${qna.qnaHit}</td>				
 									</tr>
 								</c:forEach>
 							</c:if>

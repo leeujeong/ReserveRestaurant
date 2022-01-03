@@ -19,6 +19,7 @@
 		fnFindAllOwner();
 	})
 	
+	
 	// 모든 회원 전체 검색
 	function fnFindAllUser() {
 		$('#all_user_search').click(function() {
@@ -60,20 +61,20 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/main/mainPage">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li>${loginUser.id} 님 환영합니다</li>
                 <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-                <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+                <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </div>
     </header>
     <section class="search_section">
         <div class="search_box">
-            <p class="user_search">회원 검색</p>
+            <p class="user_search">회원 조회</p>
             <form id="search_form" action="/restaurant/admin/findUser">
            		<div class="chose">
 	                <select id="column" name="column">
