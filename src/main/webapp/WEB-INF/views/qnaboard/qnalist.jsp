@@ -140,7 +140,9 @@
                       <!-- 작성하기 버튼 -->
                 <div class="btn-wrap">
                   <div class="btn-area">
-                  <button type="button" id="qnaIn" onclick="location.href='/restaurant/qnaboard/qnainsert'" class="start " id="btn-1">작성하기</button>
+                  <c:if test="${not empty loginUser}">
+	                  <button type="button" id="qnaIn" class="start" id="btn-1">작성하기</button>
+                  </c:if>
                   </div>
                 </div>
             </div> 
@@ -171,19 +173,22 @@
       </div>
   </section>
 </body>
+	<script>
+		function fninsertPage() {
+			$('#qnaIn').click(function(){
+				location.href="/restaurant/qnaboard/insertPage";
+			});
+		}
+	</script>
 </html>
 
 
 <!-- $(document).ready(function(){
 		fninsertPage();
 	});
-	
-	function fninsertPage() {
-		$('#qnaIn').click(function(){
-			location.href="/restaurant/qnaboard/qnainsert";
-		});
-	}
-      /* 게시판 */
+	-->
+	<!-- 
+	      /* 게시판 */
       $(document).ready(function() {
          var activeSystemClass = $('.list-group-item.active');
 
