@@ -76,7 +76,6 @@ header #gnb {
     right: 0;
     top: 50px;
     font-size: 18px;
-    font-weight: bold;
 }
 
 header #gnb li {
@@ -127,7 +126,6 @@ header #gnb li:last-child {
     width: 70%;
     padding-left: 15px;
     line-height: 80px;
-    font-weight: 800;
 }
 
 .cate .menu .subopen {
@@ -314,7 +312,6 @@ header #gnb li:last-child {
     display: block;
     margin: 60px 0 30px;
     font-size: 27px;
-    font-weight: bold;
 }
 
 #new ul li {

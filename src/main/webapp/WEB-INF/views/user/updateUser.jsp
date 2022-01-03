@@ -17,6 +17,7 @@
  		a {
 		    text-decoration: none;
 		    color: inherit;
+		    font-weight: normal;
 		}
     </style>
    <script type="text/javascript">
