@@ -42,6 +42,7 @@ public class RestaurantController {
 	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.addRestaurant(multipartRequest, response);
 	}	
+	
 	//관리 페이지로 이동
 	@GetMapping(value="owner/managePage")
 	public String managePage(HttpServletRequest request, Model model) throws IOException {

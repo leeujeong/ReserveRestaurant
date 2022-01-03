@@ -302,15 +302,15 @@
                                     <td>새 비밀번호 확인 :</td>
                                     <td>
                                        <input class="input_text" type="text" name="pw2" id="pw2">
-                                        <input type="button" value="비밀번호 확인" name="check_pw" id="check_pw"/>
+                                       <!--  <input type="button" value="비밀번호 확인" name="check_pw" id="check_pw"/> -->
                                         <p id="pw2_result"></p>
                                     </td>
                                 </tr>
                             </tbody>
                            </table>
                               <div class="infobtnbox">
-            					<input type="button" value="비밀번호변경하기" id="updatePw1_btn" class="bottom_btn">
-                                  <input type="button" value="회원정보변경하기" id="updateUser_btn" class="bottom_btn">
+            					<input type="button" value="비밀번호 변경" id="updatePw1_btn" class="bottom_btn">
+                                  <input type="button" value="회원정보 변경" id="updateUser_btn" class="bottom_btn">
                                   <input type="reset" value="초기화 하기" id="reset_btn" class="bottom_btn">
                                   <input type="button" value="탈퇴하기" id="leave_btn" class="bottom_btn">
                               </div>

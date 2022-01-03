@@ -36,7 +36,8 @@ public class ReviewServiceImpl implements ReviewService {
 		review.setReviewWriter(multipartRequest.getParameter("reviewWriter"));
 		review.setReviewContent(multipartRequest.getParameter("reviewContent"));
 		review.setReviewRate(Integer.parseInt(multipartRequest.getParameter("rating")));
-		
+		review.setUserNo(Long.parseLong(multipartRequest.getParameter("userNo")));
+		review.setResNo(Long.parseLong(multipartRequest.getParameter("resNo")));
 		try {
 			
 			MultipartFile file = multipartRequest.getFile("r_file");
@@ -101,18 +102,15 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		
 		//평균과 전체 글수
-		int avgReview = repository.avgReviewRate(resNo);
-		int totalCount = repository.totalReview(resNo);
-		
+//		int avgReview = repository.avgReviewRate(resNo);
+//		int totalCount = repository.totalReview(resNo);
+//		
 		List<Review> list = repository.reviewList(map);
-		
-		
-		System.out.println("사용자"+ userNo);
-		System.out.println("사업장"+ resNo);
+
 		
 		model.addAttribute("reviewlist", list);
-		model.addAttribute("avgReview", avgReview);
-		model.addAttribute("totalCount", totalCount);
+//		model.addAttribute("avgReview", avgReview);
+//		model.addAttribute("totalCount", totalCount);
 		
 	}
 	
@@ -133,14 +131,14 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("userNo", userNo);
 		
 		//평균과 전체 글수
-		int avgReview = repository.avgReviewRate(resNo);
-		int totalCount = repository.totalReview(resNo);
+//		int avgReview = repository.avgReviewRate(resNo);
+//		int totalCount = repository.totalReview(resNo);
 		
 		List<Review> list = repository.reviewList(map);
 		
 		model.addAttribute("reviewlist", list);
-		model.addAttribute("avgReview", avgReview);
-		model.addAttribute("totalCount", totalCount);
+//		model.addAttribute("avgReview", avgReview);
+//		model.addAttribute("totalCount", totalCount);
 		
 	}
 

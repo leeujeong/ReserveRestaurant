@@ -25,6 +25,6 @@ public class Review {
 	private String reviewPath;
 	private Date reviewDate;
 	private int reviewRate;
-	private Long UserNo;
-	private Long ResNo;
+	private Long userNo;
+	private Long resNo;
 }

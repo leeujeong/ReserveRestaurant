@@ -22,9 +22,7 @@ $(document).ready(function () {
 	
 	$('#review_btn').click(function(){
 		if(confirm('리뷰 작성하시겠습니까?')){
-			console.log(this);
 			const book_no = this.getAttribute("data-bookNo");
-			console.log(book_no);
 			location.href="/restaurant/user/reviewPage?bookNo=" + book_no;
 		}
 		
