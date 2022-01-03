@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE , 1)
 	</insert>
 	
-	<update id="updateBoardQna" parameterType="Qna">
+	<update id="updateBoardQna" parameterType="Map">
 		UPDATE QNA
            SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
          WHERE QNA_NO = #{qnaNo}
@@ -39,5 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM QNA
 		 WHERE QNA_NO = #{qnaNo}
 	</delete>
+
+	<insert id="insertQnaReply" parameterType="Map">
+		INSERT INTO REPLY VALUES (REPLY_NO_SEQ.NEXTVAL, #{writer}, #{content}, SYSDATE, SYSDATE, #{qnaNo})
+	</insert>
+
+	<select id="selectQnaReply" parameterType="Long" resultType="Reply">
+		SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE, REPLY_LASTMODIFIED, QNA_NO
+		  FROM REPLY
+		 WHERE QNA_NO = #{qnaNo}
+	</select>
 
 </mapper>

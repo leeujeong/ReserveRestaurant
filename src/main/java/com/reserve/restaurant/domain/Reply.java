@@ -22,5 +22,6 @@ public class Reply {
 	private String replyContent;
 	private Date replyDate;
 	private Date replyLastModified;
+	private Long qnaNo;
 //	private Long
 }
