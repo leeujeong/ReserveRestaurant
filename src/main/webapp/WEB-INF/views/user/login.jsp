@@ -31,27 +31,63 @@ li{
   
   	margin:  0 40px;
   }
+
+  .radio_box{
+  	border: 1px solid crimson;
+  	width: 150px;
+  	margin: 0 auto;
+  	padding: 10px;
+  	border-radius: 7px;
+  	
+  }
   
-
-
-
-
-
-
+  .radio_box > input{
+  	margin-left: 10px;
+  }
+  
+  .check_img1{
+  	display: none;
+  }
+  .check_img2{
+  	display: none;
+  }
+  
+  .no{
+  	display: none;
+  }
+  .ok{
+  display: inline;
+  }
 </style>
 <script type="text/javascript">
  	$(document).ready(function(){
- 		console.log("document ready");
- 		console.log($("#user_radio"));
+ 		fnLogin();
  		$("#user_radio, #owner_radio").click(function(event){
- 			console.log($("#loginForm"));
  			if(this.value == "user") {
 				$("#loginForm").attr("action", "/restaurant/user/login");
+				$('.check_img1').addClass('ok').removeClass('no');
+				$('.check_img2').addClass('no').removeClass('ok');
 			} else if (this.value == "owner") {
+				$('.check_img2').addClass('ok').removeClass('no');
+				$('.check_img1').addClass('no').removeClass('ok');
+				
 				$("#loginForm").attr("action", "/restaurant/owner/login");
 			}
 		});
  	});
+ 	
+	function fnLogin(){
+		$('#loginForm').submit(function(event){
+			let regId = /^[a-zA-Z0-9-_]{4,}$/;  
+			let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;  
+			if ( regId.test($('#id').val())  == false || regPw.test($('#pw').val())  == false ) {
+				alert('아이디와 비밀번호를 형식을 확인하세요.');
+				event.preventDefault();
+				return false;
+			} 
+			
+		});
+	}
  </script>
 
 </head>
@@ -89,12 +125,13 @@ li{
                   <div class="title">로그인</div>
                   <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;기다리고 있었습니다.&nbsp;&nbsp;🥩</p> 
             </div>
-      			<div>
-		       		<label for="user">user</label>
-		       		<input type="radio" name="radio" id="user_radio" value="user" checked>
-		       		<label for="owner">owner</label>
-		       		<input type="radio" name="radio" id="owner_radio" value="owner">
+      			<div class="radio_box">
+		       		<label for="user_radio">회원</label><span class="check_img1">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="user_radio" value="user" checked >&nbsp;
+		       		<label for="owner_radio">사업자</label><span class="check_img2">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="owner_radio" value="owner">
 		       	</div>	
+		       	<br>
                <form id="loginForm" method="post" action="/restaurant/user/login">
                      <label for="id" class="loginMiddle">
                      <span>아이디</span>
@@ -105,7 +142,7 @@ li{
                      <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요"></label>
       
                      <div class="FindIdPw">
-                        <a href="아이디 비밀번호 찾기 창으로 이동">아이디/비밀번호 찾기</a>
+                        <a href="/restaurant/user/findIdPage">아이디<a>/<a href="/restaurant/user/findPwPage">비밀번호 찾기</a>
                      </div>
                      <button type="submit" class="LoginEnter" id="LoginEn" >로그인</button>  
                </form>

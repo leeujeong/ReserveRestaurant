@@ -26,6 +26,7 @@ public class Book {
 	private String bookHours;
 	private String bookDate;
 	
+	private Restaurant restaurant;
 	
-	
+	private User user;
 }

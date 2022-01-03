@@ -1,5 +1,7 @@
 package com.reserve.restaurant.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
 
 @Controller
@@ -43,20 +48,12 @@ public class AdminController {
 	
 	@GetMapping(value="findUser")
 	public String findUser(HttpServletRequest request, Model model) {		
-		
-		System.out.println("타입:" + request.getParameter("radio"));
-		System.out.println("칼럼:" + request.getParameter("column"));
-		System.out.println("쿼리:" + request.getParameter("query"));
-		
 		String type = request.getParameter("radio");
-		
 		if (type.contains("user")) {
-			System.out.println("service user로");
 			model.addAttribute("request", request);
 			service.findUser(model);
 			return "admin/adminUser";
 		} else if (type.contains("owner")) {
-			System.out.println("service owner로");
 			model.addAttribute("request", request);
 			service.findOwner(model);
 			return "admin/adminUser";
@@ -64,21 +61,81 @@ public class AdminController {
 		return "admin/adminUser";
 	}
 	
+	// userDetail 보여주는 page
 	@GetMapping(value="userDetailPage")
-	public String userDetailPage(Long userNo, Model model) {
-		model.addAttribute("userNo", userNo);
+	public String userDetailPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
 		service.selectUserInfo(model);
 		return "admin/userDetailPage";
 	}
 	
+	// userDetail에서 bookList ajax처리
+	@GetMapping(value="userBookList")
+	@ResponseBody
+	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
+		Map<String, Object> map = service.userBookList(userNo, page);
+		return map;
+	}
 	
+	// ownerDetail 보여주는 page
 	@GetMapping(value="ownerDetailPage")
 	public String ownerDetailPage(Long ownerNo, Model model) {
 		model.addAttribute("ownerNo", ownerNo);
-		service.selectOwnerInfoRes(model);
+		service.selectOwnerInfo(model);
 		return "admin/ownerDetailPage";
 	}
 	
+	// ownerDetail에서 resList ajax처리
+	@GetMapping(value="ownerResList")
+	@ResponseBody
+	public Map<String, Object> ownerResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long ownerNo) {
+		Map<String, Object> map = service.ownerResList(ownerNo, page);
+		return map;
+	}
 	
+	// 검색 페이지로 이동
+	@GetMapping(value="searchPage")
+	public String searchPage() {
+		return "admin/searchPage";
+	}
+	
+	// 검색
+	@GetMapping(value="searchRestaurant")
+	public String searchRestaurant(HttpServletRequest request, Model model) {
+		service.selectResList(request, model);
+		return "admin/searchPage";
+	}
+	
+	// 검색된리스트에서 restaurant detail로 이동
+	@GetMapping(value="goResDetail")
+	public String goResDetail(Model model, Restaurant restaurant) {
+		service.selectResDetail(model, restaurant);
+		return "user/detail";
+	}
+	
+	// 식당조회 페이지로 이동
+	@GetMapping(value="resAdminPage")
+	public String resAdminPage() {
+		return "admin/adminRes";
+	}
+	
+	// 식당전체 리스트 가져오기
+	@GetMapping(value="selectResList")
+	@ResponseBody
+	public Map<String, Object> selectResList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model) {
+		Map<String, Object> map = service.resList(page, model);
+		return map;
+	}
+	
+	// 식당검색 ajax
+	@GetMapping(value="findRes")
+	@ResponseBody
+	public Map<String, Object> findRes(@RequestParam(value="page", required=false, defaultValue="1") Integer page, HttpServletRequest request) {
+		Map<String, Object> map = service.findRes(page, request);
+		return map;
+	}
+	
+	
+ 	
 	
 }

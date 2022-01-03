@@ -17,11 +17,12 @@ import lombok.ToString;
 public class Qna {
 
 	private Long qnaNo;
-	private String qnaWiter;
+	private String qnaWriter;
 	private String qnaTitle;
 	private String qnaContent;
 	private Long qnaHit;
 	private Date qnaDate;
 	private Date qnaLastModified;
+	private String qnaComment;
 	private int state;
 }

@@ -22,11 +22,15 @@
 		fnJoin();
 		
 		
-		$('#owner_radio, #user_radio').click(function(event){
-			if(this.value == "user") {
-				
+		$("#user_radio, #owner_radio").click(function(event){
+ 			if(this.value == "user") {
 				$("#form").attr("action", "/restaurant/user/insertUser");
+				$('.check_img1').addClass('good').removeClass('bad');
+				$('.check_img2').addClass('bad').removeClass('good');
 			} else if (this.value == "owner") {
+				$('.check_img2').addClass('good').removeClass('bad');
+				$('.check_img1').addClass('bad').removeClass('good');
+				
 				$("#form").attr("action", "/restaurant/owner/insertOwner");
 			}
 		});
@@ -196,6 +200,33 @@
 </script>
 
 <style>
+
+.radio_box{
+  	border: 1px solid crimson;
+  	width: 150px;
+  	margin: 0 auto;
+  	padding: 10px;
+  	border-radius: 7px;
+  	
+  }
+  
+  .radio_box > input{
+  	margin-left: 10px;
+  }
+  
+  .check_img1{
+  	display: none;
+  }
+  .check_img2{
+  	display: none;
+  }
+  
+  .bad{
+  	display: none;
+  }
+  .good{
+  display: inline;
+  }
 	.no{
 		color:red;
 	}
@@ -241,12 +272,12 @@
                <p>🥑🧀&nbsp;&nbsp;파인드 테이블과 함께 해주셔서 감사합니다&nbsp;&nbsp;🥑🧀</p> 
          </div>
        	<form id="form" method="post" action="/restaurant/user/insertUser">
-       	<div>
-       		<label for="user">user</label>
-       		<input type="radio" name="radio" id="user_radio" value="user" checked>
-       		<label for="owner">owner</label>
-       		<input type="radio" name="radio" id="owner_radio" value="owner">
-       	</div>	
+       <div class="radio_box">
+		       		<label for="user_radio">회원</label><span class="check_img1">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="user_radio" value="user" checked >&nbsp;
+		       		<label for="owner_radio">사업자</label><span class="check_img2">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="owner_radio" value="owner">
+		       	</div><br>
          <div class="tblForm inputForm">
             <table>
                 <colgroup>
@@ -346,23 +377,7 @@
                             <input type="hidden" name="m_szEmail">
                             <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:200px;ime-mode:disabled;" title="이메일 아이디 입력">
                             <span class="dash">  </span>
-                            <!-- 
-	                            <input type="text" class="inTxt rs-w45" id="userEmail" name="userEmail" onfocus="checkLen(this.value);" onblur="checkMail(this.value);" style="width:120px;ime-mode:disabled;" title="이메일 입력">
-	                            <span class="selectboxWrap" style="width:180px">
-                            -->
-                           
-                            <!-- 
-                                <select class="select selectBg" id="userEmail" name="userEmail" onchange="chgEmail(this.value, this.selectedIndex);" style="width:120px;ime-mode:disabled;"  title="이메일 선택">
-                                    <option value="">직접입력</option>
-                                    
-                                        <option value="naver.com">naver.com</option>                
-                                    
-                                        <option value="daum.net">daum.net</option>    
-
-                                        <option value="google.com">google.com</option>    
-                                </select>
-                             -->
-                            </span>
+                      
                             <input type="button" value="인증번호받기" id="authCode_btn"  class="tbtns rs-mt5"><br>
                         </td>
                     </tr>
@@ -372,7 +387,6 @@
                             <input type="hidden" id="m_szCertYn" name="m_szCertYn">
                             <input type="text" class="inTxt rs-w100" id="authCode" name="authCode" style="width:180px;ime-mode:disabled;" title="이메일 인증확인 입력">
                             <input type="button" value="인증하기" id="verify_btn" class="tbtns rs-mt5"><br>
-                            <span id="expired" class="key"><span id="expMins">0</span>분 <span id="expSecs">0</span>초</span>
                             
                         </td>
                     </tr>                    

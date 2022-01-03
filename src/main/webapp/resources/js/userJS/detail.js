@@ -1,18 +1,11 @@
-/**
- * 
- */
- 
- $(document).ready(function() {
 
+ $(document).ready(function() {
 
 
     fnhover();
     fnQuickMenu();
 
-    fn1();
-    fn2();
-    fn3();
-    fn4();
+   
 
 });
 
@@ -42,34 +35,3 @@ function fnhover() {
     })(jQuery);
 }
 
- 
-
-function fn1(){
-    $('.search_condition_section1').toggleClass('invisible');
-    $('#search1_btn_area').toggleClass('invisible');
-}
-
-function fn2(){
-    $('#location').on('click',function(event){
-
-        $('.search_condition_section1').toggleClass('invisible');
-        $('#search1_btn_area').toggleClass('invisible');
-
-    })
-}
-
-function fn3(){
-    $('.search_condition_section3').toggleClass('invisible');
-    $('#search3_btn_area').toggleClass('invisible');
-}
-
-function fn4(){
-    $('#price_person').on('click',function(event){
-
-        $('.search_condition_section3').toggleClass('invisible');
-        $('#search3_btn_area').toggleClass('invisible');
-
-    })
-}
-
- 

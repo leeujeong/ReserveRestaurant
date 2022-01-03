@@ -17,40 +17,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 메뉴추가 -->
 	<insert id="addMenu" parameterType="Menu">
-    	INSERT into menu (menu_no, menu, price, restaurant_res_no)
+    	INSERT into menu (menu_no, menu_name, menu_price, res_no)
 	    SELECT menu_no_seq.NEXTVAL, A.* FROM(
 	    <foreach item="item" collection="list" separator="UNION ALL" >
-	        select #{item.menu} as menu,
-	        #{item.price} as price,
-	        #{item.restaurant_res_no} as res_no
+	        select #{item.menuName} as menu,
+	        #{item.menuPrice} as price,
+	        #{item.resNo} as res_no
 	        from dual
 	    </foreach>) A
 	</insert>
 	
+	<!-- 메뉴불러오기 -->
+	<select id="selectMenu" parameterType="Long" resultType="Menu">
+		SELECT *
+		  FROM menu
+		 WHERE res_no = #{resNo}
+	</select>
 	
-	
-	
-	
-	
-<!-- 	
-	
-	
-	<update id="modifyRestaurant" parameterType="Restaurant">
-		UPDATE restaurant
-		   SET res_name = #{resName},
-		   	   address = #{address}, 
-		   	   address_detail = #{addressDetail}
-		   	   open_time = #{resOpenTime},
-		   	   close_time = #{resCloseTime},
-		   	   tel = #{resTel},
-		   	   content = #{resContent},
-		   	   origin = #{origin},
-		   	   saved = #{saved},
-		   	   path = #{path}
-	</update>
-	
-	<delete id ="removeRestaurant" parameterType="Long">
+	<!-- <delete id ="removeRestaurant" parameterType="Long">
 		
-	</delete> -->
+	</delete>  -->
 	
 </mapper>

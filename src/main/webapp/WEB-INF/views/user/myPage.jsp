@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="<c:url value="/resources/css/userCSS/myPage.css"/>" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <style>
+<link href="<c:url value="/resources/css/userCSS/datail.css"/>" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
  
  		a {
 		    text-decoration: none;
@@ -29,6 +31,9 @@
                 </a>
             </h1>
             <ul id="gnb">
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            	
                 	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
@@ -66,9 +71,8 @@
                 <div class="menu_nav">
                     <h2 class="menu_title">예약내역</h2>
                     <ul>
-                        <li><a href="ingReserve" class="menu_sub_title">진행중</a></li>
-                        <li><a href="endReserve" class="menu_sub_title"> 완료</a></li>
-                        <li><a href="cancleReserve" class="menu_sub_title">취소 / 환불</a></li>
+                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
+                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -90,15 +94,11 @@
             <div class="col-6">
                  
                 <div>
-                    <h2 class="ing_title">진행중인 예약</h2>
+                    <h3 class="ing_title" style="font-size: 30px" >FindTable에서 더욱 많은 서비스를 만나보세요!</h3>
                 </div>
                 <hr>
                 <div class="ing_menu">
-                    <ul>
-                        <li><a href="#">전체</a></li>
-                        <li><a href="# ">승인 결제</a></li>
-                        <li><a href="# ">실시간 결제</a></li>
-                    </ul>
+                
                 </div> 
                 <table>
                      <tbody>
@@ -120,7 +120,6 @@
                         <img class="empty_img" src="/restaurant/resources/image/myPage/mangirl.png " width="200px" height="200px" alt="빈사진 ">
                     </div>
                     <div class="empty_comment">
-                           예약이 비어있습니다.
                     </div>
                 </div>
               

@@ -29,8 +29,8 @@
             </h1>
 
          	<ul id="gnb">
-         		<li><a href="로그아웃">LOGOUT</a></li>
-                <li><a href="마이페이지이동">MYPAGE</a></li>
+         		<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
+                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -43,6 +43,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                        <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -55,7 +56,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -71,12 +72,13 @@
 		                        <tr>
 		                            <td>사업장 이름</td>
 		                            <td>
+		                            	<input type="hidden" name="ownerNo" value="${loginUser.ownerNo}">
 		                                <input type="text" name="s_name" id="s_name" placeholder="사업장 이름을 입력하세요">
 		                            </td>
 		                        </tr>
 		                         <tr>
 		                             <td>운영시간</td>
-		                             <td>
+		                            <td>
 		                                 <select name="open_time" id="open_time">
 		                                     <option value="">--오픈 시간--</option>
 		                                 </select> ~
@@ -116,9 +118,6 @@
 		                                 <td>메뉴 등록하기</td>
 		                                 <td class="menu">
 		                                     <div class="menu_input">
-		                                         <!-- <div class="menu_input_box default">
-		                                             <input type="text" name="s_menu1" id="s_menu1" placeholder="메뉴명"/><input type="text" name="s_price1" id="s_price1" placeholder="가격 (원)"/>
-		                                         </div> -->
 		                                         <div class="menu_input_box default">
 		                                             <input type="text" name="menu" placeholder="메뉴명"/><input type="text" name="price" placeholder="가격 (원)"/>
 		                                         </div>

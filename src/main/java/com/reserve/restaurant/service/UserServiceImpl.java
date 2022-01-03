@@ -3,6 +3,7 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.Message;
@@ -39,16 +40,30 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void login(HttpServletRequest request) {
+	public void login(HttpServletRequest request , HttpServletResponse response) {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		User user = new User();
 		user.setId(request.getParameter("id"));
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
 		User loginUser = repository.login(user);
-		System.out.println(loginUser);
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
-		}	
+		} 
+		
+		if(loginUser == null) {
+			try {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('아이디와 비밀번호를 다시 확인해주세요.')");
+					out.println("location.href='/restaurant/user/loginPage'");
+					out.println("</script>");
+					out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	
@@ -104,7 +119,7 @@ public class UserServiceImpl implements UserService {
 				out.println("alert('회원 등록 실패하였습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
-				out.close();
+				out.close(); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,5 +148,59 @@ public class UserServiceImpl implements UserService {
 			map.put("authCode", authCode);
 			return map;
 	}
+	
+	
+	@Override
+	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		User user = repository.selectUserById(request.getParameter("id"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", SecurityUtils.sha256(request.getParameter("pw0")).equals(user.getPw()));
+		return map;
+	}
+	
+	@Override
+	public void updatePw(User user, HttpServletResponse response) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		user.setPw(SecurityUtils.sha256(user.getPw()));
+		int result = repository.updatePw(user);
+		message(result, response, "비밀번호가 수정되었습니다", "비밀번호 수정 실패", "/restaurant/user/updateUser");
+	}
+	
+	
+	@Override
+	public void deleteUser(Long userNo,HttpServletResponse response , HttpSession session) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		int result = repository.deleteUser(userNo);
+		
+		message(result, response, "사용자가 삭제 되었습니다.", " 사용자가 삭제되지 않았습니다.", "/restaurant");
+		if(result > 0 ) session.invalidate();
+	}
+	
+	@Override
+	public void updateUser(User user, HttpSession session, HttpServletResponse response) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		user.setEmail(user.getEmail());
+		user.setTel(user.getTel());
+		
+		
+		int result = repository.updateUser(user);
+		message(result, response, "회원정보가 수정되었습니다", "회원정보 수정 실패", "/restaurant/user/updateUser");
+		User loginUser = (User)session.getAttribute("loginUser");
+		loginUser.setEmail(user.getEmail());
+		loginUser.setTel(user.getTel());
+	}
+	
+	@Override
+	public Map<String, Object> hourCheck(String bookHours) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<User> list = repository.hourCheck(bookHours);
+		System.out.println(list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", list);
+		return map;
+	}
+	
+	
 	
 }
