@@ -284,9 +284,9 @@
 	      
 	               	 <div class="input_row">
 	                       <div class="icon_cell">
-	                           <span class="icon_id">
-	                               <span style="display: none;">아이디</span>
-	                           </span>
+		                     <div class="input_text">
+	                               <span>아이디</span>
+		                     </div>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.id}
@@ -296,15 +296,14 @@
 	               	 <div class="input_row">
 	               	 
 	                     <div class="input_text">
-	                    	 <span style="margin-right: 180px;">이름 :</span> ${loginUser.name}
+	                    	 <span style="margin-right: 180px;">이름 </span> ${loginUser.name}
 	                     </div>
 	                 </div>
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                           		 <div class="input_text">
-				                    	<i class="fas fa-phone-alt"></i>
+		                               <span>전화번호</span>
 				                     </div>
-	                               <span style="display: none;">전화번호</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 <input style="width: 200px" class="input_text" type="text" name="tel" id="tel" value="${loginUser.tel}"/>
@@ -314,9 +313,8 @@
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                           		 <div class="input_text">
-				                    	<i class="far fa-envelope-open"></i>
+		                               <span>이메일</span>
 				                     </div>
-	                               <span style="display: none;">이메일</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 <input style="width: 223px" class="input_text" type="text" name="email" id="email" value="${loginUser.email}"/>
@@ -327,9 +325,8 @@
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                           <div class="input_text">
-			                    	<i class="fas fa-birthday-cake"></i>
+	                               <span>생일</span>
 				                </div>
-	                               <span style="display: none;">생일</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.hbd}
@@ -338,9 +335,8 @@
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                           <div class="input_text">
-			                    	<i class="far fa-star"></i>
+	                               <span>등급</span>
 				                </div>
-	                               <span style="display: none;">등급</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.grade}
@@ -349,9 +345,8 @@
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                           <div class="input_text">
-			                    	<i class="fas fa-coins"></i>
+	                               <span>포인트</span>
 				                </div>
-	                               <span style="display: none;">포인트</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.point}
@@ -361,9 +356,8 @@
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
 	                            <div class="input_text">
-			                    	<i class="far fa-calendar-alt"></i>
+	                               <span>가입일</span>
 				                </div>
-	                               <span style="display: none;">가입일</span>
 	                       </div>
 	                     <div class="input_text">
 	                    	 ${loginUser.userDate}
