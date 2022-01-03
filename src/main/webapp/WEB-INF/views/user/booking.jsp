@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="<c:url value="/resources/css/userCSS/myPage.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/userCSS/datail.css"/>" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
@@ -19,6 +20,15 @@
 
 $(document).ready(function () {
 	
+	$('#review_btn').click(function(){
+		if(confirm('리뷰 작성하시겠습니까?')){
+			console.log(this);
+			const book_no = this.getAttribute("data-bookNo");
+			console.log(book_no);
+			location.href="/restaurant/user/reviewPage?bookNo=" + book_no;
+		}
+		
+	});
 	
 });
 
@@ -34,15 +44,16 @@ $(document).ready(function () {
   		display: inline-block;
   	
   	}
- 		a {
-		    text-decoration: none;
-		    color: inherit;
-		}
-		
-		.page_area{
-			display: flex;
-			margin-left: 220px;
-		}
+	a {
+	    text-decoration: none;
+	    color: inherit;
+	    font-weight: normal;
+	}
+	
+	.page_area{
+		display: flex;
+		margin-left: 220px;
+	}
     </style>
     
 </head>
@@ -140,7 +151,6 @@ $(document).ready(function () {
 							 <th scope="col">인원수</th>
 							 <th scope="col">예약날짜</th>
 							 <th scope="col"></th>
-							 
 						</tr>
 					</thead>
 					<tbody>
@@ -157,6 +167,7 @@ $(document).ready(function () {
 										<td>
 										<input type="button" value='취소' id="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
 										<input type="hidden" value="${booking.bookHours}" name="bookHours">
+										<input type="button" value="리뷰 작성" id="review_btn" data-bookNo="${booking.bookNo}">
 										<input type="button" value='결제' id="pay_btn" onclick="location.href='/restaurant/book/결제'">
 										</td>
 									</c:if>
@@ -165,20 +176,14 @@ $(document).ready(function () {
 						</c:if> 
 					</tbody>
 				</table>
-				
-				
-				
 					<div class="page_area">
 					    <c:if test="${not empty paging}">
 						    ${paging}
 					    </c:if>
 					</div>
-				
-				
-				
-				
-
-				
+					
+				</div>
+			</div>
      </div>
 	    <section id="bottom">
 	        <div class="wrap">

@@ -63,4 +63,10 @@ public class BookController {
 		return "user/bookingCancel";
 	}
 	
+	//리뷰페이지로 이동
+//	@GetMapping(value="reviewPage")
+//	public String reviewPage() {
+//		return "user/reviewPage";
+//	}
+	
 }
