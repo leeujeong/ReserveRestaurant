@@ -16,60 +16,42 @@
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	<script src="<c:url value="/resources/js/main.js"/>"></script>
 	
-<!--   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script> -->
-
+<!--    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script> 
+ -->
 	
-	<link href='/assets/demo-to-codepen.css' rel='stylesheet' />
+<!-- 	<link href='/assets/demo-to-codepen.css' rel='stylesheet' /> -->
 	
-	
-  <script>
-
-/*   document.addEventListener('DOMContentLoaded', function() {
-	  var calendarEl = document.getElementById('calendar'); 
-	  
-	  var calendar = new FullCalendar.Calendar(calendarEl, {
-		   headerToolbar: { left: 'prev,next today',
-			  				center: 'title', 
-			  				right: 'dayGridMonth,timeGridWeek,timeGridDay' }, 
-			  				initialDate: '2021-04-12',
-			  				navLinks: true,
-			  				views selectable: true, 
-			  				selectMirror: true, 
-			  				select: function(){
-			  					console.log(arg);
-			  				var title = prompt('입력할 일정:');
-				  				if(title){
-				  					calendar.addEvent({
-				  						title: title,
-				  						start: arg.start, 	
-				  						end: arg.end, 
-				  						allDay: arg.allDay, 
-				  						backgroundColor:"yellow", 
-				  						textColor:"blue"
-				  					})
-				  				}
-				  				calendar.unselect()
-			  				},eventClick: function(arg) { // 있는 일정 클릭시,
-			  					 console.log("#등록된 일정 클릭#");
-			  				 	 console.log(arg.event); 
-			  					if (confirm('Are you sure you want to delete this event?')) {
-			  						arg.event.remove() 
-			  					}
-			  				}, editable: true, 
-			  				   dayMaxEvents: true, // allow "more" link when too many events 
-			  				   events: 
-			  				  function(info, successCallback, failureCallback){
-			  					   $.ajax({
-			  						  type:"get",
-			  						  url:"bookPage",
-			  						  dataType:"json"
-			  					   });
-			  					   
-			  				   }
-			  				    });
-	  						calendar.render();
-	  		}); */
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+		  var calendarEl = document.getElementById('calendar');
+		
+		  var calendar = new FullCalendar.Calendar(calendarEl, {
+		    headerToolbar: {
+		      left: 'prev,next today',
+		      center: 'title',
+		      right: 'dayGridMonth,listYear'
+		    },
+		
+		    displayEventTime: false, 
+		    googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
+		
+		
+		    events:  'en.usa#holiday@group.v.calendar.google.com', 
+		
+		    eventClick: function(arg) {
+		
+		      // opens events in a popup window
+		      window.open(arg.event.url, '_blank', 'width=700,height=600');
+		
+		      // prevents current tab from navigating
+		      arg.jsEvent.preventDefault();
+		    }
+		
+		  });
+		
+		  calendar.render();
+		});
 			  				
 </script>
 	
@@ -78,7 +60,7 @@
 	
 	<style>
 	
-/* 	    html, body {
+ 	    html, body {
 	      margin: 0;
 	      padding: 0;
 	      font-size: 14px;
@@ -88,7 +70,7 @@
 	      max-width: 1100px;
 	      margin: 40px auto;
 	    }
-	     */
+	     
 
 	</style>
 	
@@ -144,9 +126,9 @@
                         <div class="row">
                           <div class="col-8 col-sm-6">
                           
-							<!-- 
+							
   							<div id='calendar'></div>
- -->
+ 
                          	<c:if test="${empty list}">
                          		<div class="empty_content">  
                          			예약이 없습니다.

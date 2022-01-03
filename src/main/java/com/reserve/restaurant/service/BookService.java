@@ -21,6 +21,13 @@ public interface BookService {
 	public void bookingCancel(Long bookNo, HttpServletResponse response);
 	public void FindCancelList(Model model);
 	
+	
+	
+
+	public void selectBookBybookNo(HttpServletRequest request, Model model);
+	
+	
+	
 	public default void message(int result, HttpServletResponse response, 
 			String success, String fail, String path) {
 		try {

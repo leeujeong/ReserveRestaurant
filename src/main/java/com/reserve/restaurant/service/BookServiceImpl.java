@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
@@ -157,5 +158,18 @@ public class BookServiceImpl implements BookService {
 		model.addAttribute("list", list);
 
 	}
+//
+	@Override
+	public void selectBookBybookNo(HttpServletRequest request, Model model) {
+		Long bookNo = Long.parseLong(request.getParameter("bookNo"));
+		
+		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		
+		Restaurant restaurant = repository.selectBookBybookNo(bookNo);
+		model.addAttribute("restaurant", restaurant);
+		
+	}
 
+	
+	
 }

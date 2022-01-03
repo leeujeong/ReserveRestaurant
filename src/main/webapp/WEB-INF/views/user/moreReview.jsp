@@ -82,6 +82,23 @@
 	.container{
 		width:900px;
 	}
+	.col-9 {
+	    display: flex;
+	    flex: 0 0 auto;
+	    width: 75%;
+	}
+	.col-6 {
+	    flex: 0 0 auto;
+	    width: 70%;
+	}
+	.reviewimg{
+		width:150px;
+		height:150px;
+	}
+	.dateinput{
+		border:none;
+		outline:none;'
+	}
  </style>
 </head>
 <body>
@@ -168,58 +185,88 @@
 	 		</div>
 	 		<div class="reviewrating">
 			  <div class="row">
-			    <div class="col-4">
-				    <h5><span>total count 개의 리뷰</span></h5>
-				    <strong>( 4.5 )</strong>
-			    </div>
-			    <div class="col-6 average">
-				    <div>
-			 			<ul>
-			 				<li>
-			 					<span class="score">5점</span>
-			 					<span class="progress">
-			 						<span class="bar" style="52%;"></span>
-			 					</span>
-			 					<span class="count">251</span>
-			 				</li>
-			 				<li>
-			 					<span class="progress">
-			 						<span class="bar" style="%;"></span>
-			 					</span>
-			 					<span class="count">251</span>
-			 				</li>
-			 				<li>
-			 					<span class="score">5점</span>
-			 					<span class="progress">
-			 						<span class="bar" style="52%;"></span>
-			 					</span>
-			 					<span class="count">251</span>
-			 				</li>
-			 				<li>
-			 					<span class="score">5점</span>
-			 					<span class="progress">
-			 						<span class="bar" style="52%;"></span>
-			 					</span>
-			 					<span class="count">251</span>
-			 				</li>
-			 				<li>
-			 					<span class="score">5점</span>
-			 					<span class="progress">
-			 						<span class="bar" style="52%;"></span>
-			 					</span>
-			 					<span class="count">251</span>
-			 				</li>
-			 			</ul>
-			 		</div>
-	 			</div>
-			  </div>
-			</div>
-	 		
+			    <div class="col-9">
+			    
+				    <div class="col-4">
+					    <h5><span>total count 개의 리뷰</span></h5>
+					    <strong>( 4.5 )</strong>  
+					</div>
+				    <div class="col-6 average">
+					    <div>
+				 			<ul>
+				 				<li>
+				 					<span class="score">5점</span>&nbsp; <span class="count">251</span>
+				 					<span class="progress">
+				 						<span class="bar" style="52%;"></span>
+				 					</span>
+				 					
+				 				</li>
+				 				
+				 				<li>
+				 					<span class="score">4점</span>&nbsp;<span class="count">251</span>
+				 					<span class="progress">
+				 						<span class="bar" style="52%;"></span>
+				 					</span>
+				 					
+				 				</li>
+				 				<li>
+				 					<span class="score">3점</span>&nbsp;<span class="count">251</span>
+				 					<span class="progress">
+				 						<span class="bar" style="52%;"></span>
+				 					</span>
+				 					
+				 				</li>
+				 				<li>
+				 					<span class="score">2점</span>&nbsp;	<span class="count">251</span>
+				 					<span class="progress">
+				 						<span class="bar" style="52%;"></span>
+				 					</span>
+				 				</li>
+				 				<li>
+				 					<span class="score">1점</span>&nbsp;	<span class="count">251</span>
+				 					<span class="progress">
+				 						<span class="bar" style="52%;"></span>
+				 					</span>
+				 				
+				 				</li>
+				 			</ul>
+				 		</div>
+				    </div>
+				</div>
 	 		<c:if  test="${empty reviewlist}">
 	 			<div>
 	 				작성된 리뷰가 없습니다.
 	 			</div>
 	 		</c:if>
+	 		<c:if test="${not empty reviewlist}">
+		 		<c:forEach var="review" items="${reviewlist}">
+	            	<div class="reviewmultiple">
+	            		<h3>${review.get("RES_NAME")}</h3>
+	            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+		                    <div class="review_content">
+		                        <p>${review.get("REVIEW_WRITER")}</p>
+		                        <div class="reviewdaterate">
+			                        <span><input type="text" class="dateinput" max="9999-12-31" value="${review.get('REVIEW_DATE')}"></span>
+			                        <span>${review.get("REVIEW_RATE")}</span>
+		                        </div>
+		                        
+		                        <p>${review.get("REVIEW_CONTENT")}</p>
+		                    </div>
+	            	</div>
+	            	</c:forEach>
+	 		</c:if>
+			    </div>
+			    
+			    
+			  </div>
+			</div><%-- 
+	 		
+	 		
+	 		
+	 		
+	 		
+	 		
+	 		
 	 		<c:if test="${not empty reviewlist}">
 	 			<div>
 	 				${review.reviewWriter}
@@ -234,7 +281,7 @@
 	 				${reivew.reviewContetnt}
 	 			</div>
 	 		</c:if>
-	 	</div>
+	 	</div> --%>
 	 </section>
        
 		</div>

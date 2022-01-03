@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 총 리뷰리스트 -->
- 	<select id="moreReview" resultType="Map">
+ 	<select id="moreReview" parameterType="Map" resultType="Review">
  		SELECT B.*
  		  FROM (SELECT ROWNUM AS rn, A.*
  		    	  FROM(SELECT rv.*
@@ -24,27 +24,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
 
 	<!-- 사용자가 리뷰 삽입 -->
-	<insert id="insertReview" parameterType="Review">
+	<insert id="insertReview" parameterType="Review" >
 		INSERT INTO REVIEW
-		VALUES (REVIEW_NO_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent},#{reviewOrigin}, #{reviewSaved}, #{reviewPath}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{reviewRate}, #{userNo},8)
+		VALUES (REVIEW_NO_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent}, #{reviewOrigin}, #{reviewSaved}, #{reviewPath}, SYSDATE, #{reviewRate}, #{userNo}, #{resNo})
 	</insert> 
 	
 	<!-- 별점 평균 -->
-	<select id="avgReviewRate" parameterType="Long" resultType="int">
+<!-- 	<select id="avgReviewRate" parameterType="Long" resultType="int">
 		select round(avg(rv.review_rate)), rv.user_no
 		  from review rv, restaurant r
 		 where rv.res_no = r.res_no
-		   and rv.res_no = 8
+		   and rv.res_no = #{resNo}
 		 group by user_no
-	</select>
+	</select> -->
 	
 	<!-- 총 리뷰 수-->
-	<select id="totalReview" parameterType="Long" resultType="int">
+<!-- 	<select id="totalReview" parameterType="Long" resultType="int">
 		select count(rv.review_no)
 	  	  from review rv, restaurant r
 		 where rv.res_no = r.res_no
-		   and rv.res_no = 8
-	</select>
+		   and rv.res_no = #{resNo}
+	</select> -->
 	
 	<!-- 
 	<delete id="deleteReview" parameterType="Long">
@@ -52,5 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM REVIEW
 		 WHERE REVIW_NO = #{reviewNo}
 	</delete> -->
+	
+	<!-- 리뷰 가져오기 -->
 	
 </mapper>

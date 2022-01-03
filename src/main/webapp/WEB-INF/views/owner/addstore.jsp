@@ -15,6 +15,13 @@
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<style>
+		#image_container img{
+		width:100px;
+		height:70px;
+		padding:3px;
+		}
+	</style>
 </head>
 
 <body>
@@ -110,8 +117,20 @@
 		                          <tr>
 		                              <td>사진 등록</td>
 		                              <td>
-		                                  <input type="file" name="s_file" id="s_file" multiple>
-		                                  <div id="upload_result"></div>
+		                                  <input type="file" name="s_file" id="image" accept="image/*" onchange="setThumbnail(event);" multiple/> 
+		                                  <div id="image_container"></div> 
+		                                  <script> 
+		                                  	function setThumbnail(event) {
+		                                  		for (var image of event.target.files) {
+		                                  			var reader = new FileReader(); reader.onload = function(event) {
+		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result);
+		                                  				document.querySelector("div#image_container").appendChild(img); 
+		                                  				};
+		                                  				console.log(image);
+		                                  				reader.readAsDataURL(image); 
+		                                  			}
+		                                  		} 
+		                                  </script>
 		                              </td>
 		                           </tr>
 		                             <tr>
