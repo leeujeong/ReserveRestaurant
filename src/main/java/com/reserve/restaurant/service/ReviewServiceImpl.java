@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.repository.BookRepository;
+import com.reserve.restaurant.repository.RestaurantRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -38,6 +40,8 @@ public class ReviewServiceImpl implements ReviewService {
 		review.setReviewRate(Integer.parseInt(multipartRequest.getParameter("rating")));
 		review.setUserNo(Long.parseLong(multipartRequest.getParameter("userNo")));
 		review.setResNo(Long.parseLong(multipartRequest.getParameter("resNo")));
+		
+		
 		try {
 			
 			MultipartFile file = multipartRequest.getFile("r_file");
@@ -82,23 +86,26 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
 		int result = repository.insertReview(review);
 		
-		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "detail");
+		String resNo = multipartRequest.getParameter("resNo");
+		
+		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "detail?resNo=" + resNo);
 		
 	}
 
 	@Override
-	public void reviewList(Model model) {
+	public void reviewList(Model model, Long resNo) {
 		
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		RestaurantRepository resRepository = sqlSession.getMapper(RestaurantRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
 		Long userNo = (Long) m.get("userNo");
-		Long resNo = (Long)m.get("resNo");
+//		Long resNo = Long.parseLong((String) m.get("resNo"));
 		
 		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("userNo", userNo);
+		map.put("resNo", resNo);
 		
 		
 		//평균과 전체 글수
@@ -106,9 +113,12 @@ public class ReviewServiceImpl implements ReviewService {
 //		int totalCount = repository.totalReview(resNo);
 //		
 		List<Review> list = repository.reviewList(map);
+		
+		Restaurant restaurant = resRepository.selectList(resNo);
 
 		
 		model.addAttribute("reviewlist", list);
+		model.addAttribute("restaurant", restaurant);
 //		model.addAttribute("avgReview", avgReview);
 //		model.addAttribute("totalCount", totalCount);
 		
@@ -128,7 +138,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Long resNo = (Long)m.get("resNo");
 		
 		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("userNo", userNo);
+	
 		
 		//평균과 전체 글수
 //		int avgReview = repository.avgReviewRate(resNo);

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface ReviewService {
 
-	public void reviewList(Model model);
+	public void reviewList(Model model, Long resNo);
 	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void moreReview(Model mode);
 	//	public int avgReviewRate(Long resNo);
