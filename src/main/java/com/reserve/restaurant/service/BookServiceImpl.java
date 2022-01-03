@@ -153,10 +153,6 @@ public class BookServiceImpl implements BookService {
 		
 		List<Book> list = repository.bookList(map);
 		
-		System.out.println(list);
-		System.out.println("사용자 번호 " + ownerNo);
-
-		
 		model.addAttribute("list", list);
 
 	}

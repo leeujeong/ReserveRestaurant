@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.User;
+import com.reserve.restaurant.service.BookService;
+import com.reserve.restaurant.service.ReviewService;
 import com.reserve.restaurant.service.UserService;
 
 @Controller
@@ -26,6 +30,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private BookService bookService;
 	
 	//검색페이지
 	@GetMapping(value = "search")
@@ -64,9 +72,39 @@ public class UserController {
 	}
 	//리뷰작성 페이지
 	@GetMapping(value="reviewPage")
-	public String reviewPage() {
+	public String reviewPage(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+	//	Book book = (Book)session.getAttribute("bookingInfo");
+		String bookNo = (String) request.getParameter("bookNo");
+		
+				
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("name", user.getName());
+		
+	//	model.addAttribute("resNo", book.getResNo());
+		model.addAttribute("request", request);
+		
+		
+		
+//		reviewService.reviewList(model);
 		return "user/reviewPage";
 	}
+	
+	//리뷰 더보기
+	@GetMapping(value="moreReview")
+	public String moreReview(HttpServletRequest request,Model model) {
+		HttpSession session  = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+				
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("request", request);
+		
+		reviewService.moreReview(model);
+			return "user/moreReview";
+		}
+		
+	
 	
 	//아이디 중복체크
 	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
@@ -153,9 +191,17 @@ public class UserController {
 		return"/user/findPw";
 	}
 	
-	
+	//사업장 디테일 보여주는 페이지
 	@GetMapping(value = "detail")
-	public String detail() {
+	public String detail(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		model.addAttribute("userNo", user.getUserNo());
+		model.addAttribute("request", request);
+		
+		reviewService.reviewList(model);
+		
 		return "/user/detail";
 	}
 	
@@ -168,4 +214,10 @@ public class UserController {
 			return userService.hourCheck(bookHours);
 		}
 	
+		
+	//리뷰작성
+		@PostMapping(value="insertReview")
+		public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+			reviewService.insertReview(multipartRequest, response);
+		}	
 }
