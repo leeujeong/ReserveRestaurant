@@ -93,12 +93,12 @@ public class OwnerController {
 	
 	//리뷰관리 페이지
 	@GetMapping(value="reviewPage")
-	public String reviewPage(HttpServletRequest request, Model model) {
+	public String reviewPage(HttpServletRequest request, Model model, Long resNo) {
 		
 		HttpSession session = request.getSession();
 		model.addAttribute("request", request);
 		
-		reviewService.reviewList(model);
+		reviewService.reviewList(model,resNo);
 		return "owner/review";
 	}
 

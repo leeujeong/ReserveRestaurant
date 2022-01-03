@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.repository.BookRepository;
+import com.reserve.restaurant.repository.RestaurantRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -87,18 +89,19 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void reviewList(Model model) {
+	public void reviewList(Model model, Long resNo) {
 		
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		RestaurantRepository resRepository = sqlSession.getMapper(RestaurantRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
 		Long userNo = (Long) m.get("userNo");
-		Long resNo = (Long)m.get("resNo");
+//		Long resNo = (Long)m.get("resNo");
 		
 		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("userNo", userNo);
+		map.put("resNo", resNo);
 		
 		
 		//평균과 전체 글수
@@ -106,9 +109,12 @@ public class ReviewServiceImpl implements ReviewService {
 //		int totalCount = repository.totalReview(resNo);
 //		
 		List<Review> list = repository.reviewList(map);
+		
+		Restaurant restaurant = resRepository.selectList(resNo);
 
 		
 		model.addAttribute("reviewlist", list);
+		model.addAttribute("restaurant", restaurant);
 //		model.addAttribute("avgReview", avgReview);
 //		model.addAttribute("totalCount", totalCount);
 		
