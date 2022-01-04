@@ -28,14 +28,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 	
 	@Override
-	public void selectQnaBoardByNo(Long qnaNo, Model model) {
+	public void selectQnaBoardByNo(Long qnaNo, Model model, HttpServletResponse response) {
 		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
 		Qna qna = repository.selectQnaInfo(qnaNo);
 		Reply reply = repository.selectReplyInfo(qnaNo);
 		model.addAttribute("qna", qna);
 		model.addAttribute("reply", reply);
-		// Map<String, Object> map = repository.selectQnaBoardByNo(qnaNo);
-		// return map;
 	}
 	
 	@Override
@@ -98,37 +96,24 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 	
 	@Override
-	public void insertQnaReply(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public Map<String, Object> insertQnaReply(HttpServletRequest request) {
 		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
 		String content = request.getParameter("content");
 		Long qnaNo = Long.parseLong(request.getParameter("qnaNo"));
 		String writer = request.getParameter("writer");
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("content", content);
+		m.put("qnaNo", qnaNo);
+		m.put("writer", writer);
+	    int result = repository.insertQnaReply(m);
+		Reply reply = repository.selectReplyInfo(qnaNo);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("content", content);
-		map.put("qnaNo", qnaNo);
-		map.put("writer", writer);
-		int result = repository.insertQnaReply(map);
-		System.out.println("reply 실행결과 : " + result);
-		Reply reply = repository.selectQnaReply(qnaNo);
-		model.addAttribute("reply", reply);
-		/*
-		if (result == 1) {
-			try {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('답글 성공')");
-				out.println("location.href='/restaurant/qnaboard/selectQnaBoardByNo?qnaNo='" + qnaNo);
-				out.println("</script>");
-				out.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		*/
-		
-		
-		
+		map.put("replyDate", reply.getReplyDate());
+		map.put("replyWriter", reply.getReplyWriter());
+		map.put("replyContent", reply.getReplyContent());
+		System.out.println("reply insert결과 : " + result);
+		System.out.println("controller로 return하는 map : " + map.toString());
+		return map;
 	}
 	
 	

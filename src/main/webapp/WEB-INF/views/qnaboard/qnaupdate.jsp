@@ -154,7 +154,7 @@
        <textarea class="summernote" placeholder="수정할 내용을 입력해주세요" name="qnaContent" id="summernote">${qna.qnaContent}</textarea><br><br>
        </div>
        <input type="hidden" name="qnaNo" value="${qna.qnaNo}" id="qnaNo">
-       <c:if test="${loginUser.name == qna.qnaWriter}">
+       <c:if test="${loginUser.id == qna.qnaWriter}">
 	       <button class="btn btn-primary" value="수정" id="update_btn">수정</button>
 	       <!-- <input type="button" class="btn btn-primary" value="수정" id="update_btn"> -->
 	       <input type="button" class="btn btn-danger" value="삭제" id="delete_btn">

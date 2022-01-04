@@ -11,14 +11,44 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> 
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
-
 	<link href="<c:url value="/resources/css/userCSS/qnadetail.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/userJS/qnadetail.js"/>"></script>
-
-
     <title>Document</title>
+	<script>
+		$(document).ready(function() {
+			fnInsertReply();	
+			
+		})
+	
+		
+		function fnInsertReply() {
+			$('#reply_btn').click(function() {
+				var writer = $('#writer').val();
+				var qnaNo = $('#qnaNo').val();
+				var content = $('#content').val();
+				$.ajax({
+					url: 'qnaReply',
+					type: 'post',
+					data: 'writer=' + writer + '&qnaNo=' + qnaNo + '&content=' + content,
+					dataType: 'json',
+					success: function(map) {
+						alert('이거 뜨면 성공');
+						$('#reply_writer').text(map.replyWriter);
+						$('#reply_content').text(map.replyContent);
+						$('#reply_date').text(map.replyDate);
+					},
+					error: function(xhr) {
+						if (xhr.status == 500) {
+				        	alert(xhr.responseText);
+						}
+					}
+				})
+			})
+		}
+		
+		
+		
+	</script>
 <!-- 
 %    
     String qnaNo = request.getParameter("qnaNo");        
@@ -174,31 +204,20 @@
 	</script>
       
       <hr>
-      작성자 : ${reply.replyWriter}
-      작성일 : ${reply.replyDate}
-      <span id="reply_content" value="${reply.replyContent}">내용 : ${reply.replyContent}</span>
+		<pre id="reply_writer"></pre>
+		<pre id="reply_content"></pre>
+		<pre id="reply_date"></pre>
       <hr>
       
      
-	      <form action="/restaurant/qnaboard/qnaReply">
-	      	<input type="hidden" name="writer" value="${loginUser.name}">
-	      	<input type="hidden" name="qnaNo" value="${qna.qnaNo}">
-	      	<input type="text" name="content" placeholder="Q&A 답글을 남겨주세요">
+	      <form>
+	      	<input type="hidden" name="writer" id="writer" value="${loginUser.name}">
+	      	<input type="hidden" name="qnaNo" id="qnaNo" value="${qna.qnaNo}">
+	      	<input type="text" name="content" id="content" placeholder="Q&A 답글을 남겨주세요">
 	      	<button id="reply_btn" value="등록">등록</button>
-		      <script>
-		      	$('#reply_btn').click(function(evnet) {
-		      		if ($('#reply_content').val() != "") {
-		      			alert('Q&A게시글당 답글은 한개씩만 가능합니다.')
-		      			event.preventDefault();
-		      			return false;
-		      		} 
-					return true;      		
-		      	})
-		      
-		      
-		      </script>
 	      </form>      
-      
+
+
       <!-- 
        <button type="button" class="btn btn-primary" onclick="location.href='/qnaboard/qnaupdate/${qnadetail.qnaNo}'">수정</button> 
  	   <button type="button" class="btn btn-danger" onclick="location.href='/qnaboard/${qnadetail.qnaNo}'">삭제</button>  
@@ -300,7 +319,7 @@
 		 </tr> 
 		 
 		 <tr> 
-		 <td colspan="4">${qnaBoardDetail.qnaContent}</td> 
+		 <td colspan="4">${qnaBoardDetail.qna}</td> 
 		 </tr> 
 				   -->	 
 

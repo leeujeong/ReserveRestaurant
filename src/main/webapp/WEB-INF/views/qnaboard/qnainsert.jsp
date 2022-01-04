@@ -71,7 +71,7 @@
         <input type="hidden" name="bdOrder" value="bdOrder">
         <input type="hidden" name="bdIndent" value="bdIndent">
         -->
-        <input type="text" name="qnaWriter" class="form-control mt-4 mb-2" placeholder="작성자를 적어주세요." required><br><br>
+        <input type="text" name="qnaWriter" class="form-control mt-4 mb-2" value="${loginUser.id}" readonly required><br><br>
         <input type="text" name="qnaTitle" class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요." required><br><br>
  		<div class="form-group">
 		<textarea class="form-control" rows="10" name="qnaContent"

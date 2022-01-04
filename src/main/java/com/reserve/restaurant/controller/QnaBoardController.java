@@ -1,5 +1,7 @@
 package com.reserve.restaurant.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.service.QnaBoardService;
@@ -40,9 +43,8 @@ public class QnaBoardController {
 	}
 	
 	@GetMapping(value = "selectQnaBoardByNo")
-	public String selectQnaBoardByNo(@RequestParam("qnaNo") Long qnaNo, Model model) {
-		// model.addAttribute("map", qnaBoardService.selectQnaBoardByNo(qnaNo));
-		qnaBoardService.selectQnaBoardByNo(qnaNo, model);
+	public String selectQnaBoardByNo(@RequestParam("qnaNo") Long qnaNo, Model model, HttpServletResponse response) {
+		qnaBoardService.selectQnaBoardByNo(qnaNo, model, response);
 		return "qnaboard/qnadetail";
 	}
 
@@ -63,11 +65,26 @@ public class QnaBoardController {
 		return "qnaboard/qnaupdate";
 	}
 	
-	@GetMapping(value="qnaReply")
-	public String qnaReply(HttpServletRequest request, HttpServletResponse response, Model model) {
-		Long qnaNo = Long.parseLong(request.getParameter("qnaNo"));
-		qnaBoardService.insertQnaReply(request, response, model);
-		return "forward:/qnaboard/selectQnaBoardByNo?qnaNo=" + qnaNo;
+	@PostMapping(value="qnaReply", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> qnaReply(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("ajax에서 넘어온 content : " + request.getParameter("content"));
+		System.out.println("ajax에서 넘어온 writer : " + request.getParameter("writer"));
+		System.out.println("ajax에서 넘어온 qnaNo : " + request.getParameter("qnaNo"));
+		try {
+			return qnaBoardService.insertQnaReply(request);
+		} catch(Exception e) {
+			// SQLIntegrityConstraintViolationException
+			try {
+				System.out.println("여기로 오면 실패");
+				response.setContentType("application/json; charset=UTF-8");
+				response.setStatus(500);
+				response.getWriter().println("Q&A게시글당 답글은 한개만 가능합니다. 기존 답글을 삭제 후 다시 작성해주세요.");
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 }
