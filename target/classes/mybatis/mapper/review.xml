@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.ReviewRepository">
 	
+
 <!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
    <select id="reviewList" parameterType="Long" resultType="Map">
       SELECT rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
@@ -12,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          WHERE rv.res_no = r.res_no
            AND rv.res_no = #{resNo}
    </select>
+
 	
 	<!-- 총 리뷰리스트 -->
  	<select id="moreReview" parameterType="Map" resultType="Review">

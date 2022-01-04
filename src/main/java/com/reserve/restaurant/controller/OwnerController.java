@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
-import com.reserve.restaurant.domain.Restaurant;
-import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.OwnerService;
 import com.reserve.restaurant.service.QnaService;
@@ -92,6 +89,7 @@ public class OwnerController {
 	}
 	
 	//리뷰관리 페이지
+
 //	@GetMapping(value="reviewPage")
 //	public String reviewPage(HttpServletRequest request, Model model) {
 //		
@@ -113,6 +111,7 @@ public class OwnerController {
 	      reviewService.reviewList(model,resNo);
 	      return "owner/review";
 	   }
+
 
 	//로그인페이지
 	@PostMapping(value="login")

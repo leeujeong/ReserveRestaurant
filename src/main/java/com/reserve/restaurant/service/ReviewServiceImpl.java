@@ -102,8 +102,7 @@ public class ReviewServiceImpl implements ReviewService {
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
 		Long userNo = (Long) m.get("userNo");
-//		Long resNo = Long.parseLong((String) m.get("resNo"));
-		
+
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("resNo", resNo);
 		
