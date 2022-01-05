@@ -11,14 +11,14 @@ import com.reserve.restaurant.domain.Reply;
 @Repository
 public interface QnaBoardRepository {
 
-	public List<Qna> selectQnaBoardList();
-	// public Map<String, Object> selectQnaBoardByNo(Long qanNo);
+	public List<Qna> selectQnaList(Map<String, Object> map);
+	public int countQnaList();
 	public Qna selectQnaInfo(Long qnaNo);
-	public Reply selectReplyInfo(Long qnaNo);
-	public int updateQnaBoardHit(Qna qanNo);
-	public int insertBoardQna(Qna Qna);
-	public int updateBoardQna(Map<String, Object> map);
-	public int deleteBoardQna(Long qanNo);
-	public int insertQnaReply(Map<String, Object> map);
-	public Reply selectQnaReply(Long qnaNo);
+	public int updateQna(Map<String, Object> map);
+	public int qnaInsert(Qna qna);
+	public int qnaDelete(Long qnaNo);
+	public int insertReply(Reply reply);
+	public Reply selectReply(Long qnaNo);
+	public int deleteReply(Long qnaNo);
+
 }
