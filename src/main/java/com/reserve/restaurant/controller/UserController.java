@@ -185,7 +185,7 @@ public class UserController {
 	      model.addAttribute("userNo", user.getUserNo());
 	      model.addAttribute("resNo", resNo);
 	      
-	      reviewService.reviewList(model ,resNo);
+	      reviewService.reviewList(model);
 	      return "user/detail";   
 	   }
 

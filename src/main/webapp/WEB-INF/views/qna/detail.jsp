@@ -14,6 +14,14 @@
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	
+	
+	<script>
+	
+		
+	</script>
+	
+	
+	
 	<style>
 		#list_btn, #content_btn{
 			width: 100px;
@@ -105,7 +113,11 @@
                                     </tr>
                                  </tbody>
                               </table>
-                              <c:if test="${empty qna.qnaComment}">
+                           </form>
+                           
+                           
+                           
+                                  <c:if test="${empty qna.qnaComment}">
                               	<div class="comment">
                              		<div class="commenttitle">댓글달기</div>
                              		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
@@ -118,13 +130,19 @@
                              		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${qna.qnaComment}</textarea>
                              		
                              	</div>
-                              	<div class="comment">
-                             		<div class="commenttitle">댓글달기</div>
-                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
-                             		 <input type="submit" value="댓글달기" id="content_btn">
-                             	</div>
-                         	</c:if>
-                           </form>
+                            	
+                             	<form action="/restuarnat/owner/addComment" method="POST">
+	                              	<div class="comment">
+	                             		<div class="commenttitle">댓글달기</div>
+	                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
+	                             		 <input type="submit" value="댓글달기" id="content_btn">
+	                             	</div>
+                             	</form>
+                          </c:if>
+                         	
+                           
+                           
+                           
                            
                         <div class="bottombtn">
                            <input type="button" value="목록보기" id="list_btn" >

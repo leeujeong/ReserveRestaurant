@@ -62,7 +62,7 @@
               <c:if test="${loginUser.state == 3}">
             		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
             	</c:if>
                 
                 

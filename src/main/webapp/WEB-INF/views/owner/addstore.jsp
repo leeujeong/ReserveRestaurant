@@ -37,7 +37,7 @@
 
          	<ul id="gnb">
          		<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>

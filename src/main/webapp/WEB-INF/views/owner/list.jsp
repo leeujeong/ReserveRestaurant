@@ -24,7 +24,7 @@
             </h1>
             <ul id="gnb">
                	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -80,22 +80,22 @@
 		                         			<tbody>
 			                         			<tr>
 									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
+									                <td class="listtitle"><h2>식당 : ${restaurant.resName}</h2></td>
 									            <tr>
 									            <tr>
-									                <td>${restaurant.resTel}</td>
+									                <td>전화번호 : ${restaurant.resTel}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
+									                <td>주소 : ${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+									                <td>운영시간 : ${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resContent}</td>
+									                <td>상세 설명 : ${restaurant.resContent}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resOption}</td>
+									                <td>추가 옵션 : ${restaurant.resOption}</td>
 		            							</tr>
 		                         			</tbody>
 	                         			</table>
