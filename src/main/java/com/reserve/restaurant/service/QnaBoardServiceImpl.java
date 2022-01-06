@@ -55,12 +55,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	@Override
 	public void selectQnaInfo(Long qnaNo, Model model) {
 		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		System.out.println("serviceImpl : " + qnaNo);
 		Qna qna = repository.selectQnaInfo(qnaNo);
 		Reply reply = repository.selectReply(qnaNo);
 		model.addAttribute("reply", reply);
 		model.addAttribute("qna", qna);
-		
 	}
 	
 	@Override
@@ -190,8 +188,56 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		
 	}
 	
+	@Override
+	public void updateQnaHit(Long qnaNo, HttpServletResponse response) {
+		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		int result = repository.updateQnaHit(qnaNo);
+		try {
+			if (result == 1) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("location.href='/restaurant/qnaboard/qnaDetail?qnaNo=" + qnaNo + "'");
+				out.println("</script>");
+				out.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
-	
+	@Override
+	public void searchQna(HttpServletRequest request, Model model) {
+		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		String column = request.getParameter("column");
+		String query = request.getParameter("query");
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("column", column);
+		m.put("query", query);
+		
+		System.out.println("serviceImpl : " + column);
+		System.out.println("serviceImpl : " + query);
+		System.out.println("serviceImpl : " + page);
+		
+		int totalRecord = repository.countSearchQna(m);
+		System.out.println("총 검색 갯수 : " + totalRecord);
+		
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("beginRecord", pageUtils.getBeginRecord());
+		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("column", column);
+		map.put("query", query);
+		
+		List<Qna> list = repository.searchQna(map);
+		System.out.println("검색된 list : " + list.toString());
+		model.addAttribute("list", list);
+		
+	}
 	
 	
 	

@@ -29,7 +29,6 @@ public class QnaBoardController {
 	
 	@GetMapping(value="qnaDetail")
 	public String qnadetail(Model model, Long qnaNo) {
-		System.out.println("jsp에서 넘어온 qnaNo : " + qnaNo);
 		qnaBoardService.selectQnaInfo(qnaNo, model);
 		return "qnaboard/qnaDetail";
 	}
@@ -72,6 +71,21 @@ public class QnaBoardController {
 	public void deleteReply(Long qnaNo, HttpServletResponse response) {
 		qnaBoardService.deleteReply(qnaNo, response);
 	}
+	
+	@GetMapping(value="updateQnaHit")
+	public void updateQnaHit(Long qnaNo, HttpServletResponse response) {
+		qnaBoardService.updateQnaHit(qnaNo, response);
+	}
+	
+	@GetMapping(value="searchQna")
+	public String searchQna(HttpServletRequest request, Model model) {
+		System.out.println("controller에서 column : " + request.getParameter("column"));
+		System.out.println("controller에서 query : " + request.getParameter("query"));
+		qnaBoardService.searchQna(request, model);
+		return "qnaboard/qnaList";
+	}
+	
+	
 	
 	
 	

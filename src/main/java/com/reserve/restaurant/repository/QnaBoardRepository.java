@@ -20,5 +20,8 @@ public interface QnaBoardRepository {
 	public int insertReply(Reply reply);
 	public Reply selectReply(Long qnaNo);
 	public int deleteReply(Long qnaNo);
+	public int updateQnaHit(Long qnaNo);
+	public int countSearchQna(Map<String, Object> map);
+	public List<Qna> searchQna(Map<String, Object> map);
 
 }

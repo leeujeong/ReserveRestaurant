@@ -156,7 +156,7 @@
 
 
 <div class="qna_title">
-        <span>Q&A</span>
+        <span>Q&A&nbsp;&nbsp;수정</span>
     </div>
     <section class="insert_section">
         <table border="1px" class="qna_info">

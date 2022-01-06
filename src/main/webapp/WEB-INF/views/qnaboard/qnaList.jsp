@@ -18,7 +18,7 @@
 	    fnhover();
 	    fnQuickMenu();
 		fnInsertPage();
-	
+		fnSearchSetting();
 	
 	});
 	
@@ -54,6 +54,20 @@
 		$('#insert_btn').click(function() {
 			location.href='/restaurant/qnaboard/insertPage';
 		})
+	}
+	
+	// 검색 기본 세팅
+	function fnSearchSetting() {
+		$('#search_btn').click(function() {
+			if ( $('#column').val() == '' ) {
+				alert('검색 카테고리를 선택하세요')
+				return;
+			} else if ( $('#query').val() == '' ) {
+				alert('검색어를 입력하세요')
+				return;
+			}
+			$('#search_form').submit();
+		})	
 	}
 	
 </script>
@@ -145,13 +159,19 @@
 
 
 
-<div class="qna_title">
+	<div class="qna_title">
         <span>Q&A</span>
     </div>
     <div class="search_box">
-        <form>
-            <input type="text" class="search_text">
-            <div class="icon_box">
+        <form action="/restaurant/qnaboard/searchQna" id="search_form">
+        	<select id="column" name="column">
+        		<option value="" selected>::: 선택 :::</option>
+        		<option value="QNA_WRITER">작성자</option>
+        		<option value="QNA_TITLE">제목</option>
+        		<option value="QNA_CONTENT">내용</option>
+        	</select>
+            <input type="text" class="search_text" id="query" name="query">
+            <div class="icon_box" id="search_btn">
                 <i class="fas fa-search" class="search_btn"></i>
             </div>
         </form>
@@ -178,7 +198,7 @@
 	                    <td class="body_td">${list[0].qnaNo}</td>
 	                    <td>${list[0].qnaWriter}</td>
 	                    <td>
-	                    	<a href="/restaurant/qnaboard/qnaDetail?qnaNo=${list[0].qnaNo}">${list[0].qnaTitle}</a>
+	                    	<a href="/restaurant/qnaboard/updateQnaHit?qnaNo=${list[0].qnaNo}">${list[0].qnaTitle}</a>
 	                    </td>
 	                    <td>${list[0].qnaDate}</td>
 	                    <td>${list[0].qnaHit}</td>
@@ -187,7 +207,7 @@
 	                    <td class="body_td">${list[1].qnaNo}</td>
 	                    <td>${list[1].qnaWriter}</td>
 	                    <td>
-	                    	<a href="/restaurant/qnaboard/qnaDetail?qnaNo=${list[1].qnaNo}">${list[1].qnaTitle}</a>
+	                    	<a href="/restaurant/qnaboard/updateQnaHit?qnaNo=${list[1].qnaNo}">${list[1].qnaTitle}</a>
 	                    </td>
 	                    <td>${list[1].qnaDate}</td>
 	                    <td>${list[1].qnaHit}</td>
@@ -196,7 +216,7 @@
 	                    <td class="body_td">${list[2].qnaNo}</td>
 	                    <td>${list[2].qnaWriter}</td>
 	                    <td>
-	                    	<a href="/restaurant/qnaboard/qnaDetail?qnaNo=${list[2].qnaNo}">${list[2].qnaTitle}</a>
+	                    	<a href="/restaurant/qnaboard/updateQnaHit?qnaNo=${list[2].qnaNo}">${list[2].qnaTitle}</a>
 	                    </td>
 	                    <td>${list[2].qnaDate}</td>
 	                    <td>${list[2].qnaHit}</td>
@@ -205,7 +225,7 @@
 	                    <td class="body_td">${list[3].qnaNo}</td>
 	                    <td>${list[3].qnaWriter}</td>
 	                    <td>
-	                    	<a href="/restaurant/qnaboard/qnaDetail?qnaNo=${list[3].qnaNo}">${list[3].qnaTitle}</a>
+	                    	<a href="/restaurant/qnaboard/updateQnaHit?qnaNo=${list[3].qnaNo}">${list[3].qnaTitle}</a>
 	                    </td>
 	                    <td>${list[3].qnaDate}</td>
 	                    <td>${list[3].qnaHit}</td>
@@ -214,7 +234,7 @@
 	                    <td class="body_td">${list[4].qnaNo}</td>
 	                    <td>${list[4].qnaWriter}</td>
 	                    <td>
-	                    	<a href="/restaurant/qnaboard/qnaDetail?qnaNo=${list[4].qnaNo}">${list[4].qnaTitle}</a>
+	                    	<a href="/restaurant/qnaboard/updateQnaHit?qnaNo=${list[4].qnaNo}">${list[4].qnaTitle}</a>
 	                    </td>
 	                    <td>${list[4].qnaDate}</td>
 	                    <td>${list[4].qnaHit}</td>

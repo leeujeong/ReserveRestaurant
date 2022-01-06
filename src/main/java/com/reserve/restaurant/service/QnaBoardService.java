@@ -17,5 +17,6 @@ public interface QnaBoardService {
 	public void qnaDelete(Long qnaNo, HttpServletResponse response);
 	public void insertReply(Reply reply, HttpServletResponse response);
 	public void deleteReply(Long qnaNo, HttpServletResponse response);
-	
+	public void updateQnaHit(Long qnaNo, HttpServletResponse response);
+	public void searchQna(HttpServletRequest request, Model model);
 }

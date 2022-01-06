@@ -79,8 +79,13 @@
 	function fnInsertReply() {
 		$('#reply_btn').click(function() {
 			if ( confirm('답글을 작성하시겠습니까?') ) {
-				$('#reply_form').attr('action', '/restaurant/qnaboard/insertReply');
-				$('#reply_form').submit();
+				if ($('#replyContent').val() == '') {
+					alert('내용을 작성해주세요')
+					return;
+				} else {
+					$('#reply_form').attr('action', '/restaurant/qnaboard/insertReply');
+					$('#reply_form').submit();
+				}
 			}
 		})
 	}

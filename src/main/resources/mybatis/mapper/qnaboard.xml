@@ -88,6 +88,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE QNA_NO = #{qnaNo}
 	</delete>
 	
+	<!-- qna 조회수 증가 -->
+	<update id="updateQnaHit" parameterType="Long">
+		UPDATE QNA
+		   SET QNA_HIT = QNA_HIT + 1
+		 WHERE QNA_NO = #{qnaNo}
+	</update>
+	
+	<!-- qnaSearch -->
+	<select id="searchQna" parameterType="Map" resultType="Qna">
+		SELECT B.QNA_NO, B.QNA_WRITER, B.QNA_TITLE, B.QNA_CONTENT, B.QNA_HIT, B.QNA_DATE, B.QNA_LASTMODIFIED, B.STATE
+		  FROM (SELECT ROWNUM AS RN, A.QNA_NO, A.QNA_WRITER, A.QNA_TITLE, A.QNA_CONTENT, A.QNA_HIT, A.QNA_DATE, A.QNA_LASTMODIFIED, A.STATE
+		  		  FROM (SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, STATE
+			   			  FROM QNA
+			 			 WHERE UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%') A) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<!-- qnaSearch count -->
+	<select id="countSearchQna" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM QNA
+		 WHERE UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'
+	</select>
+	
+	
 	
 	
 </mapper>
