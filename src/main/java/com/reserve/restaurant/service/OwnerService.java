@@ -12,9 +12,6 @@ import com.reserve.restaurant.domain.Owner;
 
 public interface OwnerService {
 
-//	public Map<String, Object> idCheck(String id);
-//	public Map<String, Object> findOwnerByEmail(String email);
-//	public Map<String, Object> sendAuthCode(String email);
 	public void join(HttpServletRequest request);
 	public void loginOwner(HttpServletRequest request);
 //	public Map<String, Object> emailCheck(String email);

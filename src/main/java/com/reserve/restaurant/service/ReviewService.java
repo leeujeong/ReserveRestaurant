@@ -25,7 +25,7 @@ public interface ReviewService {
 //	public int avgReviewRate(Long resNo);
 //	public int totalReview(Long resNo);
 	
-	public List<Comment> commentList(Model model);
+	public List<Comment> commentList(Long reviewNo, Model model);
 	public int addComment(HttpServletRequest request);
 	public int removeComment(Long commnetNo);
 	public int updateComment(Comment comment);

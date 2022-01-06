@@ -106,17 +106,17 @@
 			 		</c:if>
 			 		<c:if test="${not empty reviewlist}">
 				 		<c:forEach var="review" items="${reviewlist}">
-				 		<input type="text" value="${review.get('REVIEW_NO')}">
+				 		<input type="hidden" value="${review.get('REVIEW_NO')}">
 			            	<div>
 			            		<h3>${review.get("RES_NAME")}</h3>
 			            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 			                    <div class="reviewContent">
-			                        <p>${review.get("REVIEW_WRITER")}</p>
 			                        <div class="reviewdaterate">
+				                        <p style="margin:5px;">${review.get("REVIEW_WRITER")}</p>
 				                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
-				                        <span>${review.get("REVIEW_RATE")}</span>
+				                        <span style="margin:0 5px; color:red; " >${review.get("REVIEW_RATE")}</span>
 			                        </div>
-			                        <p>${review.get("REVIEW_CONTENT")}</p>
+			                        <p style="margin:0 5px;">${review.get("REVIEW_CONTENT")}</p>
 			                    </div>
 			            	</div>
 			            	<input type="button" value="댓글달기" onclick="location.href='/restaurant/owner/reviewReply?reviewNo='+'${review.get('REVIEW_NO')}'">

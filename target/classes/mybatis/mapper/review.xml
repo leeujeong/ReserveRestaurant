@@ -88,9 +88,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 댓글 조회 -->	
-	<select id="commentList"  resultType="Comment">
+	<select id="commentList"  parameterType="Long" resultType="Comment">
 		SELECT *
 		 FROM comments
+		WHERE review_no = #{reviewNo}
+		 
 	</select> 
 		
 	<!-- 댓글 추가 -->

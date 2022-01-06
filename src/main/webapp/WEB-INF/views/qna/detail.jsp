@@ -16,7 +16,95 @@
 	
 	
 	<script>
+		$(document).ready(function(){
+			commentList(); 
+			
+		 	$('#contentBtn').click(function(){
+				var insertData = $('#commentForm').serialize();
+				qnaReplyInsert(insertData);
+			}); 
+		 });
 	
+		//댓글 목록
+	  	function commentList(){
+			
+			$.ajax({
+				url:'/restaurant/owner/qnaReplyList?qnaNo=${qna.qnaNo}' ,
+				type:'get',
+				success: function(list){
+					var a='';
+					$.each(list, function(i, reply){
+						a += '<div class="commentBorder">';
+						a += '<div >'+ '댓글번호 : ' + reply.replyNo + ' / 작성자 : '+ reply.replyWriter
+		                a += '<a onclick = "qnaReplyUpdate('+ reply.replyNo +',\''+ reply.replyContent +'\')"> 수정 </a>';
+		                a += '<a onclick = "qnaReplyDelete('+ reply.replyNo+ ')"> 삭제 </a> </div>';
+		                a += '<div class="commentContent" id="commentContent'+reply.replyNo+'"> <p> 내용 : ' + reply.replyContent + '</p>';
+		                a += '</div></div>';
+					});
+					$(".commentList").html(a);
+				}
+			});
+		}   
+		
+		//댓글 등록
+		function qnaReplyInsert(insertData){
+			$.ajax({
+				url:'/restaurant/owner/qnaReplyInsert?'+ insertData,
+				type: 'get',
+				success: function(data){
+					if(data == 1){
+						commentList();
+						$('#content').val('');
+						}
+					}
+				});
+			}
+		
+		 
+		//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
+	 	function qnaReplyUpdate(replyNo, replyContent){
+			
+	 		alert('수정한다구');
+			var a = '';
+			a += '<div class="comment">';
+		    a += '<input type="text" class="commentTextarea" name="contentInput" value="' + replyContent + '"/>';
+		    a += '<button class="contentBtn" onclick="commentUpdateProc('+ replyNo +')">수정하기</button>';
+		    a += '</div>';
+		    
+			$('#commentContent' + replyNo).html(a);
+		}  
+		
+	 	//댓글 수정
+		function commentUpdateProc(replyNo){
+			alert('수정한다');
+			var updateContent = $('[name=contentInput]').val();
+			alert('수정값'+updateContent);
+			$.ajax({
+				url : '/restaurant/owner/qnaReplyUpdate',
+				type: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					'replyContent' : updateContent, 
+					'replyNo': replyNo}),
+		        success : function(data){
+		            if(data == 1) commentList();
+		        }
+		    });
+		} 
+		 
+		//댓글 삭제 
+		 function qnaReplyDelete(replyNo){
+			if(confirm('삭제하시겠습니까?')){			
+			    $.ajax({
+			        url : '/restaurant/owner/qnaReplyDelete?replyNo=' + replyNo,
+			        type : 'get',
+			        success : function(data){
+		            if(data == 1) commentList();
+			        }
+			    });
+			}
+		}
+		
 		
 	</script>
 	
@@ -62,6 +150,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                         <li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -84,15 +173,9 @@
                 </div>
                 <hr>
                    <div class="containers">
-                  
-                   
                      <div class="col-sm-9">
-                        
-                           
-                    
                            <form id="qnaform" method="POST" action="questionPage"> 
                                <input type="hidden" value="${qna.qnaNo}" name="qnaNo">
-                        <%--        <input type="hidden" value="${qna.qnaCommment}" name="commnet"> --%>
                                <table class="qnatable">
                                  <tbody>
                                     <tr>
@@ -114,31 +197,23 @@
                                  </tbody>
                               </table>
                            </form>
-                           
-                           
-                           
-                                  <c:if test="${empty qna.qnaComment}">
-                              	<div class="comment">
-                             		<div class="commenttitle">댓글달기</div>
-                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
-                             		 <input type="submit" value="댓글달기" id="content_btn">
-                             	</div>
-                         	</c:if>
-                            <c:if test="${not empty qna.qnaComment}">
+                           <div class="replyInput">
+                           <form id="commentForm"> 
                             	<div class="comment">
-                             		<div class="commenttitle">${resName} 의 댓글 : </div>
-                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" readonly>${qna.qnaComment}</textarea>
-                             		
-                             	</div>
-                            	
-                             	<form action="/restuarnat/owner/addComment" method="POST">
-	                              	<div class="comment">
-	                             		<div class="commenttitle">댓글달기</div>
-	                             		<textarea class="commenttextarea" rows="3" cols="70" name="comment" placeholder="댓글을 남겨보세요"></textarea>
-	                             		 <input type="submit" value="댓글달기" id="content_btn">
-	                             	</div>
-                             	</form>
-                          </c:if>
+                           			<div class="commentTitle">댓글달기</div>
+                           			<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+                           			<input type="hidden" value="${loginUser.name}" name="replyWriter">
+                           			<textarea class="commentTextarea" id="content" rows="3" cols="70" name="replyContent" placeholder="댓글을 남겨보세요"></textarea>
+                           		 	<button id="contentBtn">댓글 등록</button>
+                           		</div>
+                         	</form>
+						 </div>
+                         <div class="containerForm">
+						    <div id="commentListForm">
+						        <div class="commentList">
+						        </div>
+						    </div>
+						</div>
                          	
                            
                            

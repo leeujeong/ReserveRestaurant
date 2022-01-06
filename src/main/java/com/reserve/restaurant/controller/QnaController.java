@@ -1,11 +1,18 @@
 package com.reserve.restaurant.controller;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.service.QnaService;
 
 @Controller
@@ -64,5 +71,34 @@ public class QnaController {
 		qnaService.deleteQna(qnaNo);
 		return "owner/question";
 	}
+	
+	//공지사항 댓글 입력
+	@GetMapping(value="owner/qnaReplyInsert")
+	@ResponseBody
+	public int qnaReplyInsert(HttpServletRequest request) {
+		return qnaService.qnaReplyInsert(request);
+	}
+	
+	//공지사항 댓글리스트
+	@GetMapping(value="owner/qnaReplyList")
+	@ResponseBody
+	  public List<Reply> CommentServiceList(@RequestParam("qnaNo")Long qnaNo, Model model){
+	   model.addAttribute("qnaNo", qnaNo);
+	   return qnaService.qnaReplyList(qnaNo, model);
+	 }
+	  
+	//댓글수정
+	 @PostMapping(value="owner/qnaReplyUpdate")
+	 @ResponseBody 
+	 public int qnaReplyUpdate(@RequestBody Reply reply) {
+		 return qnaService.qnaReplyUpdate(reply);
+	 }
+	 
+	 //삭제
+	 @GetMapping(value="owner/qnaReplyDelete")
+	 @ResponseBody
+	 public int qnaReplyDelete(Long replyNo) {
+	   return qnaService.qnaReplyDelete(replyNo);
+	 }
 	
 }

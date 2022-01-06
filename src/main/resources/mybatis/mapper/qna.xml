@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.reserve.restaurant.repository.QnaRepository">
 	
+	<!-- 식당정보문의로 -->
 	<select id="selectQnaList1" resultType="Qna">
 		SELECT *
 		  FROM QNA
@@ -12,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 ORDER BY QNA_NO DESC
 	</select>
 	
+	<!-- 예약문의로 -->
 	<select id="selectQnaList2" resultType="Qna">
 		SELECT *
 		  FROM QNA
@@ -19,33 +21,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 ORDER BY QNA_NO DESC
 	</select>
 	
+	<!-- 하나 골라서 들어가기 -->
 	<select id="selectQnaByNo" parameterType="Long" resultType="Qna">
 		SELECT *
 		  FROM QNA
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
 	
+	<!-- 조회수 -->
 	<update id="updateQnaHit" parameterType="Long">
 		UPDATE QNA
 		   SET QNA_HIT = QNA_HIT + 1
 		 WHERE QNA_NO = #{qnaNo}
 	</update>
-<!-- 
-	<insert id="insertQna" parameterType="Qna">
-		INSERT INTO QNA
-		VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, QNA_HIT, SYSDATE)
-	</insert> -->
 	
-	<!-- <update id="updateQna" parameterType="Qna">
-		UPDATE QNA
-		   SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}
-		 WHERE QNA_NO = #{qnaNo}
-	</update> -->
-	
+	<!-- 게시글 삭제 -->
 	<delete id="deleteQna" parameterType="Long">
 		DELETE
 		  FROM QNA
 		 WHERE QNA_NO = #{qnaNo}
 	</delete>
+	
+	<!-- 댓글 추가 -->
+	<insert id="qnaReplyInsert" parameterType="Reply">
+		INSERT INTO REPLY (reply_no, reply_writer, reply_content, reply_date, qna_no)
+		VALUES (reply_no_seq.nextval, #{replyWriter}, #{replyContent}, SYSDATE, #{qnaNo})
+	</insert>
+ 	
+ 	<!-- 댓글 조회 -->	
+	<select id="qnaReplyList"  parameterType="Long" resultType="Reply">
+		SELECT *
+		 FROM REPLY
+		WHERE reply_no = #{replyNo}
+		 
+	</select> 
+ 	
+	<!-- 댓글 삭제 -->
+	<delete id="qnaReplyDelete" parameterType="Long">
+	   DELETE 
+		 FROM REPLY
+		WHERE reply_no =  #{replyNo}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="qnaReplyUpdate" parameterType="Reply">
+       UPDATE REPLY
+          SET reply_content = #{replyContent}
+       	WHERE reply_no =  #{replyNo}
+    </update>
+	
+	
 	
 </mapper>

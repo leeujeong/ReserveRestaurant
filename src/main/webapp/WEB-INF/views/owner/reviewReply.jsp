@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,9 +69,9 @@
 					$.each(commentlist, function(i, comment){
 						a += '<div class="commentBorder">';
 						a += '<div >'+ '댓글번호 : ' + comment.commentNo + ' / 작성자 : '+ comment.writer
-		                a += '<a onclick = "commentUpdate('+ comment.commentNo +','+ comment.content +')"> 수정 </a>';
+		                a += '<a onclick = "commentUpdate('+ comment.commentNo +',\''+ comment.content +'\')"> 수정 </a>';
 		                a += '<a onclick = "commentDelete('+ comment.commentNo+ ')"> 삭제 </a> </div>';
-		                a += '<div class="commentContent"> <p> 내용 : ' + comment.content + '</p>';
+		                a += '<div class="commentContent" id="commentContent'+comment.commentNo+'"> <p> 내용 : ' + comment.content + '</p>';
 		                a += '</div></div>';
 					});
 					$(".commentList").html(a);
@@ -103,7 +103,7 @@
 	    a += '<button class="contentBtn" onclick="commentUpdateProc('+ commentNo +')">수정하기</button>';
 	    a += '</div>';
 	    
-		$('.commentContent').html(a);
+		$('#commentContent' + commentNo).html(a);
 	}  
 	
 	//댓글 수정

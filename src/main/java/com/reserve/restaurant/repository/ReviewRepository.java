@@ -23,7 +23,7 @@ public interface ReviewRepository {
 	
 	//comment
 	public int commentCount();
-	public List<Comment> commentList(Map<String, Object> map);
+	public List<Comment> commentList(Long reviewNo);
 	public int addComment(Comment comment);
 	public int updateComment(Comment commment);
 	public int removeComment(Long commentNo);

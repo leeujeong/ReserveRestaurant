@@ -108,7 +108,7 @@ public class OwnerController {
   @ResponseBody
    public List<Comment> CommentServiceList(@RequestParam("reviewNo")Long reviewNo, Model model){
 	   model.addAttribute("reviewNo", reviewNo);
-	   return reviewService.commentList(model);
+	   return reviewService.commentList(reviewNo, model);
    }
    
    //댓글 작성
