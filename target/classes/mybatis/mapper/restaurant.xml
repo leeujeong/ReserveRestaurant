@@ -5,12 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace = "com.reserve.restaurant.repository.RestaurantRepository">
 
 	<!-- 전체 목록 -->
-	<select id="selectMyRestaurantList" parameterType="Map" resultType="Restaurant">
+	<select id="selectMyRestaurantList" parameterType="Map" resultType="Map">
 		SELECT B.*
 		FROM (SELECT ROWNUM AS rn, A.*
-		          FROM (SELECT r.*
-		                  FROM restaurant r, owner o
+		          FROM (SELECT r.*, u.path, u.uuid, u.origin
+		                  FROM restaurant r, owner o, uploadfile u
 		                 WHERE r.owner_no = o.owner_no 
+		                   AND r.res_no = u.res_no
 		                   AND o.id = #{id}
 		                 ORDER BY r.res_no) A) B
 		WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}
@@ -19,9 +20,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 전체 목록 수 -->
 	<select id="selectTotalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		  FROM restaurant r, owner o
+		  FROM restaurant r, owner o, uploadfile u
 		 WHERE r.owner_no = o.owner_no
-		   AND o.id = #{id}
+	 	 AND r.res_no = u.res_no
+	   	AND o.id = #{id}
 	</select>
 
 	<!-- 식당 하나조회 -->
@@ -52,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  FROM DUAL
 		</selectKey>
 			INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, owner_no)
-			VALUES (res_no_seq.nextval, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{ownerNo})
+			VALUES (#{resNo}, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{ownerNo})
 	</insert>
 
 	

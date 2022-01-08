@@ -26,10 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 식당정보문의로 -->
-	<select id="selectQnaList1" parameterType="Long" resultType="Qna">
-		SELECT 
+	<select id="selectQnaList1" parameterType="Map" resultType="Qna">
+		SELECT B.*
 		  FROM(SELECT ROWNUM AS rn, A.*
-		  		FROM SELECT q.*
+		  		FROM (SELECT q.*
 		  		       FROM QNA q , restaurant r, owner o
 					  WHERE q.res_no = r.res_no
 					    AND r.owner_no = o.owner_no
@@ -41,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 예약문의로 -->
 	<select id="selectQnaList2" parameterType="Long" resultType="Qna">
-		SELECT 
+		SELECT *
 		  FROM(SELECT ROWNUM AS rn, A.*
-		  		FROM SELECT q.*
+		  		FROM (SELECT q.*
 		  		       FROM QNA q , restaurant r, owner o
 					  WHERE q.res_no = r.res_no
 					    AND r.owner_no = o.owner_no

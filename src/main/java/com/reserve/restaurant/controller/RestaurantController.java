@@ -47,8 +47,8 @@ public class RestaurantController {
 	
 	//등록 form
 	@PostMapping(value="owner/addRestaurant", produces="application/json; charset=UTF-8")
-	public Map<String, Object>addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception {
-		return restaurantService.addRestaurant(multipartRequest, response);
+	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception {
+		restaurantService.addRestaurant(multipartRequest, response);
 	}
 	
 	//관리 페이지로 이동
@@ -65,6 +65,7 @@ public class RestaurantController {
 		
 		return "owner/list";
 	}
+	
 
 	//삭제
 	@PostMapping(value="owner/deleteRestaurant")

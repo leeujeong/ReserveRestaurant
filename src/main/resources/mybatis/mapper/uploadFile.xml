@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 추가 -->
 	<insert id="fileInsert" parameterType="UploadFile">
 		INSERT into UPLOADFILE 
-		VALUES (file_no_seq.nextval, #{resNo}, #{origin}, #{saved}, #{path})
+		VALUES (#{uuid}, #{path}, #{origin}, #{fileType}, #{resNo})
 	</insert>
 	
 	

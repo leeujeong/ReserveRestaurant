@@ -74,30 +74,34 @@
                          	
                          	<c:if test="${not empty list}">
                          		<c:forEach var="restaurant" items="${list}">
-                         			<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
+                         			<input type="hidden" name="resNo" value="${restaurant.get('RES_NO')}"/>
 	                         		<div class="list_table">
 		                         		<table >
 		                         			<tbody>
 			                         			<tr>
-									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
+									                <td rowspan="7"><a href="selectList?resNo=${restaurant.get('RES_NO')}">
+									                	<img alt="${restaurant.get('ORIGIN')}" src="/restaurant/${restaurant.get('PATH')}/${restaurant.get('UUID')}" class="listimg"></a>
+								                	</td>
+									                <td class="listtitle">
+									                	<h2>${restaurant.get('RES_NAME')}</h2>
+								                	</td>
 									            <tr>
 									            <tr>
-									                <td>전화번호 : ${restaurant.resTel}</td>
+									                <td>전화번호 : ${restaurant.get('RES_TEL')}</td>
 									            </tr>
 									            <tr>
-									                <td>주소 : ${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
+									                <td>주소 : ${restaurant.get('RES_ADDRESS')} ${restaurant.get('RES_ADDRESS_DETAIL')}</td>
 									            </tr>
 									            <tr>
-									                <td>운영시간 : ${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+									                <td>운영시간 : ${restaurant.get('RES_OPEN_TIME')} ~ ${restaurant.get('RES_CLOSE_TIME')}</td>
 									            </tr>
 									            <tr>
-									                <td>상세 설명 : ${restaurant.resContent}</td>
+									                <td>상세 설명 : ${restaurant.get('RES_CONTENT')}</td>
 									            </tr>
 									            <tr>
-									                <td>추가 옵션 : ${restaurant.resOption}</td>
+									                <td>추가 옵션 : ${restaurant.get('RES_OPTION')}</td>
 		            							</tr>
-		            							<tr>
+		            							<%-- <tr>
 		            								<td>
 		            									<div class="result_image">
 		            										<c:forEach var="imageFileName" items="${map.fileList}">
@@ -107,7 +111,7 @@
 		            										<!-- 다시 업로드하기도 있음 -->
 		            									</div>
 		            								</td>
-		            							</tr>
+		            							</tr> --%>
 		                         			</tbody>
 	                         			</table>
 									</div>

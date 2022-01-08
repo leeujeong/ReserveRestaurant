@@ -84,6 +84,7 @@ public class OwnerController {
 		Owner owner = (Owner) session.getAttribute("loginUser");
 		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		model.addAttribute("request", request);
 		
 		qnaService.selectQnaList1(model);
 		return "owner/question";

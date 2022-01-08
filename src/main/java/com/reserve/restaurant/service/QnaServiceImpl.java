@@ -37,7 +37,7 @@ public class QnaServiceImpl implements QnaService {
 		//페이징
 		int totalRecord = repository.ListTotalCount1(ownerNo);
 		
-			System.out.println("페이지전체 수 "+ totalRecord);
+		System.out.println("페이지전체 수 "+ totalRecord);
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));

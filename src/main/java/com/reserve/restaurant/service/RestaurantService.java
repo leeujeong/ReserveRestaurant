@@ -18,7 +18,7 @@ public interface RestaurantService {
 
 	public void selectMyRestaurantList(Model model);
 	public Restaurant selectList(Long resNo);
-	public Map<String, Object> addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
+	public int addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	//메뉴 불러오기

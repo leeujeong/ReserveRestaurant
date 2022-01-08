@@ -50,7 +50,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 
 		int totalRecord = repository.selectTotalCount(oid);
-		
+		System.out.println(totalRecord);
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -63,8 +63,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		map.put("id", oid);
 		
-		List<Restaurant> list = repository.selectMyRestaurantList(map);
+		
+		List<Map<String, Object>> list = repository.selectMyRestaurantList(map);
 
+		System.out.println("라수투"+list.toString());
 		
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
@@ -73,7 +75,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 	//등록
 	@Override
-	public  Map<String, Object>  addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public int addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Restaurant restaurant = new Restaurant();
 		restaurant.setResName(multipartRequest.getParameter("s_name"));
 		restaurant.setResTel(multipartRequest.getParameter("tel"));
@@ -117,15 +119,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 		if (dir.exists() == false) {
 			dir.mkdirs();
 		}
-		// 썸네일 목록 list
-		List<String> thumbnails = new ArrayList<String>();
 		
 		// 서버에 파일 저장
 		List<MultipartFile> files = multipartRequest.getFiles("files");  // 다중첨부 상황
-		
+		List<UploadFile> upload_files = new ArrayList<UploadFile>();
 		
 		for (MultipartFile file : files) {  // 첨부 하나씩 DB에 넣기
-			
 			try {
 			
 				if (file != null && !file.isEmpty()) {  // 첨부가 있으면(둘 다 필요)
@@ -141,25 +140,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 					
 					// 첨부파일 서버에 업로드 (예외 처리 필요)
 					File attachFile = new File(realPath, uuid + extension);  // new File(경로, 파일)
+					System.out.println(realPath);
 					file.transferTo(attachFile);  // 업로드 진행 코드
-					
-					// 썸네일 이미지 생성 (예외 처리 필요)
-					Thumbnails.of(attachFile)
-					.size(100, 100)
-					.toFile(new File(realPath, "s_" + uuid + extension));
-					
-					// 썸네일 목록 저장
-					thumbnails.add("s_" + uuid + extension);
 					
 					// DB에 uuid, path, origin, fileType, boardNo 전달
 					UploadFile uploadFile = new UploadFile();
-					uploadFile.setUuid(uuid);
+					uploadFile.setUuid(uuid + extension);
 					uploadFile.setPath(path);
-					uploadFile.setOrigin(origin);uploadFile.setFileType("I");
+					uploadFile.setOrigin(origin);
+					uploadFile.setFileType("I");
 					uploadFile.setResNo(restaurant.getResNo());
+					upload_files.add(uploadFile);
 					
 					// DB에 boardAttach 저장
-					fileAttachResult = uploadRepository.fileInsert(uploadFile);
+					uploadRepository.fileInsert(uploadFile);
 					
 				}
 				
@@ -168,9 +162,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			}
 			
 		}
-
-	
-	
+		
 		
 		String[] menus = multipartRequest.getParameterValues("menu");
 		String[] prices = multipartRequest.getParameterValues("price");
@@ -189,17 +181,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 		for(Menu menu: menu_list) {
 			menu_repository.addMenu(menu);
 		}
-			// 응답할 데이터
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", result);  // 게시판 성공 유무
-		map.put("fileAttachResult", fileAttachResult);  // 첨부 성공 유무
-		map.put("path", path);  // 첨부 파일 경로
-		map.put("thumbnails", thumbnails);  // 첨부된 썸네일 이름
-		map.put("restaurant", restaurant);	
-		map.put("menu_list", menu_list);
-		return map;
+//			// 응답할 데이터
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("result", result);  // 게시판 성공 유무
+//		map.put("restaurant", restaurant);	
+//		map.put("menu_list", menu_list);
+//		map.put("upload_files", upload_files);
 		
-//		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "managePage");
+		message(result, response, "식당이 추가되었습니다.", "식당등록이 실패했습니다.", "managePage");
+		
+		return result;
 		
 	}
 		
@@ -253,17 +244,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 					dir.mkdirs();
 				}
 			
-				
-				restaurant.setResPath(path);
-				restaurant.setResOrigin(origin);
-				restaurant.setResSaved(saved);
+//				
+//				restaurant.setResPath(path);
+//				restaurant.setResOrigin(origin);
+//				restaurant.setResSaved(saved);
 				
 			} 
-			else {
-				restaurant.setResPath("");
-				restaurant.setResOrigin("");
-				restaurant.setResSaved("");
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
