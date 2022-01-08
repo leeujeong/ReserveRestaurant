@@ -15,10 +15,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <!-- 사업자페이지에 보일 리뷰 리스트 -->
-    <select id="ownerReviewList" resultType="Map">
+    <select id="ownerReviewList" parameterType="Map" resultType="Map">
       SELECT rv.review_no, rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
-      FROM review rv, restaurant r
-         WHERE rv.res_no = r.res_no
+       FROM review rv, restaurant r, owner o
+      WHERE rv.res_no = r.res_no
+        AND r.owner_no = o.owner_no
+        AND o.owner_no = #{ownerNo}
+        
    </select>
 	
 	<!-- 리뷰 선택 -->

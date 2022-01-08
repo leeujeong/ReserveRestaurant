@@ -18,7 +18,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="#">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -80,7 +80,7 @@
 		                         			<tbody>
 			                         			<tr>
 									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>식당 : ${restaurant.resName}</h2></td>
+									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
 									            <tr>
 									            <tr>
 									                <td>전화번호 : ${restaurant.resTel}</td>
@@ -96,6 +96,17 @@
 									            </tr>
 									            <tr>
 									                <td>추가 옵션 : ${restaurant.resOption}</td>
+		            							</tr>
+		            							<tr>
+		            								<td>
+		            									<div class="result_image">
+		            										<c:forEach var="imageFileName" items="${map.fileList}">
+		            											<img src="${pageContext.request.contextPath}/download?imageFile=${imageFileName}">
+		            											<br>
+		            										</c:forEach>
+		            										<!-- 다시 업로드하기도 있음 -->
+		            									</div>
+		            								</td>
 		            							</tr>
 		                         			</tbody>
 	                         			</table>

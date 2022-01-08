@@ -34,14 +34,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 식당추가 -->
-	<insert id="addRestaurant" parameterType="Restaurant"> 
-		INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, res_origin, res_saved, res_path, owner_no)
-		VALUES (res_no_seq.nextval, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{resOrigin}, #{resSaved}, #{resPath}, #{ownerNo})
+<!-- 	<insert id="addRestaurant" parameterType="Restaurant"> 
+		INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, owner_no)
+		VALUES (res_no_seq.nextval, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{ownerNo})
 		<selectKey keyProperty="resNo" resultType="Long" order="AFTER">
         	SELECT res_no_seq.currval AS resNo
             FROM DUAL
     	</selectKey>
+	</insert>  -->
+	
+	
+	
+	<!-- 식당추가 -->
+	<insert id="addRestaurant" parameterType="Restaurant">
+		<selectKey keyProperty="resNo" order="BEFORE" resultType="Long">
+			SELECT res_no_seq.nextval
+			  FROM DUAL
+		</selectKey>
+			INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, owner_no)
+			VALUES (res_no_seq.nextval, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{ownerNo})
 	</insert>
+
+	
 	
 	<!-- 음식점 수정 -->
  	<update id="modifyRestaurant" parameterType="Restaurant">
@@ -54,9 +68,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   res_tel = #{resTel},
 		   	   res_content = #{resContent},
 		   	   res_option = #{resOption},
-		   	   res_origin = #{resOrigin},
-		   	   res_saved = #{resSaved},
-		   	   res_path = #{resPath}
 		 WHERE res_no = #{resNo}
 	</update>
 	

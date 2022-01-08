@@ -2,6 +2,7 @@ package com.reserve.restaurant.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.service.QnaService;
 
@@ -23,18 +25,28 @@ public class QnaController {
 	
 	//공지사항 1(식당 정보 문의)
 	@GetMapping(value="owner/selectQnaList1")
-	public String selectQnaList1(Model model) {
-		int state = 1;
-		model.addAttribute("list", qnaService.selectQnaList1());
+	public String selectQnaList1(HttpServletRequest request, Model model) {
+		int state = 2;
+		HttpSession session = request.getSession();
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		
+		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		qnaService.selectQnaList1(model);
 		return "owner/question";
 	}
 	//공지사항 2(예약문의)
 	@GetMapping(value="owner/selectQnaList2")
-	public String selectQnaList2(Model model) {
-		int state = 2;
-		model.addAttribute("list", qnaService.selectQnaList2());
+	public String selectQnaList2(HttpServletRequest request, Model model) {
+		int state = 3;
+		
+		HttpSession session = request.getSession();
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		
+		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		
+		qnaService.selectQnaList2(model);
 		return "owner/question";
 	}
 	//공지사항 선택
@@ -49,21 +61,6 @@ public class QnaController {
 	public String QnaPage() {
 		return "owner/question";
 	}
-	
-	
-	//공지사항 작성
-//	@PostMapping(value="insertQna")
-//	public String insertQna(Qna Qna) {
-//		qnaService.insertQna(Qna);
-//		return "owner/question";		
-//	}
-	
-	//공지사항 수정
-//	@GetMapping(value="updateQna")
-//	public String updateQna(Qna Qna) {
-//		qnaService.updateQna(Qna);
-//		return "redirect:selectQnaByNo?qnaNo=" + Qna.getQnaNo();
-//	}
 	
 	//공지사항 삭제
 	@PostMapping(value="owner/deleteQna")

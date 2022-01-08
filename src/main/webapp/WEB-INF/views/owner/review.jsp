@@ -41,7 +41,7 @@
 			margin:10px;
 		}
 		
-		.showhideBtn{
+		.showhideBtn, .reviewReplyBtn{
 			width: 100px;
 		    border: 2px solid red;
 		    color: red;
@@ -51,13 +51,29 @@
 		#noneDiv{
 			margin:30px;
 		}
+		.replybox{
+			display:flex;
+		}
+		.reviewdaterate{
+			padding: 0 15px;
+		}
+		.reviewlist{
+			border-bottom:1px solid gray;
+		}
+		.replybox a{
+			padding: 10px;
+			color: silver;
+		}
+		.emptyReview{
+			padding: 10px;
+		}
 	</style>
 </head>
 <body>
     <header>
         <div class="wrap">
            <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -98,9 +114,9 @@
                     <h4 class="ing_title">리뷰 관리</h4>
                 </div>
                 <hr>
-                <div>
+                <div class="reviewlist">
 	               <c:if  test="${empty reviewlist}">
-			 			<div>
+			 			<div class="emptyReview">
 			 				작성된 리뷰가 없습니다.
 			 			</div>
 			 		</c:if>
@@ -109,17 +125,19 @@
 				 		<input type="hidden" value="${review.get('REVIEW_NO')}">
 			            	<div>
 			            		<h3>${review.get("RES_NAME")}</h3>
-			            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 			                    <div class="reviewContent">
+				            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 			                        <div class="reviewdaterate">
-				                        <p style="margin:5px;">${review.get("REVIEW_WRITER")}</p>
+				                        <span style="margin:5px;">작성자 :<span style=" font-weight: bold;">&nbsp;${review.get("REVIEW_WRITER")}</span> </span>
 				                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
-				                        <span style="margin:0 5px; color:red; " >${review.get("REVIEW_RATE")}</span>
-			                        </div>
+				                        <span style="margin:0 5px; color:red; " >★ ${review.get("REVIEW_RATE")}</span>
 			                        <p style="margin:0 5px;">${review.get("REVIEW_CONTENT")}</p>
+			                        </div>
+			                    </div>
+			                    <div class="replybox">
+					            	<a onclick="location.href='/restaurant/owner/reviewReply?reviewNo='+'${review.get('REVIEW_NO')}'">댓글달기&nbsp;<i class="far fa-comment-dots"></i></a>
 			                    </div>
 			            	</div>
-			            	<input type="button" value="댓글달기" onclick="location.href='/restaurant/owner/reviewReply?reviewNo='+'${review.get('REVIEW_NO')}'">
 			            </c:forEach>
 			 		</c:if>
                          

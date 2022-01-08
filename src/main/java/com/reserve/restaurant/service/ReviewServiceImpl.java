@@ -161,18 +161,15 @@ public class ReviewServiceImpl implements ReviewService {
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		Long userNo = (Long)m.get("userNo");
+		Long ownerNo = (Long)m.get("ownerNo");
 		
 		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("ownerNo", ownerNo);
+		
 		List<Review> reviewlist = repository.ownerReviewList(map);
+		
 		model.addAttribute("reviewlist", reviewlist);
 	}
-	//댓글 조회(Comments 테이블 생성해서 했ㅇ르때)
-//	@Override
-//	public List<Comment> readReply(Long reviewNo) {
-//		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-//		return repository.readReply(reviewNo);
-//	}
-	
 
 	//하나의 리뷰 조회
 	@Override

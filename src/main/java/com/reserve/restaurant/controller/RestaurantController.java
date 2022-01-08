@@ -1,7 +1,14 @@
 
 package com.reserve.restaurant.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Owner;
+import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.service.RestaurantService;
 
 @Controller
@@ -25,7 +34,6 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 	
 	
-
 	//하나만 선택
 	@GetMapping(value="owner/selectList")
 	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
@@ -38,10 +46,10 @@ public class RestaurantController {
 	}
 	
 	//등록 form
-	@PostMapping(value="owner/addRestaurant")
-	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
-		restaurantService.addRestaurant(multipartRequest, response);
-	}	
+	@PostMapping(value="owner/addRestaurant", produces="application/json; charset=UTF-8")
+	public Map<String, Object>addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception {
+		return restaurantService.addRestaurant(multipartRequest, response);
+	}
 	
 	//관리 페이지로 이동
 	@GetMapping(value="owner/managePage")
@@ -63,17 +71,11 @@ public class RestaurantController {
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.deleteRestaurant(multipartRequest, response);
 	}
+	
 	//수정
 	@PostMapping(value="owner/modifyRestaurant")
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.modifyRestaurant(multipartRequest, response);
 	}
-	
-//	//메뉴 불러오기
-//	@GetMapping(value="owner/selectMenu")
-//	public String selectMenu(Long resNo, Model model){
-//		restaurantService.selectMenu(resNo);
-//		return "owner/detail";
-//	}
-	
+
 }

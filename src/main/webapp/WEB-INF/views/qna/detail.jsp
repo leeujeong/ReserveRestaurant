@@ -14,7 +14,50 @@
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	
+	<style>
 	
+		 #contentBtn, .contentBtn{
+			width: 70px;
+		    background-color: rgb(230, 225, 225);
+		    border: none;
+		    color: gray;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
+		
+		.containerForm{
+			margin:30px 0;
+		}
+		.commentBorder{
+			border-bottom: 1px solid rgb(230, 225, 225);
+			border-top: 1px solid  rgb(230, 225, 225);
+			margin:10px 0;
+			padding: 10px;
+		}
+		.updateDeleteLink, .updateDeleteLink2{
+			display:flex;
+		}
+		.updatelink, .deletelink{
+			color:gray;
+			margin:0 10px;
+		}
+		.commentContent{
+			padding: 5px 0 ;
+		}
+		.updateDeleteLink2{
+			margin-left: 100px;
+		}
+		.commentTextarea{
+			padding: 5px;
+			width: 700px;
+			border: 1px solid  rgb(230, 225, 225);
+		}
+		.commentTitle{
+			line-height:70px;
+		}
+		
+	</style>
 	<script>
 		$(document).ready(function(){
 			commentList(); 
@@ -31,19 +74,20 @@
 			$.ajax({
 				url:'/restaurant/owner/qnaReplyList?qnaNo=${qna.qnaNo}' ,
 				type:'get',
-				success: function(list){
+				success: function(replylist){
 					var a='';
-					$.each(list, function(i, reply){
+					$.each(replylist, function(i, reply){
 						a += '<div class="commentBorder">';
-						a += '<div >'+ '댓글번호 : ' + reply.replyNo + ' / 작성자 : '+ reply.replyWriter
-		                a += '<a onclick = "qnaReplyUpdate('+ reply.replyNo +',\''+ reply.replyContent +'\')"> 수정 </a>';
-		                a += '<a onclick = "qnaReplyDelete('+ reply.replyNo+ ')"> 삭제 </a> </div>';
-		                a += '<div class="commentContent" id="commentContent'+reply.replyNo+'"> <p> 내용 : ' + reply.replyContent + '</p>';
+						a += '<div class="updateDeleteLink"><input class="commentNo" type="hidden" value="' + reply.replyNo + '">'+' 사장님 성함 : '+ reply.replyWriter
+		                a += '<div class="updateDeleteLink2"><a onclick = "qnaReplyUpdate('+ reply.replyNo +',\''+ reply.replyContent +'\')" class="updatelink"><i class="far fa-edit"></i>&nbsp; 수정 </a>';
+		                a += '<a onclick = "qnaReplyDelete('+ reply.replyNo+ ')" class="deletelink"> <i class="far fa-trash-alt"></i> &nbsp;삭제 </a> </div></div>';
+		                a += '<div class="commentContent" id="commentContent'+reply.replyNo+'"> <p> 작성 내용 : ' + reply.replyContent + '</p>';
 		                a += '</div></div>';
 					});
 					$(".commentList").html(a);
 				}
 			});
+			
 		}   
 		
 		//댓글 등록
@@ -63,8 +107,6 @@
 		 
 		//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
 	 	function qnaReplyUpdate(replyNo, replyContent){
-			
-	 		alert('수정한다구');
 			var a = '';
 			a += '<div class="comment">';
 		    a += '<input type="text" class="commentTextarea" name="contentInput" value="' + replyContent + '"/>';
@@ -76,9 +118,7 @@
 		
 	 	//댓글 수정
 		function commentUpdateProc(replyNo){
-			alert('수정한다');
 			var updateContent = $('[name=contentInput]').val();
-			alert('수정값'+updateContent);
 			$.ajax({
 				url : '/restaurant/owner/qnaReplyUpdate',
 				type: 'post',
@@ -132,7 +172,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="#">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -204,7 +244,7 @@
                            			<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
                            			<input type="hidden" value="${loginUser.name}" name="replyWriter">
                            			<textarea class="commentTextarea" id="content" rows="3" cols="70" name="replyContent" placeholder="댓글을 남겨보세요"></textarea>
-                           		 	<button id="contentBtn">댓글 등록</button>
+                           		 	<button id="contentBtn">댓글 <br>등록</button>
                            		</div>
                          	</form>
 						 </div>

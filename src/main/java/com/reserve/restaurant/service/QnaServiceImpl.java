@@ -1,6 +1,9 @@
 package com.reserve.restaurant.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +16,7 @@ import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.repository.QnaRepository;
+import com.reserve.restaurant.util.PageUtils;
 
 public class QnaServiceImpl implements QnaService {
 	
@@ -21,49 +25,108 @@ public class QnaServiceImpl implements QnaService {
 	
 	//식당문의
 	@Override
-	public List<Qna> selectQnaList1() {
+	public void selectQnaList1(Model model) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.selectQnaList1();
+		int state = 2;
+		Map<String, Object> m = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)m.get("request");
+		Long ownerNo = (Long)m.get("ownerNo");
+		
+		System.out.println(ownerNo);
+		
+		//페이징
+		int totalRecord = repository.ListTotalCount1(ownerNo);
+		
+			System.out.println("페이지전체 수 "+ totalRecord);
+		
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
+			System.out.println("페이지222 "+ page);
+		
+		
+		PageUtils pageUtils  = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		System.out.println("pageUtils:"+pageUtils.getBeginRecord());
+		
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("ownerNo", ownerNo);		
+		map.put("beginRecord", pageUtils.getBeginRecord());
+		map.put("endRecord", pageUtils.getEndRecord());
+		
+		
+		System.out.println("map:"+map.toString());
+		
+		List<Qna> qnalist1 = repository.selectQnaList1(map);
+		
+		
+			System.out.println("페이지111 "+ qnalist1);
+		
+		
+		
+		model.addAttribute("state",state);
+		model.addAttribute("qnalist1", qnalist1);
+		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
+		model.addAttribute("paging", pageUtils.getPageEntity("selectQnaList1"));
+		
 	}
 	
 	//예약문의
 	@Override
-	public List<Qna> selectQnaList2() {
+	public void selectQnaList2(Model model) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.selectQnaList2() ;
+		int state = 3;
+		
+		Map<String, Object> m = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)m.get("request");
+		Long ownerNo = (Long)m.get("ownerNo");
+		
+		
+		//페이징
+		int totalRecord = repository.ListTotalCount2(ownerNo);
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
+		PageUtils pageUtils  = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("beginRecord", pageUtils.getBeginRecord());
+		map.put("endRecord", pageUtils.getEndRecord());
+		
+		map.put("ownerNo", ownerNo);		
+		
+		List<Qna> qnalist2 = repository.selectQnaList2(map);
+		
+		model.addAttribute("state",state);
+		model.addAttribute("qnalist2", qnalist2);
+		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
+		model.addAttribute("paging", pageUtils.getPageEntity("selectQnaList2"));
+		
+		
 	}
 	//하나의 문의 선택
 	@Override
 	public Qna selectQnaByNo(Long qnaNo) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		
+		repository.updateQnaHit(qnaNo);
 		return repository.selectQnaByNo(qnaNo);
 	}
-	//문읭 삽입
-//	@Override
-//	public int insertQna(Qna Qna) {
-//		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-//		return repository.insertQna(Qna);
-//	}
-	//문의 수정
-//	@Override
-//	public int updateQna(Qna Qna) {
-//		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-//		return repository.updateQna(Qna);
-//	}
+	
 	//문의 삭제
 	@Override
 	public int deleteQna(Long qnaNo) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
 		return repository.deleteQna(qnaNo);
 	}
-
+	
+//	공지사항 댓글
 	@Override
 	public List<Reply> qnaReplyList(Long qnaNo, Model model) {
 		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		List<Reply> list = repository.qnaReplyList(qnaNo);
-				System.out.println("리스트"+list);
-		return list;
+		return repository.qnaReplyList(qnaNo);
 	}
 
 	@Override
@@ -95,5 +158,9 @@ public class QnaServiceImpl implements QnaService {
 		return repository.qnaReplyDelete(replyNo);
 	}
 
-
+	@Override
+	public void updateQnaHit(Long qnaNo) {
+		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		repository.updateQnaHit(qnaNo);;
+	}
 }

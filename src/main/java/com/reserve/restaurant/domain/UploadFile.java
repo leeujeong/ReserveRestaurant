@@ -1,6 +1,6 @@
 package com.reserve.restaurant.domain;
 
-import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,14 +14,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Qna {
-
-	private Long qnaNo;
-	private String qnaWriter;
-	private String qnaTitle;
-	private String qnaContent;
-	private Long qnaHit;
-	private Date qnaDate;
-	private int qnaState;
+public class UploadFile {
+	
+	private String uuid;
+	private String path;
+	private String origin;
+	private String fileType;
 	private Long resNo;
 }

@@ -15,16 +15,16 @@
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	
 	<style>
-		#list_btn, #content_btn, #contentBtn{
-			width: 100px;
-		    background-color: rgb(160, 57, 38);
+		 #contentBtn, .contentBtn{
+			width: 70px;
+		    background-color: rgb(230, 225, 225);
 		    border: none;
-		    color: white;
+		    color: gray;
 		    padding: 5px;
 		    margin: 5px;
 		    border-radius: 10px;
 		}
-		#list_btn:hover, #content_btn:hover{
+		#list_btn:hover{
 			background-color:  rgba(160, 57, 38, 0.795);
 		}
 		.bottombtn{
@@ -44,10 +44,30 @@
 			margin:30px 0;
 		}
 		.commentBorder{
-			border: 1px solid gray;
+			border-bottom: 1px solid rgb(230, 225, 225);
+			border-top: 1px solid  rgb(230, 225, 225);
 			margin:10px 0;
 			padding: 10px;
 		}
+		.updateDeleteLink, .updateDeleteLink2{
+			display:flex;
+		}
+		.updatelink, .deletelink{
+			color:gray;
+			margin:0 10px;
+		}
+		.commentContent{
+			padding: 5px 0 ;
+		}
+		.updateDeleteLink2{
+			margin-left: 100px;
+		}
+		.commentTextarea{
+			padding: 5px;
+			width: 700px;
+			border: 1px solid  rgb(230, 225, 225);
+		}
+		
 	</style>
 	<script>
 		$(document).ready(function(){
@@ -68,10 +88,10 @@
 					var a='';
 					$.each(commentlist, function(i, comment){
 						a += '<div class="commentBorder">';
-						a += '<div >'+ '댓글번호 : ' + comment.commentNo + ' / 작성자 : '+ comment.writer
-		                a += '<a onclick = "commentUpdate('+ comment.commentNo +',\''+ comment.content +'\')"> 수정 </a>';
-		                a += '<a onclick = "commentDelete('+ comment.commentNo+ ')"> 삭제 </a> </div>';
-		                a += '<div class="commentContent" id="commentContent'+comment.commentNo+'"> <p> 내용 : ' + comment.content + '</p>';
+						a += '<div class="updateDeleteLink"><input class="commentNo" type="hidden" value="' + comment.commentNo + '">'+' 사장님 성함 : '+ comment.writer
+		                a += '<div class="updateDeleteLink2"><a onclick = "commentUpdate('+ comment.commentNo +',\''+ comment.content +'\')" class="updatelink"><i class="far fa-edit"></i>&nbsp; 수정 </a>';
+		                a += '<a onclick = "commentDelete('+ comment.commentNo+ ')" class="deletelink"> <i class="far fa-trash-alt"></i> &nbsp;삭제 </a> </div></div>';
+		                a += '<div class="commentContent" id="commentContent'+comment.commentNo+'"> <p> 작성 내용 : ' + comment.content + '</p>';
 		                a += '</div></div>';
 					});
 					$(".commentList").html(a);
@@ -95,8 +115,6 @@
 	 
 	//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
  	function commentUpdate(commentNo, content){
-		
- 		alert('수정한다구');
 		var a = '';
 		a += '<div class="comment">';
 	    a += '<input type="text" class="commentTextarea" name="contentInput" value="' + content + '"/>';
@@ -108,9 +126,7 @@
 	
 	//댓글 수정
 	function commentUpdateProc(commentNo){
-		alert('수정한다');
 		var updateContent = $('[name=contentInput]').val();
-		alert('수정값'+updateContent);
 		$.ajax({
 			url : '/restaurant/owner/update',
 			type: 'post',
@@ -144,7 +160,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="#">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -162,6 +178,7 @@
                     <ul>
                         <li><a href="addPage" class="menu_sub_title">등록하기</a></li>
                         <li><a href="managePage" class="menu_sub_title"> 사업장 관리</a></li>
+                    	<li><a href="bookPage" class="menu_sub_title"> 예약 관리</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
@@ -217,7 +234,7 @@
 	                            		<input type="hidden" value="${review.reviewNo}" name="reviewNo">
 	                            		<input type="hidden" value="${loginUser.name}" name="writer">
 	                            		<textarea class="commentTextarea" id="content" rows="3" cols="70" name="content" placeholder="댓글을 남겨보세요"></textarea>
-	                            		 <button id="contentBtn">댓글 등록</button>
+	                            		 <button id="contentBtn">댓글 <br> 등록</button>
 	                            	</div>
 	                          	</form>
 						</div>

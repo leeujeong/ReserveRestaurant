@@ -71,7 +71,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
@@ -193,6 +193,7 @@
 	                                	<c:forEach var="menu" items="${menu_list}">
 		                                	<div class="menu_input">
 		                                        <div class="menu_input_box default">
+		                                        	 <input type="hidden" name="menuNo" placeholder="${menu.menuNo}">
 		                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
 		                                        </div>
 		                                    </div>

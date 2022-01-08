@@ -230,10 +230,12 @@ select{
 	width:300px;
 }
 .paging{
-	width: 100%;
-	color: rgb(160, 57, 38);
-	text-align: center;
-    margin: 30px;
+    display: flex;
+    width: 100%;
+    color: rgb(160, 57, 38);
+    padding: 30px;
+    justify-content: center;
+}
 }
 .listimg{
 	width:300px;

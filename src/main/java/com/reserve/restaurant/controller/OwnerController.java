@@ -77,10 +77,15 @@ public class OwnerController {
 
 	//문의페이지
 	@GetMapping(value="questionPage")
-	public String questionPage(Model model) {
-		int state = 1;
-		model.addAttribute("list", qnaService.selectQnaList1());
+	public String questionPage(HttpServletRequest request, Model model) {
+		
+		int state = 2;
+		HttpSession session = request.getSession();
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		
+		qnaService.selectQnaList1(model);
 		return "owner/question";
 	}
 
@@ -89,10 +94,14 @@ public class OwnerController {
 	@GetMapping(value="reviewPage")
 	public String reviewPage(HttpServletRequest request, Model model) {
 	      
-	      model.addAttribute("request", request);
-	      reviewService.ownerReviewList(model);
+		HttpSession session = request.getSession();
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		model.addAttribute("ownerNo", owner.getOwnerNo());
+	    model.addAttribute("request", request);
 	      
-	      return "owner/review";
+	    reviewService.ownerReviewList(model);
+	      
+	    return "owner/review";
 	   }
 
 	   

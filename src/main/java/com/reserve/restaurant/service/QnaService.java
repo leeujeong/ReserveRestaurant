@@ -6,16 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 
-import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 
 public interface QnaService {
 
-	public List<Qna> selectQnaList1();
-	public List<Qna> selectQnaList2();
+	
+	public void selectQnaList1(Model model);
+	public void selectQnaList2(Model model);
 	public Qna selectQnaByNo(Long qnaNo);
 	public int deleteQna(Long qnaNo);
+	public void updateQnaHit(Long qnaNo);
 	
 	//댓글 관련
 	public List<Reply> qnaReplyList(Long qnaNo, Model model);

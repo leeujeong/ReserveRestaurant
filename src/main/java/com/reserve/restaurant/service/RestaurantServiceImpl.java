@@ -22,8 +22,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Restaurant;
+import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.repository.MenuRepository;
 import com.reserve.restaurant.repository.RestaurantRepository;
+import com.reserve.restaurant.repository.UploadFileRepository;
 import com.reserve.restaurant.util.PageUtils;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -71,7 +73,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 	//등록
 	@Override
-	public void addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public  Map<String, Object>  addRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Restaurant restaurant = new Restaurant();
 		restaurant.setResName(multipartRequest.getParameter("s_name"));
 		restaurant.setResTel(multipartRequest.getParameter("tel"));
@@ -94,59 +96,81 @@ public class RestaurantServiceImpl implements RestaurantService {
 		restaurant.setResContent(multipartRequest.getParameter("content"));
 		restaurant.setOwnerNo(Long.parseLong(multipartRequest.getParameter("ownerNo")));
 		
-		try {
-			
-			
-			MultipartFile file = multipartRequest.getFile("s_file");
-			
-			System.out.println("file " + file);
-			
-			
-			
-			if (file != null && !file.isEmpty()) {  
-				
-				String origin = file.getOriginalFilename();
-				String extName = origin.substring(origin.lastIndexOf("."));
+		System.out.println("DB수행전 : "+ restaurant);
 		
-				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-				String saved = uuid + extName;
-				String sep = Matcher.quoteReplacement(File.separator);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
-				String realPath = multipartRequest.getServletContext().getRealPath(path);
-			
-				File dir = new File(realPath);
-				if (dir.exists() == false) {
-					dir.mkdirs();
-				}
-				
-				File uploadFile = new File(realPath, saved);  
-				file.transferTo(uploadFile);  
-				
-				Thumbnails.of(uploadFile)
-				.size(150, 150)
-				.toFile(new File(realPath, "s_" + saved));
-				
-				restaurant.setResPath(path);
-				restaurant.setResOrigin(origin);
-				restaurant.setResSaved(saved);
-				
-			} 
-			else {
-				restaurant.setResPath("");
-				restaurant.setResOrigin("");
-				restaurant.setResSaved("");
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.addRestaurant(restaurant);
 		
-	
+		System.out.println("DB수행후 : "+ restaurant);
 		
+		// 첨부파일 저장 결과
+		int fileAttachResult = 0;
+		UploadFileRepository uploadRepository = sqlSession.getMapper(UploadFileRepository.class);
+		// 저장 경로 : resources/upload/2021/12/17
+		String sep = Matcher.quoteReplacement(File.separator);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
+		String realPath = multipartRequest.getServletContext().getRealPath(path);
+		
+		// 저장될 경로에 디렉터리 만들기 : 없으면 새로 만들어야 한다.
+		File dir = new File(realPath);
+		if (dir.exists() == false) {
+			dir.mkdirs();
+		}
+		// 썸네일 목록 list
+		List<String> thumbnails = new ArrayList<String>();
+		
+		// 서버에 파일 저장
+		List<MultipartFile> files = multipartRequest.getFiles("files");  // 다중첨부 상황
+		
+		
+		for (MultipartFile file : files) {  // 첨부 하나씩 DB에 넣기
+			
+			try {
+			
+				if (file != null && !file.isEmpty()) {  // 첨부가 있으면(둘 다 필요)
+				
+					//  첨부파일의 본래 이름 origin
+					String origin = file.getOriginalFilename();
+					
+					// 첨부파일의 확장자 [".jsp", ".jpeg", ".gif", ".png"]
+					String extension = origin.substring(origin.lastIndexOf("."));
+					
+					// 하이픈 없는 UUID
+					String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+					
+					// 첨부파일 서버에 업로드 (예외 처리 필요)
+					File attachFile = new File(realPath, uuid + extension);  // new File(경로, 파일)
+					file.transferTo(attachFile);  // 업로드 진행 코드
+					
+					// 썸네일 이미지 생성 (예외 처리 필요)
+					Thumbnails.of(attachFile)
+					.size(100, 100)
+					.toFile(new File(realPath, "s_" + uuid + extension));
+					
+					// 썸네일 목록 저장
+					thumbnails.add("s_" + uuid + extension);
+					
+					// DB에 uuid, path, origin, fileType, boardNo 전달
+					UploadFile uploadFile = new UploadFile();
+					uploadFile.setUuid(uuid);
+					uploadFile.setPath(path);
+					uploadFile.setOrigin(origin);uploadFile.setFileType("I");
+					uploadFile.setResNo(restaurant.getResNo());
+					
+					// DB에 boardAttach 저장
+					fileAttachResult = uploadRepository.fileInsert(uploadFile);
+					
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+
+	
+	
 		
 		String[] menus = multipartRequest.getParameterValues("menu");
 		String[] prices = multipartRequest.getParameterValues("price");
@@ -160,15 +184,25 @@ public class RestaurantServiceImpl implements RestaurantService {
 			menu_list.add(menu);	
 		}
 	
-		
+
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
-		menu_repository.addMenu(menu_list);
+		for(Menu menu: menu_list) {
+			menu_repository.addMenu(menu);
+		}
+			// 응답할 데이터
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);  // 게시판 성공 유무
+		map.put("fileAttachResult", fileAttachResult);  // 첨부 성공 유무
+		map.put("path", path);  // 첨부 파일 경로
+		map.put("thumbnails", thumbnails);  // 첨부된 썸네일 이름
+		map.put("restaurant", restaurant);	
+		map.put("menu_list", menu_list);
+		return map;
 		
-		
-		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "managePage");
+//		message(result, response, "식당이 추가되었습니다.","식당등록이 실패했습니다.", "managePage");
 		
 	}
-
+		
 	//수정
 	@Override
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
@@ -218,13 +252,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				if (dir.exists() == false) {
 					dir.mkdirs();
 				}
-				
-				File uploadFile = new File(realPath, saved);  
-				file.transferTo(uploadFile);  
-				
-				Thumbnails.of(uploadFile)
-				.size(150, 150)
-				.toFile(new File(realPath, "s_" + saved));
+			
 				
 				restaurant.setResPath(path);
 				restaurant.setResOrigin(origin);
@@ -244,25 +272,43 @@ public class RestaurantServiceImpl implements RestaurantService {
 		int result = repository.modifyRestaurant(restaurant);
 		
 	
+		// 기존 메뉴
 		
-		
+		// 수정되는 메뉴
 		String[] menus = multipartRequest.getParameterValues("menu");
 		String[] prices = multipartRequest.getParameterValues("price");
-		ArrayList<Menu> menu_list = new ArrayList<Menu>();
+		ArrayList<Menu> menuList = new ArrayList<Menu>();
+		
 		
 		for(int i = 0; i < menus.length; i++) {
 			Menu menu = new Menu();
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
 			menu.setResNo(restaurant.getResNo());
-			menu_list.add(menu);
+			menuList.add(menu);
 		}
 		
+		Long menuNo = Long.parseLong(multipartRequest.getParameter("menuNo"));
+		
+		System.out.print("메뉴 넘버" + menuNo );
+		
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
-		menu_repository.addMenu(menu_list);
+		menu_repository.menuDelete(menuNo);
+		/*
+		List<Menu> prevMenuList = menu_repository.selectMenu(Long.parseLong(multipartRequest.getParameter("resNo")));
 		
+		List<Menu> newMenuList = menuList.stream()
+				.filter(menu -> !prevMenuList.contains(menu))
+				.collect(Collectors.toList());
 		
-		System.out.println("메뉴:"+menu_list);
+		System.out.println("새로들어온 메뉴:"+newMenuList);
+		*/
+		for(Menu menu : menuList) {
+			menu_repository.addMenu(menu);
+		}
+		
+		System.out.println(menuList);
+		
 		message(result, response, "식당이 수정되었습니다.","식당수정이 실패했습니다.", "managePage");
 		
 		
@@ -279,22 +325,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	//삭제
 	@Override
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
-		
-		//첨부파일 삭제
-//		String path = multipartRequest.getParameter("resPath");
-//		String realPath = multipartRequest.getServletContext().getRealPath(path);
-//		String saved = multipartRequest.getParameter("saved");
-//		
-//		File file = new File(realPath, saved);
-//		if(file != null && file.exists()) {
-//			file.delete();
-//		}
-//		//썸네일 삭제
-//		File thumbnail = new File(realPath, "s_"+saved);
-//		if(thumbnail != null && thumbnail.exists()) {
-//			thumbnail.delete();
-//		}
-		
 		Long resNo = Long.parseLong(multipartRequest.getParameter("resNo"));
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.deleteRestaurant(resNo);
@@ -309,9 +339,19 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return repository.selectMenu(resNo);
 		
 	}
-
+	//메뉴 삭제
+	@Override
+	public int menuDelete(Long menuNo) {
+		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
+		return repository.menuDelete(menuNo);
+	}
 	
-
-
+	//사진 고르기
+	@Override
+	public List<UploadFile> selectFile(Long resNo) {
+		UploadFileRepository repository = sqlSession.getMapper(UploadFileRepository.class);
+		return repository.selectFile(resNo);
+	}
+	
 	
 }

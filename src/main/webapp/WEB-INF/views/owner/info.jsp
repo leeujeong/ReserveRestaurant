@@ -215,7 +215,7 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>

@@ -42,7 +42,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM NOTICE
 		 WHERE NOTICE_NO = #{noticeNo}
 	</delete>
-	
-	
-	
 </mapper>
