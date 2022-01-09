@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="QNA_HIT" property="qnaHit" />
 		<result column="QNA_DATE" property="qnaDate" />
 		<result column="QNA_LASTMODIFIED" property="qnaLastModified" />
-		<result column="STATE" property="state" />
+		<result column="QNA_STATE" property="qnaState" />
+		<result column="RES_NO" property="resNo" />
 		<collection property="reply" resultMap="ReplyMap" />
 	</resultMap>
 	
@@ -26,9 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- qna리스트 모두 가져오기 -->
 	<select id="selectQnaList" resultType="Qna">
-		SELECT B.QNA_NO, B.QNA_WRITER, B.QNA_TITLE, B.QNA_CONTENT, B.QNA_HIT, B.QNA_DATE, B.QNA_LASTMODIFIED, B.STATE
-  	      FROM (SELECT ROWNUM AS RN, A.QNA_NO, A.QNA_WRITER, A.QNA_TITLE, A.QNA_CONTENT, A.QNA_HIT, A.QNA_DATE, A.QNA_LASTMODIFIED, A.STATE
-          		  FROM (SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, STATE
+		SELECT B.QNA_NO, B.QNA_WRITER, B.QNA_TITLE, B.QNA_CONTENT, B.QNA_HIT, B.QNA_DATE, B.QNA_LASTMODIFIED, B.QNA_STATE
+  	      FROM (SELECT ROWNUM AS RN, A.QNA_NO, A.QNA_WRITER, A.QNA_TITLE, A.QNA_CONTENT, A.QNA_HIT, A.QNA_DATE, A.QNA_LASTMODIFIED, A.QNA_STATE
+          		  FROM (SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, QNA_STATE
                   	      FROM QNA) A
  		         ORDER BY A.QNA_NO DESC) B
  		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
@@ -45,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- qnaInfo 불러오기 -->
 	<select id="selectQnaInfo" parameterType="Long" resultType="Qna">
-		SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, STATE
+		SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, QNA_STATE
 		  FROM QNA Q
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
@@ -67,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- qna 등록하기 -->
 	<insert id="qnaInsert" parameterType="Qna">
-		INSERT INTO QNA VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE, 1)
+		INSERT INTO QNA VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE, 1, 0)
 	</insert>
 	
 	<!-- qna 삭제하기 -->
@@ -98,9 +99,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- qnaSearch -->
 	<select id="searchQna" parameterType="Map" resultType="Qna">
-		SELECT B.QNA_NO, B.QNA_WRITER, B.QNA_TITLE, B.QNA_CONTENT, B.QNA_HIT, B.QNA_DATE, B.QNA_LASTMODIFIED, B.STATE
-		  FROM (SELECT ROWNUM AS RN, A.QNA_NO, A.QNA_WRITER, A.QNA_TITLE, A.QNA_CONTENT, A.QNA_HIT, A.QNA_DATE, A.QNA_LASTMODIFIED, A.STATE
-		  		  FROM (SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, STATE
+		SELECT B.QNA_NO, B.QNA_WRITER, B.QNA_TITLE, B.QNA_CONTENT, B.QNA_HIT, B.QNA_DATE, B.QNA_LASTMODIFIED, B.QNA_STATE
+		  FROM (SELECT ROWNUM AS RN, A.QNA_NO, A.QNA_WRITER, A.QNA_TITLE, A.QNA_CONTENT, A.QNA_HIT, A.QNA_DATE, A.QNA_LASTMODIFIED, A.QNA_STATE
+		  		  FROM (SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, QNA_STATE
 			   			  FROM QNA
 			 			 WHERE UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%') A) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}

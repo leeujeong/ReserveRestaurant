@@ -328,15 +328,28 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));			
 	}
 
+//	@Override
+//	public void selectResDetail(Model model, Restaurant restaurant) {
+//		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+//		Long resNo = restaurant.getResNo();
+//		Restaurant rest = repository.selectResDetail(resNo); 
+//		System.out.println(resNo);
+//		System.out.println(rest);
+//		model.addAttribute("rest", rest);
+//	}
+	
 	@Override
-	public void selectResDetail(Model model, Restaurant restaurant) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		Long resNo = restaurant.getResNo();
-		Restaurant rest = repository.selectResDetail(resNo); 
-		System.out.println(resNo);
-		System.out.println(rest);
-		model.addAttribute("rest", rest);
-	}
+	   public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
+	      AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+	      Long resNo = restaurant.getResNo();
+	      Restaurant rest = repository.selectResDetail(resNo); 
+	      if (rest != null) {
+	         request.getSession().setAttribute("rest", rest);
+	      } 
+	      
+	   }
+	
+	
 
 	// 전체 사업장 리스트 출력
 	@Override

@@ -2,6 +2,7 @@ package com.reserve.restaurant.service;
 
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public interface BookService {
 	public void bookingCancel(Long bookNo, HttpServletResponse response);
 	public void FindCancelList(Model model);
 	
-	
+//	public ArrayList<Book> calenList();
 	
 
 	public void selectBookBybookNo(HttpServletRequest request, Model model);

@@ -215,13 +215,13 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-               <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+               <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>

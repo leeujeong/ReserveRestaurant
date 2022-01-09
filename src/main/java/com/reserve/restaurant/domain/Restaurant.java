@@ -25,12 +25,11 @@ public class Restaurant {
 	private String resCloseTime;
 	private String resTel;
 	private String resContent;
-	private String resOrigin;
 	private String resOption;
+	private Long ownerNo;
+	private String resOrigin;
 	private String resSaved;
 	private String resPath;
-	private Long ownerNo;
-
 	
 	
 }

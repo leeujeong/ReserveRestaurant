@@ -32,25 +32,23 @@
 		      center: 'title',
 		      right: 'dayGridMonth,listYear'
 		    },
+			navLinks: true,
+			selectable: true,
+			selectMirror: true,
 		
-		    displayEventTime: false, 
-		    googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
-		
-		
-		    events:  'en.usa#holiday@group.v.calendar.google.com', 
-		
-		    eventClick: function(arg) {
-		
-		      // opens events in a popup window
-		      window.open(arg.event.url, '_blank', 'width=700,height=600');
-		
-		      // prevents current tab from navigating
-		      arg.jsEvent.preventDefault();
-		    }
-		
+			eventClick: function(info) {
+		    alert('예약자 성함 : ' + info.event.title + '시'
+		    		);
+		  },
+		    editable: true,
+		    dayMaxEvents: true,
+		    events: function(info, successCallback, failureCallback) {
+	    		var data = ${list_json};
+				successCallback(data);
+			}
 		  });
 		
-		  calendar.render();
+			calendar.render();
 		});
 			  				
 </script>
@@ -63,7 +61,6 @@
  	    html, body {
 	      margin: 0;
 	      padding: 0;
-	      font-size: 14px;
 	    }
 	
 	    #calendar {
@@ -79,13 +76,13 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="#">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                	<li><a href="/restaurant/owner/logout" style="font-weight: 400;">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage"style="font-weight: 400;">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage"style="font-weight: 400;">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -126,35 +123,27 @@
                         <div class="row">
                           <div class="col-8 col-sm-6">
                           
-							
   							<div id='calendar'></div>
  
-                         	<c:if test="${empty list}">
+                         	<%-- <c:if test="${empty list}">
                          		<div class="empty_content">  
                          			예약이 없습니다.
                          		</div>
                          	</c:if>
                          	
                          	<c:if test="${not empty list}">
-                         		
-                         			<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
-	                         		<div class="list_table">
-		                         		<table >
-		                         			<tbody>
-			                         			<c:forEach var="book" items="${list}">
-			                         				<tr>
-			                         					<td colspan="2">${book.get("RES_NAME")}</td>
-			                         				</tr>
-										          	<tr>
-										          		<td>예약자 성함 : ${book.get("NAME")}</td>
-										          		<td>예약번호 : ${book.get("BOOK_NO")}  , 홀 / 룸 : ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</td>
-										          	</tr>
-									          	</c:forEach>
-		                         			</tbody>
-	                         			</table>
-									</div>
-                         		
-                         	</c:if>
+                        		<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
+                         		<div class="list_table">
+		                         	<c:forEach var="book" items="${list}">
+                         				<div>
+                         					<p>${book.get("RES_NAME")}</p>
+                         				
+							          		<p>예약자 성함 : ${book.get("NAME")}</p>
+							          		<p>예약번호 : ${book.get("BOOK_NO")}  , 홀 / 룸 : ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</p>
+							          	</div>
+								     </c:forEach>
+								</div>
+                         	</c:if> --%>
                       </div>
                     </div>
                   </div>

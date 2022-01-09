@@ -25,8 +25,7 @@ public class Book {
 	private int bookState;    //  6 : 예약 o   , 7:예약 X
 	private String bookHours;
 	private String bookDate;
-	
+
 	private Restaurant restaurant;
-	
 	private User user;
 }

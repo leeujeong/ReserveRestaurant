@@ -2,6 +2,7 @@
    
 package com.reserve.restaurant.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -153,22 +156,31 @@ public class BookServiceImpl implements BookService {
 		map.put("ownerNo", ownerNo);
 		
 		
-		List<Book> list = repository.bookList(map);
+		List<Map<String, String>> list = repository.bookList(map);
+		
+		JSONArray json_array = new JSONArray();
+		for(Map<String, String> result : list) {
+			JSONObject object = new JSONObject();
+			object.put("title", result.get("NAME") + " " + result.get("BOOK_HOURS"));
+			String start = (String) result.get("BOOK_DATE");
+			object.put("start", start);
+			json_array.put(object);
+		}
 		
 		model.addAttribute("list", list);
+		model.addAttribute("list_json", json_array);
 
 	}
 //
 	@Override
 	public void selectBookBybookNo(HttpServletRequest request, Model model) {
 		Long bookNo = Long.parseLong(request.getParameter("bookNo"));
-		
 		BookRepository repository = sqlSession.getMapper(BookRepository.class);
-		
 		Restaurant restaurant = repository.selectBookBybookNo(bookNo);
 		model.addAttribute("restaurant", restaurant);
 		
 	}
+
 
 	
 	

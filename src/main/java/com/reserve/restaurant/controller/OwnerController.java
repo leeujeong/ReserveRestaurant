@@ -1,6 +1,7 @@
 
 package com.reserve.restaurant.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Owner;
-import com.reserve.restaurant.domain.Restaurant;
-import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.OwnerService;
 import com.reserve.restaurant.service.QnaService;
@@ -62,13 +62,6 @@ public class OwnerController {
 		return "owner/book";
 	}
 	
-	
-//	@GetMapping(value="selectOwnerByNo")
-//	public String selectOwnerByNo(Long ownerNo, Model model ) {
-//		model.addAttribute("ownerInfo",ownerService.selectOwnerByNo(ownerNo));
-//		return "owner/updateOwner";
-//	}
-	
 	//사용자 정보 수정
 	@GetMapping(value="modifyOwner")
 	public String updateOwner(@RequestParam("ownerNo")Long ownerNo, Model model) {
@@ -84,24 +77,70 @@ public class OwnerController {
 
 	//문의페이지
 	@GetMapping(value="questionPage")
-	public String questionPage(Model model) {
-		int state = 1;
-		model.addAttribute("list", qnaService.selectQnaList1());
+	public String questionPage(HttpServletRequest request, Model model) {
+		
+		int state = 2;
+		HttpSession session = request.getSession();
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		model.addAttribute("request", request);
+		
+		qnaService.selectQnaList1(model);
 		return "owner/question";
 	}
+
 	
 	//리뷰관리 페이지
 	@GetMapping(value="reviewPage")
 	public String reviewPage(HttpServletRequest request, Model model) {
-		
+	      
 		HttpSession session = request.getSession();
-		model.addAttribute("request", request);
-		
-		reviewService.reviewList(model);
-		return "owner/review";
-	}
+		Owner owner = (Owner) session.getAttribute("loginUser");
+		model.addAttribute("ownerNo", owner.getOwnerNo());
+	    model.addAttribute("request", request);
+	      
+	    reviewService.ownerReviewList(model);
+	      
+	    return "owner/review";
+	   }
 
+	   
+	   //리뷰 작성 페이지
+	 @GetMapping(value="reviewReply")
+	 public String reviewReply(@RequestParam("reviewNo")Long reviewNo, Model model) {
+		  model.addAttribute("review", reviewService.selectReviewList(reviewNo));
+	      return "owner/reviewReply";
+	      
+	   }
+   //댓글 리스트
+  @GetMapping(value="list")
+  @ResponseBody
+   public List<Comment> CommentServiceList(@RequestParam("reviewNo")Long reviewNo, Model model){
+	   model.addAttribute("reviewNo", reviewNo);
+	   return reviewService.commentList(reviewNo, model);
+   }
+   
+   //댓글 작성
+   @GetMapping(value="insert")
+   @ResponseBody 
+   public int CommentServiceInsert(HttpServletRequest request) {
+	   return reviewService.addComment(request);
+   }
+   //삭제
+   @GetMapping(value="remove")
+   @ResponseBody
+   public int CommentServiceDelete(Long commentNo) {
+	   return reviewService.removeComment(commentNo);
+   }
+   //수정
+   @PostMapping(value="update")
+   @ResponseBody
+   public int CommnetServiceUpdate(@RequestBody Comment comment) {
+	   return reviewService.updateComment(comment);
+   }
+	   
+	   
 	//로그인페이지
 	@PostMapping(value="login")
 	public String loginOwner(HttpServletRequest request) {
@@ -167,4 +206,22 @@ public class OwnerController {
 		ownerService.deleteOwner(ownerNo, session);
 		return "redirect:/";
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
