@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Comment;
+import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
-import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.RestaurantRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
 
@@ -93,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void reviewList(Model model, Long resNo) {
+	public void reviewList(Model model) {
 		
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
 		RestaurantRepository resRepository = sqlSession.getMapper(RestaurantRepository.class);
@@ -102,8 +103,8 @@ public class ReviewServiceImpl implements ReviewService {
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
 		Long userNo = (Long) m.get("userNo");
-//		Long resNo = Long.parseLong((String) m.get("resNo"));
-		
+		Long resNo = (Long)m.get("resNo");
+
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("resNo", resNo);
 		
@@ -116,7 +117,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Restaurant restaurant = resRepository.selectList(resNo);
 
-		
+		model.addAttribute("resNo", resNo);
 		model.addAttribute("reviewlist", list);
 		model.addAttribute("restaurant", restaurant);
 //		model.addAttribute("avgReview", avgReview);
@@ -152,6 +153,69 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 
+	//사업자한테 보여주는 리스트
+	@Override
+	public void ownerReviewList(Model model) {
+		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		
+		Map<String, Object> m = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)m.get("request");
+		Long userNo = (Long)m.get("userNo");
+		Long ownerNo = (Long)m.get("ownerNo");
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("ownerNo", ownerNo);
+		
+		List<Review> reviewlist = repository.ownerReviewList(map);
+		
+		model.addAttribute("reviewlist", reviewlist);
+	}
+
+	//하나의 리뷰 조회
+	@Override
+	public Review selectReviewList(Long reviewNo) {
+		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		return repository.selectReviewList(reviewNo);
+	}
+	//댓글 리스트
+	@Override
+	public List<Comment> commentList(Long reviewNo, Model model) {
+		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		return repository.commentList(reviewNo);
+	}
+
+	//댓글추가
+	@Override
+	public int addComment(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Owner loginUser = (Owner)session.getAttribute("loginUser");
+		
+		 Comment comment = new Comment();
+		 Long reviewNo  = Long.parseLong(request.getParameter("reviewNo"));
+		 String content = request.getParameter("content");
+		 
+		 comment.setReviewNo(reviewNo);
+		 comment.setContent(content);
+		 comment.setWriter(loginUser.getName());
+		 
+	   ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+	   return repository.addComment(comment);
+	}
+	//댓글 삭제
+	@Override
+	public int removeComment(Long commentNo) {
+		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);;
+		return repository.removeComment(commentNo);
+	}
+
+	//댓글 수정
+	@Override
+	public int updateComment(Comment comment) {
+		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		return repository.updateComment(comment);
+	}
+
+
 //	@Override
 //	public int avgReviewRate(Long resNo) {
 //		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
@@ -168,22 +232,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 	
-	//리뷰 리스트 보여주기
-//	@Override
-//	public void reviewList(Model model) {
-//		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-//		
-//		Map<String, Object> m = model.asMap();
-//		HttpServletRequest request = (HttpServletRequest)m.get("request");
-//		Long userNo = (Long)m.get("userNo");
-//		
-//		Map<String, Object>map = new HashMap<String, Object>();
-//		map.put("userNo", userNo);
-//		
-//		List<Review> reviewlsit = repository.selectReviewList(map);
-//		model.addAttribute("reviewlsit", reviewlsit);
-//		
-//		
+	
 //	}
 	
 }

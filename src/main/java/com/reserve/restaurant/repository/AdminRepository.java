@@ -52,4 +52,5 @@ public interface AdminRepository {
 	public int countRes();
 	public List<Restaurant> findRes(Map<String, Object> map);
 	public int countFindRes(Map<String, Object> map);
+	public List<Restaurant> newOpen();
 }

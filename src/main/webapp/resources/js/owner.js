@@ -28,14 +28,7 @@ $('document').ready(function(){
         return;
     }
     });
-    
-    //썸네일
-    // $('#upload_result').empty();
-    // $.each(map.thumnails, function(i,thumbnail){
-    //     ('#upload_result')
-    //     .append($('<div>').html($('<img>').attr('src','/reserve/' + map.path + '/' + thumbnail))
-    // });
-    
+
     
     //가게 주소등록
     
@@ -76,14 +69,6 @@ $('document').ready(function(){
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
     });
     
-    	    //삭제
-	    $('#delete_btn').on('click',function(){
-	        if(confirm("${restaurant.resName} 을 삭제할까요?")){
-	            $('#f2').attr('action', 'deleteRestaurant');
-	            $('#f2').submit();
-	        }
-	    });
-	
 	
 	    //회원정보 수정 함수 
 		$('#update_btn').on('click', function(){
