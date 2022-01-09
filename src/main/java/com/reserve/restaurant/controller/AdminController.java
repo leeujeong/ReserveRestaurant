@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
+import com.reserve.restaurant.service.RestaurantService;
 
 @Controller
 @RequestMapping("admin/*")
@@ -21,6 +22,7 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
 	
 	@GetMapping(value="adminPage") 
 	public String adminPage() {
@@ -117,7 +119,7 @@ public class AdminController {
 	@GetMapping(value="resAdminPage")
 	public String resAdminPage() {
 		return "admin/adminRes";
-	}
+	}	
 	
 	// 식당전체 리스트 가져오기
 	@GetMapping(value="selectResList")

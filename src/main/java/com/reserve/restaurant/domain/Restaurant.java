@@ -30,6 +30,9 @@ public class Restaurant {
 	private String resSaved;
 	private String resPath;
 	private Long ownerNo;
+	private int resState;
+	
+	private Book book;
 
 	
 	

@@ -20,6 +20,7 @@ public interface BookService {
 	public void selectBookingDetail(Long resNo, Model model);
 	public void bookingCancel(Long bookNo, HttpServletResponse response);
 	public void FindCancelList(Model model);
+	public Map<String, Object> hourCheck(Book book, HttpServletRequest request);
 	
 	
 	

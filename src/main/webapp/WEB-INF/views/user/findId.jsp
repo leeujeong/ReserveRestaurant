@@ -49,7 +49,12 @@ function fnFindId(){
 			data: 'email=' + $('#email').val(),
 			dataType: 'json',
 			success: function(map) {
-				$('#search_result').text("회원님의 아이디는 " + map.result.id + "입니다!");
+				if(map.result >0){
+					$('#search_result').text("회원님의 아이디는 " + map.result.id + "입니다!");
+				} else {
+					alert('일치하는 아이디가 없습니다.');
+					return false;
+				}
 			},
 			error: function(xhr) {
 				$('#search_result').text(xhr.responseText);
@@ -74,7 +79,7 @@ function fnFindId(){
       <header class="shareit_header"> 
          <div>
             <a class="header-logo" href="/restaurant"><img src="/restaurant/resources/image/join/FindTableLogo.png" alt="shareit-logo"></a> 
-            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">FindTable 사이트 가기</a> 
+            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">&nbsp;&nbsp;FindTable 사이트 가기</a> 
          </div>
       </header>
       <div style="
@@ -99,7 +104,7 @@ function fnFindId(){
       
             <div class="welcomelogin"> 
                   <div class="title">아이디 찾기</div>
-                  <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;무엇을 도와드릴까요?&nbsp;&nbsp;🥩</p> 
+                  <p>😁&nbsp;&nbsp;환영합니다.&nbsp;무엇을 도와드릴까요?&nbsp;&nbsp;😁</p> 
             </div>
             
             

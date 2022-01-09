@@ -11,27 +11,34 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css" integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <link href="<c:url value="/resources/css/userCSS/detail.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/js/userJS/detail.js"/>" rel="stylesheet">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
 
 <script>
 	$(document).ready(function() {
-	
+		fnFindAllMenu();
 		fnSelectHour();
 		fnSelectBookingList();
-		
-	 
+		fnFindAllReview();
 	    fnhover();
 	    fnQuickMenu();
 	    fnBooking();
 	    fnHourCheck();
+	    fnCartList();
+	    fnObligation();
+		fnInit();
+		fnQna();
+	
 	  	  $('#exampleModalCenteredScrollable').modal('hide');
 	  	  $('#exampleModalCenteredScrollable').modal('show');
-		
+	  	  $('#exampleModalCenteredScrollable').modal('hide');
+	  	  
 	  	 
 	  
 		
@@ -61,12 +68,26 @@
     	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
     	    showMonthAfterYear: true,
     	    yearSuffix: '년',
-    	    showOn : 'button'
+    	    showOn : 'button',
+    	    minDate: 0
     	});
     	
+    	$("#booking_radio, #owner_radio").click(function(event){
+ 			if(this.value == "3") {
+				$('.check_img1').addClass('good').removeClass('bad');
+				$('.check_img2').addClass('bad').removeClass('good');
+				$('#qnaState').val(3);	
+			} else if (this.value == "2") {
+				$('.check_img2').addClass('good').removeClass('bad');
+				$('.check_img1').addClass('bad').removeClass('good');
+				$('#qnaState').val(2);
+			}
+		});
+		
  });// Pageload 끝
  
 	    
+	
  
 	function fnQuickMenu() {
 	    var currentPosition = parseInt($(".quickmenu").css("top"));
@@ -93,9 +114,11 @@
 	}  // hover 끝
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	//시간 선택
 	 var hour = 0;
+	
+	// 예약패스
+	var bookingpass = false;
 	 function fnSelectHour() {
 		 $('.bookHours').on('click', function(){
 				hour = $(this).data('hour');
@@ -103,11 +126,19 @@
 				$('#date_result').text(result+ '시를 선택하셨습니다.');
 			});
 	 }
-	
 	//예약 등록하기
 	function fnBooking() {
 		$('#booking_btn').click(function(){
-			alert('예약하시겠습니까?');
+			if( $('#userNo').val() == null ){
+				alert('로그인 후 이용해주세요');
+				location.href='/restaurant/user/loginPage';
+			} else if(bookingpass= false){
+				fnObligation();	
+				alert('예약 정보를 확인해주세요');
+				return false;
+			} else{
+				alert('예약 하시겠습니까?');
+			}
 			let booking = JSON.stringify({
 				bookDate : $('#datepicker').val(),
 				bookPeople : $('#bookPeople').val(),
@@ -120,7 +151,6 @@
 				resSaved : $('#resSaved').val(),
 				resPath :$('#resPath').val()
 			});
-			console.log(booking);
 			$.ajax({
 				url : '/restaurant/book/booking',
 				type : 'post',
@@ -128,15 +158,12 @@
 				contentType : 'application/json',
 				dataType : 'json',
 				success : function (map) {
-					if(map.result > 0 ){
-						alert( map.result.bookDate +','+ map.result.bookHours +'시 에 예약 되었습니다.');
+					if(map.result > 0 && bookingpass == true){
+						alert( $('#datepicker').val() +'/ 오후'+ hour+'시에 예약 되었습니다.');
 						$('#exampleModalCenteredScrollable').modal('hide');
-						//if(confirm('예약 현황을 보러 가시겠습니까?')){
-						//	location.href="/restaurant/book/selectBookingList?bookNo="+map.bookNo;
-						//}
-						 
+						fnInit();
 					} else{
-						alert('예약 실패');
+						
 					}
 				},
 				error : function (xhr) {
@@ -145,52 +172,218 @@
 			});
 		});
 	} // booking 끝
+	//사업자 문의 등록하기
+	function fnQna() {
+		$('#qna_btn').click(function(){
+			if( $('#qnaState').val() == '' ){
+				alert('문의 유형을 골라주세요');
+				return false;
+			} else if($('#qnaContent').val() == ''){
+				alert('문의 하실 내용을 입력해주세요.');	
+				return false;
+			} else if( $('#userNo').val() ==null ){
+				alert('로그인 후 이용해주세요');
+				location.href='/restaurant/user/loginPage';
+			} else{
+				if(confirm('문의 하시겠습니까?'));
+			}
+				
+			let qna = JSON.stringify({
+			   	qnaState : $('#qnaState').val(),
+			   	qnaContent : $('#qnaContent').val(),
+			   	qnaWriter : $('#qnaWriter').val(),
+			   	qnaTitle : $('#qnaTitle').val(),
+			   	resNo : $('#resNo').val()
+			});
+			$.ajax({
+				url : '/restaurant/user/qnaAsk',
+				type : 'post',
+				data : qna,
+				contentType : 'application/json',
+				dataType : 'json',
+				success : function (map) {
+					if(map.result > 0){
+						alert('문의 되었습니다. 문의 내역은 마이페이지에서 확인해주세요.');
+						 $('#myModal').modal('hide');
+					} else{
+						alert('실패');
+					}
+				},
+				error : function (xhr) {
+					alert('서버실패');
+				}
+			});
+		});
+	} // booking 끝
 	
 	function fnSelectBookingList() {
 		$('#myBooking').click(function(){
-			$('#f2').attr('action', '/restaurant/book/selectBookingList');
+			$('#f2').attr('action', '/restaurant/book/selectBookingList?userNo='+$('#userNo').val());
 			$('#f2').submit();
 		});
-		
 	}//selectbookinglist끝
 	
 	let hourPass = false;
 	function fnHourCheck() {
-	//	$('#id').keyup(function(){
-			
-    //        let regId = /^[a-zA-Z0-9-_]{4,}$/;
-	//		if ( regId.test($(this).val()) == false ) {
-	//			$('#id_result').text('아이디는 대문자,숫자,특수문자 -,_ 사용해서 4자 이상 입력해주세요.').addClass('no').removeClass('ok');
-	//			idPass = false;
-	//			return;
-	//		}
 	      $('.bookHours').on('click', function(){
-	    	  bookHours = $(this).data('hour');
-	      
+    		let bookingCheck = JSON.stringify({
+				bookDate : $('#datepicker').val(),
+			    bookHours : hour,
+			});
 			$.ajax({
-				url: '/restaurant/user/hourCheck',
+				url: '/restaurant/book/hourCheck',
 				type: 'post',
-				data: 'bookHours='+bookHours,
+				data: bookingCheck,
+				contentType : 'application/json',
 				dataType: 'json',
 				success: function(map){
-						alert(map.result);
-						console.log(map.result);
+						if(map.result != null){
+							alert('선택하신 날짜에 해당 시간은 이미 예약 되어있습니다');
+							bookingpass = false;
+							return false;
+						} 
 				},
 				error: function(xhr){
-					
+					alert('실패');
 				}
 			});
 	      });
 	}  // end fnIdCheck
 	
 	
+	function fnFindAllMenu() {
+		$.ajax({
+			url: '/restaurant/user/FindMenuList',
+			type: 'get',
+			data : 'resNo='+$('#resNo').val(),
+			dataType: 'json',
+			success: function(map){
+				fnPrintMenuList(map);
+			}
+		});
+	}  // end fnFindAllMenu
+	function fnPrintMenuList(map){
+		// 목록 초기화
+		$('#menu_list').empty();
+		// 목록 만들기
+		if (map.list == null) {
+			$('<div>')
+			.append( $('<div>').text('등록된 메뉴가 없습니다.') )
+			.appendTo( '#menu_list' );
+		} else {
+			$.each(map.list, function(i, menu){
+				$('#menu_list').empty();
+				$('<div class="menu_box">')
+				.append($('<div>').text('메뉴번호  No.'+menu.menuNo))
+				.append($('<div>').text('음식' + menu.menuName))
+				.append($('<div>').text('가격 ' + menu.menuPrice + '원'))
+				.append($('<div>').text('할인율 ' + menu.menuDiscount + '%'))
+				.appendTo('#menu_list');
+			});
+		}
+	}  // end fnPrintMemberList
+	
+	function fnFindAllReview() {
+		$.ajax({
+			url: '/restaurant/user/FindReviewList',
+			type : 'get',
+			data : 'resNo='+$('#resNo').val(),
+			dataTye: 'json',
+			success : function (map) {
+				console.log(map.list);
+				fnPrintReviewList(map);
+			}
+		});
+	}// end of fnFindAllReview
+	
+	 
+
+	function fnPrintReviewList(map){
+		// 목록 초기화
+		$('#review_list').empty();
+		// 목록 만들기
+		if (map.list == null) {
+			$('<div class="swiper-slide" role="group" aria-label="1 / 9" style="width: 150px; margin-right: 30px;">')
+			.append( $('<p>').text('등록된 리뷰가 없습니다.') )
+			.appendTo( '#review_list' );
+		} else {
+			$.each(map.list, function(i, review){
+				$('<div class="swiper-slide" role="group" aria-label="1 / 9" style="width: 150px; margin-right: 30px;" style="justify-content: center;">')
+				.append($('<a href="#"><img src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 150px; height:150px;"></a>'))
+				.append($('<p>').text(review.reviewWriter))
+				.append($('<p>').text(review.reviewContent))
+				.appendTo('#review_list');
+			});
+		}
+	}  // end fnPrintReviewList
+	
+
+	
+	function fnInit() {
+		$('#datepicker').val('');
+		$('#bookRequest').val('');
+		$('#date_result').text('');
+		$('input:radio[name="bookType"]:checked').prop('checked', false);
+	}
+	
+	function fnObligation() {
+		$('#booking_btn').on('click', function () {
+			if( $('#datepicker').val() == '' ){
+				alert('날짜 입력 정보를 확인해주세요');
+				bookingpass = false;
+				return false;
+			} else if ( $('input:radio[name="bookType"]:checked').val() == ''){
+				alert('식당 타입 입력 정보를 확인하세요.');
+				bookingpass = false;
+				return false;
+			} else if( $('#bookPeople').val() == ''){
+				alert(' 인원을 입력해주세요.');
+				bookingpass = false;
+				return false;
+			} else if($('#bookRequest').val() == '' ){
+				alert('요청사항 입력 정보를 확인하세요.');
+				bookingpass = false;
+				return false;
+			} else if($('#bookHours').val() == ''){
+				alert('예약하실 시간을 선택해주세요');
+			} else {
+				bookingpass = true;
+			}
+		});
+	}// end of fnObligation
+	
+	//예약 등록하기
+	function fnCartList() {
+		$('#cart_btn').click(function(){
+			alert('찜 목록에 추가하시겠습니까?');
+			$.ajax({
+				url : '/restaurant/user/goCartRes',
+				type : 'post',
+				data : 'resNo='+$('#resNo').val(),
+				dataType : 'json',
+				success : function(map) {
+					    $('#exampleModalCenteredScrollable').modal('hide');
+					if(map.result > 0){
+						alert('찜 목록에 추가 되었습니다.');
+						fnInit();
+					}
+				},
+				error : function (xhr) {
+					alert('찜 실패');
+					fnInit();
+				}
+			});
+		});
+	} // end of fnCartList 
+	
+	 
 	
  </script>
  
  <style>
 	 /* modal 박스 css시작*/
 	 a{
-	 	color: black;
+	 	color: black;	
 	 	text-decoration: none;
 	 	font-weight: normal
 	 }
@@ -252,11 +445,122 @@
   	border:none;
   	outline:none;
   }
+  .menu_box{
   
-      
+  	border: 1px solid #f1f1f1;
+  	margin-bottom:5px;
+  	padding: 10px;
+  	border-radius: 2px;
+  	width: 200px;
+  	font-family: nanumsquare;
+  	font-size: 16px;
+  }
    .wrapper{ width: 400px; height: 400px; border: 1px solid red; position: relative; overflow: hidden; } .wrapper img{ width: 400px; position: absolute; top: 0; transition: left 0.4s ease-out; } .wrapper img:nth-child(1){ left: 0; } .wrapper img:nth-child(2){ left: 400px; } .wrapper img:nth-child(3){ left: 800px; } .wrapper img:nth-child(4){ left: 1200px; } .wrapper img:nth-child(5){ left: 1600px; }
+
+/*캐러셀 슬라이드*/ 
+
+.window {
+/* overflow: hidden;  /*check out container's movement : command + / */ 
+  position: relative;
+  top: 20%;
+  left: 50%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+  height: 250px;
+  width: 130px;
+}
+
+.container {
+  position: absolute;
+  height: 230px;
+  width: 930px;
+  left:-400px;
+  overflow: hidden;
+}
+
+.cell {
+  font-size: 13px;
+  text-decoration: none;
+  list-style: none;
+  text-align: center;
+  width: 150px;
+  height: 150x;
+  border: 1px solid silver;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 10px 10px;
+  padding-top: 30px
+}
+.cell_1 {
+  font-size: 13px;
+  text-decoration: none;
+  list-style: none;
+  text-align: center;
+  width: 150px;
+  height: 150x;
+  border: 1px solid silver;
+  border-radius: 10px 10px 2px 2px;
+    background-color: rgb(243, 239, 239);
+  display: inline-block;
+  margin: 10px 10px;
+  padding-top: 50px;
+}
+
+.a {
+  font-size: 13px;
+  height: 40px;
+  width: 70px;
+  margin-left: 130px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #E3B854;
+}
+
+.button-container {
   
+  position: relative;
+  margin: 0;
+  left: 500px;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+}
+ /*캐러셀 슬라이드 끝*/
+ 
+ /*모달 라디오 css*/
+ .radio_box{
+  	border: 1px solid crimson;
+  	width: 150px;
+  	margin: 0 auto;
+  	padding: 10px;
+  	border-radius: 7px;
+  	
+  }
   
+  .radio_box > input{
+  	margin-left: 10px;
+  }
+  
+  .check_img1{
+  	display: none;
+  }
+  .check_img2{
+  	display: none;
+  }
+  .bad{
+  	display: none;
+  }
+  .good{
+  display: inline;
+  }
+	.no{
+		color:red;
+	}
+	.ok{
+		color:green;
+	}
+  /*모달 라디오 css 끝*/
  </style>
 </head>
 <body>
@@ -270,8 +574,6 @@
                 
             </h1>
             <ul id="gnb">
-            
-            
             			<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
             	<c:if test="${loginUser == null}">
@@ -298,11 +600,10 @@
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
             		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
             	</c:if>
-                
-                
             </ul>
         </div>
     </header>
+    
     
     <div class="accordion">
         <div class="cate quickmenu">
@@ -340,26 +641,27 @@
  
 	
     <section class="rest_section">
-        <img src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
-         
+   
+       
+        <img src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
         <div class="rest_detail">
-            <p>${restaurant.resName}</p>
-            <span>★4.5</span> &nbsp;<span>(45)</span>
-            <p>영업시간 : ${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</p>
-            <p>전화번호 : ${restaurant.resTel}</p>
+            <p>${rest.resName}</p>
+            <span>★4.5</span> &nbsp;<span>(45)</span><br><br>
+            <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
+            <p>전화번호 : ${rest.resTel}</p>
             <div class="comment_box">
 				주인장이 남기는 말<br>            
-	            <p>${restaurant.resContent}</p>
+	            <p>${rest.resContent}</p>
             </div>
             
             <!--******************************************* 예약하기********************************************** -->
            
-			<div class="modal fade show" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: block;" aria-modal="true" role="dialog">
+			<div   class="modal" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: hidden;" aria-modal="true" role="dialog">
 			  <div class="modal-dialog modal-dialog-scrollable">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h5 class="modal-title" id="exampleModalCenteredScrollable">${rest.resName} 예약하기</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			        <input type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="fnInit();">
 			      </div>
 			      <div class="modal-body">
 			      	<form id="f" method="post">
@@ -374,20 +676,19 @@
                              <br>
                        	</div>
                        	<hr>
-                       	
                        	<div class="reserve_div">
-                        	<span class="reserve_text">예약시간 </span><span id="date_result" style="color: green">&nbsp;:  </span><br>
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="12" value="오후12:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="13" value="오후13:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="14" value="오후14:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="15" value="오후15:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="16" value="오후16:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="17" value="오후17:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="18" value="오후18:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="19" value="오후19:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="20" value="오후20:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="21" value="오후21:00">
-                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="22" value="오후22:00">
+	                        	<span class="reserve_text">예약시간 </span><span id="date_result" style="color: green">&nbsp;:  </span><br>
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="12" value="오후12:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="13" value="오후13:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="14" value="오후14:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="15" value="오후15:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="16" value="오후16:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="17" value="오후17:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="18" value="오후18:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="19" value="오후19:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="20" value="오후20:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="21" value="오후21:00">
+	                        	<input class="bookHours btn btn-danger" name="bookHours"  type="button" data-hour="22" value="오후22:00">
                         </div>
                         <hr>
                         <div class="reserve_div">
@@ -420,134 +721,133 @@
 			  </div>
 			</div>
 		      <div class="bd-example">
-				  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
+				  <button id="gobooking" type="button" class="fade show btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
 				    예약하기
 				  </button>
 				  <p></p>
-				 <form id="f2" method="post">
-					  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
-					  <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}">
-				 </form>
+				  <c:if test="${not empty loginUser}">
+					 <form id="f2" method="post">
+						  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
+						  <input type="button" id="cart_btn"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="찜하기">
+						  <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}">
+					 </form>
+				  </c:if><br>
+				     <a href="/restaurant/user/findMenuList?resNo=${rest.resNo}"id="menu_btn" class="btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >${rest.resName}의 대표메뉴를 확인해보세요!</a>
+						<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+						  <div class="offcanvas-header">
+						    <h5 id="offcanvasRightLabel">${rest.resName}의 메뉴를 확인해보세요 !</h5>
+						    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						  </div>
+						  <div class="offcanvas-body" id="menu_list">
+						  		
+						  </div>
+						</div>
 				</div>
+				<!-- *****************************************************예약하기끝 ******************************************************************** -->
         </div>
-        
+            <input type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal" value="문의하기" style="position: absolute; top: 15px;">
         
     </section>
-    <section class="menu_section">
-        <div class="menu_title">메뉴</div>
-        <ul class="menu_list">
-            <li>
-                <i class="fas fa-chevron-left"></i>
-            </li>
-            <li>
-                <img src="/이미지/양식/steak.jpeg" style="width: 250px; height: 250px;">
-                <p>menuName</p>
-                <p>menuPrice</p>
-            </li>
-            <li>
-                <img src="/이미지/양식/pizza.jpeg" style="width: 250px; height: 250px;">
-                <p>menuName</p>
-                <p>menuPrice</p>
-            </li>
-            <li>
-                <img src="/이미지/양식/salad1.jpeg" style="width: 250px; height: 250px;">
-                <p>menuName</p>
-                <p>menuPrice</p>
-            </li>
-            <li>
-                <i class="fas fa-chevron-right"></i>
-            </li>
-        </ul>
-    </section>
+    
     
     <!-- ---------------------- 리뷰에서 받아오는 -------------------------->
     
-
-
-    
-    
     <section class="review_section">
-        <div class="review_title">방문자 리뷰
-            <a href="/restaurant/user/moreReview">더 보기 >> </a>
-        </div>
-        <div class="review_aver">
-            <span><%-- ${avgReview} --%></span>
-            <span class="total_review"><%-- ${totalCount} --%></span>
-            
-        </div>
-        <div >
-        	<c:if test="${empty reviewlist}">작성된 리뷰가 없습니다.</c:if>
-           
-            <c:if test="${not empty reviewlist}">
-            <div class="reviewbox">
-            	<c:forEach var="review" items="${reviewlist}">
-            	<div class="reviewmultiple">
-            		<h3>${review.get("RES_NAME")}</h3>
-            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
-	                    <div class="review_content">
-	                        <p>${review.get("REVIEW_WRITER")}</p>
-	                        <div class="reviewdaterate">
-		                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
-		                        <span>${review.get("REVIEW_RATE")}</span>
-	                        </div>
-	                        
-	                        <p>${review.get("REVIEW_CONTENT")}</p>
-	                    </div>
-            	</div>
-            	</c:forEach>
-            </div>
-            </c:if>
-        </div>
+	    <div class="review_title">한 줄 방문자 리뷰!
+	            <a href="/restaurant/user/moreReview">더 보기 >> </a>
+	        </div>
+	        <div class="review_aver">
+	            <span><%-- ${avgReview} --%></span>
+	            <span class="total_review"><%-- ${totalCount} --%></span>
+	            
+	        </div>
+	        <div >
+	        	<c:if test="${empty reviewList}">작성된 리뷰가 없습니다.</c:if>
+	        </div>
+		    <div class="window">
+		    <ul class="container">
+		     	 <c:if test="${not empty reviewList}">
+		            	<c:forEach var="review" items="${reviewList}">
+		            		<c:if test="${review.reviewPath == null}">
+				                  <li class="cell_1">
+				                  <p>이미지가</p>
+				                  <p>없는 리뷰입니다.</p>
+				                  <hr>
+		                      	  <span style="padding-bottom: 0;">${review.reviewWriter}</span>
+						          <p>${review.reviewContent}</p>
+						          <br>
+				                  </li>
+		            		</c:if>
+		            		<c:if test="${review.reviewPath !=null}">
+			                  <li class="cell">
+						     <a href="#"><img src="/restaurant/${review.reviewPath}/${review.reviewSaved}" class="d-block w-100" style="width: 160px; height:150px;" alt="이미지 없는 리뷰입니다."></a>
+	                      	  <span style="padding-bottom: 0;">${review.reviewWriter}</span>
+					          <p>${review.reviewContent}</p>
+			                  </li>
+		            		</c:if>
+		            	</c:forEach>
+		          </c:if>
+		    </ul>
+		  </div>
+		  <div class="button-container">
+		    <button class="btn btn-danger a prev">previous</button>
+		    <button class="btn btn-danger a next">next</button>
+		  </div>
     </section>
-    <section class="picture_section">
+	  <script>
+		  const container = document.querySelector(".container");
+		  const prevBtn = document.querySelector(".prev");
+		  const nextBtn = document.querySelector(".next"); 
+		
+		  (function addEvent(){
+		    prevBtn.addEventListener('click', translateContainer.bind(this, 1));
+		    nextBtn.addEventListener('click', translateContainer.bind(this, -1));
+		  })();
+		
+		  function translateContainer(direction){
+		    const selectedBtn = (direction === 1) ? 'prev' : 'next';
+		    container.style.transitionDuration = '500ms';
+		    container.style.transform = `translateX(${direction * (100 / 5)}%)`;
+		    container.ontransitionend = () => reorganizeEl(selectedBtn);
+		  }
+		
+		  function reorganizeEl(selectedBtn) {
+		    container.removeAttribute('style');
+		    (selectedBtn === 'prev') ? container.insertBefore(container.lastElementChild, container.firstElementChild): container.appendChild(container.firstElementChild);
+		  }
+	  </script>
+    
+	
+ 
+       
+    <section class="review_section">
         <!-- 해당 이미지를 누르면 해당 리뷰로 이동한다 -->
         <div class="picture_title">사진</div>
         <table class="image_table">
             <tbody class="review_image_table">
-                <tr>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/chicken.jpeg" width="200px" height="200px" class="review_image_header">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/hamburger1.jpeg" width="200px" height="200px">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/pasta2.jpeg" width="200px" height="200px">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/salad2.jpeg" width="200px" height="200px" class="review_image_footer">
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/steak3.jpeg" width="200px" height="200px" class="review_image_header">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/stew.jpeg" width="200px" height="200px">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/steak2.jpeg" width="200px" height="200px">
-                        </a>
-                    </td>
-                    <td>
-                        <a href="">
-                            <img src="/이미지/양식/pizza3.jpeg" width="200px" height="200px" class="review_image_footer">
-                        </a>
-                    </td>
-                </tr>
+	                <tr> 
+	                    <td>
+	                        <a href="">
+	                            <img src="/restaurant/${rest.resPath}/${rest.resSaved}" width="200px" height="200px" class="review_image_header">
+	                        </a>
+	                    </td>
+	                    <td>
+	                        <a href="">
+	                            <img src="/restaurant/${rest.resPath}/${rest.resSaved}" width="200px" height="200px">
+	                        </a>
+	                    </td>
+	                    <td>
+	                        <a href="">
+	                            <img src="#" width="200px" height="200px">
+	                        </a>
+	                    </td>
+	                    <td>
+	                        <a href="">
+	                            <img src="#" width="200px" height="200px" class="review_image_footer">
+	                        </a>
+	                    </td>
+	                </tr>
+                
             </tbody>
         </table>
     </section>
@@ -573,40 +873,77 @@
             <tbody>      <!-- 해당 식당 옵션 받아오기 -->
                 <tr>
                     <td>
-                        <i class="fas fa-wine-glass-alt"></i>
-                        <p>콜키지 가능</p>
+                        <i id="corkage"></i>
+                        <p id="Optiontext1"></p>
                     </td>
                     <td>
-                        <i class="fas fa-moon"></i>
-                        <p>심야 영업</p>
+                        <i id="night"></i>
+                        <p id="Optiontext2"></p>
                     </td>
                     <td>
-                        <i class="fas fa-baby"></i>
-                        <p>아기의자</p>
+                        <i id="babyseat"></i>
+                        <p id="Optiontext3"></p>
                     </td>
                     <td>
-                        <i class="fas fa-users"></i>
-                        <p>단체석</p>
+                        <i id="group"></i>
+                        <p id="Optiontext4"></p>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <i class="fas fa-parking"></i>
-                        <p>주차 가능</p>
+                        <i id="parking"></i>
+                        <p id="Optiontext5"></p>
                     </td>
                     <td>
-                        <i class="fas fa-wifi"></i>
-                        <p>무료 와이파이</p>
+                        <i id="wifi"></i>
+                        <p id="Optiontext6"></p>
+                    </td>
+                    <td>
+                        <i id="nokids"></i>
+                        <p id="Optiontext7"></p>
                     </td>
                 </tr>
             </tbody>
         </table>
     </section>
+	    <input type="hidden" id="resOption" value="${rest.resOption}">
+	    <input type="hidden" id="menu" value="${menu.menuName}">
+    
+    <script>
+    
+    var str = $('#resOption').val();
+   
+    if(str.indexOf('corkage') >=  0){
+    	$('#corkage').addClass('fas fa-wine-glass-alt');
+    	$('#Optiontext1').text('콜키지 가능');
+    }
+    if(str.indexOf('night') >= 0 ){
+    	$('#night').addClass('fas fa-moon');
+    	$('#Optiontext2').text('심야 영업');
+    }
+    if(str.indexOf('babyseat') >= 0){
+    	$('#babyseat').addClass('fas fa-baby');
+    	$('#Optiontext3').text('아기 의자');
+    }
+    if(str.indexOf('group') >= 0 ){
+    	$('#group').addClass('fas fa-users');
+    	$('#Optiontext4').text('단체석 가능');
+    }
+    if(str.indexOf('parking') >= 0 ){
+    	$('#parking').addClass('fas fa-parking');
+    	$('#Optiontext5').text('주차 가능');
+    }
+    if(str.indexOf('wifi') >= 0){
+    	$('#wifi').addClass('fas fa-wifi');
+    	$('#Optiontext6').text('무료 와이파이');
+    }
+    if(str.indexOf('nokids') >= 0){
+    	$('#nokids').html('<img style="width: 100px; height: 100px;" src="https://hrcopinion.co.kr/wp-content/uploads/2021/11/nokids.png"></img>');
+    	$('#Optiontext7').text('노 키즈 존');
+    }
+    </script>
     
     <section id="bottom">
-    
-   
-    
         <div class="wrap">
             <div class="footer">
                 <div class="footer_inner">
@@ -675,14 +1012,59 @@
 		    } 
 		});    
     </script>
-    <input type="hidden" id="resNo" name="resNo" value="${restaurant.resNo}">
-    <input type="text" id="rest" value="${rest.resAddress}">
-	<input type="text" id="resAddress" value="${restaurant.resAddress}">
-	<input type="text" id="resAddressDetail" value="${restaurant.resAddressDetail}">
-	<input type="hidden" id="resOrigin" value="${restaurant.resOrigin}">
-	<input type="hidden" id="resSaved" value="${restaurant.resSaved}">
-	<input type="hidden" id="resPath" value="${restaurant.resPath}">
-
+    
+    	<div class="modal" id="myModal" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: hidden;" aria-modal="true" role="dialog" >
+		      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <h5 class="modal-title" id="myModal">${rest.resName}에 문의하기</h5>
+		      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		    </div>
+		    <div class="modal-body">
+		      <form id="askForm" class="form-floating">
+		      	
+		      	<div class="reserve_div" style="border-radius: 5px; height: 30px;"> 
+                	<label for="booking_radio" style="margin-left: 140px;">예약문의</label><span style= "margin: 0"class="check_img1">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="booking_radio" value="3" checked >&nbsp;
+		       		<label for="owner_radio" style="margin-left: 20px;">식당문의</label><span class="check_img2">✔</span>
+		       		<input style="display: none" type="radio" name="radio" id="owner_radio" value="2">
+                </div>
+                <hr>
+		        <span class="reserve_text">작성자</span><br>	 
+		        <input type="text" class="form-control" id="qnaWriter" name="qnaWriter" value="${loginUser.name}"  style="width: 200px; height: 50px;">
+		        <hr>
+		        <span class="reserve_text">제목</span><br>	 
+		        <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" style="width: 300px;">
+		        <hr>
+                <div class="reserve_div">
+                	<span class="reserve_text">문의사항 </span><br>	 
+                	<textarea rows="5" cols="50" name="qnaContent" id="qnaContent"></textarea>
+                </div>
+		      <input type="hidden" name="qnaState" id="qnaState">
+		      <input type="hidden" id="resNo" name="resNo" value="${rest.resNo}">
+		      
+		      </form>
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		      <input type="button" class="btn btn-danger" value="문의완료" id="qna_btn">
+		    </div>
+		  </div>
+		</div>
+		</div>
+    
+    
+  
+   
+    
+	    <input type="hidden" id="resNo" name="resNo" value="${rest.resNo}">
+	    <input type="hidden" id="rest" value="${rest.resAddress}">
+		<input type="hidden" id="resAddress" value="${rest.resAddress}">
+		<input type="hidden" id="resAddressDetail" value="${rest.resAddressDetail}">
+		<input type="hidden" id="resOrigin" value="${rest.resOrigin}">
+		<input type="hidden" id="resSaved" value="${rest.resSaved}">
+		<input type="hidden" id="resPath" value="${rest.resPath}">
+    
 		
 	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

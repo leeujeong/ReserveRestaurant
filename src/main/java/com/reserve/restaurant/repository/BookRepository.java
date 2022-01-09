@@ -17,7 +17,7 @@ public interface BookRepository {
 	public int selectTotalResCount();
 	public Integer selectCancelCount();
 	public List<Book> selectCancelList(Map<String, Object> map);
-	
+	public Map<String, Object> hourCheck(Book book);
 	
 	public Restaurant selectBookBybookNo(Long bookNo);
 	

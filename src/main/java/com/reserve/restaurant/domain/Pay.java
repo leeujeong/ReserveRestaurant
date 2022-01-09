@@ -1,6 +1,7 @@
 package com.reserve.restaurant.domain;
 
-import java.sql.Date;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,15 +15,17 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Qna {
+public class Pay {
 
-	private Long qnaNo;
-	private String qnaTitle;
-	private String qnaWriter;
-	private String qnaContent;
-	private Long qnaHit;
-	private Date qnaDate;
-	private String qnaComment;
-	private int qnaState;
+	private Long payNo;
+	private Long userNo;
 	private Long resNo;
+	private String payDate;
+	private String payName;
+	private String payMethod;
+	private int	amount;
+	private String id;
+	private Long  bookNo;
+	
+	private Restaurant restaurant;
 }

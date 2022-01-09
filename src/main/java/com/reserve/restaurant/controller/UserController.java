@@ -2,7 +2,9 @@ package com.reserve.restaurant.controller;
 
 
 import java.util.Map;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,17 +13,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Pay;
+import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
+import com.reserve.restaurant.service.RestaurantService;
 import com.reserve.restaurant.service.ReviewService;
 import com.reserve.restaurant.service.UserService;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("user/*")
@@ -35,6 +44,8 @@ public class UserController {
 	@Autowired
 	private BookService bookService;
 	
+	@Autowired
+	private RestaurantService restaurantService;
 	//검색페이지
 	@GetMapping(value = "search")
 	public String search() {
@@ -200,23 +211,117 @@ public class UserController {
 	      model.addAttribute("userNo", user.getUserNo());
 	      model.addAttribute("resNo", resNo);
 	      
-	      reviewService.reviewList(model ,resNo);
+	      reviewService.reviewList(model);
 	      return "user/detail";   
 	   }
-
-	//시간중복체크
-		@PostMapping(value="hourCheck", produces="application/json; charset=UTF-8")
-		@ResponseBody
-		public Map<String, Object> hourCheck(@RequestParam("bookHours") String bookHours) {
-			System.out.println(bookHours + "컨트롤러");	
-			return userService.hourCheck(bookHours);
-		}
-	
 		
-	//리뷰작성
+	   //리뷰작성
 		@PostMapping(value="insertReview")
 		public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 			reviewService.insertReview(multipartRequest, response);
-			
 		}	
+	
+	
+		
+		// 메뉴 목록 ajax
+		@GetMapping(value="FindMenuList", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> findAllMember(@RequestBody @RequestParam(value = "resNo") Long resNo) {
+			return userService.findMenuList(resNo);
+		}
+		// 리뷰 목록 ajax
+			@GetMapping(value="FindReviewList", produces="application/json; charset=UTF-8")
+			@ResponseBody
+			public Map<String, Object> fnFindAllReview(@RequestBody @RequestParam(value = "resNo") Long resNo) {
+				return userService.findReviewList(resNo);
+			}
+		// 카트 목록 ajax
+		@GetMapping(value="findCartList/page/{page}", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> findCartList(@PathVariable(value = "page", required = false) Optional<Integer> opt ) {
+			Integer page = opt.orElse(1);
+			return userService.findCartList(page);
+		}
+		// 결제 목록 ajax
+		@GetMapping(value="findPayList/page/{page}", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> findPayList(@PathVariable(value = "page", required = false)@RequestParam(value = "userNo") Long userNo,Optional<Integer> opt ) {
+			Integer page = opt.orElse(1);
+			return userService.findPayList(page, userNo);
+		}
+		
+		
+		// 찜하기 
+		@PostMapping(value="goCartRes", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> goCartRes(@RequestParam(value = "resNo") Long resNo) {
+			return userService.goCartRes(resNo);
+		}
+		//카트페이지이동
+		@GetMapping(value = "goCartPage")
+		public String goCartPage() {
+			return "user/cart";
+		}
+		
+		@PostMapping(value = "qnaAsk" , produces ="application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> qnaAsk (@RequestBody Qna qna, HttpServletRequest request){
+		  return userService.qnaAsk(qna, request);
+		}
+		
+		
+		
+		@GetMapping(value = "findQnaList")
+		public String qnalist(@RequestParam(value = "qnaWriter") String qnaWriter, Model model) {
+			userService.findQnaList(qnaWriter, model);
+			return "user/qnaList";
+		}
+		
+		
+		
+		@GetMapping(value = "findQnaList1")
+		public String findQnaList1(@RequestParam(value = "qnaWriter") String qnaWriter, Model model) {
+			userService.findQnaList(qnaWriter, model);
+			return "user/qnaList1";
+		}
+		@GetMapping(value = "findQnaByNo")
+		public String findQnaByNo(@RequestParam(value = "qnaNo") Long qnaNo, Model model, HttpServletRequest request) {
+			userService.findQnaByNo(qnaNo, model, request);
+			return "user/qnadetail";
+		}
+		
+		@PostMapping(value = "removeQna")
+		public void  removeQna(@RequestParam(value = "qnaNo") Long qnaNo, HttpServletResponse response) {
+			userService.removeQna(qnaNo, response);
+		}
+		
+		@GetMapping(value = "qnaUpdatePage")
+		public String qnaUpdatePage(@RequestParam(value = "qnaNo") Long qnaNo, Model model, HttpServletRequest request) {
+			userService.findQnaByNo(qnaNo, model, request);
+			return "user/qnaUpdate";
+		}
+		@PostMapping(value = "qnaUpdate")
+		public void qnaUpdate(Qna qna , HttpServletResponse response) {
+			userService.qnaUpdate(qna, response);
+		}
+		
+		@PostMapping(value="removeCart", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> removeCart(@RequestParam(value = "resNo") Long resNo) {
+			return userService.removeCart(resNo);
+		}
+		
+		 
+		@PostMapping(value = "gogopay" , produces ="application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> booking (@RequestBody Pay pay, HttpServletRequest request){
+		  return  userService.gogopay(pay, request);
+		}
+		
+		@GetMapping(value = "PayListPage")
+		public String PayListPage() {
+			return "user/payList";
+		}
+		
+				
 }

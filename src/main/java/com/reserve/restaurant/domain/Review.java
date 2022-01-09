@@ -31,4 +31,6 @@ public class Review {
 	private int dept;
 	private Long groupNo;
 	private Long groupOrd;
+	
+	private Restaurant restaurant;
 }

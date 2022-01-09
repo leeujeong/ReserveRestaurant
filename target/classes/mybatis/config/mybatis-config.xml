@@ -21,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.reserve.restaurant.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.reserve.restaurant.domain.Review" alias="Review"/>
 		<typeAlias type="com.reserve.restaurant.domain.Reply" alias="Reply"/>
+		<typeAlias type="com.reserve.restaurant.domain.Pay" alias="Pay"/>
 
 
 	</typeAliases>

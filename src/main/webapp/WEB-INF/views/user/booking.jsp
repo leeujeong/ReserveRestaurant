@@ -20,15 +20,69 @@
 
 $(document).ready(function () {
 	
-	$('#review_btn').click(function(){
-		if(confirm('리뷰 작성하시겠습니까?')){
-			const book_no = this.getAttribute("data-bookNo");
-			location.href="/restaurant/user/reviewPage?bookNo=" + book_no;
-		}
-	  
-	});
 	
-});
+	fnPaygogo();
+
+	
+	
+	
+	
+	
+  });// 페이지로드 끝
+  
+  function fnPaygogo() {
+		
+		$('#pay_btn').on('click',function () {
+			var IMP = window.IMP;
+	        IMP.init('imp27170655');
+
+	        IMP.request_pay({
+	            pg: 'kakao',
+	            merchant_uid: 'merchant_' + new Date().getTime(),
+	            name: '예약금',
+	            amount: 1,
+	        }, function (rsp) {
+	            console.log(rsp);
+	            if (rsp.success) {
+	                var msg = '결제가 완료되었습니다.';
+	                msg += '**결제 금액: ' + rsp.paid_amount+'원**';
+	                let pay = JSON.stringify({
+	    				userNo : $('#userNo').val(),
+	    				resNo : $('#resNo').val(),
+	    				amount : 1,
+	    				payName : '예약금',
+	    				id : $('#id').val(),
+	    				payMethod : 'card',
+	    				bookNo :  $('#bookNo').val()
+	    			});
+	                $.ajax({
+	                    url: '/restaurant/user/gogopay', 
+	                    type: 'post', 
+	                    data:  pay,
+	                    contentType : 'application/json',
+	                    dataType : 'json',
+	                	success : function (map) {
+	    					if(map.result > 0){
+	    						alert('성공.');
+	    					} else{
+	    						
+	    						alert('실패');
+	    					}
+	    				},
+	    				error : function (xhr) {
+	    					alert('서버실패');
+	    				}
+	                });
+	            } else {
+	                var msg = '결제에 실패하였습니다.';
+	                msg += '에러내용 : ' + rsp.error_msg;
+	            }
+	            alert(msg);
+	           // document.location.href="/user/mypage/home"; //alert창 확인 후 이동할 url 설정
+	        });
+	    });
+}//fn paygogo end
+		
 
 </script>
   <style>
@@ -65,6 +119,7 @@ $(document).ready(function () {
                 </a>
             </h1>
             <ul id="gnb">
+            
             	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
                 	<c:if test="${loginUser == null}">
@@ -76,7 +131,7 @@ $(document).ready(function () {
             	<c:if test="${loginUser.state == 1}">
             			<li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
             	<!-- 관리자 state 2 -->
@@ -104,22 +159,23 @@ $(document).ready(function () {
                 <div class="menu_nav">
                     <h2 class="menu_title">예약 내역</h2>
                     <ul>
-                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
-                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
+                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
+                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>
+                        <li><a href="/restaurant/user/PayListPage" class="menu_sub_title">결제내역</a></li>
+                        
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="#">문의 내역</a></li>
-                        <li><a href="#">My 관심상품</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">문의 내역</a></li>
+                        <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">내 정보</h2>
                     <ul>
                         <li><a href="/restaurant/user/updateUser">내 정보 수정</a></li>
-                        <li><a href="#"> 본인 인증 / 재인증</a></li>
                     </ul>
                 </div>
             </div>
@@ -154,8 +210,8 @@ $(document).ready(function () {
 					<tbody>
 						 <c:if test="${not empty bookingInfo}">
 							<c:forEach var="booking" items="${bookingInfo}">
-								<tr>
 									<c:if test="${booking.bookState == 6}">
+									<tr>	
 										<th scope="row">${booking.bookNo}</th>
 										<td>
 											  <a href="/restaurant/book/selectBookingDetail?resNo=${booking.resNo}" class="btn btn-light">${booking.restaurant.resName}</a>
@@ -163,13 +219,13 @@ $(document).ready(function () {
 										<td>${booking.bookPeople}</td>
 										<td>${booking.bookDate}</td>
 										<td>
+										<input type="button" value='예약금결제' id="pay_btn" onclick="fnPaygogo()" >
 										<input type="button" value='취소' id="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
-										<input type="hidden" value="${booking.bookHours}" name="bookHours">
-										<input type="button" value="리뷰 작성" id="review_btn" data-bookNo="${booking.bookNo}">
-										<input type="button" value='결제' id="pay_btn" onclick="location.href='/restaurant/book/결제'">
 										</td>
+									</tr>
 									</c:if>
-								</tr>
+									 <input type="hidden" id="resNo" value="${booking.resNo}">
+									 <input type="hidden" id="bookNo" value="${booking.bookNo}">
 							</c:forEach>
 						</c:if> 
 					</tbody>
@@ -205,6 +261,16 @@ $(document).ready(function () {
 	            </div>
 	        </div>
 	    </section>
+	    
+	    
+	    
+	    
+	    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	 
+	    <input type="hidden" id="id" value="${loginUser.id}">
+	    <input type="hidden" id="tel" value="${loginUser.tel}">
+	    <input type="hidden" id="email" value="${loginUser.email}">
+	    <input type="hidden" id="userNo" value="${loginUser.userNo}">
 	    
 	    	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

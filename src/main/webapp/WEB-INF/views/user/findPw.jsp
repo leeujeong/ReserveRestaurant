@@ -137,7 +137,7 @@ function fnFindPw(){
       <header class="shareit_header"> 
          <div>
             <a class="header-logo" href="/restaurant"><img src="/restaurant/resources/image/join/FindTableLogo.png" alt="shareit-logo"></a> 
-            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">FindTable 사이트 가기</a> 
+            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">&nbsp;&nbsp;FindTable 사이트 가기</a> 
          </div>
       </header>
       <div style="
@@ -162,7 +162,7 @@ function fnFindPw(){
       
             <div class="welcomelogin"> 
                   <div class="title">비밀번호 찾기</div>
-                  <p>🍖&nbsp;&nbsp;환영합니다.&nbsp;무엇을 도와드릴까요?&nbsp;&nbsp;🥩</p> 
+                  <p>☺️&nbsp;&nbsp;환영합니다.&nbsp;무엇을 도와드릴까요?&nbsp;&nbsp;☺️</p> 
             </div>
             
          <form id="f" method="post">

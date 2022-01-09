@@ -9,14 +9,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface ReviewService {
 
-	public void reviewList(Model model, Long resNo);
 	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
-	public void moreReview(Model mode);
+	public void moreReview(Model model);
 	//	public int avgReviewRate(Long resNo);
 //	public int totalReview(Long resNo);
 	
 	
-	
+	public void reviewList(Model model);
+	//사업자 리뷰 리스트
+	public void ownerReviewList(Model model);
 	
 	//message method
 		public default void message(int result, HttpServletResponse response, 

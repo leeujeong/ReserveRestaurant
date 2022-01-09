@@ -30,7 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="RES_SAVED" property="resSaved" />
 		<result column="RES_PATH" property="resPath" />
 		<result column="OWNER_NO" property="ownerNo" />
+		<collection property="menu" resultMap="MenuMap" />
 	</resultMap>
+	
 
 	<resultMap type="Book" id="BookMap">
 		<result column="BOOK_NO" property="bookNo"/>
@@ -59,6 +61,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="POINT" property="point" />
 		<result column="EMAIL" property="email" />
 	</resultMap>
+	
+	<resultMap type="Menu" id="MenuMap">
+		<result column="MENU_NO" property="menuNo" />
+		<result column="MENU_NAME" property="menuName" />
+		<result column="MENU_PRICE" property="menuPrice" />
+		<result column="MENU_DISCOUNT_RATE" property="menuDiscountRate" />
+		<result column="MENU_EXPIRY_DATE" property="menuExpiryDate" />
+		<result column="RES_NO" property="resNo" />
+	</resultMap>
+	
+	
+	<resultMap type="Review" id="ReviewMap">
+		<result column="REVIEW_NO" property="reviewNo"/>
+		<result column="REVIEW_WRITER" property="reviewWriter"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="REVIEW_ORIGIN" property="reviewOrigin"/>
+		<result column="REVIEW_SAVED" property="reviewSaved"/>
+		<result column="REVIEW_PATH" property="reviewPath"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_RATE" property="reviewRate"/>
+		<result column="USER_NO" property="userNo"/>
+		<result column="RES_NO" property="resNo"/>
+		<result column="STATE" property="state"/>
+		<result column="DEPT" property="dept"/>
+		<result column="GROUP_NO" property="groupNo"/>
+		<result column="GROUP_ORD" property="groupOrd" />
+		<collection property="restaurant" resultMap="RestaurantMap" />
+	</resultMap>
+	
+	
+	
+	
+	
 	
 	<!-- 검색 식당 리스트 가져오기 -->
 	<select id="findRes" parameterType="Map" resultType="Restaurant">
@@ -257,6 +292,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM RESTAURANT
 		 WHERE RES_NO = #{resNo}
 	</select>
+	
+	<!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
+   <select id="selectReviewList" parameterType="Long" resultType="Review">
+      SELECT    review_writer, review_content, review_origin, review_saved, review_path, review_date, review_rate
+        FROM 	review
+         WHERE res_no = #{resNo}
+          
+   </select>
+	
 	
 	<select id="countUserLog" parameterType="String" resultType="int">
 		SELECT COUNT(*)

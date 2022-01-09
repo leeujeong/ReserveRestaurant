@@ -150,4 +150,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BOOK A, RESTAURANT B
 		WHERE A.RES_NO = B.RES_NO AND BOOK_NO = #{bookNo}
 	</select>
+	
+	<select id="hourCheck" parameterType="String" resultType="Map">
+		SELECT BOOK_NO, BOOK_TYPE, BOOK_PEOPLE, BOOK_REQUEST,USER_NO , BOOK_HOURS,BOOK_DATE, RES_NO, BOOK_STATE, BOOK_HOURS
+		  FROM BOOK
+		 WHERE BOOK_HOURS = #{bookHours}
+		   AND BOOK_DATE = #{bookDate}
+	</select>
 </mapper>

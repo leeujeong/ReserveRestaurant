@@ -66,7 +66,7 @@
             	<c:if test="${loginUser.state == 1}">
             			<li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
             	<!-- 관리자 state 2 -->
@@ -93,22 +93,22 @@
                 <div class="menu_nav">
                     <h2 class="menu_title">예약 내역</h2>
                     <ul>
-                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
-                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
+                         <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
+                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>
+                        <li><a href="/restaurant/user/PayListPage" class="menu_sub_title">결제내역</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="#">문의 내역</a></li>
-                        <li><a href="#">My 관심상품</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">문의 내역</a></li>
+                        <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">내 정보</h2>
                     <ul>
                         <li><a href="/restaurant/user/updateUser">내 정보 수정</a></li>
-                        <li><a href="#"> 본인 인증 / 재인증</a></li>
                     </ul>
                 </div>
             </div>

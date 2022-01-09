@@ -17,7 +17,9 @@ import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Restaurant;
+import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.BookRepository;
+import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 
@@ -60,7 +62,6 @@ public class BookServiceImpl implements BookService {
 		
 		List<Book> list = repository.selectBookingListByuserNo(map);
 		
-		System.out.println(list + "serveceImpl");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
@@ -94,8 +95,8 @@ public class BookServiceImpl implements BookService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		map.put("resNo", resNo);
 		
-		List<Book> list = repository.selectBookingByresNo(map);
 		
+		List<Book> list = repository.selectBookingByresNo(map);
 		model.addAttribute("detail", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging" , pageUtils.getPageEntity("selectBookingDetail?resNo="+resNo)); 
@@ -134,7 +135,7 @@ public class BookServiceImpl implements BookService {
 		
 		model.addAttribute("cancelList", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging" , pageUtils.getPageEntity("FindCancelList")); 
+		model.addAttribute("paging" , pageUtils.getPageEntity("findCancelList")); 
 		
 		
 	}
@@ -168,6 +169,16 @@ public class BookServiceImpl implements BookService {
 		Restaurant restaurant = repository.selectBookBybookNo(bookNo);
 		model.addAttribute("restaurant", restaurant);
 		
+	}
+	
+	
+	@Override
+	public Map<String, Object> hourCheck(Book book , HttpServletRequest request) {
+		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", repository.hourCheck(book));
+		return map;
 	}
 
 	

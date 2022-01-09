@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
+import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
 
 @Repository
@@ -52,4 +53,6 @@ public interface AdminRepository {
 	public int countRes();
 	public List<Restaurant> findRes(Map<String, Object> map);
 	public int countFindRes(Map<String, Object> map);
+	
+	public List<Review> selectReviewList(Long resNo);
 }

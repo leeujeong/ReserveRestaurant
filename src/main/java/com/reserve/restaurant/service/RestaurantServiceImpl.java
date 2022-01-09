@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,10 +127,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 				Thumbnails.of(uploadFile)
 				.size(150, 150)
 				.toFile(new File(realPath, "s_" + saved));
-				
-				restaurant.setResPath(path);
-				restaurant.setResOrigin(origin);
-				restaurant.setResSaved(saved);
+					restaurant.setResPath(path);
+					restaurant.setResOrigin(origin);
+					restaurant.setResSaved(saved);
 				
 			} 
 			else {
@@ -262,6 +262,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		menu_repository.addMenu(menu_list);
 		
 		
+		
 		System.out.println("메뉴:"+menu_list);
 		message(result, response, "식당이 수정되었습니다.","식당수정이 실패했습니다.", "managePage");
 		
@@ -304,9 +305,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 	
 	//메뉴고르기
 	@Override
-	public List<Menu> selectMenu(Long resNo) {
+	public List<Menu> selectMenu(Long resNo, HttpServletRequest request) {
 		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		return repository.selectMenu(resNo);
+		List<Menu> menu = repository.selectMenu(resNo);
+		if(menu !=null) {
+			request.getSession().setAttribute("menu", menu);
+			System.out.println(menu + "레스토랑서비스 임플");
+		}
+		return menu;
 		
 	}
 
