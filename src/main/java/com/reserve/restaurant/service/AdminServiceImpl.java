@@ -326,8 +326,6 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("resList", resList);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));			
-
-		
 	}
 
 	@Override
@@ -390,4 +388,20 @@ public class AdminServiceImpl implements AdminService {
 		map.put("pageUtils", pageUtils);
 		return map;
 	}
+	
+	// 새로 등록된 식당
+	@Override
+	public void newOpen(Model model) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = repository.newOpen();
+		System.out.println(list.toString());
+		model.addAttribute("list", list);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

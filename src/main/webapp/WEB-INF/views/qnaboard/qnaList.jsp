@@ -22,33 +22,35 @@
 	
 	});
 	
-	function fnQuickMenu() {
-	    var currentPosition = parseInt($(".quickmenu").css("top"));
-	    $(window).scroll(function() {
-	        var position = $(window).scrollTop();
-	        $(".quickmenu").stop().animate({
-	            "top": position + currentPosition + "px"
-	        }, 1000);
-	    });
-	
-	}
-	
-	function fnhover() {
-	    (function($) {
-	        $('.cate ul').hide();
-	        $('.cate .menu .subopen').click(function() {
-	            if ($(this).hasClass('active')) {
-	                $(this).parent().next().slideUp('slow');
-	                $(this).removeClass('active');
-	            } else {
-	                $('.accordion').find('.active').parent().next().slideUp('slow');
-	                $('.accordion').find('.active').removeClass('active');
-	                $(this).parent().next().slideDown('slow');
-	                $(this).addClass('active');
-	            }
-	        });
-	    })(jQuery);
-	}
+
+
+    function fnQuickMenu() {
+        var currentPosition = parseInt($(".quickmenu").css("top"));
+        $(window).scroll(function() {
+            var position = $(window).scrollTop();
+            $(".quickmenu").stop().animate({
+                "top": position + currentPosition + "px"
+            }, 1000);
+        });
+
+    }
+
+    function fnhover() {
+        (function($) {
+            $('.cate ul').hide();
+            $('.cate .menu .subopen').click(function() {
+                if ($(this).hasClass('active')) {
+                    $(this).parent().next().slideUp('slow');
+                    $(this).removeClass('active');
+                } else {
+                    $('.accordion').find('.active').parent().next().slideUp('slow');
+                    $('.accordion').find('.active').removeClass('active');
+                    $(this).parent().next().slideDown('slow');
+                    $(this).addClass('active');
+                }
+            });
+        })(jQuery);
+    }
 	
 	function fnInsertPage() {
 		$('#insert_btn').click(function() {
@@ -164,7 +166,7 @@
     </div>
     <div class="search_box">
         <form action="/restaurant/qnaboard/searchQna" id="search_form">
-        	<select id="column" name="column">
+        	<select id="column" name="column" class="column">
         		<option value="" selected>::: 선택 :::</option>
         		<option value="QNA_WRITER">작성자</option>
         		<option value="QNA_TITLE">제목</option>
@@ -190,7 +192,7 @@
             <tbody>
             	<c:if test="${empty list}">
             		<tr rowspan="5">
-            			<td colspan="5">등록된 Q&A가 없습니다</td>
+            			<td colspan="5" class="emptyQna">등록된 Q&A가 없습니다</td>
             		</tr>
             	</c:if>
             	<c:if test="${not empty list}">
@@ -248,9 +250,11 @@
             </tfoot>
         </table>
     </div>
-    <div class="btn_box">
-        <input type="button" class="insert_btn" value="작성하기" id="insert_btn">
-    </div>
+    <c:if test="${not empty loginUser}">
+	    <div class="btn_box">
+	        <input type="button" class="insert_btn" value="작성하기" id="insert_btn">
+	    </div>
+    </c:if>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

@@ -79,8 +79,6 @@ public class QnaBoardController {
 	
 	@GetMapping(value="searchQna")
 	public String searchQna(HttpServletRequest request, Model model) {
-		System.out.println("controller에서 column : " + request.getParameter("column"));
-		System.out.println("controller에서 query : " + request.getParameter("query"));
 		qnaBoardService.searchQna(request, model);
 		return "qnaboard/qnaList";
 	}

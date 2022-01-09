@@ -227,26 +227,32 @@
 	        </div>
 	        <div class="reply_show">
 	            <p class="reply_writer">관리자님의 답글</p>
-	            <input type="button" id="delete_reply_btn" class="delete_reply_btn" value="답글 삭제하기">
+	            <c:if test="${loginUser.id == 'admin'}">
+		            <input type="button" id="delete_reply_btn" class="delete_reply_btn" value="답글 삭제하기">
+	            </c:if>
 	            <textarea class="reply_text" id="reply_content" readonly>${reply.replyContent}</textarea>
         	</div>
 	        <div class="update_btn_box">
-	            <input type="button" value="수정" class="update_btn" id="update_btn">
-	            <input type="button" value="삭제" class="delete_btn" id="delete_btn">
+		        <c:if test="${loginUser.id == qna.qnaWriter}">
+		            <input type="button" value="수정" class="update_btn" id="update_btn">
+		            <input type="button" value="삭제" class="delete_btn" id="delete_btn">
+		        </c:if>
 	            <input type="button" value="목록" class="list_btn" id="list_btn">
 	        </div>
         </form>
-        <div>
-            <p class="reply_writer">Q&A 답글 남기기</p>
-        </div>
-        <form method="post" id="reply_form">
-        	<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
-        	<input type="hidden" value="${loginUser.id}" name="replyWriter">
-            <textarea placeholder="내용을 작성해주세요" class="reply_text" id="replyContent" name="replyContent"></textarea>
-            <div class="reply_btn_box">
-            	<input type="button" class="reply_btn" id="reply_btn" value="등록">
-            </div>
-        </form>
+        <c:if test="${loginUser.id == 'admin'}">
+	        <div>
+	            <p class="reply_writer">Q&A 답글 남기기</p>
+	        </div>
+	        <form method="post" id="reply_form">
+	        	<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+	        	<input type="hidden" value="${loginUser.id}" name="replyWriter">
+	            <textarea placeholder="내용을 작성해주세요" class="reply_text" id="replyContent" name="replyContent"></textarea>
+	            <div class="reply_btn_box">
+	            	<input type="button" class="reply_btn" id="reply_btn" value="등록">
+	            </div>
+	        </form>
+        </c:if>
     </section>
     <section id="bottom">
         <div class="wrap">

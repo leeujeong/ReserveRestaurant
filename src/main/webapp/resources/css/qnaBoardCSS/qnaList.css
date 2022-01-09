@@ -220,7 +220,7 @@
         }
         
         .search_box {
-            width: 800px;
+            width: 1000px;
             margin: 0 auto 50px;
             text-align: left;
         }
@@ -328,4 +328,18 @@
             display: block;
             text-align: center;
             margin: 0 auto;
+        }
+        .column {
+            width: 100px;
+            text-align: center;
+            height: 27px;
+            border: 1px solid lightgray;
+        }
+        
+        .column:focus {
+            outline: none;
+        }
+        .emptyQna {
+        	text-align: center;
+        	height: 150px;
         }

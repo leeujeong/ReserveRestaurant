@@ -84,7 +84,7 @@
             <ul>
                 <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
                 <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
-                <li><a href="#"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
         

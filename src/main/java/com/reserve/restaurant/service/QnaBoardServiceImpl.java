@@ -217,13 +217,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		m.put("column", column);
 		m.put("query", query);
 		
-		System.out.println("serviceImpl : " + column);
-		System.out.println("serviceImpl : " + query);
-		System.out.println("serviceImpl : " + page);
-		
 		int totalRecord = repository.countSearchQna(m);
-		System.out.println("총 검색 갯수 : " + totalRecord);
-		
+
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		
@@ -234,8 +229,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		map.put("query", query);
 		
 		List<Qna> list = repository.searchQna(map);
-		System.out.println("검색된 list : " + list.toString());
 		model.addAttribute("list", list);
+		if (totalRecord == 0) {
+			model.addAttribute("paging", null);
+		} else {
+			model.addAttribute("paging", pageUtils.getPageEntity("qnaList"));	
+		}
 		
 	}
 	
