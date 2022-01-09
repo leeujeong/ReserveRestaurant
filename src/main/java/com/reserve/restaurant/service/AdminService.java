@@ -22,6 +22,7 @@ public interface AdminService {
 	public Map<String, Object> ownerResList(Long ownerNo, Integer page);
 	public Map<String, Object> resList(Integer page, Model model);
 	public Map<String, Object> findRes(Integer page, HttpServletRequest request);
+	public void newOpen(Model model);
 
 
 

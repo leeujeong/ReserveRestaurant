@@ -34,7 +34,3 @@ onload = function() {
    }
 
 }
-$('.summernote').summernote({
-height: 150,
-lang: "ko-KR"
-});
