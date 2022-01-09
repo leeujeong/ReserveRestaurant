@@ -32,24 +32,13 @@ public class QnaServiceImpl implements QnaService {
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		Long ownerNo = (Long)m.get("ownerNo");
 		
-		System.out.println(ownerNo);
-		
 		//페이징
 		int totalRecord = repository.ListTotalCount1(ownerNo);
-		
-		System.out.println("페이지전체 수 "+ totalRecord);
-		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
-			System.out.println("페이지222 "+ page);
-		
-		
 		PageUtils pageUtils  = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
-		
-		System.out.println("pageUtils:"+pageUtils.getBeginRecord());
-		
 		
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("ownerNo", ownerNo);		
@@ -57,13 +46,7 @@ public class QnaServiceImpl implements QnaService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		
 		
-		System.out.println("map:"+map.toString());
-		
 		List<Qna> qnalist1 = repository.selectQnaList1(map);
-		
-		
-			System.out.println("페이지111 "+ qnalist1);
-		
 		
 		
 		model.addAttribute("state",state);
@@ -95,7 +78,6 @@ public class QnaServiceImpl implements QnaService {
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
-		
 		map.put("ownerNo", ownerNo);		
 		
 		List<Qna> qnalist2 = repository.selectQnaList2(map);

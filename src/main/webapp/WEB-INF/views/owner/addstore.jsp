@@ -17,80 +17,17 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<style>
 		#image_container img{
-		width:100px;
-		height:70px;
-		padding:3px;
+			width:100px;
+			height:70px;
+			padding:3px;
+		}
+		.btn-add{
+		    background-color: white;
+		    border: none;
 		}
 	</style>
 </head>
 <script>
-	// 페이지 로드
-	$(document).ready(function(){
-		fnFileCheck();
-		fnAddBoard(); 
-	});
-	
-	
-	// 첨부파일 점검 함수 (확장자 + 크기)
-	function fnFileCheck(){
-		$('#files').change(function(){
-			// 첨부 규칙(확장자, 크기)
-			let regFile = /(.*)\.(jpg|jpeg|png|gif)$/;
-			let maxSize = 1024 * 1024 * 10;  // 최대 크기 10MB
-			// 모든 첨부
-			let files = $(this)[0].files;
-			// 각 첨부 순회
-			for (let i = 0; i < files.length; i++) {
-				// 확장자 체크
-				if (regFile.test(files[i].name) == false){
-					alert('이미지만 첨부할 수 있습니다.');
-					$(this).val('');  // 하나라도 잘못된 첨부가 있으면 첨부 전체 초기화
-					return;
-				}
-				// 크기 체크
-				if (files[i].size > maxSize) {  // files[i].size : 첨부된 파일 크기
-					alert('10MB 이하의 파일만 업로드가 가능합니다.');
-					$(this).val('');  // 하나라도 잘못된 첨부가 있으면 첨부 전체 초기화
-					return;
-				}
-			}
-		}); 
-	  // end fnFileCheck
-	
-	// 게시판 등록 함수
-	function fnAddBoard(){
-		$('#insert_btn').click(function(){
-			if ($('#files').val() == ''){
-				alert('첨부는 필수입니다.');
-				return;
-			}	
-	// ajax의 파일업로드는 form 객체 사용
-			var formData = new FormData();
-			let files = $('#files')[0].files;
-			for (let i = 0; i < files.length; i++) {
-				formData.append('files', files[i]);  // 첨부를 FormData에 넣기				
-			}
-			$.ajax({
-				url: '/restaurant/owner/addRestaurant',
-				type: 'post',
-				contentType: false,  // ajax 파일 첨부할 때 세팅
-				processData: false,  // ajax 파일 첨부할 때 세팅
-				data: formData,
-				dataType: 'json',
-				success: function(map){
-					if (map.boardResult > 0) {
-						if (map.boardAttachResult > 0) {
-							fnShowAttachedFile(map);
-						} else {
-							alert('첨부 실패');
-						}
-					} else {
-						alert('게시글 등록 실패');
-					}
-				}
-			});
-		});
-	}  // end fnAddBoard
 
 	
 	
@@ -189,22 +126,14 @@
 		                          <tr>
 		                              <td>사진 등록</td>
 		                              <td>
-		                              
-		                     <!--            <input type="file" id="multi-add" class="btn-add" multiple style="display: none;" name="file" > -->
-										<!-- <button type="button" class="btn-add" id="file_add">파일추가</button>  -->
-		                              
- 		                                   <input type="file" name="files" id="files" accept="image/*" onchange="setThumbnail(event);" multiple/> 
-		                               
-		                               <!-- 
-		                               	첨부   <input type="file" id="files" name="files" multiple><br>  다중첨부 multiple -->
-										<input type="button" value="등록" id="insert_btn">
-		                               	<hr>
-	
+										<button type="button" class="btn-add" id="file_add"><i class="fas fa-plus"></i>&nbsp;사진 추가하기</button> 
+ 		                                   <input type="file" name="files" id="multi-add" accept="image/*" style="display:none;" onchange="setThumbnail(event);" multiple/> 
+		                               	
 		                                 <div id="image_container"></div>  
-		                               
-		                               
+		                                 <!-- click event -->
 		                                 <script> 
-		                                /*   $("#file_add").on('click',function(){ $('#multi-add').click(); }); */
+		                                  $("#file_add").on('click',function(){ $('#multi-add').click(); }); 
+		                                  
 		                                	function setThumbnail(event) {
 		                                  		for (var image of event.target.files) {
 		                                  			var reader = new FileReader(); reader.onload = function(event) {
@@ -216,6 +145,7 @@
 		                                  			}
 		                                  		}  
 		                                  </script>
+		                                  <!-- ------------ -->
 		                              </td>
 		                           </tr>
 		                             <tr>
@@ -234,19 +164,19 @@
 		                             <tr>
 		                                 <td>추가 옵션</td>
 		                                 <td>
-		                                     <input type="checkbox" name="additional_option" value="corkage">
+		                                     <input type="checkbox" name="additional_option" value="corkage" id="corkage">
 		                                     <label for="corkage">콜키지</label>
-		                                     <input type="checkbox" name="additional_option" value="night">
+		                                     <input type="checkbox" name="additional_option" value="night" id="night">
 		                                     <label for="night">심야 영업</label>
-		                                     <input type="checkbox" name="additional_option" value="babyseat">
+		                                     <input type="checkbox" name="additional_option" value="babyseat" id="babyseat">
 		                                     <label for="babyseat">아기 의자</label>
-		                                     <input type="checkbox" name="additional_option" value="nokids">
+		                                     <input type="checkbox" name="additional_option" value="nokids" id="nokids">
 		                                     <label for="nokids">노 키즈존</label><br>
-		                                     <input type="checkbox" name="additional_option" value="group">
+		                                     <input type="checkbox" name="additional_option" value="group" id="group">
 		                                     <label for="group">단체석</label>
-		                                     <input type="checkbox" name="additional_option" value="parking">
+		                                     <input type="checkbox" name="additional_option" value="parking" id="parking">
 		                                     <label for="parking">주차 가능</label>
-		                                     <input type="checkbox" name="additional_option" value="wifi">
+		                                     <input type="checkbox" name="additional_option" value="wifi" id="wifi">
 		                                     <label for="wifi">와이파이</label>
 		                                 </td>
 		                             </tr>

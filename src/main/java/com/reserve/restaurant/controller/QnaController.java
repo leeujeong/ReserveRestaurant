@@ -30,8 +30,10 @@ public class QnaController {
 		HttpSession session = request.getSession();
 		Owner owner = (Owner) session.getAttribute("loginUser");
 		
+		model.addAttribute("request", request);
 		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
+		
 		qnaService.selectQnaList1(model);
 		return "owner/question";
 	}
@@ -43,6 +45,7 @@ public class QnaController {
 		HttpSession session = request.getSession();
 		Owner owner = (Owner) session.getAttribute("loginUser");
 		
+		model.addAttribute("request", request);
 		model.addAttribute("ownerNo", owner.getOwnerNo());
 		model.addAttribute("state",state);
 		

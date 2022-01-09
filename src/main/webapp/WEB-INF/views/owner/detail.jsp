@@ -19,24 +19,24 @@
 	$(document).ready(function(){
 	    //삭제
 	    $('#delete_btn').on('click',function(){
-	        if(confirm('${restautant.resName} 을 삭제할까요?')){
+	        if(confirm("${restaurant.resName} 을 삭제할까요?")){
 	            $('#f2').attr('action', 'deleteRestaurant');
 	            $('#f2').submit();
 	        }
+	    }); 
+		
+	    //메뉴 삭제
+	    $('.menuDelete').on('click', function(){
+	    	alert('삭제할거야');
+	    	$.ajax({
+	    		url : '/restaurant/owner/menuDelete?menuNo=${menu.menuNo}',
+	    		type : 'get',
+	    		success : function(menuNo){
+	    			$('.menuInput_${menu.menuNo}').hide();
+	    		}
+	    	});
 	    });
 	
-	
-	    //회원정보 수정 함수 
-		$('#update_btn').on('click', function(){
-			if($('#s_name').val() == '${restaurant.resName}'&&
-				$('#tel').val() == '${restaurant.resTel}' &&
-				$('#address_kakao').val() == '${restaurant.resAddressDetail}' &&
-				$('#content').val() == '${resContent}'){
-					alert('수정할 내용이 없습니다.');
-					return;
-				}
-			$('#f2').attr('action','modifyRestaurant').submit();	
-		});
 	});
 	
 	
@@ -49,9 +49,21 @@
 		}
 		#upload_result{
 			display:block;
-			width:100px;
-			height:70px;
 			padding:3px;
+		}
+		.image_container{
+			display:flex;
+		}
+		.prevImg{
+			display: block;
+		}
+		.previmgtitle{
+			line-height:50px;
+		}
+		
+		.btn-add{
+		    background-color: white;
+		    border: none;
 		}
 	</style>
 	<script>
@@ -158,20 +170,28 @@
                                <tr>
                                    <td>사진 등록</td>
                                    <td>
-                                     <input type="file" name="newFile" id="newFile" accept="image/*" onchange="setThumbnail(event);" multiple/> 
-		                                  <h6>올릴 이미지 : </h6><div class="image_container"></div> 
+                                     <input type="file" name="newFile" id="newFile" accept="image/*" onchange="setThumbnail(event);"style="display:none;" multiple/> 
+		                                  <i class="fas fa-plus"  class="btn-add" ></i><input type="button" class="btn-add" id="file_add" value="사진 추가하기">
 		                                  
+		                                  <div class="image_container"></div> 
                                        
                                        <div id="upload_result">
-	                                       <c:if test="${not empty restaurant.resOrigin}">
-	                                       <div class="image_container">
-	                                       		기존 사진 :
-		                                       <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/s_${restaurant.resSaved}">
+                                       <hr>
+	                                       <c:if test="${not empty file_list}">
+                                       		<div class="previmgtitle">기존 사진</div>
+	                                       	<div class="image_container">
+	                                       		<c:forEach var="file" items="${file_list}">
+	                                       				 <img alt="${file.origin}" src="/restaurant/${file.path}/${file.uuid}" class="prevImg">
+	                                       			
+	                                       		</c:forEach>
 	                                       </div>
 		                                       
 	                                       </c:if>
                                        </div>
                                        <script> 
+                                       
+                                       $("#file_add").on('click',function(){ $('#newFile').click(); }); 
+                                       
 		                                  	function setThumbnail(event) {
 		                                  		for (var image of event.target.files) {
 		                                  			var reader = new FileReader(); reader.onload = function(event) {
@@ -193,8 +213,11 @@
 	                                	<c:forEach var="menu" items="${menu_list}">
 		                                	<div class="menu_input">
 		                                        <div class="menu_input_box default">
-		                                        	 <input type="hidden" name="menuNo" placeholder="${menu.menuNo}">
-		                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
+		                                        	<div  class="menuInput_${menu.menuNo}" >
+			                                        	<input type="hidden" name="menuNo"value="${menu.menuNo}">
+			                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
+			                                            <input type="button" name="menuDelete" value="메뉴삭제" class="menuDelete">
+		                                        	</div>
 		                                        </div>
 		                                    </div>
 	                                	</c:forEach>

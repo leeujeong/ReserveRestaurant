@@ -8,10 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMyRestaurantList" parameterType="Map" resultType="Map">
 		SELECT B.*
 		FROM (SELECT ROWNUM AS rn, A.*
-		          FROM (SELECT r.*, u.path, u.uuid, u.origin
-		                  FROM restaurant r, owner o, uploadfile u
+		          FROM (SELECT r.*
+		                  FROM restaurant r, owner o 
 		                 WHERE r.owner_no = o.owner_no 
-		                   AND r.res_no = u.res_no
 		                   AND o.id = #{id}
 		                 ORDER BY r.res_no) A) B
 		WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}
@@ -20,9 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 전체 목록 수 -->
 	<select id="selectTotalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		  FROM restaurant r, owner o, uploadfile u
+		  FROM restaurant r, owner o
 		 WHERE r.owner_no = o.owner_no
-	 	 AND r.res_no = u.res_no
 	   	AND o.id = #{id}
 	</select>
 
@@ -53,8 +51,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT res_no_seq.nextval
 			  FROM DUAL
 		</selectKey>
-			INSERT INTO restaurant (res_no, res_name, res_address, res_address_detail, res_open_time, res_close_time, res_tel, res_content, res_option, owner_no)
-			VALUES (#{resNo}, #{resName}, #{resAddress}, #{resAddressDetail} , #{resOpenTime}, #{resCloseTime}, #{resTel}, #{resContent}, #{resOption}, #{ownerNo})
+			INSERT INTO restaurant (
+					res_no, 
+					res_name, 
+					res_address,
+					res_address_detail, 
+					res_open_time,
+					res_close_time, 
+					res_tel, 
+					res_content, 
+					res_option, 
+					owner_no, 
+					res_origin, 
+					res_saved, 
+					res_path )
+			VALUES (#{resNo},
+					#{resName}, 
+					#{resAddress}, 
+					#{resAddressDetail} , 
+					#{resOpenTime}, 
+					#{resCloseTime}, 
+					#{resTel}, 
+					#{resContent},
+					#{resOption}, 
+					#{ownerNo}, 
+					#{resOrigin}, 
+					#{resSaved}, 
+					#{resPath})
+					
 	</insert>
 
 	
@@ -70,14 +94,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   res_tel = #{resTel},
 		   	   res_content = #{resContent},
 		   	   res_option = #{resOption},
+		   	   res_origin = #{resOrigin}, 
+		   	   res_saved = #{resSaved}, 
+		   	   res_path= #{resPath}
 		 WHERE res_no = #{resNo}
 	</update>
 	
 	<!-- 음식점 삭제 -->
 	<delete id="deleteRestaurant" parameterType="Long">
 		DELETE
-			  FROM restaurant
-			 WHERE res_no = #{resNo}
+		  FROM restaurant
+		 WHERE res_no = #{resNo}
 	</delete>
 	
 	

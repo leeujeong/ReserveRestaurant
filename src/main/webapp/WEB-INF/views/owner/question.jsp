@@ -107,11 +107,13 @@
 									</tr>
 								</c:forEach>
 							</c:if>
-							 <c:if test="${not empty paging}">
-								<div class="paging">${paging}</div>
-							</c:if> 
 						</tbody>
                     </table>
+                    <div>
+                    <c:if test="${not empty paging}">
+								<div class="paging">${paging}</div>
+					</c:if>
+                    </div>
                 </div>
             </div>
         </div>

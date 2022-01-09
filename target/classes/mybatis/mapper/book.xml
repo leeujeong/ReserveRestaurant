@@ -81,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    AND B.USER_NO = #{userNo}
 		</select>
 	 -->
+	 
 	<!-- 페이징처리 -->
 	<select id="selectBookingListByuserNo" resultMap="BookMap" parameterType="Map">
 		SELECT  B.BOOK_NO, B.BOOK_TYPE, B.BOOK_PEOPLE, B.BOOK_REQUEST,B.USER_NO , B.BOOK_HOURS,B.BOOK_DATE, B.RES_NO, B.BOOK_STATE,

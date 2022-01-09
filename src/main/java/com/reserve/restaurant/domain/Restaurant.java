@@ -27,7 +27,9 @@ public class Restaurant {
 	private String resContent;
 	private String resOption;
 	private Long ownerNo;
-
+	private String resOrigin;
+	private String resSaved;
+	private String resPath;
 	
 	
 }

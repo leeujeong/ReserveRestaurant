@@ -10,15 +10,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 추가 -->
 	<insert id="fileInsert" parameterType="UploadFile">
 		INSERT into UPLOADFILE 
-		VALUES (#{uuid}, #{path}, #{origin}, #{fileType}, #{resNo})
+		VALUES (#{uuid}, #{path}, #{origin}, #{resNo})
 	</insert>
 	
 	
 	<!-- 사진 불러오기 -->
 	<select id="selectFile" parameterType="Long" resultType="UploadFile">
 		SELECT u.*
-		  FROM uploadfile 
-		 WHERE r.res_no = #{resNo}
+		  FROM uploadfile u, restaurant r
+		 WHERE u.res_no = r.res_no
+		  AND r.res_no = #{resNo}
 	</select>
 	
 	

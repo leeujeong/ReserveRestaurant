@@ -34,13 +34,15 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 	
 	
+	
 	//하나만 선택
 	@GetMapping(value="owner/selectList")
 	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
 		
+		
 		model.addAttribute("restaurant", restaurantService.selectList(resNo));
 		model.addAttribute("menu_list", restaurantService.selectMenu(resNo));
-		
+		model.addAttribute("file_list", restaurantService.selectFile(resNo));
 		
 		return "owner/detail";
 	}
@@ -77,6 +79,13 @@ public class RestaurantController {
 	@PostMapping(value="owner/modifyRestaurant")
 	public void modifyRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		restaurantService.modifyRestaurant(multipartRequest, response);
+	}
+	
+	//메뉴 삭제
+	@GetMapping(value="owner/menuDelete", produces="application/json; charset=UTF-8")
+	public void menuDelete(Long menuNo) {
+		System.out.println("메뉴 ㄴ머서"+menuNo);
+		restaurantService.menuDelete(menuNo);
 	}
 
 }

@@ -19,6 +19,5 @@ public class UploadFile {
 	private String uuid;
 	private String path;
 	private String origin;
-	private String fileType;
 	private Long resNo;
 }

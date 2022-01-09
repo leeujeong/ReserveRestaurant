@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 예약문의로 -->
-	<select id="selectQnaList2" parameterType="Long" resultType="Qna">
+	<select id="selectQnaList2" parameterType="Map" resultType="Qna">
 		SELECT *
 		  FROM(SELECT ROWNUM AS rn, A.*
 		  		FROM (SELECT q.*

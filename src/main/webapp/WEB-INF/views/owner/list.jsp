@@ -13,6 +13,12 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<Style>
+	.listimg{
+		width:300px;
+		height:200px;
+	}
+	</Style>
 </head>
 <body>
     <header>
@@ -75,12 +81,12 @@
                          	<c:if test="${not empty list}">
                          		<c:forEach var="restaurant" items="${list}">
                          			<input type="hidden" name="resNo" value="${restaurant.get('RES_NO')}"/>
-	                         		<div class="list_table">
-		                         		<table >
+	                         		<div >
+		                         		<table class="list_table">
 		                         			<tbody>
 			                         			<tr>
 									                <td rowspan="7"><a href="selectList?resNo=${restaurant.get('RES_NO')}">
-									                	<img alt="${restaurant.get('ORIGIN')}" src="/restaurant/${restaurant.get('PATH')}/${restaurant.get('UUID')}" class="listimg"></a>
+									                	<img alt="${restaurant.get('RES_ORIGIN')}" src="/restaurant/${restaurant.get('RES_PATH')}/${restaurant.get('RES_SAVED')}" class="listimg"></a>
 								                	</td>
 									                <td class="listtitle">
 									                	<h2>${restaurant.get('RES_NAME')}</h2>
@@ -101,17 +107,6 @@
 									            <tr>
 									                <td>추가 옵션 : ${restaurant.get('RES_OPTION')}</td>
 		            							</tr>
-		            							<%-- <tr>
-		            								<td>
-		            									<div class="result_image">
-		            										<c:forEach var="imageFileName" items="${map.fileList}">
-		            											<img src="${pageContext.request.contextPath}/download?imageFile=${imageFileName}">
-		            											<br>
-		            										</c:forEach>
-		            										<!-- 다시 업로드하기도 있음 -->
-		            									</div>
-		            								</td>
-		            							</tr> --%>
 		                         			</tbody>
 	                         			</table>
 									</div>
