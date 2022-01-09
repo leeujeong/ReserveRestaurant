@@ -13,18 +13,73 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	
+	
+	
+	
+	<style>
+		.reviewimg{
+			width:200px;
+			height:100px;
+		}
+		.dateinput{
+			border:none;
+			outline:none;
+		}
+		.reviewContent{
+			display:flex;
+			margin:5px;
+		}
+		.reviewContentbox{
+			margin:50px;
+		}
+		.reviewDetail{
+			margin:5px;
+		}
+		.reviewMultiple{
+			display:flex;
+			margin:10px;
+		}
+		
+		.showhideBtn, .reviewReplyBtn{
+			width: 100px;
+		    border: 2px solid red;
+		    color: red;
+		    padding: 5px;
+		    border-radius: 10px;
+		}
+		#noneDiv{
+			margin:30px;
+		}
+		.replybox{
+			display:flex;
+		}
+		.reviewdaterate{
+			padding: 0 15px;
+		}
+		.reviewlist{
+			border-bottom:1px solid gray;
+		}
+		.replybox a{
+			padding: 10px;
+			color: silver;
+		}
+		.emptyReview{
+			padding: 10px;
+		}
+	</style>
 </head>
 <body>
     <header>
         <div class="wrap">
            <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -59,71 +114,37 @@
                     <h4 class="ing_title">리뷰 관리</h4>
                 </div>
                 <hr>
-                <div>
-                    <table class="question_table">
-                        <thead>
-                            <tr>
-                                <td>번호</td>
-                                <td>작성자</td>
-                                <td>식당명</td>
-                                <td>사진</td>
-                                <td>리뷰 내용</td>
-                                <td>작성일자</td>
-                                <td>조회수</td>
-                            </tr>
-                        </thead>
-                       <tbody>
-							<c:if test="${empty reviewList}">
-								<tr>
-									<td colspan="7">등록된 리뷰 없음</td>
-								</tr>
-							</c:if>
-							<c:if test="${not empty reviewList}">
-								<c:forEach var="review" items="${reviewList}">
-									<tr>
-										<td>${review.reviewNo}</td>				
-										<td>${review.get("REVIEW_WRITER")}</td>
-										<td>${review.get("RES_NAME")}</td>
-										<td>
-											<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
-										</td>
-										<td>${review.reviewContent}</td>
-										<td>${review.get("REVIEW_DATE")}</td>
-										<td>${review.reviewHit}</td>				
-									</tr>
-								</c:forEach>
-							</c:if>
-						</tbody>
-                    </table>
-                </div>
+                <div class="reviewlist">
+	               <c:if  test="${empty reviewlist}">
+			 			<div class="emptyReview">
+			 				작성된 리뷰가 없습니다.
+			 			</div>
+			 		</c:if>
+			 		<c:if test="${not empty reviewlist}">
+				 		<c:forEach var="review" items="${reviewlist}">
+				 		<input type="hidden" value="${review.get('REVIEW_NO')}">
+			            	<div>
+			            		<h3>${review.get("RES_NAME")}</h3>
+			                    <div class="reviewContent">
+				            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+			                        <div class="reviewdaterate">
+				                        <span style="margin:5px;">작성자 :<span style=" font-weight: bold;">&nbsp;${review.get("REVIEW_WRITER")}</span> </span>
+				                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
+				                        <span style="margin:0 5px; color:red; " >★ ${review.get("REVIEW_RATE")}</span>
+			                        <p style="margin:0 5px;">${review.get("REVIEW_CONTENT")}</p>
+			                        </div>
+			                    </div>
+			                    <div class="replybox">
+					            	<a onclick="location.href='/restaurant/owner/reviewReply?reviewNo='+'${review.get('REVIEW_NO')}'">댓글달기&nbsp;<i class="far fa-comment-dots"></i></a>
+			                    </div>
+			            	</div>
+			            </c:forEach>
+			 		</c:if>
+                         
+               </div>
             </div>
         </div>
     </div>
-    
-       <form id="f" method="post">
-         <div class="card mb-2" style="width: 1000px;">
-            <div class="card-header bg-light">
-                    <i class="fa fa-comment fa"></i> 댓글
-            </div>
-            <div class="card-body">
-               <ul class="list-group list-group-flush">
-                   <li class="list-group-item">
-                  <div class="form-inline mb-2" style="display: flex">
-                     <label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label>
-                     <input type="text" class="form-control ml-2" placeholder="로그인유저 이름" id="replyId" style="width: 100px; margin-right: 710px;" value="${loginUser.name}" >
-                     <input type="text" class="form-control ml-2" placeholder="등록일" id="" style="width: 120px;" value="${notice.noticeDate}" >
-                  </div>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  <input type="button" class="btn btn-dark mt-3" value="댓글작성하기">
-                   </li>
-               </ul>
-            </div>
-         </div>
-      </form>
-    
-    
-    
-    
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

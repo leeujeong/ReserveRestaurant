@@ -17,12 +17,21 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<style>
 		#image_container img{
-		width:100px;
-		height:70px;
-		padding:3px;
+			width:100px;
+			height:70px;
+			padding:3px;
+		}
+		.btn-add{
+		    background-color: white;
+		    border: none;
 		}
 	</style>
 </head>
+<script>
+
+	
+	
+</script>
 
 <body>
 
@@ -30,14 +39,14 @@
     <header>
         <div class="wrap">
             <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
 
          	<ul id="gnb">
          		<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -117,10 +126,15 @@
 		                          <tr>
 		                              <td>사진 등록</td>
 		                              <td>
-		                                  <input type="file" name="s_file" id="image" accept="image/*" onchange="setThumbnail(event);" multiple/> 
-		                                  <div id="image_container"></div> 
-		                                  <script> 
-		                                  	function setThumbnail(event) {
+										<button type="button" class="btn-add" id="file_add"><i class="fas fa-plus"></i>&nbsp;사진 추가하기</button> 
+ 		                                   <input type="file" name="files" id="multi-add" accept="image/*" style="display:none;" onchange="setThumbnail(event);" multiple/> 
+		                               	
+		                                 <div id="image_container"></div>  
+		                                 <!-- click event -->
+		                                 <script> 
+		                                  $("#file_add").on('click',function(){ $('#multi-add').click(); }); 
+		                                  
+		                                	function setThumbnail(event) {
 		                                  		for (var image of event.target.files) {
 		                                  			var reader = new FileReader(); reader.onload = function(event) {
 		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result);
@@ -129,8 +143,9 @@
 		                                  				console.log(image);
 		                                  				reader.readAsDataURL(image); 
 		                                  			}
-		                                  		} 
+		                                  		}  
 		                                  </script>
+		                                  <!-- ------------ -->
 		                              </td>
 		                           </tr>
 		                             <tr>
@@ -149,19 +164,19 @@
 		                             <tr>
 		                                 <td>추가 옵션</td>
 		                                 <td>
-		                                     <input type="checkbox" name="additional_option" value="corkage">
+		                                     <input type="checkbox" name="additional_option" value="corkage" id="corkage">
 		                                     <label for="corkage">콜키지</label>
-		                                     <input type="checkbox" name="additional_option" value="night">
+		                                     <input type="checkbox" name="additional_option" value="night" id="night">
 		                                     <label for="night">심야 영업</label>
-		                                     <input type="checkbox" name="additional_option" value="babyseat">
+		                                     <input type="checkbox" name="additional_option" value="babyseat" id="babyseat">
 		                                     <label for="babyseat">아기 의자</label>
-		                                     <input type="checkbox" name="additional_option" value="nokids">
+		                                     <input type="checkbox" name="additional_option" value="nokids" id="nokids">
 		                                     <label for="nokids">노 키즈존</label><br>
-		                                     <input type="checkbox" name="additional_option" value="group">
+		                                     <input type="checkbox" name="additional_option" value="group" id="group">
 		                                     <label for="group">단체석</label>
-		                                     <input type="checkbox" name="additional_option" value="parking">
+		                                     <input type="checkbox" name="additional_option" value="parking" id="parking">
 		                                     <label for="parking">주차 가능</label>
-		                                     <input type="checkbox" name="additional_option" value="wifi">
+		                                     <input type="checkbox" name="additional_option" value="wifi" id="wifi">
 		                                     <label for="wifi">와이파이</label>
 		                                 </td>
 		                             </tr>

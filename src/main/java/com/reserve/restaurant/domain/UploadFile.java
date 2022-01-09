@@ -1,6 +1,6 @@
 package com.reserve.restaurant.domain;
 
-import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +14,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Reply {
-
-	private Long replyNo;
-	private String replyWriter;
-	private String replyContent;
-	private Date replyDate;
-	private Long qnaNo;
+public class UploadFile {
+	
+	private String uuid;
+	private String path;
+	private String origin;
+	private Long resNo;
 }

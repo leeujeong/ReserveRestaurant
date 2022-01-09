@@ -103,4 +103,5 @@ public class MybaitsConfig {
 	public ReviewService reviewService() {
 		return new ReviewServiceImpl();
 	}
+	
 }

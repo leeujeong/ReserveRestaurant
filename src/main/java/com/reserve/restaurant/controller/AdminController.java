@@ -108,8 +108,8 @@ public class AdminController {
 	
 	// 검색된리스트에서 restaurant detail로 이동
 	@GetMapping(value="goResDetail")
-	public String goResDetail(Model model, Restaurant restaurant) {
-		adminService.selectResDetail(model, restaurant);
+	public String goResDetail(Model model, Restaurant restaurant , HttpServletRequest request) {
+		adminService.selectResDetail(model, restaurant,request);
 		return "user/detail";
 	}
 	

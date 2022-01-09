@@ -94,7 +94,7 @@ public class PageUtils {
 		if (endPage == totalPage) {
 			sb.append("▶&nbsp;");
 		} else {
-			sb.append("<a href=\"" + path + concat + "page=" + (endPage + 1) + "\">▶</a>&nbsp;");
+			sb.append("<a href=\"" + path + concat + "page=" + (endPage + 1) + "\"></a>&nbsp;");
 		}
 		// 마지막 페이지로 이동 : 마지막 페이지는 링크가 필요 없음.
 		if (page == totalPage) {
