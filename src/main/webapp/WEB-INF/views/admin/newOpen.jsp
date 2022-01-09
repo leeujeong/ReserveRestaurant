@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<link href="<c:url value="/resources/css/adminCSS/searchPage.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/adminCSS/newOpen.css"/>" rel="stylesheet">
 <script src="<c:url value="/resources/js/adminJS/searchPage.js"/>"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -116,18 +116,16 @@
         </form>
     </section>
     
-    <c:if test="${empty resList}">
-	    <section class="search_comment">
-	        <p class="comment">식당을 검색해 보세요!</p>
-	    </section>    
-    </c:if>
+    <section class="search_comment">
+        <p class="comment">가장 최근 등록된 식당입니다.</p>
+    </section>    
     
-    <c:if test="${not empty resList}">
+    <c:if test="${not empty list}">
 	    <section class="list_section">
-	    	<c:forEach var="restaurant" items="${resList}">
+	    	<c:forEach var="restaurant" items="${list}">
 		        <div class="rest_info">
 		            <div>
-		                <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}">
+		               <!-- <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}"> -->
 		            </div>
 		            <div>
 		                <span class="rest_name">

@@ -144,6 +144,8 @@ CREATE TABLE qna (
 
     qna_date          DATE,
 
+    qna_lastmodified 	DATE,
+
     qna_state       NUMBER(1),
     
     res_no          NUMBER

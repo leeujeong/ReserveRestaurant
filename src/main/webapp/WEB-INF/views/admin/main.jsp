@@ -4,9 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<c:url value="/resources/css/adminCSS/main.css"/>" rel="stylesheet">
+<script>
+	$(document).ready(function() {
+		fnLogOut();
+	})
+	
+	function fnLogOut() {
+		$('#logOut').click(function() {
+			if (confirm('로그아웃 하시겠습니까?')) {
+				location.href="/restaurant/user/logout";
+			}
+		})
+	}
+</script>
 </head>
 <body>
     <header>
@@ -18,7 +32,7 @@
             </h1>
             <ul id="gnb">
                 <li>${loginUser.id} 님 환영합니다</li>
-                <li><a href="로그아웃">LOGOUT&nbsp;&nbsp;&nbsp;</a></li>
+                <li><span id="logOut">LOGOUT&nbsp;&nbsp;&nbsp;</span></li>
             </ul>
         </div>
     </header>

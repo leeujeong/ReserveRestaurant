@@ -22,6 +22,10 @@ public class Qna {
 	private String qnaContent;
 	private Long qnaHit;
 	private Date qnaDate;
+	private Date qnaLastModified;
 	private int qnaState;
 	private Long resNo;
+
+	
+	private Reply reply;
 }
