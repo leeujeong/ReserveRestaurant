@@ -60,49 +60,7 @@ public class OwnerServiceImpl implements OwnerService {
 			request.getSession().setAttribute("loginUser", loginOwner);
 		}
 	}
-	
-	
-//	@Override
-//	public Map<String, Object> idCheck(String id) {
-//		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("result",repository.selectOwnerById(id));
-//		return map;
-//	}
-	
-//	@Override
-//	public Map<String, Object> findOwnerByEmail(String email) {
-//		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("result", repository.selectOwnerByEmail(email));
-//		return map;
-//	}
-	
-//	@Override
-//	public Map<String, Object> sendAuthCode(String email) {
-//		String authCode = SecurityUtils.authCode(6);
-//		try {
-//			MimeMessage message = javaMailSender.createMimeMessage();
-//			message.setHeader("Content-Type", "text/plain; charset=UTF-8");
-//			message.setFrom(new InternetAddress("gogospringtest@gmail.com", "인증코드관리자"));
-//			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-//			message.setSubject("인증 요청 메일입니다.");
-//			message.setText("인증번호는 " + authCode + " 입니다.");
-//			javaMailSender.send(message);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		Map<String, Object> map =  new HashMap<String, Object>();
-//		map.put("authCode", authCode);
-//		return map;
-//	}
-	
-//	@Override
-//	public Map<String, Object> emailCheck(String email) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
+
 	@Override
 	public Owner selectOwnerByNo(Long ownerNo) {
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);

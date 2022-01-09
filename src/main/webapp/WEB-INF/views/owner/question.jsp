@@ -18,13 +18,13 @@
     <header>
         <div class="wrap">
            <h1>
-                <a href="index.html">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                 <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -56,10 +56,10 @@
             </div>
             <div class="col-6">
                 <div class="section2">
-	                <c:if test="${state == 1}">
+	                <c:if test="${state == 2}">
 	                   <h4 class="ing_title">식당 정보 문의 내역</h4>
 	                 </c:if>
-	                 <c:if test="${state == 2}">
+	                 <c:if test="${state == 3}">
 	                   <h4 class="ing_title">예약 문의 내역</h4>
 	                 </c:if>
                 </div>
@@ -73,38 +73,35 @@
                     <table class="question_table">
                         <thead>
                             <tr>
-                                <td>번호</td>
                                 <td>작성자</td>
-                                <td class="titletable">제목</td>
+                                <td class="titletable">&nbsp;제목</td>
                                 <td>작성일자</td>
                                 <td>조회수</td>
                             </tr>
                         </thead>
                         <tbody>
-							<c:if test="${empty list}">
+							<c:if test="${empty qnalist1 and empty qnalist2}">
 								<tr>
 									<td colspan="5">공지사항 없음</td>
 								</tr>
 							</c:if>
-							<c:if test="${state == 1}">
-								<c:forEach var="qna" items="${list}">
+							<c:if test="${state == 2}">
+								<c:forEach var="qna" items="${qnalist1}">
+										<input type="hidden" value="${qna.qnaNo}" name="qnaNo"/>			
 									<tr>
-										<td>${qna.qnaNo}</td>				
 										<td>${qna.qnaWriter}</td>
 										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-										<%-- <td>${qna.qnaContent}</td> --%>
 										<td>${qna.qnaDate}</td>
 										<td>${qna.qnaHit}</td>				
 									</tr>
 								</c:forEach>
 							</c:if>
-							<c:if test="${state == 2}">
-								<c:forEach var="qna" items="${list}">
-									<tr>
-										<td>${qna.qnaNo}</td>				
+							<c:if test="${state == 3}">
+								<c:forEach var="qna" items="${qnalist2}">
+								<input type="hidden" value="${qna.qnaNo}" name="qnaNo"/>
+									<tr>			
 										<td>${qna.qnaWriter}</td>
 										<td class="titletable"><a href="selectQnaByNo?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
-									<%-- 	<td>${qna.qnaContent}</td> --%>
 										<td>${qna.qnaDate}</td>
 										<td>${qna.qnaHit}</td>				
 									</tr>
@@ -112,6 +109,11 @@
 							</c:if>
 						</tbody>
                     </table>
+                    <div>
+                    <c:if test="${not empty paging}">
+								<div class="paging">${paging}</div>
+					</c:if>
+                    </div>
                 </div>
             </div>
         </div>

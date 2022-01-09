@@ -246,7 +246,7 @@
 		                    <div class="review_content">
 		                        <p>${review.get("REVIEW_WRITER")}</p>
 		                        <div class="reviewdaterate">
-			                        <span><input type="text" class="dateinput" max="9999-12-31" value="${review.get('REVIEW_DATE')}"></span>
+			                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
 			                        <span>${review.get("REVIEW_RATE")}</span>
 		                        </div>
 		                        

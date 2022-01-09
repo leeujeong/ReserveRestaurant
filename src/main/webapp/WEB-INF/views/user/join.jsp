@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script type="text/javascript">
+ <script type="text/javascript">
 	$(document).ready(function(){
 		fnIdCheck();
 		fnEmailCheck();
@@ -42,6 +42,7 @@
 	function fnPwCheck() {
 		$('#pw').keyup(function() {
 			let regPw = /^[a-zA-Z0-9!@#$%^&*()]{8,20}$/;
+			var passwdCheck =/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
 			if ( regPw.test($(this).val()) == false ) {
 				$('#pw_result').text('비밀번호는 8~20자의 영문 대/소문자, 숫자, 특수문자 등 3종류 이상으로 조합해주세요.').addClass('no').removeClass('ok');
 				pwPass = false;
@@ -233,6 +234,29 @@
 	.ok{
 		color:green;
 	}
+	 .necessary {
+            margin-right: 10px;
+            color: red;
+        }
+        .aaa {
+        	width: 600px; 
+        }
+        .inputForm {
+        	margin: 0 auto;
+        	width: 600px;
+        }
+        .LoginEnter {
+        	width: 600px;
+        	margin: 50px auto 150px;
+        }
+        .mainlogin {
+        	width: 775px;
+        	margin: 0 auto;
+        }
+        .header_logo {
+        	width: 500px;
+        }
+        
 </style>
     
 </head>
@@ -241,12 +265,12 @@
 		
 <div id="root" class="root">
 <!-- 맨윗부분 -->
-      <header class="shareit_header"> 
-         <div>
-            <a class="header-logo" href="/restaurant"><img src="/restaurant/resources/image/join/FindTableLogo.png" alt="shareit-logo"></a>
-            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">&nbsp;&nbsp;메인화면으로 이동</a>  
-         </div>
-      </header>
+<header class="shareit_header"> 
+      <div class="header_logo">
+        <a class="header-logo" href="/restaurant"><img src="/restaurant/resources/image/join/FindTableLogo.png" alt="shareit-logo"></a> 
+        <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">&nbsp;&nbsp;메인화면으로 가기</a> 
+     </div>
+</header>
 <div style="
         background-image: url(/restaurant/resources/image/join/background.png) ;
         background-color: 색상이름 또는 코드;
@@ -279,7 +303,7 @@
 		       		<input style="display: none" type="radio" name="radio" id="owner_radio" value="owner">
 		       	</div><br>
          <div class="tblForm inputForm">
-            <table>
+            <table class="aaa">
                 <colgroup>
                     <col style="width:300px">
                     <col style="width:400px">
@@ -288,7 +312,7 @@
                 </colgroup>
                 <tbody>
                     <tr>
-                        <th scope="row">성명<span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span>성명</th>
                         <td colspan="3">
                             <input type="text" class="inTxt rs-w100" id="name" name="name" value="" maxlength="50" style="width:180px" title="성명 입력"> <!--  -->
                             
@@ -300,7 +324,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row">아이디<span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span>아이디</th>
                         <td colspan="3">
                             <input type="text" class="inTxt rs-w100" id="id" name="id" maxlength="20" style="width:180px;ime-mode:disabled;" title="아이디 입력">
                             <label for="m_szId"></label>
@@ -308,19 +332,19 @@
                         </td>
                      </tr>
                     <tr>
-                        <th scope="row"><label for="m_szPwd">비밀번호</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="m_szPwd">비밀번호</label></th>
                         <td colspan="3"><input type="password" class="inTxt rs-w100" id="pw" name="pw" maxlength="15" style="width:180px;ime-mode:disabled;" title="비밀번호">
                             <p id="pw_result"></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="m_szPwdChk">비밀번호 확인</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="m_szPwdChk">비밀번호 확인</label></th>
                         <td colspan="3" class="line2"><input type="password" class="inTxt rs-w100" id="pwCheck" name="pwCheck" maxlength="15" style="width:180px;ime-mode:disabled;" title="비밀번호 확인">
                         <p id="pw2_result"></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="birthyy">생년월일</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="birthyy">생년월일</label></th>
                         <td>
                             <span class="selectboxWrap">
                                 <select class="select selectBg" id="hbd" name="hbd" title="년도 선택">
@@ -353,7 +377,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="phone1">휴대폰</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="phone1">휴대폰</label></th>
                         <td colspan="3" class="hp">
                             <span class="selectboxWrap">
                                 <select class="select selectBg" id="tel" name="tel" title="휴대폰 번호 선택">
@@ -372,7 +396,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="email_01">이메일</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="email_01">이메일</label></th>
                         <td colspan="3" class="email">
                             <input type="hidden" name="m_szEmail">
                             <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:200px;ime-mode:disabled;" title="이메일 아이디 입력">
@@ -382,7 +406,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="mailKey">이메일<br>인증확인</label><span class="essR"></span></th>
+                        <th scope="row"><span class="necessary">*</span><label for="mailKey">이메일<br>인증확인</label></th>
                         <td colspan="3">
                             <input type="hidden" id="m_szCertYn" name="m_szCertYn">
                             <input type="text" class="inTxt rs-w100" id="authCode" name="authCode" style="width:180px;ime-mode:disabled;" title="이메일 인증확인 입력">

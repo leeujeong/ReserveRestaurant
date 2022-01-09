@@ -27,10 +27,12 @@ public class Review {
 	private int reviewRate;
 	private Long userNo;
 	private Long resNo;
-	private int state;
-	private int dept;
-	private Long groupNo;
-	private Long groupOrd;
+
 	
-	private Restaurant restaurant;
+	
+//	private int state;
+	
+//	private int depth;
+//	private Long groupNo;
+//	private Long groupOrd;
 }

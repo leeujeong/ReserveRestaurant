@@ -250,7 +250,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <insert id="insertPay" parameterType="Pay">
    		INSERT INTO PAY
-   		VALUES(PAY_NO_SEQ.NEXTVAL, #{userNo}, #{resNo}, TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),#{payName}, #{payMethod}, #{amount}, #{id}, #{bookNo} )
+   		VALUES(PAY_NO_SEQ.NEXTVAL, #{userNo}, #{resNo}, #{bookNo}, TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),#{payName}, #{payMethod}, #{amount}, #{id})
    </insert>
 	
 </mapper>

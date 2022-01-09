@@ -325,8 +325,6 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("resList", resList);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));			
-
-		
 	}
 
 //	@Override
@@ -348,14 +346,12 @@ public class AdminServiceImpl implements AdminService {
 	      Restaurant rest = repository.selectResDetail(resNo);
 	      List<Review> reviewList = repository.selectReviewList(resNo);
 	      
-	      if (rest != null && reviewList != null) {
+	      model.addAttribute("rest", rest);
+	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
 	      }
-	      
+	      System.out.println(rest+"어드민 서비스 임플");
 	      model.addAttribute("reviewList",reviewList);
-	      if(reviewList != null) {
-	    	  request.getSession().setAttribute("reviewList", reviewList);
-	      }
 	      
 	   }
 	
@@ -393,8 +389,6 @@ public class AdminServiceImpl implements AdminService {
 		Map<String, Object> m1 = new HashMap<String, Object>();
 		m1.put("column", request.getParameter("column"));
 		m1.put("query", request.getParameter("query"));
-		System.out.println("column : " + request.getParameter("column"));
-		System.out.println("query : " + request.getParameter("query"));
 		int totalRecord = repository.countFindRes(m1);
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
@@ -409,4 +403,21 @@ public class AdminServiceImpl implements AdminService {
 		map.put("pageUtils", pageUtils);
 		return map;
 	}
+
+	
+	// 새로 등록된 식당
+	@Override
+	public void newOpen(Model model) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = repository.newOpen();
+		System.out.println(list.toString());
+		model.addAttribute("list", list);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

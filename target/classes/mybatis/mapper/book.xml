@@ -16,6 +16,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	 
    
+<!--   
+	 <resultMap type="Book" id="calMap"> 
+	 	<result property="start" column="start1"/>
+		<result property="end" column="end1"/> 
+	</resultMap>
+	<select id="calenList" resultMap="calMap"> 
+		SELECT b.book_no, b.book_type, TO_char(start1, 'YYYY-MM-DD"T"HH24:MI:SS')start1, TO_char(end1, 'YYYY-MM-DD"T"HH24:MI:SS')end1, b.book_people, b.book_request, b.book_hours, b.book_date, u.name, r.res_name 
+		  FROM BOOK b, restaurant r, usertable u
+	 	 WHERE b.res_no = r.res_no
+	 	   AND b.user_no = u.user_no
+	</select>
+	 -->
+   
+   
    
    	<insert id="insertBook" parameterType="Book">
 	<selectKey keyProperty="bookNo" order="BEFORE" resultType="Long">
@@ -67,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    AND B.USER_NO = #{userNo}
 		</select>
 	 -->
+	 
 	<!-- 페이징처리 -->
 	<select id="selectBookingListByuserNo" resultMap="BookMap" parameterType="Map">
 		SELECT  B.BOOK_NO, B.BOOK_TYPE, B.BOOK_PEOPLE, B.BOOK_REQUEST,B.USER_NO , B.BOOK_HOURS,B.BOOK_DATE, B.RES_NO, B.BOOK_STATE,

@@ -86,7 +86,7 @@
 					fnPrintPaging(map.pageUtils);
 			},
 			error : function (xhr) {
-				alert('실패');
+				alert('결제 된 식당이 없습니다.');
 			}
 		});
 	}// end of fnCartList

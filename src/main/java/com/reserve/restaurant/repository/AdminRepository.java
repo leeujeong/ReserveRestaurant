@@ -55,4 +55,5 @@ public interface AdminRepository {
 	public int countFindRes(Map<String, Object> map);
 	
 	public List<Review> selectReviewList(Long resNo);
+	public List<Restaurant> newOpen();
 }

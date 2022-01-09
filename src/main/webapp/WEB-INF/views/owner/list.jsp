@@ -13,18 +13,24 @@
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
+	<Style>
+	.listimg{
+		width:300px;
+		height:200px;
+	}
+	</Style>
 </head>
 <body>
     <header>
         <div class="wrap">
             <h1>
-                <a href="#">
+                <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
             </h1>
             <ul id="gnb">
                	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
             </ul>
         </div>
     </header>
@@ -74,28 +80,32 @@
                          	
                          	<c:if test="${not empty list}">
                          		<c:forEach var="restaurant" items="${list}">
-                         			<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
-	                         		<div class="list_table">
-		                         		<table >
+                         			<input type="hidden" name="resNo" value="${restaurant.get('RES_NO')}"/>
+	                         		<div >
+		                         		<table class="list_table">
 		                         			<tbody>
 			                         			<tr>
-									                <td rowspan="7"><a href="selectList?resNo=${restaurant.resNo}"><img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="listimg"></a></td>
-									                <td class="listtitle"><h2>${restaurant.resName}</h2></td>
+									                <td rowspan="7"><a href="selectList?resNo=${restaurant.get('RES_NO')}">
+									                	<img alt="${restaurant.get('RES_ORIGIN')}" src="/restaurant/${restaurant.get('RES_PATH')}/${restaurant.get('RES_SAVED')}" class="listimg"></a>
+								                	</td>
+									                <td class="listtitle">
+									                	<h2>${restaurant.get('RES_NAME')}</h2>
+								                	</td>
 									            <tr>
 									            <tr>
-									                <td>${restaurant.resTel}</td>
+									                <td>전화번호 : ${restaurant.get('RES_TEL')}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resAddress} ${restaurant.resAddressDetail}</td>
+									                <td>주소 : ${restaurant.get('RES_ADDRESS')} ${restaurant.get('RES_ADDRESS_DETAIL')}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</td>
+									                <td>운영시간 : ${restaurant.get('RES_OPEN_TIME')} ~ ${restaurant.get('RES_CLOSE_TIME')}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resContent}</td>
+									                <td>상세 설명 : ${restaurant.get('RES_CONTENT')}</td>
 									            </tr>
 									            <tr>
-									                <td>${restaurant.resOption}</td>
+									                <td>추가 옵션 : ${restaurant.get('RES_OPTION')}</td>
 		            							</tr>
 		                         			</tbody>
 	                         			</table>

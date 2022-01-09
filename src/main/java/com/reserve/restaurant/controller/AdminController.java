@@ -137,6 +137,12 @@ public class AdminController {
 		return map;
 	}
 	
+	// 최근 오픈 식당
+	@GetMapping(value="newOpen")
+	public String newOpen(Model model) {
+		adminService.newOpen(model);
+		return "admin/newOpen";
+	}
 	
  	
 	

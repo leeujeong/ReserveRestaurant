@@ -190,21 +190,6 @@ public class UserController {
 	}
 	
 	//사업장 디테일 보여주는 페이지
-//	@GetMapping(value = "detail")
-//	public String detail(HttpServletRequest request,Model model) {
-//		HttpSession session = request.getSession();
-//		User user = (User)session.getAttribute("loginUser");
-//		
-//		model.addAttribute("userNo", user.getUserNo());
-//		model.addAttribute("request", request);
-//		model.addAttribute("resNo", request.getParameter("resNo"));
-//		
-//		reviewService.reviewList(model);
-//		
-//		return "/user/detail";
-//	}
-	
-	//사업장 디테일 보여주는 페이지
 	   @GetMapping(value = "detail")
 	   public String detail(Long resNo, HttpSession session, Model model, HttpServletResponse response) {
 	      User user = (User)session.getAttribute("loginUser");

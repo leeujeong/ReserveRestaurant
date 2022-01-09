@@ -54,8 +54,8 @@
             	
             	<!-- 관리자 state 2 -->
             	<c:if test="${loginUser.state == 2}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/admin/myPage">ADMIN PAGE</a></li>
             	</c:if>
             	
             	<!-- 사업자는 어떻게? -->
@@ -79,7 +79,7 @@
             <ul>
                 <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
                 <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
-                <li><a href="#"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
         
@@ -91,7 +91,7 @@
             <ul>
                 <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="/restaurant/qnaboard/qnalist"> Q&A </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
         
