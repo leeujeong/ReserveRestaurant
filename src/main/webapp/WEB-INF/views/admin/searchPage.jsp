@@ -40,29 +40,26 @@
                 
             </h1>
             <ul id="gnb">
-            
+            	
+            		<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li>
+            	
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
 	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
             	<!-- 사용자 state =1 -->
-            	<c:if test="${loginUser != null}">
-	            	<c:if test="${loginUser.name != '관리자'}">
-	            			<li>${loginUser.id} 님 환영합니다</li>
-	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
-	            	</c:if>
-            	</c:if>
-            	
-            	
-            	
-            	<c:if test="${loginUser.name == '관리자'}">
-            		  <li>${loginUser.id} 님 환영합니다</li>
+            	<c:if test="${loginUser.state == 1}">
+            			<li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
+            	<!-- 관리자 state 2 -->
+            	<c:if test="${loginUser.state == 2}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/admin/myPage">ADMIN PAGE</a></li>
+            	</c:if>
             	
             	<!-- 사업자는 어떻게? -->
               <c:if test="${loginUser.state == 3}">

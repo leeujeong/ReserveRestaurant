@@ -67,7 +67,7 @@ public class NoticeController {
 //		model.addAttribute("notice" ,service.updateNotice(notice, response));
 	}
 	
-	@PostMapping(value = "deleteNotice")
+	@GetMapping(value = "deleteNotice")
 	public void deleteNotice(@RequestParam("noticeNo")Long noticeNo, Model model, HttpServletResponse response) {
 		noticeService.deleteNotice(noticeNo, response);
 	}

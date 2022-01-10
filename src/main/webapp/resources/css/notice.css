@@ -55,7 +55,7 @@ a:after {
 
 header {
     height: 120px;
-    padding-top: 20px;
+/*  padding-top: 20px; */
     padding-bottom: 20px;
     position: fixed;
     top: 0;
@@ -171,18 +171,18 @@ header #gnb li:last-child {
 	margin-top: 200px;
 }
 
-	table{
-		width: 80%;
-		margin-left: 100px;
-		text-align: center;
-		
-	}
+table{
+	width: 80%;
+	margin-left: 100px; 
+	text-align: center;
 	
+}
 
 /* footer시작 */
 
 .footer {
-    padding: 80px 0 32px;
+    /*padding: 80px 0 32px;*/
+    margin: 80px 0 32px;
 }
 
 .footer_link {

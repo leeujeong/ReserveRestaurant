@@ -37,7 +37,7 @@ public class RestaurantController {
 	
 	//하나만 선택
 	@GetMapping(value="owner/selectList")
-	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
+	public String selectList(@RequestParam("resNo")Long resNo, Model model , HttpServletRequest request) {
 		
 		
 		model.addAttribute("restaurant", restaurantService.selectList(resNo));

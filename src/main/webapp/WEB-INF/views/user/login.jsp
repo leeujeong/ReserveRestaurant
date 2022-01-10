@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="<c:url value="/resources/css/userCSS/login.css"/>" rel="stylesheet">
@@ -98,7 +98,7 @@ li{
       <header class="shareit_header"> 
          <div>
             <a class="header-logo" href="/restaurant"><img src="/restaurant/resources/image/join/FindTableLogo.png" alt="shareit-logo"></a> 
-            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">FindTable 사이트 가기</a> 
+            <a class="header-logo1" href="/restaurant"><img src="/restaurant/resources/image/join/rightaway.svg" alt="파인드테이블">&nbsp;&nbsp;FindTable 사이트 가기</a> 
          </div>
       </header>
       <div style="
@@ -148,9 +148,9 @@ li{
                </form>
 	                 <div class="login_icon">
 					      <ul class="icon_ul">
-					          <li id="naver_id_login" style="margin-top: 10px " class="naver" name="naver">
+					          		 <li id="naver_id_login" style="margin-top: 10px " class="naver" name="naver">
 					              <a href="${url}">
-					                  <img style="width: 10px" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
+					                  <img style="width: 10px" src="https://developers.naver.com/inc/devcenter/dist/0739723a031b354f5311473e386d3eb1.png" />
 					              </a>
 					          </li>
 					          <li onclick="kakaoLogin();">

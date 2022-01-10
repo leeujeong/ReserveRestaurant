@@ -19,11 +19,13 @@ public interface ReviewService {
 	public void ownerReviewList(Model model);
 	public Review selectReviewList(Long reviewNo);
 	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
-	public void moreReview(Model mode);
+	public void moreReview(Model model);
+	//	public int avgReviewRate(Long resNo);
 	
 	
 //	public int avgReviewRate(Long resNo);
 //	public int totalReview(Long resNo);
+	
 	
 	public List<Comment> commentList(Long reviewNo, Model model);
 	public int addComment(HttpServletRequest request);
@@ -56,3 +58,4 @@ public interface ReviewService {
 		}
 	
 }
+

@@ -14,7 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-	
+
  
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -35,12 +35,18 @@ h3{
 	margin-left: 100px;
 }
 table tr td{
-	 white-space: nowrap; 
+  white-space: nowrap; 
   width: 100px; 
   overflow: hidden;
   text-overflow: clip; 
 }
-	
+input.btn.btn-danger {
+    width: 20%;
+    float: right;
+}	
+div.title {
+    font-size: 50px;
+}
 </style>
 
 </head>
@@ -126,9 +132,8 @@ table tr td{
 	
 	<div class="container">
 		 <div style="width: 600px; margin-left: 100px;">
-             <h2 class="ing_title">FindTable에서 알려드립니다 !</h2>
-         <hr>
-         </div>
+             <div class="title" style="">🐙&nbsp;&nbsp;공지사항&nbsp;&nbsp;🐙</div>        
+         </div><br><br><br>
 		<table class="table table-hover" style="table-layout:fixed">
 		      <thead>
 		    <tr>
@@ -160,7 +165,10 @@ table tr td{
 		  </tbody>
 		  <tfoot>
 		  		<c:if test="${loginUser.state == 2}">
-				   <td style="border: none;"><input class="btn btn-danger" type="button" value="글쓰기" onclick="location.href='/restaurant/notice/insertPage'"></td>
+		  		   <td style="border: none;"></td>
+		  		   <td style="border: none;"></td>
+		  		   <td style="border: none;"></td>
+				   <td style="border: none;"><input class="btn btn-danger" type="button" value="작성" onclick="location.href='/restaurant/notice/insertPage'"></td>
 		  		</c:if>
 		  </tfoot>
 		  </table>

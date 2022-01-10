@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.reserve.restaurant.domain.Reply" alias="Reply"/>
 		<typeAlias type="com.reserve.restaurant.domain.Comment" alias="Comment"/>
 		<typeAlias type="com.reserve.restaurant.domain.UploadFile" alias="UploadFile"/>
+		<typeAlias type="com.reserve.restaurant.domain.Pay" alias="Pay"/>
 	</typeAliases>
 	
 	

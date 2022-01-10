@@ -118,6 +118,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             content = #{content}
        	WHERE comment_no =  #{commentNo}
     </update>
+    
+    
+    
+    
+    
+    
+<!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
+   <select id="reviewList1"  resultType="Review" parameterType="Long">
+      SELECT rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
+      FROM review rv, restaurant r
+         WHERE rv.res_no = r.res_no
+           AND rv.res_no = #{resNo}
+   </select>
+   
 
 	 
 </mapper>
