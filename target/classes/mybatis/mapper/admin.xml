@@ -226,10 +226,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
 		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
-	  			  		 WHERE 1 = 1 AND STATE = 1
-	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
+	  			  		 WHERE STATE = 1
+					       AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%') A) B	  			  		 	   	  			  		 
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	

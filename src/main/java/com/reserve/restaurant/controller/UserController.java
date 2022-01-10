@@ -134,9 +134,9 @@ public class UserController {
 	}
 //
 	@PostMapping(value="login")
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		userService.login(request,response);
-		return "redirect:/";
+		// return "redirect:/";
 	}
 	// 로그아웃
 	@GetMapping(value="logout")
