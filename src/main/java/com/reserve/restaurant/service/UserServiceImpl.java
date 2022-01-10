@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -16,9 +17,18 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.ui.Model;
 
+import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Menu;
+import com.reserve.restaurant.domain.Pay;
+import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
+import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.UserRepository;
+import com.reserve.restaurant.util.PageUtils;
+import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 import com.reserve.restaurant.util.SecurityUtils;
 
 public class UserServiceImpl implements UserService {
@@ -132,7 +142,6 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> sendAuthCode(String email) {
 			String authCode = SecurityUtils.authCode(6); 
 			try {
-				
 				MimeMessage message = javaMailSender.createMimeMessage();
 				message.setHeader("Content-Type", "text/plain; charset=UTF-8");
 				message.setFrom(new InternetAddress("gogospringtest@gmail.com", "인증코드관리자"));
@@ -195,12 +204,138 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> hourCheck(String bookHours) {
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
 		List<User> list = repository.hourCheck(bookHours);
-		System.out.println(list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", list);
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> findMenuList(Long resNo) {
+		
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<Menu> list = repository.selectMenuList(resNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
 	
+	@Override
+	public Map<String, Object> findReviewList(Long resNo) {
+		
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<Menu> list = repository.selectReviewList(resNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	@Override
+	public Map<String, Object> findCartList(Integer page) {
+		
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		
+		int totalRecord = repository.selectTotalResCount();
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
+		
+		List<Restaurant> list = repository.selectCartList(m);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageUtils", pageUtils);
+		map.put("totalRecord", totalRecord);
+		map.put("list", list);
+		return map;
+	}
+	@Override
+	public Map<String, Object> findPayList(Integer page, Long userNo) {
+		
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		
+		int totalRecord = repository.selectTotalpayCount();
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
+		m.put("userNo", userNo);
+		List<Pay> list = repository.selectPayListByuserNo(m);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageUtils", pageUtils);
+		map.put("totalRecord", totalRecord);
+		map.put("list", list);
+		return map;
+	}
+	
+	@Override
+	public Map<String, Object> goCartRes(Long resNo) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		int result = repository.UpdateRestState(resNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+	@Override
+	public Map<String, Object> removeCart(Long resNo) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		int result = repository.DeleteRestState(resNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+		
+	@Override
+	public Map<String, Object> qnaAsk(Qna qna , HttpServletRequest request) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		int result = repository.insertQna(qna);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+	
+	@Override
+	public List<Qna> findQnaList(String qnaWriter, Model model) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<Qna> list = repository.selectQnaList(qnaWriter);
+		model.addAttribute("list", list);
+		return list;
+	}
+	
+	
+	@Override
+	public void findQnaByNo(Long qnaNo, Model model,HttpServletRequest request) {
+		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
+		Qna list2= repository.selectQna2(qnaNo);
+		Qna list3= repository.selectQna3(qnaNo);
+		model.addAttribute("list2", list2);
+		model.addAttribute("list3", list3);
+		
+	}
+	
+	@Override
+	public void removeQna(Long qnaNo, HttpServletResponse response) {
+		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
+		int result = repository.deleteQna(qnaNo);
+		message(result, response, "삭제되었습니다", "삭제 실패", "/restaurant/user/myPage");
+	}
+	@Override
+	public void qnaUpdate(Qna qna, HttpServletResponse response) {
+		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
+		int result = repository.updateQna(qna);
+		message(result, response, "수정 되었습니다", "수정 실패", "/restaurant/user/findQnaList?qnaWriter="+qna.getQnaWriter());
+		
+	}
+	
+	@Override
+	public Map<String, Object> gogopay(Pay pay, HttpServletRequest request) {
+		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
+		int result = repository.insertPay(pay);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
 	
 }

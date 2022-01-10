@@ -24,7 +24,6 @@ public interface RestaurantService {
 	//메뉴 불러오기
 	public List<Menu> selectMenu(Long resNo);
 	public void menuDelete(Long menuNo);
-	
 	//사진 불러오기
 	public List<UploadFile> selectFile(Long resNo);
 	

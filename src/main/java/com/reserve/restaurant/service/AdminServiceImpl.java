@@ -14,8 +14,11 @@ import org.springframework.ui.Model;
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
+import com.reserve.restaurant.domain.Review;
+import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.AdminRepository;
+import com.reserve.restaurant.repository.ReviewRepository;
 import com.reserve.restaurant.util.PageUtils;
 
 @Service
@@ -80,7 +83,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		List<Owner> list = repository.selectOwnerList(map);
 		
-		System.out.println("allFindOwner에서 list : " + list);
 		
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("ownerList", list);
@@ -113,7 +115,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		int totalRecord = repository.selectFindRecordCount(map);
 		
-		System.out.println(totalRecord);
 		
 		// 전달된 페이지 번호 (전달 안 되면 page = 1 사용)
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -130,7 +131,6 @@ public class AdminServiceImpl implements AdminService {
 		// 검색된 목록 중 beginRecord ~ endRecord 사이 목록 가져오기
 		List<String> list = repository.selectFindList(map);
 
-		System.out.println(list);
 		
 		// View(employee/list.jsp)로 보낼 데이터
 		model.addAttribute("list", list);
@@ -341,11 +341,22 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	   public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
 	      AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+	      
+	      
 	      Long resNo = restaurant.getResNo();
-	      Restaurant rest = repository.selectResDetail(resNo); 
+	      Restaurant rest = repository.selectResDetail(resNo);
+	      List<Review> reviewList = repository.selectReviewList(resNo);
+	      List<UploadFile> picList = repository.selectFile(resNo);
 	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
-	      } 
+	      }
+	      model.addAttribute("reviewList",reviewList);
+	      
+	      model.addAttribute("pic" ,  picList);
+	      if (picList != null) {
+	    	  request.getSession().setAttribute("pic", picList);
+	      }
+	      
 	      
 	   }
 	
@@ -383,10 +394,7 @@ public class AdminServiceImpl implements AdminService {
 		Map<String, Object> m1 = new HashMap<String, Object>();
 		m1.put("column", request.getParameter("column"));
 		m1.put("query", request.getParameter("query"));
-		System.out.println("column : " + request.getParameter("column"));
-		System.out.println("query : " + request.getParameter("query"));
 		int totalRecord = repository.countFindRes(m1);
-		System.out.println("serviceImpl : " + totalRecord);
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
 		Map<String, Object> m2 = new HashMap<String, Object>();
@@ -395,12 +403,12 @@ public class AdminServiceImpl implements AdminService {
 		m2.put("column", request.getParameter("column"));
 		m2.put("query", request.getParameter("query"));
 		List<Restaurant> list = repository.findRes(m2);
-		System.out.println("serviceImpl에서 최종 list : " + list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("pageUtils", pageUtils);
 		return map;
 	}
+
 	
 	// 새로 등록된 식당
 	@Override

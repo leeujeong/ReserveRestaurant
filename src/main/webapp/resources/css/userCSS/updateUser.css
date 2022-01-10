@@ -274,10 +274,8 @@ header #gnb li:last-child {
             vertical-align: middle;
         }
         .icon_id {
-            display: block;
             width: 20px;
             height: 20px;
-            background-image: url(https://ssl.pstatic.net/static/nid/login/m_sp_01_login_2d02c3e8.png);
             background-size: 229px 196px;
             background-position: -206px -141px;
         }

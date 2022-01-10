@@ -69,4 +69,13 @@ public class BookController {
 //		return "user/reviewPage";
 //	}
 	
+
+	@PostMapping(value = "hourCheck" , produces ="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> hourCheck (@RequestBody Book book, HttpServletRequest request){
+	  return bookService.hourCheck(book, request);
+	}
+	
+	
+	
 }

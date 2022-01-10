@@ -87,12 +87,15 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
 		int result = repository.insertReview(review);
 		
-		String resNo = multipartRequest.getParameter("resNo");
+		String opt = multipartRequest.getParameter("resNo");
+		Long resNo =  Long.parseLong(opt);
 		
-		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "detail?resNo=" + resNo);
+	
+		
+		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "/restaurant/admin/goResDetail?resNo="+resNo);
 		
 	}
-
+	
 	@Override
 	public void reviewList(Model model) {
 		
@@ -139,7 +142,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Long resNo = (Long)m.get("resNo");
 		
 		Map<String, Object>map = new HashMap<String, Object>();
-	
+		map.put("resNo", resNo);
 		
 		//평균과 전체 글수
 //		int avgReview = repository.avgReviewRate(resNo);
@@ -236,4 +239,3 @@ public class ReviewServiceImpl implements ReviewService {
 //	}
 	
 }
-

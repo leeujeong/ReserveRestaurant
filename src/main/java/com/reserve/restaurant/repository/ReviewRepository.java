@@ -12,7 +12,7 @@ import com.reserve.restaurant.domain.Review;
 public interface ReviewRepository {
 
 	public List<Review> reviewList(Map<String, Object> map);
-	
+	public List<Review> reviewList1(Long resNo);
 	public List<Review> ownerReviewList(Map<String, Object> map);
 	
 	public Review selectReviewList(Long reviewNo);
@@ -20,13 +20,15 @@ public interface ReviewRepository {
 	public int insertReview(Review review);
 //	public int avgReviewRate(Long resNo);
 //	public int totalReview(Long resNo);
-	
 	//comment
 	public int commentCount();
 	public List<Comment> commentList(Long reviewNo);
 	public int addComment(Comment comment);
 	public int updateComment(Comment commment);
 	public int removeComment(Long commentNo);
+	
+	
+	
 
 	
 }

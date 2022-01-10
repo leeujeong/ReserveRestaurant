@@ -27,7 +27,7 @@ public class Review {
 	private int reviewRate;
 	private Long userNo;
 	private Long resNo;
-	
+
 	
 	
 //	private int state;
