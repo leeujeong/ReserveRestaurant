@@ -84,7 +84,9 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[0].userNo}">${list[0].id}</a>
    	        			</td>
    	        			<td>${list[0].name}</td>
-   	        			<td>${list[0].state}</td>
+   	        			<c:if test="${bookList[0].bookState == 6}">
+	   	        			<td>예약중</td>
+   	        			</c:if>
    	        		</tr>
             		<tr>
    	        			<td>${list[1].userNo}</td>
@@ -92,7 +94,9 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[1].userNo}">${list[1].id}</a>
    	        			</td>
    	        			<td>${list[1].name}</td>
-   	        			<td>${list[1].state}</td>
+   	        			<c:if test="${bookList[1].bookState == 6}">
+	   	        			<td>예약중</td>
+   	        			</c:if>
    	        		</tr>
             		<tr>
    	        			<td>${list[2].userNo}</td>
@@ -100,7 +104,9 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[2].userNo}">${list[2].id}</a>
    	        			</td>
    	        			<td>${list[2].name}</td>
-   	        			<td>${list[2].state}</td>
+   	        			<c:if test="${bookList[2].bookState == 6}">
+	   	        			<td>예약중</td>
+   	        			</c:if>
    	        		</tr>
             		<tr>
    	        			<td>${list[3].userNo}</td>
@@ -108,7 +114,9 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[3].userNo}">${list[3].id}</a>
    	        			</td>
    	        			<td>${list[3].name}</td>
-   	        			<td>${list[3].state}</td>
+   	        			<c:if test="${bookList[3].bookState == 6}">
+	   	        			<td>예약중</td>
+   	        			</c:if>
    	        		</tr>
             		<tr>
    	        			<td>${list[4].userNo}</td>
@@ -116,7 +124,9 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[4].userNo}">${list[4].id}</a>
    	        			</td>
    	        			<td>${list[4].name}</td>
-   	        			<td>${list[4].state}</td>
+   	        			<c:if test="${bookList[4].bookState == 6}">
+	   	        			<td>예약중</td>
+   	        			</c:if>
    	        		</tr>
     	        	<c:if test="${empty ownerList}">
 	    	        	<c:if test="${not empty paging}">

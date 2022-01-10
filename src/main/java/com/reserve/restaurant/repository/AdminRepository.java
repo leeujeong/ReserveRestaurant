@@ -58,7 +58,7 @@ public interface AdminRepository {
 	public List<Review> selectReviewList(Long resNo);
 	public List<Restaurant> newOpen();
 	
-	
+	public List<Book> checkBookState(Map<String, Object> map);
 	
 	
 	
