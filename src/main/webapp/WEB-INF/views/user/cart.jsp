@@ -66,7 +66,7 @@
 					console.log(like.resState);
 					if(like.resState ==2 ){
 						$('<tr>')
-						.append($('<th scope="row"><a href="/restaurant/admin/goResDetail?resNo='+like.resNo+'"><img src="/restaurant/'+like.resPath+'/'+'s_'+like.resSaved+'" style="width: 70px; height:70px;"></a>'))
+						.append($('<th scope="row"><a href="/restaurant/admin/goResDetail?resNo='+like.resNo+'"><img src="/restaurant/'+like.resPath+'/'+like.resSaved+'" style="width: 70px; height:70px;"></a>'))
 						.append($('<td>').text(like.resNo))
 						.append($('<td>').text(like.resName))
 						.append($('<td>').text(like.resTel))

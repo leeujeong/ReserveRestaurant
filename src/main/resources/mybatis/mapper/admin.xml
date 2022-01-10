@@ -316,6 +316,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  ORDER BY RES_NO DESC) A
 	     WHERE A.RN BETWEEN 1 AND 5
 	</select>
+	
+		<!-- 사진 불러오기 -->
+	<select id="selectFile" parameterType="Long" resultType="UploadFile">
+		SELECT u.*
+		  FROM uploadfile u, restaurant r
+		 WHERE u.res_no = r.res_no
+		  AND r.res_no = #{resNo}
+	</select>
+	
 
 
 

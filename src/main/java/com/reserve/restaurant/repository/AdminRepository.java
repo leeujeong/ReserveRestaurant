@@ -9,6 +9,7 @@ import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
+import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.domain.User;
 
 @Repository
@@ -56,4 +57,10 @@ public interface AdminRepository {
 	
 	public List<Review> selectReviewList(Long resNo);
 	public List<Restaurant> newOpen();
+	
+	
+	
+	
+	
+	public List<UploadFile> selectFile(Long resNo);
 }

@@ -15,6 +15,7 @@ import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
+import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.AdminRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
@@ -345,13 +346,17 @@ public class AdminServiceImpl implements AdminService {
 	      Long resNo = restaurant.getResNo();
 	      Restaurant rest = repository.selectResDetail(resNo);
 	      List<Review> reviewList = repository.selectReviewList(resNo);
-	      
-	      model.addAttribute("rest", rest);
+	      List<UploadFile> picList = repository.selectFile(resNo);
 	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
 	      }
-	      System.out.println(rest+"어드민 서비스 임플");
 	      model.addAttribute("reviewList",reviewList);
+	      
+	      model.addAttribute("pic" ,  picList);
+	      if (picList != null) {
+	    	  request.getSession().setAttribute("pic", picList);
+	      }
+	      
 	      
 	   }
 	

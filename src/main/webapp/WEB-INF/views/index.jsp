@@ -152,42 +152,42 @@
             <div class="location_wrap" data-aos="fade-up">
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/location.jpeg"></a>
+                        <a href="/restaurant/admin/searchPage"><img src="/restaurant/resources/image/index/location.jpeg"></a>
                     </li>
                     <h3>위치검색</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/jamsil.jpg"></a>
+                        <a href="/restaurant/admin/searchRestaurant?query=송파구"><img src="/restaurant/resources/image/index/jamsil.jpg"></a>
                     </li>
                     <h3>잠실</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/yeouido.jpeg"></a>
+                        <a href="/restaurant/admin/searchRestaurant?query=영등포구"><img src="/restaurant/resources/image/index/yeouido.jpeg"></a>
                     </li>
                     <h3>여의도</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/busan.jpeg"></a>
+                        <a href="/restaurant/admin/searchRestaurant?query=부산"><img src="/restaurant/resources/image/index/busan.jpeg"></a>
                     </li>
                     <h3>부산</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/sokcho.jpeg"></a>
+                        <a href="/restaurant/admin/searchRestaurant?query=속초"><img src="/restaurant/resources/image/index/sokcho.jpeg"></a>
                     </li>
                     <h3>속초</h3>
                     <p></p>
                 </ul>
                 <ul class="location_ul">
                     <li class="location_img">
-                        <a href="해당페이지"><img src="/restaurant/resources/image/index/jejudo.jpeg"></a>
+                        <a href="/restaurant/admin/searchRestaurant?query=제주"><img src="/restaurant/resources/image/index/jejudo.jpeg"></a>
                     </li>
                     <h3>제주도</h3>
                     <p></p>

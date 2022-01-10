@@ -561,6 +561,9 @@ button:hover {
 		color:green;
 	}
   /*모달 라디오 css 끝*/
+  .pic_td{
+  	overflow:hidden;
+  }
  </style>
 </head>
 <body>
@@ -794,6 +797,23 @@ button:hover {
 		    <button class="btn btn-danger a next">next</button>
 		  </div>
     </section>
+    
+    <section class="review_section">
+        <!-- 해당 이미지를 누르면 해당 리뷰로 이동한다 -->
+        <div class="picture_title"> 식당 내부 사진</div>
+        <table class="image_table" style="width: 600px">
+            <tbody class="review_image_table">
+            	 <c:if test="${not empty pic}">
+		            	<c:forEach var="pic" items="${pic}">
+	                        <a href="">
+	                            <img src="/restaurant/${pic.path}/${pic.uuid}" width="200px" height="200px" class="review_image_header">
+	                        </a>
+	                	</c:forEach>
+		          </c:if>
+            </tbody>
+        </table>
+    </section>
+    
 	  <script>
 		  const container = document.querySelector(".container");
 		  const prevBtn = document.querySelector(".prev");
@@ -816,41 +836,6 @@ button:hover {
 		    (selectedBtn === 'prev') ? container.insertBefore(container.lastElementChild, container.firstElementChild): container.appendChild(container.firstElementChild);
 		  }
 	  </script>
-    
-	
- 
-       
-    <section class="review_section">
-        <!-- 해당 이미지를 누르면 해당 리뷰로 이동한다 -->
-        <div class="picture_title">사진</div>
-        <table class="image_table">
-            <tbody class="review_image_table">
-	                <tr> 
-	                    <td>
-	                        <a href="">
-	                            <img src="/restaurant/${rest.resPath}/${rest.resSaved}" width="200px" height="200px" class="review_image_header">
-	                        </a>
-	                    </td>
-	                    <td>
-	                        <a href="">
-	                            <img src="/restaurant/${rest.resPath}/${rest.resSaved}" width="200px" height="200px">
-	                        </a>
-	                    </td>
-	                    <td>
-	                        <a href="">
-	                            <img src="#" width="200px" height="200px">
-	                        </a>
-	                    </td>
-	                    <td>
-	                        <a href="">
-	                            <img src="#" width="200px" height="200px" class="review_image_footer">
-	                        </a>
-	                    </td>
-	                </tr>
-                
-            </tbody>
-        </table>
-    </section>
 	
 	
 	    <section class="icon_section">
