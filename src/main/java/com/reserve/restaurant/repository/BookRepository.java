@@ -25,4 +25,3 @@ public interface BookRepository {
 	public Restaurant selectBookBybookNo(Long bookNo);
 	
 }
- 
