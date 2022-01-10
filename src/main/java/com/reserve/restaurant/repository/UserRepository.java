@@ -39,4 +39,6 @@ public interface UserRepository {
 	public int deleteQna(Long qnaNo);
 	public int updateQna(Qna qna);
 	public int selectTotalpayCount();
+	public int insertLoginLog(Long userNo);
+	public int updateUserPoint(Long userNo);
 }
