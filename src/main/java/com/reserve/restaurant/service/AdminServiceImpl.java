@@ -51,7 +51,9 @@ public class AdminServiceImpl implements AdminService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		
 		List<User> list = repository.selectUserList(map);
-		
+		List<Book> bookList = repository.checkBookState(map);
+		 
+		model.addAttribute("bookList", bookList);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
@@ -250,13 +252,17 @@ public class AdminServiceImpl implements AdminService {
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
 		
-		
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("userNo", userNo);
 		
+		System.out.println("beginRecord:" + pageUtils.getBeginRecord());
+		System.out.println("endRecord:" + pageUtils.getEndRecord());
+		
 		List<Book> bookList = repository.selectBookList(m);	// 목록
+		
+		System.out.println(bookList.toString());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bookList", bookList);				// 목록
