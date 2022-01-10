@@ -218,10 +218,38 @@
                 <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-               <li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-               <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
+            	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	<!-- 사업자 -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            	</c:if>
+                
+                
             </ul>
         </div>
     </header>
@@ -341,40 +369,6 @@
             </div>
         </div>
     </section>
-    
-   <!--  <script>
-    //아아디체크
-    let idPass = false;
-    let regId = /^[a-zA-Z0-9-_]{4,10}$/;
-    function fnIdCheck(){
-        $('#ownerId').keyup(function(){
-            if( regId.text($(this).val() == false)){
-                $('#id_result').text('아이디는 영어 소문자, 대문자, 숫자포함 4 ~ 10자리로 입력해주세요').addClass('no').removeClass('ok');
-                idPass = false;
-                return;
-        }
-        $.ajax({
-                url: 'owner/idCheck',
-                type: 'post',
-                data: 'id=' + $(this).val(),
-                dataType: 'json',
-                success: function(map){
-                    if (map.result == null) {
-                        $('#id_result').text('사용 가능한 아이디입니다').addClass('ok').removeClass('no');
-                        idPass = true;
-                    } else {
-                        $('#id_result').text('사용 중인 아이디입니다').addClass('no').removeClass('ok');
-                        idPass = false;
-                    }
-                },
-                error: function(xhr){
-                    $('#id_result').text(xhr.responseText).addClass('no').removeClass('no');
-                    idPass = false;
-                }
-            });
-        });
-    }       
-  
-</script> -->
+
 </body>
 </html>

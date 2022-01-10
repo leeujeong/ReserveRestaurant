@@ -12,13 +12,13 @@ import com.reserve.restaurant.domain.Owner;
 
 public interface OwnerService {
 
-	public void join(HttpServletRequest request);
+	public void join(Owner owner,HttpServletResponse response);
 	public void loginOwner(HttpServletRequest request);
 //	public Map<String, Object> emailCheck(String email);
 	public Owner selectOwnerByNo(Long ownerNo);
 	public Map<String, Object> presentPwCheck(HttpServletRequest request);
 	public void updatePw(Owner owner);	public void deleteOwner(Long ownerNo, HttpSession session);
-	public void updateOwner(Owner owner, HttpSession session);
+	public void updateOwner(Owner owner, HttpSession session,  HttpServletResponse response);
 
 	
 	//message method

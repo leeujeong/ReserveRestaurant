@@ -9,8 +9,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link href="<c:url value="/resources/css/userCSS/myPage.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/userCSS/datail.css"/>" rel="stylesheet">
+	
 <style>
  
  		a {
@@ -19,7 +21,6 @@
 		    font-weight: normal;
 		}
 		.container{
-		 border: 1px solid #eaedf0;
 		 border-radius: 10px;
 		}
 		
@@ -48,6 +49,7 @@
 			
 		}
 		
+	
 		
 		
     </style>
@@ -75,7 +77,7 @@
             	<c:if test="${loginUser.state == 1}">
             			<li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
             	<!-- 관리자 state 2 -->
@@ -103,22 +105,22 @@
                 <div class="menu_nav">
                     <h2 class="menu_title">예약 내역</h2>
                     <ul>
-                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">완료</a></li>
-                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">취소 / 환불</a></li>
+                        <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
+                        <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>
+                        <li><a href="/restaurant/user/PayListPage" class="menu_sub_title">결제내역</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="#">문의 내역</a></li>
-                        <li><a href="#">My 관심상품</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">문의 내역</a></li>
+                        <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
                 <div class="menu_nav">
                     <h2 class="menu_title">내 정보</h2>
                     <ul>
                         <li><a href="/restaurant/user/updateUser">내 정보 수정</a></li>
-                        <li><a href="#"> 본인 인증 / 재인증</a></li>
                     </ul>
                 </div>
           

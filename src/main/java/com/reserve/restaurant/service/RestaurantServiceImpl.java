@@ -108,7 +108,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 				String sep = Matcher.quoteReplacement(File.separator);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
-			
+				String realPath = multipartRequest.getServletContext().getRealPath(path);
+				
+				File dir = new File(realPath);
+				if (dir.exists() == false) {
+					dir.mkdirs();
+				}
+				
+				File uploadFile = new File(realPath, saved); 
+				file.transferTo(uploadFile);
+				
+				
 				restaurant.setResPath(path);
 				restaurant.setResOrigin(origin);
 				restaurant.setResSaved(saved);
@@ -360,7 +370,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public List<Menu> selectMenu(Long resNo) {
 		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		return repository.selectMenu(resNo);
+		List<Menu> list = repository.selectMenu(resNo);
+		System.out.println(list.toString());
+		
+		return list;
 		
 	}
 	//메뉴 삭제

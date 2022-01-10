@@ -1,6 +1,7 @@
 package com.reserve.restaurant.service;
 
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,17 +32,44 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 //회원가입
 	@Override
-	public void join(HttpServletRequest request) {
-		Owner owner = new Owner();
-		owner.setId(request.getParameter("id"));
-		owner.setPw(SecurityUtils.sha256(request.getParameter("pw")));
-		owner.setName(SecurityUtils.xxs(request.getParameter("name")));
-		owner.setEmail(request.getParameter("email"));
-		owner.setTel(request.getParameter("tel"));
+	public void join(Owner owner,  HttpServletResponse response) {
+		
+		owner.setId(owner.getId());
+		owner.setPw(SecurityUtils.sha256(owner.getPw()));
+		owner.setName(SecurityUtils.xxs(owner.getName()));
+		owner.setEmail(owner.getEmail());
+		owner.setTel(owner.getTel());
 		
 		
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
 		repository.joinOwner(owner);
+		
+		
+		int result = repository.joinOwner(owner);
+		
+		try {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				out.println("<script>");
+				out.println("alert('회원가입 되었습니다.')");
+				out.println("location.href='/restaurant'");
+				out.println("</script>");
+				out.close();
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 등록 실패하였습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close(); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		
 	}
 //로그인
@@ -93,12 +121,19 @@ public class OwnerServiceImpl implements OwnerService {
 		
 	}
 	@Override
-	public void updateOwner(Owner owner, HttpSession session) {
+	public void updateOwner(Owner owner, HttpSession session,  HttpServletResponse response) {
 		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		repository.updateOwner(owner);
+		owner.setEmail(owner.getEmail());
+		owner.setTel(owner.getTel());
+		
+		int result = repository.updateOwner(owner);
+		message(result, response, "회원정보가 수정되었습니다", "회원정보 수정 실패", "/restaurant/owner/updateOwner");
 		Owner loginUser = (Owner)session.getAttribute("loginUser");
 		loginUser.setName(owner.getName());
 		loginUser.setEmail(owner.getEmail());
+		
+		
+	
 	}
 	
 }

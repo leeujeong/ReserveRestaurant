@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,10 +148,11 @@ public class OwnerController {
 		ownerService.loginOwner(request);
 		return "redirect:/";
 	}	
+	
 	//회원가입
 	@PostMapping(value="insertOwner")
-	public String insertOwner(HttpServletRequest request) {
-		ownerService.join(request);
+	public String insertOwner(Owner owner, HttpServletResponse response) {
+		ownerService.join(owner	, response);
 		return "redirect:/";
 	}
 	
@@ -161,31 +163,16 @@ public class OwnerController {
 		return "redirect:/";
 	}
 	
-	//아이디 체크
-//	@PostMapping(value="idCheck", produces="application/json; charset=UTF-8")
-//	@ResponseBody
-//	public Map<String, Object> idCheck(@RequestParam("id") String id){
-//		return ownerService.idCheck(id);
-//	}
-	
-	//이메일로 아이디 찾기
-//	@PostMapping(value={"emailCheck", "findId"}, produces="application/json; charset=UTF-8")
-//	@ResponseBody
-//	public Map<String, Object>findOwnerByEmail(@RequestParam("email")String email){
-//		return ownerService.findOwnerByEmail(email);
-//	}
-	
-	//이메일 전송
-//	@PostMapping(value="sendAuthCode", produces="application/json; charset=UTF-8")
-//	@ResponseBody
-//	public Map<String, Object> sendAuthCode(@RequestParam("email") String email) {
-//		return ownerService.sendAuthCode(email);
-//	}
+	// 업데이트페이지 이동
+	@GetMapping(value="updateOwner")
+	public String updateUser() {
+		return "redirect:/";
+	}
+
 	//회원정보 수정
 	@PostMapping(value="updateOwner")
-	public String updateMember(Owner owner, HttpSession session) {
-		ownerService.updateOwner(owner, session);
-		return "redirect:/";
+	public void updateMember(Owner owner, HttpSession session,  HttpServletResponse response) {
+		ownerService.updateOwner(owner, session, response);
 	}
 	
 	//비밀번호 체크

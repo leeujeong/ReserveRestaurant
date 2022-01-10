@@ -16,6 +16,7 @@
 	<script src="<c:url value="/resources/js/owner.js"/>"></script>
 	<script src="<c:url value="/resources/js/main.js"/>"></script>
 	
+	
 <!--    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script> 
  -->
@@ -41,11 +42,13 @@
 		    		);
 		  },
 		    editable: true,
+		    eventLimit : true,
 		    dayMaxEvents: true,
 		    events: function(info, successCallback, failureCallback) {
 	    		var data = ${list_json};
 				successCallback(data);
 			}
+			
 		  });
 		
 			calendar.render();
@@ -79,10 +82,38 @@
                 <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-               	<li><a href="/restaurant/owner/logout" style="font-weight: 400;">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/bookPage"style="font-weight: 400;">MYPAGE</a></li>
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
+            	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	<!-- 사업자 -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            	</c:if>
+                
+                
             </ul>
         </div>
     </header>

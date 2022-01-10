@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.service.RestaurantService;
@@ -40,8 +41,9 @@ public class RestaurantController {
 	public String selectList(@RequestParam("resNo")Long resNo, Model model) {
 		
 		
+		List<Menu> list = restaurantService.selectMenu(resNo);
 		model.addAttribute("restaurant", restaurantService.selectList(resNo));
-		model.addAttribute("menu_list", restaurantService.selectMenu(resNo));
+		model.addAttribute("list", list);
 		model.addAttribute("file_list", restaurantService.selectFile(resNo));
 		
 		return "owner/detail";

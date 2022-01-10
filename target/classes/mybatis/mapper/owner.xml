@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원가입 -->
 	<insert id="joinOwner" parameterType="Owner">
-		INSERT INTO owner
-		VALUES (owner_no_SEQ.NEXTVAL, #{id}, #{pw}, #{email}, #{tel}, #{name}, 3)
+		INSERT INTO owner (owner_no, id, pw, name, email, state, user_no)
+		VALUES (owner_no_SEQ.NEXTVAL, #{id}, #{pw}, #{email}, #{tel}, #{name}, 3, 0)
 	</insert>
 	
 	<!-- 로그인 -->

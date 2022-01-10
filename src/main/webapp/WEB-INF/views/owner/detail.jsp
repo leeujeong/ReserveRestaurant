@@ -26,10 +26,12 @@
 	    }); 
 		
 	    //메뉴 삭제
+	    var menuNo = $('#menuNo').val();
 	    $('.menuDelete').on('click', function(){
-	    	alert('삭제할거야');
+		    var menuNo = $('#menuNo').val();
+		    alert(menuNo);
 	    	$.ajax({
-	    		url : '/restaurant/owner/menuDelete?menuNo=${menu.menuNo}',
+	    		url : '/restaurant/owner/menuDelete?menuNo=' + menuNo,
 	    		type : 'get',
 	    		success : function(menuNo){
 	    			$('.menuInput_${menu.menuNo}').hide();
@@ -86,10 +88,38 @@
                 <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-            	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
+            	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	<!-- 사업자 -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            	</c:if>
+                
+                
             </ul>
         </div>
     </header>
@@ -210,11 +240,11 @@
                                <tr>
 	                                <td>메뉴 등록하기</td>
 	                                <td class="menu">
-	                                	<c:forEach var="menu" items="${menu_list}">
+	                                	<c:forEach var="menu" items="${list}" varStatus = "status">
 		                                	<div class="menu_input">
 		                                        <div class="menu_input_box default">
 		                                        	<div  class="menuInput_${menu.menuNo}" >
-			                                        	<input type="hidden" name="menuNo"value="${menu.menuNo}">
+			                                        	<input type="hidden" name="menuNo"value="${menu.menuNo}" data-menu="${menu.menuNo}">
 			                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
 			                                            <input type="button" name="menuDelete" value="메뉴삭제" class="menuDelete">
 		                                        	</div>

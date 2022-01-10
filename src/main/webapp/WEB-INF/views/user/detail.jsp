@@ -280,22 +280,24 @@
             	
             	<!-- 사용자 state =1 -->
             	<c:if test="${loginUser.state == 1}">
-            			<li>${loginUser.id} 님 환영합니다</li>
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	
+             	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
-            	<!-- 관리자 state 2 -->
-            	<c:if test="${loginUser.state == 2}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
-            	</c:if>
-            	
-            	<!-- 사업자는 어떻게? -->
+            	<!-- 사업자 -->
               <c:if test="${loginUser.state == 3}">
             		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
             	</c:if>
                 
                 
@@ -425,7 +427,7 @@
 				  <p></p>
 				 <form id="f2" method="post">
 					  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
-					  <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}">
+					   <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}"> 
 				 </form>
 				</div>
         </div>
@@ -675,9 +677,9 @@
 		});    
     </script>
     <input type="hidden" id="resNo" name="resNo" value="${restaurant.resNo}">
-    <input type="text" id="rest" value="${rest.resAddress}">
-	<input type="text" id="resAddress" value="${restaurant.resAddress}">
-	<input type="text" id="resAddressDetail" value="${restaurant.resAddressDetail}">
+    <input type="hidden" id="rest" value="${rest.resAddress}">
+	<input type="hidden" id="resAddress" value="${restaurant.resAddress}">
+	<input type="hidden" id="resAddressDetail" value="${restaurant.resAddressDetail}">
 	<input type="hidden" id="resOrigin" value="${restaurant.resOrigin}">
 	<input type="hidden" id="resSaved" value="${restaurant.resSaved}">
 	<input type="hidden" id="resPath" value="${restaurant.resPath}">
