@@ -51,9 +51,8 @@ public class AdminServiceImpl implements AdminService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		
 		List<User> list = repository.selectUserList(map);
-		List<Book> bookList = repository.checkBookState(map);
-		 
-		model.addAttribute("bookList", bookList);
+		System.out.println(list.toString());
+		
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
@@ -117,37 +116,28 @@ public class AdminServiceImpl implements AdminService {
 		
 		int totalRecord = repository.selectFindRecordCount(map);
 		
-		
-		// 전달된 페이지 번호 (전달 안 되면 page = 1 사용)
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
-		// 페이징 처리 PageUtils 객체 생성 및 계산
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		
-		// map + beginRecord + endRecord
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		
-		// 검색된 목록 중 beginRecord ~ endRecord 사이 목록 가져오기
 		List<String> list = repository.selectFindList(map);
-
-		
-		// View(employee/list.jsp)로 보낼 데이터
 		model.addAttribute("list", list);
 		model.addAttribute("totalRecord", totalRecord);
 		
-		// 검색 조건에 따라서 파라미터가 달라짐
 		switch (column) {
 		case "ID":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));
 			break;
 		case "NAME":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  
 			break;
 		case "TEL":
-			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  // 목록을 출력하는 매핑값 전달
+			model.addAttribute("paging", pageUtils.getPageEntity("findUser?column=" + column + "&query=" + query + "&radio=" + type));  
 			break;
 		}
 		
