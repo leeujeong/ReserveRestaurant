@@ -6,9 +6,10 @@
 * {
     margin: 0;
     padding: 0;
+    font-size: 20px;
+	color: #3b3b3b;
+
 }
-
-
 li {
     list-style: none;
 }
@@ -53,9 +54,8 @@ a:after {
 
 /* 초기화끝 */
 /* 헤더시작 */
-
 header {
-    height: 120px;
+    height: 150px;
     padding-top: 20px;
     padding-bottom: 20px;
     position: fixed;
@@ -65,20 +65,21 @@ header {
     background-color: white;
     border-bottom: 1px solid silver;
     box-shadow: 0 1px 2px lightgray;
-    margin: 0 auto;x
+    margin: 0 auto;
+    font-size: 20px;
 }
 
 header h1 {
     padding: 25px 0;
 }
 
+
 header #gnb {
     position: absolute;
     right: 0;
     top: 50px;
-    font-size: 18px;
+    font-size: 25px;
 }
-
 header #gnb li {
     float: left;
     margin-right: 20px;
@@ -87,20 +88,11 @@ header #gnb li {
 header #gnb li:last-child {
     margin-right: 0;
 }
-
-
 /* 헤더끝 */
   
-
  .container{
  	margin-top: 200px;
  }
-
-
- 
- 
-
-
 
  
  @font-face {

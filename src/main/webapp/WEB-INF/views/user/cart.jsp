@@ -17,6 +17,12 @@
 		    text-decoration: none;
 		    color: inherit;
 		}
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
+		}
     </style>
     
     <script>
@@ -214,7 +220,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="menu_nav">
-                    <h2 class="menu_title">예약내역</h2>
+                    <h2 class="menu_title">예약 내역</h2>
                     <ul>
                         <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
                         <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>
@@ -239,7 +245,7 @@
             <div class="col-6">
                  
                 <div>
-                    <h3 class="ing_title" style="font-size: 30px" >찜 목록</h3>
+                    <h2 class="ing_title" >찜 목록</h2>
                 </div>
                 <hr style="width: 900px;">
                 <div class="ing_menu">
@@ -250,7 +256,7 @@
 					 <thead>
 						<tr>
 							 <th scope="col">#</th>
-							 <th scope="col" style="width: 50px;">번호</th>
+							 <th scope="col">번호</th>
 							 <th scope="col">식당명</th>
 							 <th scope="col">연락처</th>
 							 <th scope="col">식당옵션</th>

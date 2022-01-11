@@ -23,6 +23,7 @@ import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.BookRepository;
@@ -306,10 +307,12 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public void findQnaByNo(Long qnaNo, Model model,HttpServletRequest request) {
+	public void findQnaByNo(Long qnaNo, Model model, HttpServletRequest request) {
 		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
 		Qna list2= repository.selectQna2(qnaNo);
 		Qna list3= repository.selectQna3(qnaNo);
+		
+		model.addAttribute("reply", repository.qnaReplyByUser(qnaNo));
 		model.addAttribute("list2", list2);
 		model.addAttribute("list3", list3);
 		

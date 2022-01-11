@@ -252,5 +252,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		INSERT INTO PAY
    		VALUES(PAY_NO_SEQ.NEXTVAL, #{userNo}, #{resNo}, #{bookNo}, TO_CHAR(SYSDATE,'yyyy.mm.dd hh24:mi'),#{payName}, #{payMethod}, #{amount}, #{id})
    </insert>
+   
+   <!-- 사장님 댓글 가져오기 -->
+   <select id="qnaReplyByUser" parameterType="Map" resultType="Map">
+   		SELECT r.*, rs.res_name
+   		  FROM reply r, qna q, restaurant rs
+   		 WHERE r.qna_no = q.qna_no
+   		   AND q.res_no = rs.res_no
+   		   AND r.qna_no = #{qnaNo}
+   </select>
 	
 </mapper>

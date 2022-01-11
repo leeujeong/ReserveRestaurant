@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -84,10 +85,11 @@ public class RestaurantController {
 	}
 	
 	//메뉴 삭제
-	@GetMapping(value="owner/menuDelete", produces="application/json; charset=UTF-8")
-	public void menuDelete(Long menuNo) {
-		System.out.println("메뉴 ㄴ머서"+menuNo);
+	@GetMapping(value="owner/menuDelete")
+	@ResponseBody
+	public Long menuDelete(Long menuNo) {
 		restaurantService.menuDelete(menuNo);
+		return menuNo;
 	}
 
 }

@@ -25,6 +25,14 @@
 		    background-color: white;
 		    border: none;
 		}
+		.deleteMenuBtn{
+			width: 50px;
+			background-color: silver;
+			border: none;
+			cursor: hover;
+			border-radius: 30px;
+		}
+		
 	</style>
 </head>
 <script>
@@ -147,7 +155,7 @@
 	                                   		<label>상세주소</label>
                                        		<input type="text" name="address_detail" placeholder="상세주소를 입력해주세요"/>
 	                                    </div>
-                                    </td>
+	                                    
                                 </tr>
 		                          <tr>
 		                              <td>사진 등록</td>
@@ -156,16 +164,16 @@
  		                                   <input type="file" name="files" id="multi-add" accept="image/*" style="display:none;" onchange="setThumbnail(event);" multiple/> 
 		                               		<input type="button" value="초기화" class="resetBtn">
 		                                 <div id="image_container"></div>  
+		                                 
 		                                 <!-- click event -->
 		                                 <script> 
 		                                  $("#file_add").on('click',function(){ $('#multi-add').click(); }); 
 		                                  
+
 		                                	function setThumbnail(event) {
 		                                  		for (var image of event.target.files) {
 		                                  			var reader = new FileReader(); reader.onload = function(event) {
-		                                  				var img = document.createElement("img");
-		                                  					img.setAttribute("src", event.target.result);
-		                                  					img.setClassName()
+		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result);
 		                                  				document.querySelector("div#image_container").appendChild(img); 
 		                                  				};
 		                                  				console.log(image);
@@ -174,10 +182,11 @@
 		                                  		}  
 		                                	
 		                                	$('.resetBtn').click(function(){
-		                                		$('[src]')
+		                                		alert('dididididi');
+		                                		$('.image_container').empty();
 		                                	});
+		                                	
 		                                  </script>
-		                                  <!-- ------------ -->
 		                              </td>
 		                           </tr>
 		                             <tr>
@@ -189,8 +198,8 @@
 		                                         </div>
 		                                     </div>
 		                                     <button class="plus_btn">
-		                                         <i class="far fa-plus-square" ></i>
-		                                     </button>
+		                                        <i class="far fa-plus-square" ></i>
+		                                    </button>
 		                                 </td>
 		                             </tr>
 		                             <tr>

@@ -176,36 +176,42 @@
    </script>
    
 	<style type="text/css">
+	td{
+		font-size: 20px;
+	}
    .no{
-   
-   	color: red;
-   	font-size: 12px;
-   	
+	   	color: red;
+	   	font-size: 12px;
    }
    .ok{
-   	color: green;
-   font-size: 12px;
+	   	color: green;
+	   font-size: 12px;
    }
    .infobtnbox{
-    width: 100%;
-    display: flex;
-    margin: 20px 30px 20px 10px;
-   	display:flex;
+	    width: 100%;
+	    margin-top: 30px;
+	    justify-content: center;
+	   	display:flex;
    }
    .bottom_btn{
-    width: 120px;
-    background-color: rgb(160, 57, 38);
-    border: none;
-    color: white;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 10px;
+	    width: 150px;
+	    background-color: rgb(160, 57, 38);
+	    border: none;
+	    color: white;
+	    padding: 10px;
+	    margin: 5px;
+	    border-radius: 10px;
    }
    .bottom_btn:hover{
-    background-color:  rgba(160, 57, 38, 0.795);
+    	background-color:  rgba(160, 57, 38, 0.795);
+	}
+	.infobox{
+		    text-align: center;
 	}
 	.infobox input{
-	padding:5px;
+		padding:10px;
+		width: 400px;
+		border: 1px solid silver;
 	}
    </style>
    

@@ -18,6 +18,12 @@
 		    text-decoration: none;
 		    color: inherit;
 		}
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
+		}
     </style>
     
 </head>

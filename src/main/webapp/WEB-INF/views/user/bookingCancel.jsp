@@ -36,13 +36,19 @@
 			margin-left: 220px;
 		}
 		#accordionFlushExample{
-		
-		width: 700px;
-		margin-right: 100px;
+			width: 700px;
+			margin-right: 100px;
 		
 		}
 		table{
 			width: 600px;
+			text-align: center;
+		}
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
 		}
     </style>
     

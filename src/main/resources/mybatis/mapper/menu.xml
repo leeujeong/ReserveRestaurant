@@ -41,6 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE res_no = #{resNo}
 	</select>
 	
+	<!-- 메뉴 수정 -->
+	<update id="modifyMenu" parameterType="Menu">
+		UPDATE menu
+		   SET menu_name = #{menuName},
+		   	   menu_price = #{menuPrice}
+		 WHERE menu_no = #{menuNo}
+	</update>
+	
 	<!-- 메뉴 삭제 -->
 	<delete id="menuDelete" parameterType="Long">
 		DELETE 

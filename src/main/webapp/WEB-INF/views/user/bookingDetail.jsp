@@ -48,7 +48,12 @@
 			margin-left: 200px;
 			
 		}
-		
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
+		}
 	
 		
 		
