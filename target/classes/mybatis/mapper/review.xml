@@ -50,23 +50,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (REVIEW_NO_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent}, #{reviewOrigin}, #{reviewSaved}, #{reviewPath}, SYSDATE, #{reviewRate}, #{userNo}, #{resNo})
 	</insert>
 	
-	
-	
-	
-	
-	
-	
 	<!-- 별점 평균 -->
-<!-- 	<select id="avgReviewRate" parameterType="Long" resultType="int">
+ 	<select id="avgReviewRate" parameterType="Long" resultType="Integer">
 		select round(avg(rv.review_rate)), rv.user_no
 		  from review rv, restaurant r
 		 where rv.res_no = r.res_no
 		   and rv.res_no = #{resNo}
 		 group by user_no
-	</select> -->
+	</select>
 	
 	<!-- 총 리뷰 수-->
- 	<select id="totalReview" parameterType="Long" resultType="int">
+ 	<select id="totalReview" parameterType="Long" resultType="Integer">
 		select count(rv.review_no)
 	  	  from review rv, restaurant r
 		 where rv.res_no = r.res_no

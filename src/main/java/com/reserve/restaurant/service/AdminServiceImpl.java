@@ -337,10 +337,13 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	   public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
 	      AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-	      
+	      ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 	      
 	      Long resNo = restaurant.getResNo();
 	      Restaurant rest = repository.selectResDetail(resNo);
+	      Integer totalReviewCount  = reviewRepository.totalReview(resNo);
+	      Integer avgReview = reviewRepository.avgReviewRate(resNo);
+	      
 	      List<Review> reviewList = repository.selectReviewList(resNo);
 	      List<UploadFile> picList = repository.selectFile(resNo);
 	      if (rest != null) {
@@ -356,6 +359,8 @@ public class AdminServiceImpl implements AdminService {
 	      if (picList != null) {
 	    	  request.getSession().setAttribute("pic", picList);
 	      }
+	     model.addAttribute("reviewCount", totalReviewCount);
+	     model.addAttribute("avgReview", avgReview);
 	      
 	      
 	   }

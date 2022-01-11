@@ -698,12 +698,17 @@ button:hover {
                <col width="15%"/>
                <col width="35%"/> 
                <col width="15%"/>
-               
                <tbody> 
-
                <tr> 
-               <th scope="row">별점 </th>
-               <td colspan="5">★4.5&nbsp;</td> 
+               <th scope="row">별점<br>(리뷰수)</th>
+	           <td colspan="5">
+	               <c:if test="${avgReview == null}">
+	               		등록된리뷰가 없습니다.
+	               </c:if>
+	               <c:if test="${avgReview != null}">
+	               		★${avgReview}&nbsp;(${reviewCount})
+	               </c:if>
+               </td> 
               </tr>
 
               <tr> 
@@ -722,7 +727,6 @@ button:hover {
               </tr>
             <tr> 
             </tbody>
-         </div>
         </table> <br><br>
  
 	

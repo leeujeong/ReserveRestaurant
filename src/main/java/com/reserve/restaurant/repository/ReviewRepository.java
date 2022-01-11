@@ -18,8 +18,8 @@ public interface ReviewRepository {
 	public Review selectReviewList(Long reviewNo);
 	public List<Review> moreReview(Map<String, Object> map);
 	public int insertReview(Review review);
-//	public int avgReviewRate(Long resNo);
-	public int totalReview(Long resNo);
+	public Integer avgReviewRate(Long resNo);
+	public Integer totalReview(Long resNo);
 	//comment
 	public int commentCount();
 	public List<Comment> commentList(Long reviewNo);
