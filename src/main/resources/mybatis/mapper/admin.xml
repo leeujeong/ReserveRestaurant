@@ -29,8 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="RES_ORIGIN" property="resOrigin" />
 		<result column="RES_SAVED" property="resSaved" />
 		<result column="RES_PATH" property="resPath" />
+		<result column="RES_STATE" property="resState" />
 		<result column="OWNER_NO" property="ownerNo" />
-		<collection property="menu" resultMap="MenuMap" />
 	</resultMap>
 	
 
@@ -89,9 +89,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="GROUP_ORD" property="groupOrd" />
 		<collection property="restaurant" resultMap="RestaurantMap" />
 	</resultMap>
-	
-	
-	
+
+	<!-- 예약중인지 아닌지 확인 -->	
+	<select id="checkBookState" resultType="Book" parameterType="Map">
+		SELECT B.BOOK_STATE
+		  FROM (SELECT ROWNUM AS RN, A.BOOK_STATE
+		  		  FROM (SELECT BOOK_STATE
+		  	   			  FROM BOOK)A )B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
 	
 	
 	
@@ -220,10 +226,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT ROWNUM AS RN, A.USER_NO, A.ID, A.PW, A.NAME, A.TEL, A.GRADE, A.USER_DATE, A.HBD, A.STATE, A.POINT, A.EMAIL
 		   		  FROM (SELECT USER_NO, ID, PW, NAME, TEL, GRADE, USER_DATE, HBD, STATE, POINT, EMAIL
 		   	       		  FROM USERTABLE
-	  			  		 WHERE 1 = 1 AND STATE = 1
-	  			  		 	   <if test="column == 'ID'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'NAME'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>
-	  			  		 	   <if test="column == 'TEL'">AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%'</if>) A) B	  			  		 	   	  			  		 
+	  			  		 WHERE STATE = 1
+					       AND UPPER(${column}) LIKE '%' || UPPER(TRIM(#{query})) || '%') A) B	  			  		 	   	  			  		 
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
@@ -313,6 +317,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    SELECT A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_CONTENT, A.RES_OPTION, A.RES_ORIGIN, A.RES_SAVED, A.RES_PATH, A.OWNER_NO
 	      FROM (SELECT ROWNUM AS RN, RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_OPTION, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO
 	      		  FROM RESTAURANT
+                 ORDER BY RES_NO DESC) A
+	     WHERE A.RN BETWEEN 1 AND 5
+	</select>
+	<!-- 인덱스에 뿌릴 신규 오픈 식당 -->
+	<select id="indexnewOpen" resultType="Restaurant" parameterType="int">
+	    SELECT A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_CONTENT, A.RES_OPTION, A.RES_ORIGIN, A.RES_SAVED, A.RES_PATH, A.OWNER_NO , A.RES_STATE
+	      FROM (SELECT ROWNUM AS RN, RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_OPTION, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO, RES_STATE
+	      		  FROM RESTAURANT
+	      		 WHERE RES_STATE = #{resState}
                  ORDER BY RES_NO DESC) A
 	     WHERE A.RN BETWEEN 1 AND 5
 	</select>

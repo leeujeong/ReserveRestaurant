@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -19,17 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
-import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
-import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 import com.reserve.restaurant.util.SecurityUtils;
 
 public class UserServiceImpl implements UserService {
@@ -57,8 +53,30 @@ public class UserServiceImpl implements UserService {
 		user.setId(request.getParameter("id"));
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
 		User loginUser = repository.login(user);
+		
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
+		
+			// 로그인로그에 기록
+			Long userNo = loginUser.getUserNo();
+			repository.insertLoginLog(userNo);
+		
+			// 포인트 적립
+			int result = repository.updateUserPoint(userNo);
+			if (result == 1) {
+				try {
+					response.setContentType("text/html; charset=utf-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('로그인 성공! 포인트가 10점 적립됩니다.')");
+					out.println("location.href='/restaurant/main/mainPage'");
+					out.println("</script>");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 		} 
 		
 		if(loginUser == null) {
@@ -221,10 +239,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Map<String, Object> findReviewList(Long resNo) {
+	public Map<String, Object> findReviewList() {
 		
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Menu> list = repository.selectReviewList(resNo);
+		List<Menu> list = repository.selectReviewList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;

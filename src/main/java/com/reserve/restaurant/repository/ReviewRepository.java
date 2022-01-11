@@ -19,7 +19,7 @@ public interface ReviewRepository {
 	public List<Review> moreReview(Map<String, Object> map);
 	public int insertReview(Review review);
 //	public int avgReviewRate(Long resNo);
-//	public int totalReview(Long resNo);
+	public int totalReview(Long resNo);
 	//comment
 	public int commentCount();
 	public List<Comment> commentList(Long reviewNo);

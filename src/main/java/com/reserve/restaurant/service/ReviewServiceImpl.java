@@ -47,7 +47,6 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			MultipartFile file = multipartRequest.getFile("r_file");
 			
-			System.out.println("file " + file); 
 			if (file != null && !file.isEmpty()) {  
 				String origin = file.getOriginalFilename();
 				String extName = origin.substring(origin.lastIndexOf("."));
@@ -90,7 +89,6 @@ public class ReviewServiceImpl implements ReviewService {
 		String opt = multipartRequest.getParameter("resNo");
 		Long resNo =  Long.parseLong(opt);
 		
-	
 		
 		message(result, response, "리뷰가 등록되었습니다.", "리뷰등록이 싫패했습니다.", "/restaurant/admin/goResDetail?resNo="+resNo);
 		
@@ -114,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		//평균과 전체 글수
 //		int avgReview = repository.avgReviewRate(resNo);
-//		int totalCount = repository.totalReview(resNo);
+		int totalCount = repository.totalReview(resNo);
 //		
 		List<Review> list = repository.reviewList(map);
 		
@@ -124,7 +122,7 @@ public class ReviewServiceImpl implements ReviewService {
 		model.addAttribute("reviewlist", list);
 		model.addAttribute("restaurant", restaurant);
 //		model.addAttribute("avgReview", avgReview);
-//		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalCount", totalCount);
 		
 	}
 	

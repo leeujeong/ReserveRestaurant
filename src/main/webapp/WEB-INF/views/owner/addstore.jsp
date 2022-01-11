@@ -25,8 +25,8 @@
 		    background-color: white;
 		    border: none;
 		}
-		.deleteMenuBtn{
-			width: 50px;
+		.deleteMenuBtn, .resetBtn{
+			width: 70px;
 			background-color: silver;
 			border: none;
 			cursor: hover;
@@ -182,8 +182,7 @@
 		                                  		}  
 		                                	
 		                                	$('.resetBtn').click(function(){
-		                                		alert('dididididi');
-		                                		$('.image_container').empty();
+		                                		$('#image_container').empty();
 		                                	});
 		                                	
 		                                  </script>

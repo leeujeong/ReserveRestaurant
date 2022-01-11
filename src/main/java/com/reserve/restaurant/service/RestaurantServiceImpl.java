@@ -290,7 +290,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("레스토랑 파일" +restaurant );
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.modifyRestaurant(restaurant);
 		

@@ -154,6 +154,7 @@ header #gnb li:last-child {
  
  .menu_title {
      padding: 5px;
+     font-size:35px;
  }
  
  .menu_nav li {
@@ -182,7 +183,9 @@ header #gnb li:last-child {
  }
  
  .empty_img {
-     margin: 100px 0 0 120px;
+    margin: 20px 0 0 200px;
+    width: 50%;
+    height: 50%;
  }
  
  .empty_comment {

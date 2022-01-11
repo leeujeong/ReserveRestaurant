@@ -134,9 +134,9 @@ public class UserController {
 	}
 //
 	@PostMapping(value="login")
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		userService.login(request,response);
-		return "redirect:/";
+		// return "redirect:/";
 	}
 	// 로그아웃
 	@GetMapping(value="logout")
@@ -217,8 +217,8 @@ public class UserController {
 		// 리뷰 목록 ajax
 			@GetMapping(value="FindReviewList", produces="application/json; charset=UTF-8")
 			@ResponseBody
-			public Map<String, Object> fnFindAllReview(@RequestBody @RequestParam(value = "resNo") Long resNo) {
-				return userService.findReviewList(resNo);
+			public Map<String, Object> fnFindAllReview() {
+				return userService.findReviewList();
 			}
 		// 카트 목록 ajax
 		@GetMapping(value="findCartList/page/{page}", produces="application/json; charset=UTF-8")
@@ -306,6 +306,11 @@ public class UserController {
 		@GetMapping(value = "PayListPage")
 		public String PayListPage() {
 			return "user/payList";
+		}
+		
+		@GetMapping(value = "indexReviewPage")
+		public String indexReviewPage() {
+			return "user/indexReview";
 		}
 		
 				

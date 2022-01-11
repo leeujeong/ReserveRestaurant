@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,7 +73,7 @@ public class AdminController {
 	}
 	
 	// userDetail에서 bookList ajax처리
-	@GetMapping(value="userBookList")
+	@GetMapping(value="userBookList", produces="application/json")
 	@ResponseBody
 	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
 		Map<String, Object> map = adminService.userBookList(userNo, page);
@@ -142,6 +143,16 @@ public class AdminController {
 	public String newOpen(Model model) {
 		adminService.newOpen(model);
 		return "admin/newOpen";
+	}
+	
+	
+	
+	//index.jsp 최근 오픈식당
+	@GetMapping(value = "indexNewOpen" , produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> indexNewOpen(@RequestBody @RequestParam(value = "resState") int resState){
+		  return adminService.indexNewOpen(resState);
+		
 	}
 	
  	

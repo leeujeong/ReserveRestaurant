@@ -75,36 +75,38 @@
             </ul>
         </div>
     </header>
-    <div class="accordion">
+   <div class="accordion">
         <div class="cate quickmenu">
             <span class="menu">
                 <a href="#" class="menulink">Reservation</a>
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="식당검색페이지"> 식당 검색  </a></li>
+                <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
                 <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
-                <li><a href="식당검색페이지"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
+        
         <div class="cate quickmenu">
             <span class="menu"> 
                 <a href="#" class="menulink">Board</a>
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항"> 공지사항 </a></li>
+                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
+        
         <div class="cate quickmenu">
             <span class="menu">
                 <a href="#" class="menulink">Magazines</a>
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li>다이닝 매거진</li>
+                <li><a href="/restaurant/user/detail">다이닝 매거진</a></li>
             </ul>
         </div>
     </div>
@@ -133,7 +135,7 @@
 		                </span>
 		                <span class="rest_time">${restaurant.resOpenTime} ~ ${restaurant.resCloseTime}</span><br>
 		                <!-- <p class="rest_address" id="address">${restaurant.resAddress}&nbsp;${restaurant.resAddressDetail}</p>  -->
-		                <input type="text" id="address" class="rest_address" value="${restaurant.resAddress} ${restaurant.resAddressDetail}" readonly>
+		                <input type="text" id="address" class="rest_address" value="${restaurant.resAddress}&nbsp;${restaurant.resAddressDetail}" readonly>
 		                <!-- 
 		                <button class="copy_address">
 		                    <i class="far fa-copy"></i>복사
