@@ -73,7 +73,7 @@ public class AdminController {
 	}
 	
 	// userDetail에서 bookList ajax처리
-	@GetMapping(value="userBookList")
+	@GetMapping(value="userBookList", produces="application/json")
 	@ResponseBody
 	public Map<String, Object> userBookList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, Long userNo) {
 		Map<String, Object> map = adminService.userBookList(userNo, page);
@@ -151,7 +151,6 @@ public class AdminController {
 	@GetMapping(value = "indexNewOpen" , produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> indexNewOpen(@RequestBody @RequestParam(value = "resState") int resState){
-		System.out.println(resState + " 컨트롤러");
 		  return adminService.indexNewOpen(resState);
 		
 	}

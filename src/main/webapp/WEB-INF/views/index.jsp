@@ -114,7 +114,7 @@
             	<!-- 관리자 state 2 -->
             	<c:if test="${loginUser.state == 2}">
             		  <li>${loginUser.id} 님 환영합니다</li>
-            		  <li><a href="/restaurant/admin/myPage">ADMIN PAGE</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
             	</c:if>
             	
             	<!-- 사업자는 어떻게? -->

@@ -22,7 +22,6 @@
                     <td>회원번호</td>
                     <td>아이디</td>
                     <td>이름</td>
-                    <td>상태</td>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +32,6 @@
    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${ownerList[0].ownerNo}">${ownerList[0].id}</a>
    	        			</td>
    	        			<td>${ownerList[0].name}</td>
-   	        			<td>${ownerList[0].state}</td>
    	        		</tr>
    	        		<tr>
    	        			<td>${ownerList[1].ownerNo}</td>
@@ -41,7 +39,6 @@
    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${ownerList[1].ownerNo}">${ownerList[1].id}</a>
    	        			</td>
    	        			<td>${ownerList[1].name}</td>
-   	        			<td>${ownerList[1].state}</td>
    	        		</tr>
    	        		<tr>
    	        			<td>${ownerList[2].ownerNo}</td>
@@ -49,7 +46,6 @@
    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${ownerList[2].ownerNo}">${ownerList[2].id}</a>
    	        			</td>
    	        			<td>${ownerList[2].name}</td>
-   	        			<td>${ownerList[2].state}</td>
    	        		</tr>
    	        		<tr>
    	        			<td>${ownerList[3].ownerNo}</td>
@@ -57,7 +53,6 @@
    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${ownerList[3].ownerNo}">${ownerList[3].id}</a>
    	        			</td>
    	        			<td>${ownerList[3].name}</td>
-   	        			<td>${ownerList[3].state}</td>
    	        		</tr>
    	        		<tr>
    	        			<td>${ownerList[4].ownerNo}</td>
@@ -65,7 +60,6 @@
    	        				<a href="/restaurant/admin/ownerDetailPage?ownerNo=${ownerList[4].ownerNo}">${ownerList[4].id}</a>
    	        			</td>
    	        			<td>${ownerList[4].name}</td>
-   	        			<td>${ownerList[4].state}</td>
    	        		</tr>
     	        	<c:if test="${empty list}">
 	    	        	<c:if test="${not empty paging}">
@@ -84,7 +78,6 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[0].userNo}">${list[0].id}</a>
    	        			</td>
    	        			<td>${list[0].name}</td>
-   	        			<td>${list[0].state}</td>
    	        		</tr>
             		<tr>
    	        			<td>${list[1].userNo}</td>
@@ -92,7 +85,6 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[1].userNo}">${list[1].id}</a>
    	        			</td>
    	        			<td>${list[1].name}</td>
-   	        			<td>${list[1].state}</td>
    	        		</tr>
             		<tr>
    	        			<td>${list[2].userNo}</td>
@@ -100,7 +92,6 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[2].userNo}">${list[2].id}</a>
    	        			</td>
    	        			<td>${list[2].name}</td>
-   	        			<td>${list[2].state}</td>
    	        		</tr>
             		<tr>
    	        			<td>${list[3].userNo}</td>
@@ -108,7 +99,6 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[3].userNo}">${list[3].id}</a>
    	        			</td>
    	        			<td>${list[3].name}</td>
-   	        			<td>${list[3].state}</td>
    	        		</tr>
             		<tr>
    	        			<td>${list[4].userNo}</td>
@@ -116,7 +106,6 @@
    	        				<a href="/restaurant/admin/userDetailPage?userNo=${list[4].userNo}">${list[4].id}</a>
    	        			</td>
    	        			<td>${list[4].name}</td>
-   	        			<td>${list[4].state}</td>
    	        		</tr>
     	        	<c:if test="${empty ownerList}">
 	    	        	<c:if test="${not empty paging}">
