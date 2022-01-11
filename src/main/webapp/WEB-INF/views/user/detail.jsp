@@ -586,24 +586,22 @@ button:hover {
             	
             	<!-- 사용자 state =1 -->
             	<c:if test="${loginUser.state == 1}">
-	            	<c:if test="${loginUser.name != '관리자'}">
-	            			<li>${loginUser.id} 님 환영합니다</li>
-	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
-	            	</c:if>
-            	</c:if>
-            	
-             	<c:if test="${loginUser.name == '관리자'}">
-            		  <li>${loginUser.id} 님 환영합니다</li>
+            			<li>${loginUser.id} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	
-            	<!-- 사업자 -->
+            	<!-- 관리자 state 2 -->
+            	<c:if test="${loginUser.state == 2}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
+            	</c:if>
+            	
+            	<!-- 사업자는 어떻게? -->
               <c:if test="${loginUser.state == 3}">
             		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
             	</c:if>
             </ul>
         </div>
@@ -730,7 +728,6 @@ button:hover {
 				    예약하기
 				  </button>
 				  <p></p>
-<<<<<<< HEAD
 				  <c:if test="${not empty loginUser}">
 					 <form id="f2" method="post">
 						  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
@@ -748,12 +745,6 @@ button:hover {
 						  		
 						  </div>
 						</div>
-
-				 <form id="f2" method="post">
-					  <input type="button" id="myBooking"class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable" value="나의 예약 현황보기">
-					   <input type="hidden" id="userNo" name="userNo" value="${loginUser.userNo}"> 
-				 </form>
-
 				</div>
 				<!-- *****************************************************예약하기끝 ******************************************************************** -->
         </div>
@@ -1006,7 +997,6 @@ button:hover {
 		    } 
 		});    
     </script>
-<<<<<<< HEAD
     
     	<div class="modal" id="myModal" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: hidden;" aria-modal="true" role="dialog" >
 		      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
@@ -1060,16 +1050,6 @@ button:hover {
 		<input type="hidden" id="resSaved" value="${rest.resSaved}">
 		<input type="hidden" id="resPath" value="${rest.resPath}">
     
-=======
-    <input type="hidden" id="resNo" name="resNo" value="${restaurant.resNo}">
-    <input type="hidden" id="rest" value="${rest.resAddress}">
-	<input type="hidden" id="resAddress" value="${restaurant.resAddress}">
-	<input type="hidden" id="resAddressDetail" value="${restaurant.resAddressDetail}">
-	<input type="hidden" id="resOrigin" value="${restaurant.resOrigin}">
-	<input type="hidden" id="resSaved" value="${restaurant.resSaved}">
-	<input type="hidden" id="resPath" value="${restaurant.resPath}">
-
->>>>>>> refs/heads/owner
 		
 	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

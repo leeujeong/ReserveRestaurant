@@ -17,7 +17,7 @@
 	<style>
 	
 		 #contentBtn, .contentBtn{
-			width: 70px;
+			width: 100px;
 		    background-color: rgb(230, 225, 225);
 		    border: none;
 		    color: gray;
@@ -50,11 +50,29 @@
 		}
 		.commentTextarea{
 			padding: 5px;
-			width: 700px;
+			width: 600px;
 			border: 1px solid  rgb(230, 225, 225);
 		}
 		.commentTitle{
 			line-height:70px;
+		}
+		#list_btn, #content_btn{
+			width: 100px;
+		    background-color: rgb(160, 57, 38);
+		    border: none;
+		    color: white;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
+		#list_btn:hover, #content_btn:hover{
+			background-color:  rgba(160, 57, 38, 0.795);
+		}
+		.bottombtn{
+			   justify-content: center;
+		}
+		td{
+			font-size: 18px;
 		}
 		
 	</style>
@@ -148,25 +166,6 @@
 		
 	</script>
 	
-	
-	
-	<style>
-		#list_btn, #content_btn{
-			width: 100px;
-		    background-color: rgb(160, 57, 38);
-		    border: none;
-		    color: white;
-		    padding: 5px;
-		    margin: 5px;
-		    border-radius: 10px;
-		}
-		#list_btn:hover, #content_btn:hover{
-			background-color:  rgba(160, 57, 38, 0.795);
-		}
-		.bottombtn{
-			   justify-content: center;
-		}
-	</style>
 </head>
 <body>
    <header>
@@ -268,7 +267,7 @@
                            <div class="replyInput">
                            <form id="commentForm"> 
                             	<div class="comment">
-                           			<div class="commentTitle">댓글달기</div>
+                           			<div class="commentTitle">댓글<br>달기</div>
                            			<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
                            			<input type="hidden" value="${loginUser.name}" name="replyWriter">
                            			<textarea class="commentTextarea" id="content" rows="3" cols="70" name="replyContent" placeholder="댓글을 남겨보세요"></textarea>

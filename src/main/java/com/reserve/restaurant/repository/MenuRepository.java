@@ -13,4 +13,5 @@ public interface MenuRepository {
 	public void addMenu(Menu menu);
 	public List<Menu> selectMenu(Long resNo);
 	public int menuDelete(Long menuNo);
+	public int modifyMenu(Menu menu);
 }

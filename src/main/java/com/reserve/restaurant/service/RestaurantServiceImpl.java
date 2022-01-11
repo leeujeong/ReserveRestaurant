@@ -63,8 +63,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		List<Map<String, Object>> list = repository.selectMyRestaurantList(map);
 
-		System.out.println("리스투"+list.toString());
-		
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPageEntity("managePage"));
@@ -109,16 +107,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
 				String realPath = multipartRequest.getServletContext().getRealPath(path);
-<<<<<<< HEAD
-				File dir = new File(realPath);
-				if (dir.exists() == false) {
-					dir.mkdirs();
-				}
-				
-				// * 첨부파일 서버에 업로드 (예외 처리 필요)
-				File uploadFile = new File(realPath, saved);  // new File(경로, 파일)
-				file.transferTo(uploadFile);  // 업로드 진행 코드
-=======
+
 				
 				File dir = new File(realPath);
 				if (dir.exists() == false) {
@@ -127,9 +116,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				
 				File uploadFile = new File(realPath, saved); 
 				file.transferTo(uploadFile);
-				
-				
->>>>>>> refs/heads/owner
+
 				restaurant.setResPath(path);
 				restaurant.setResOrigin(origin);
 				restaurant.setResSaved(saved);
@@ -277,10 +264,23 @@ public class RestaurantServiceImpl implements RestaurantService {
 				String sep = Matcher.quoteReplacement(File.separator);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
-			
+				String realPath = multipartRequest.getServletContext().getRealPath(path);
+
+				
 				restaurant.setResPath(path);
 				restaurant.setResOrigin(origin);
 				restaurant.setResSaved(saved);
+				
+				
+				File dir = new File(realPath);
+				if (dir.exists() == false) {
+					dir.mkdirs();
+				}
+				
+				File uploadFile = new File(realPath, saved); 
+				file.transferTo(uploadFile);
+				
+				
 			} 
 			else {
 				restaurant.setResPath("");
@@ -337,16 +337,28 @@ public class RestaurantServiceImpl implements RestaurantService {
 		// 기존 메뉴
 		
 		// 수정되는 메뉴
-		Long menuNo = Long.parseLong(multipartRequest.getParameter("menuNo"));
 		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
-		//기존 메뉴 삭제먼저!
-		menu_repository.menuDelete(menuNo);
+		Optional<String[]> strMenuNo = Optional.ofNullable(multipartRequest.getParameterValues("menuNo"));
 		
 		String[] menus = multipartRequest.getParameterValues("menu");
 		String[] prices = multipartRequest.getParameterValues("price");
-		ArrayList<Menu> menuList = new ArrayList<Menu>();
 		
-		for(int i = 0; i < menus.length; i++) {
+		int i = 0;
+		if(strMenuNo.isPresent()) {
+			System.out.println("exists : " + strMenuNo.get());
+			String[] menuNos = strMenuNo.get();
+			for(i = 0; i < menuNos.length; i++) {
+				Long menuNoLong = Long.parseLong(menuNos[i]);
+				Menu menu = new Menu();
+				menu.setMenuNo(menuNoLong);
+				menu.setMenuName(menus[i]);
+				menu.setMenuPrice(Long.parseLong(prices[i]));
+				menu_repository.modifyMenu(menu);
+			}
+		}
+		
+		ArrayList<Menu> menuList = new ArrayList<Menu>();
+		for(;i < menus.length; i++) {
 			Menu menu = new Menu();
 			menu.setMenuName(menus[i]);
 			menu.setMenuPrice(Long.parseLong(prices[i]));
@@ -356,6 +368,25 @@ public class RestaurantServiceImpl implements RestaurantService {
 		for(Menu menu : menuList) {
 			menu_repository.addMenu(menu);
 		}
+		
+//		Long menuNo = Long.parseLong();
+//		//기존 메뉴 삭제먼저!
+//		menu_repository.menuDelete(menuNo);
+//		
+//		String[] menus = multipartRequest.getParameterValues("menu");
+//		String[] prices = multipartRequest.getParameterValues("price");
+//		ArrayList<Menu> menuList = new ArrayList<Menu>();
+//		
+//		for(int i = 0; i < menus.length; i++) {
+//			Menu menu = new Menu();
+//			menu.setMenuName(menus[i]);
+//			menu.setMenuPrice(Long.parseLong(prices[i]));
+//			menu.setResNo(restaurant.getResNo());
+//			menuList.add(menu);
+//		}
+//		for(Menu menu : menuList) {
+//			menu_repository.addMenu(menu);
+//		}
 		message(result, response, "식당이 수정되었습니다.","식당수정이 실패했습니다.", "managePage");
 	}
 	
@@ -391,7 +422,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public void menuDelete(Long menuNo) {
 		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		System.out.println("메뉴 ㄴ머서"+menuNo);
 		repository.menuDelete(menuNo);
 	}
 	

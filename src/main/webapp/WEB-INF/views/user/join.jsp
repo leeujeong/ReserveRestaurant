@@ -379,7 +379,8 @@
                     <tr>
                         <th scope="row"><span class="necessary">*</span><label for="phone1">휴대폰</label></th>
                         <td colspan="3" class="hp">
-                            <span class="selectboxWrap">
+                         <!--    <span class="selectboxWrap"> -->
+                         <!--    
                                 <select class="select selectBg" id="tel" name="tel" title="휴대폰 번호 선택">
                                     <option value="010" selected="selected">010</option>
                                     <option value="011">011</option>
@@ -391,15 +392,15 @@
                             </span>
                             <span class="dash">-</span>
                             <input type="text" class="inTxt" id="tel" name="tel" maxlength="4" onkeydown="only_number(this)" style="width:80px" title="휴대폰 두번째 자리 입력">
-                            <span class="dash">-</span>
-                            <input type="text" class="inTxt" id="tel" name="tel" maxlength="4" onkeydown="only_number(this)" style="width:80px" title="휴대폰 세번째 자리 입력">
+                            <span class="dash">-</span> -->
+                            <input type="text" class="inTxt" id="tel" name="tel"  onkeydown="only_number(this)" style="width:200px" title="휴대폰 번호 입력" placeholder="'-' 포함하여 입력해주세요">
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"><span class="necessary">*</span><label for="email_01">이메일</label></th>
                         <td colspan="3" class="email">
                             <input type="hidden" name="m_szEmail">
-                            <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:200px;ime-mode:disabled;" title="이메일 아이디 입력">
+                            <input type="text" class="inTxt rs-w40" id="email" name="email" onfocus="checkLen(this.value);" style="width:210px;ime-mode:disabled;" title="이메일 아이디 입력">
                             <span class="dash">  </span>
                       
                             <input type="button" value="인증번호받기" id="authCode_btn"  class="tbtns rs-mt5"><br>

@@ -132,7 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatebookingState" parameterType="Long">
 		UPDATE BOOK
 		   SET BOOK_STATE = 7,
-		       BOOK_HOURS = 0
+		       BOOK_HOURS = '취소'
 		 WHERE BOOK_NO = #{bookNo}
 	</update>
 	
@@ -163,7 +163,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectBookBybookNo" parameterType="Long" resultType="Restaurant">
 		SELECT B.*
 		FROM BOOK A, RESTAURANT B
-		WHERE A.RES_NO = B.RES_NO AND BOOK_NO = #{bookNo}
+		WHERE A.RES_NO = B.RES_NO 
+		  AND BOOK_NO = #{bookNo}
 	</select>
 	
 	<select id="hourCheck" parameterType="String" resultType="Map">

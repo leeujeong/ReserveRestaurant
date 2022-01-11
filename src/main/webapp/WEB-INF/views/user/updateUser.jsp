@@ -19,6 +19,13 @@
 		    color: inherit;
 		    font-weight: normal;
 		}
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
+		}
+	
     </style>
    <script type="text/javascript">
    
@@ -296,14 +303,17 @@
 	               	 <div class="input_row">
 	               	 
 	                     <div class="input_text">
-	                    	 <span style="margin-right: 180px;">이름 </span> ${loginUser.name}
+	                    	 <span style="margin-right: 180px;">이름 </span>
+	                     </div>
+	                        <div class="input_text">
+	                    	 ${loginUser.name}
 	                     </div>
 	                 </div>
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           		 <div class="input_text">
-		                               <span>전화번호</span>
-				                     </div>
+                           		 <div class="input_text">
+	                               <span>전화번호</span>
+			                     </div>
 	                       </div>
 	                     <div class="input_text">
 	                    	 <input style="width: 200px" class="input_text" type="text" name="tel" id="tel" value="${loginUser.tel}"/>
@@ -312,9 +322,9 @@
 	                 
 	               	 <div class="input_row">
 	                       <div class="icon_cell1">
-	                           		 <div class="input_text">
-		                               <span>이메일</span>
-				                     </div>
+                          		<div class="input_text">
+                              		 <span>이메일</span>
+		                     	</div>
 	                       </div>
 	                     <div class="input_text">
 	                    	 <input style="width: 223px" class="input_text" type="text" name="email" id="email" value="${loginUser.email}"/>

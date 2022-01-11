@@ -182,6 +182,8 @@ table{
 <script>
 $(document).ready(function () {
 	
+	commentList(); 
+	
 	$('#update_btn').click(function () {
 		
 			if($('#qnaContent').val() == ''){
@@ -213,6 +215,8 @@ $(document).ready(function () {
 			}
 		}
 	});
+	
+	
 });
 
 
@@ -343,6 +347,14 @@ $(document).ready(function () {
                                  	</c:if>
                                  </tbody>
                               </table>
+                              <div class="containerForm">
+							    <div id="commentListForm">
+							        <div class="commentList">
+							        	
+							        </div>
+							    </div>
+							</div>
+                              
                            <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
                            <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
                            </form>
@@ -351,11 +363,7 @@ $(document).ready(function () {
                     </div>
                   </div> 
               
-                
-                
-                
-              
-        
+               </div>
      </div>
 	    <section id="bottom">
 	        <div class="wrap">
