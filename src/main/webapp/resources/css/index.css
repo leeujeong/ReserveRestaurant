@@ -75,7 +75,7 @@ header #gnb {
     position: absolute;
     right: 0;
     top: 50px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 header #gnb li {
@@ -116,7 +116,7 @@ header #gnb li:last-child {
     position: relative;
     width: 100%;
     background: rgb(219, 215, 215);
-    height: 80px;
+    height: 50px;
 }
 
 .cate .menu .menulink {
@@ -125,7 +125,7 @@ header #gnb li:last-child {
     text-decoration: none;
     width: 70%;
     padding-left: 15px;
-    line-height: 80px;
+    line-height: 50px;
 }
 
 .cate .menu .subopen {
@@ -293,7 +293,7 @@ header #gnb li:last-child {
 }
 
 #frame .slide .text h3 {
-    font-size: 30px;
+    font-size: 45px;
     line-height: 1.6;
 }
 

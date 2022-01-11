@@ -99,10 +99,6 @@
             
             	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
-            	<c:if test="${loginUser == null}">
-	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
-            	</c:if>
             	
             	<!-- 사용자 state =1 -->
             	<c:if test="${loginUser == null}">

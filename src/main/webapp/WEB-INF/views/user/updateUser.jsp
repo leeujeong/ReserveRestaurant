@@ -398,20 +398,6 @@
 	                	<input type="button" value="탈퇴하기" id="leave_btn" class="bottom_btn btn btn-danger">
 	                 </div>
                 </form>
-                
-           
-                <table>
-                     <tbody>
-                     <c:forEach var="reserve" items="ingReserve">
-                        <tr>
-                           <td>
-                              <div id="paging"></div>
-                           </td>
-                        </tr>
-                     </c:forEach>
-                     </tbody> 
-               </table>
-              
             </div>
         </div>
         

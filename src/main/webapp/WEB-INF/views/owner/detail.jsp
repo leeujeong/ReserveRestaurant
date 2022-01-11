@@ -74,7 +74,7 @@
 		    border: none;
 		}
 		.menuDelete, .deleteMenuBtn, .resetBtn {
-			width: 50px;
+			width: 70px;
 		    background-color: rgb(230, 225, 225);
 		    border: none;
 		    color: gray;
@@ -251,8 +251,7 @@
 		                                  	
 		                                  	$('.resetBtn').click(function(){
 		                                  		if(confirm("삭제할까요?")){
-		                                  			alert('tkrwp')
-			                                  		$('.reset').hide();
+			                                  		$('.image_container').empty();
 		                                  		}
 		                                  	});
 		                                  </script>

@@ -17,11 +17,18 @@
 		    text-decoration: none;
 		    color: inherit;
 		}
+		.row{
+			margin: 0px;
+		}
 		.col-4{
 			width: 20%;
+   			flex: 0 0 auto;
 		}
 		.col-6{
 			width: 70%;
+		}
+		#review_btn, #cancel_btn{
+			margin: 5px;
 		}
     </style>
     

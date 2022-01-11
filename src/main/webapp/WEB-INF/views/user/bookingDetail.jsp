@@ -21,12 +21,12 @@
 		    font-weight: normal;
 		}
 		.container{
-		 border-radius: 10px;
+			 border-radius: 10px;
 		}
 		
 		.col{
-		 width: 300px;
-		 font-family: "nanumsquare";
+			width: 300px;
+			font-family: "nanumsquare";
 			font-size: 17px;
 			margin: 15px 0;
 			text-align: center;
@@ -45,7 +45,7 @@
 		.page_area{
 			
 			display:flex;
-			margin-left: 200px;
+			justify-content: center;
 			
 		}
 		.col-4{
