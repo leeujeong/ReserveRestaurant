@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.RestaurantService;
@@ -94,9 +96,18 @@ public class UserController {
 	@GetMapping(value="moreReview")
 	public String moreReview(HttpServletRequest request,Model model) {
 		HttpSession session  = request.getSession();
-		User user = (User)session.getAttribute("loginUser");
-				
-		model.addAttribute("userNo", user.getUserNo());
+		Object object = session.getAttribute("loginUser");
+		
+		if(object.getClass() == Owner.class) {
+			Owner owner = (Owner) object;
+			model.addAttribute("userNo", owner.getOwnerNo());
+		} else {
+			User user = (User) object;
+			model.addAttribute("userNo", user.getUserNo());
+		}
+		
+		Restaurant restaurant = (Restaurant)session.getAttribute("rest");
+		model.addAttribute("resNo", restaurant.getResNo());
 		model.addAttribute("request", request);
 		
 		reviewService.moreReview(model);
