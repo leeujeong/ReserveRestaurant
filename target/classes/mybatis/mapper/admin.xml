@@ -320,6 +320,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  ORDER BY RES_NO DESC) A
 	     WHERE A.RN BETWEEN 1 AND 5
 	</select>
+	<!-- 인덱스에 뿌릴 신규 오픈 식당 -->
+	<select id="indexnewOpen" resultType="Restaurant" parameterType="int">
+	    SELECT A.RES_NO, A.RES_NAME, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_TEL, A.RES_CONTENT, A.RES_OPTION, A.RES_ORIGIN, A.RES_SAVED, A.RES_PATH, A.OWNER_NO , A.RES_STATE
+	      FROM (SELECT ROWNUM AS RN, RES_NO, RES_NAME, RES_ADDRESS, RES_ADDRESS_DETAIL, RES_OPEN_TIME, RES_CLOSE_TIME, RES_TEL, RES_CONTENT, RES_OPTION, RES_ORIGIN, RES_SAVED, RES_PATH, OWNER_NO, RES_STATE
+	      		  FROM RESTAURANT
+	      		 WHERE RES_STATE = #{resState}
+                 ORDER BY RES_NO DESC) A
+	     WHERE A.RN BETWEEN 1 AND 5
+	</select>
 	
 		<!-- 사진 불러오기 -->
 	<select id="selectFile" parameterType="Long" resultType="UploadFile">

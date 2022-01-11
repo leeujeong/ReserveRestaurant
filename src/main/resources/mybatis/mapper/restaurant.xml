@@ -64,7 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					owner_no, 
 					res_origin, 
 					res_saved, 
-					res_path )
+					res_path,
+					res_state )
 			VALUES (#{resNo},
 					#{resName}, 
 					#{resAddress}, 
@@ -77,7 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					#{ownerNo}, 
 					#{resOrigin}, 
 					#{resSaved}, 
-					#{resPath})
+					#{resPath},
+					0)
 					
 	</insert>
 

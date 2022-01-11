@@ -66,7 +66,7 @@
 				if(p.totalRecord == 0){
 				$('<tr>')
 				.append( $('<th scope="row" colspan="5">').text('찜 된 식당이 없습니다.') )
-				.appendT('#cart_list');
+				.appendTo('#cart_list');
 				}
 				$.each(map.list, function (i , like) {
 					console.log(like.resState);

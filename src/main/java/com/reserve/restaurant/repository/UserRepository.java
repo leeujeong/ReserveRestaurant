@@ -28,7 +28,7 @@ public interface UserRepository {
 	public List<Restaurant> selectCartList(Map<String, Object> map);
 	public List<Pay> selectPayListByuserNo(Map<String, Object> map);
 	public List<Menu> selectMenuList(Long resNo);
-	public List<Menu> selectReviewList(Long resNo);
+	public List<Menu> selectReviewList();
 	public int UpdateRestState(Long resNo);
 	public int DeleteRestState(Long resNo);
 	public int selectTotalResCount();

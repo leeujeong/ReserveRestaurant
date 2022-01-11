@@ -66,12 +66,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	
 	<!-- 총 리뷰 수-->
-<!-- 	<select id="totalReview" parameterType="Long" resultType="int">
+ 	<select id="totalReview" parameterType="Long" resultType="int">
 		select count(rv.review_no)
 	  	  from review rv, restaurant r
 		 where rv.res_no = r.res_no
 		   and rv.res_no = #{resNo}
-	</select> -->
+	</select> 
 	
 	<!-- 
 	<delete id="deleteReview" parameterType="Long">

@@ -15,8 +15,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		fnindexNewOpen();
 		fnAdminPage();
-	})
+		fnFindAllReview();
+		
+		
+	});
 	
 	
 	function fnAdminPage() {
@@ -24,6 +28,61 @@
 			location.href="/restaurant/admin/adminPage";
 		})
 	}
+	
+	function fnindexNewOpen() {
+		$.ajax({
+			url : '/restaurant/admin/indexNewOpen',
+			type :'get',
+			data : 'resState=0',
+			dataType : 'json',
+			success : function (map) {
+				$('#new_list').empty();
+				$.each(map.list , function (i, lately) {
+					$('<li style="border: 1px solid rgb(243, 239, 239);"><a href="/restaurant/admin/goResDetail?resNo='+lately.resNo+'"><img style="width: 200px; height: 200px;" src="/restaurant/'+lately.resPath+'/'+lately.resSaved+'"></a><h3 style="text-align:center;">'+lately.resName+'</h3><p>'+lately.resContent+'</p><p>'+'Contact :'+lately.resTel+'</p><p>'+'Running :'+lately.resOpenTime+'~'+lately.resCloseTime+'</p>')
+					.appendTo('#new_list');
+				});
+			},
+			error : function (xhr) {
+				alert('실패');
+			}
+		});
+	} // end of indexNewOpen
+	
+	
+	function fnFindAllReview() {
+		$.ajax({
+			url: '/restaurant/user/FindReviewList',
+			type : 'get',
+			dataTye: 'json',
+			success : function (map) {
+				fnPrintReviewList(map);
+			}
+		});
+	}// end of fnFindAllReview
+
+	function fnPrintReviewList(map){
+		// 목록 초기화
+		$('#review_list').empty();
+		// 목록 만들기
+		if (map.list == null) {
+			$('<div class="swiper-slide" role="group" aria-label="1 / 9" style="width: 150px; margin-right: 30px;">')
+			.append( $('<p>').text('등록된 리뷰가 없습니다.') )
+			.appendTo( '#review_list' );
+		} else {
+			$.each(map.list, function(i, review){
+				if(review.reviewPath == null){
+					$('<div class="box"><div style="text-align:center; margin-top: 70px;"  class="img"><a href="#">등록된 이미지가 없는 리뷰입니다.</a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
+					.appendTo('#review_list');
+				} else {
+					$('<div class="box"><div class="img"><a href="#"><img  alt="Hover Effect" src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 250px; height:250px;"></a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
+					.appendTo('#review_list');
+				}
+			});
+		}
+	}  // end fnPrintReviewList
+	 
+ 	
+     
 </script>
 </head>
 <body>
@@ -96,7 +155,7 @@
             </span>
             <ul>
                 <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
-                <li><a href="리뷰"> 리뷰 </a></li>
+                <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
                 <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
@@ -202,83 +261,23 @@
             </div>
         </div>
     </section>
+            	
+            	
 
     <section id="new">
         <div class="wrap">
-            <h3 class="h3_text"> <span style="color: crimson;">New </span>신규 오픈 식당!</h3>
-            <ul data-aos="fade-up">
-                <li>
-                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest1.jpg"></a>
-                    <h3>몽탄</h3>
-                    <p>맛있어요</p>
-                </li>
-                <li>
-                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest2.jpg"></a>
-                    <h3>몽탄</h3>
-                    <p>맛있어요</p>
-                </li>
-                <li>
-                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest3.jpg"></a>
-                    <h3>몽탄</h3>
-                    <p>맛있어요</p>
-                </li>
-                <li>
-                    <a href="해당식당"><img src="/restaurant/resources/image/index/rest4.jpg"></a>
-                    <h3>몽탄</h3>
-                    <p>맛있어요</p>
-                </li>
+            <h3 class="h3_text"> <span style="color: crimson;">New </span><a href="/restaurant/admin/newOpen">신규 오픈 식당!</a></h3>
+            <ul data-aos="fade-up" id="new_list">
+            	
             </ul>
         </div>
     </section>
 
-    <section id="review">
+    <section id="review" style="width: 1200px; margin: 0 auto;">
         <div class="wrap">
             <h3 class="h3_text"> <span style="color: crimson;">New </span>리얼 리뷰 Pick!</h3>
-            <div class="box-wrap" data-aos="fade-down">
-                <div class="box">
-                    <div class="img">
-                        <a href="해당식당으로이동">
-                            <img src="/restaurant/resources/image/index/rest2.jpg" alt="Hover Effect">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h3>연우식당</h3>
-                        <p>고향이 생각나는 그리운 맛이예요.</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="img">
-                        <a href="해당식당으로이동">
-                            <img src="/restaurant/resources/image/index/rest3.jpg" alt="Hover Effect">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h3>골목짬뽕</h3>
-                        <p>해장으로 딱 입니다.</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="img">
-                        <a href="해당식당으로이동">
-                            <img src="/restaurant/resources/image/index/rest1.jpg" alt="Hover Effect">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h3>츠키마</h3>
-                        <p>일식이 생각날떈 여기로 올 것 같아요!</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="img">
-                        <a href="해당식당으로이동">
-                            <img src="/restaurant/resources/image/index/rest4.jpg" alt="Hover Effect">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h3>몽탄</h3>
-                        <p>기대가 크면 실망도 큽니다..</p>
-                    </div>
-                </div>
+            <div class="box-wrap" data-aos="fade-down" id="review_list">
+            
             </div>
         </div>
     </section>
@@ -295,7 +294,7 @@
         </div>
     </section>
 
-	<a href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
+	<a style="color: silver;" href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

@@ -162,12 +162,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE res_no = #{resNo}
 	</select>
 	
-	  <select id="selectReviewList" parameterType="Long" resultType="Review">
-      SELECT rv.review_no , rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name, r.res_no
-      FROM review rv, restaurant r
-         WHERE rv.res_no = r.res_no
-           AND rv.res_no = #{resNo}
+	<!-- 최근 5개 리뷰만 인덱스에 뿌림 -->
+   <select id="selectReviewList" resultType="Review">
+      SELECT A.review_no , A.review_writer, A.review_content, A.review_origin, A.review_saved, A.review_path, A.review_date, A.review_rate, A.res_name, A.res_no
+      FROM ( SELECT rv.review_no , rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name, r.res_no
+      		   FROM review rv, restaurant r
+      		   WHERE rv.res_no = r.res_no
+      		   ORDER BY rv.review_no DESC )A
+     WHERE  ROWNUM BETWEEN 1 AND 5
    </select>
+         
+         
    	
    	<update id="UpdateRestState" parameterType="Long">
 		UPDATE RESTAURANT
@@ -181,7 +186,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<select id="selectCartList" parameterType="Map" resultMap="RestaurantMap">
+	<select id="selectCartList" parameterType="Map" resultType="Restaurant">
 		 SELECT B.RES_NO, B.RES_NAME, B.RES_TEL, B.RES_ADDRESS, B.RES_ADDRESS_DETAIL, B.RES_OPEN_TIME, B.RES_CLOSE_TIME,B.RES_STATE,
 		        B.RES_CONTENT, B.RES_ORIGIN, B.RES_OPTION, B.RES_SAVED, B.RES_PATH, B.OWNER_NO
 		   FROM (SELECT ROWNUM AS RN, A.RES_NO, A.RES_NAME, A.RES_TEL, A.RES_ADDRESS, A.RES_ADDRESS_DETAIL, A.RES_OPEN_TIME, A.RES_CLOSE_TIME, A.RES_STATE,

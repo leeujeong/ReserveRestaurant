@@ -25,7 +25,6 @@
 		fnFindAllMenu();
 		fnSelectHour();
 		fnSelectBookingList();
-		fnFindAllReview();
 	    fnhover();
 	    fnQuickMenu();
 	    fnBooking();
@@ -262,26 +261,25 @@
 			}
 		});
 	}  // end fnFindAllMenu
-	function fnPrintMenuList(map){
-		// 목록 초기화
-		$('#menu_list').empty();
-		// 목록 만들기
-		if (map.list == null) {
-			$('<div>')
-			.append( $('<div>').text('등록된 메뉴가 없습니다.') )
-			.appendTo( '#menu_list' );
-		} else {
-			$.each(map.list, function(i, menu){
-				$('#menu_list').empty();
-				$('<div class="menu_box">')
-				.append($('<div>').text('메뉴번호  No.'+menu.menuNo))
-				.append($('<div>').text('음식' + menu.menuName))
-				.append($('<div>').text('가격 ' + menu.menuPrice + '원'))
-				.append($('<div>').text('할인율 ' + menu.menuDiscount + '%'))
-				.appendTo('#menu_list');
-			});
-		}
-	}  // end fnPrintMemberList
+	   function fnPrintMenuList(map){
+		      // 목록 초기화
+		      $('#menu_list').empty();
+		      // 목록 만들기
+		      if (map.list == null) {
+		         $('<div>')
+		         .append( $('<div>').text('등록된 메뉴가 없습니다.') )
+		         .appendTo( '#menu_list' );
+		      } else {
+		         $.each(map.list, function(i, menu){
+		            $('<div class="menu_box">')
+		            .append($('<div>').text('No.'+menu.menuNo))
+		            .append($('<div>').text('음식 : ' + menu.menuName))
+		            .append($('<div>').text('가격 : ' + menu.menuPrice + '원'))
+		            
+		            .appendTo('#menu_list');
+		         });
+		      }
+		   }  // end fnPrintMemberList
 	
 	function fnFindAllReview() {
 		$.ajax({
@@ -445,16 +443,26 @@
   	border:none;
   	outline:none;
   }
-  .menu_box{
-  
-  	border: 1px solid #f1f1f1;
-  	margin-bottom:5px;
-  	padding: 10px;
-  	border-radius: 2px;
-  	width: 200px;
-  	font-family: nanumsquare;
-  	font-size: 16px;
-  }
+  .menu_box:hover {
+    background-color: crimson;
+    color: white;
+}
+.menu_box {
+    display: flex;
+    border: 1px solid #f1f1f1;
+    margin-bottom: 5px;
+    width: 400px;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'NanumSquare';
+    font-size: 16px;
+    justify-content: space-between;
+}
+.offcanvas-body {
+    flex-grow: 1;
+    padding: 1rem 0rem;
+    overflow-y: auto;
+}
    .wrapper{ width: 400px; height: 400px; border: 1px solid red; position: relative; overflow: hidden; } .wrapper img{ width: 400px; position: absolute; top: 0; transition: left 0.4s ease-out; } .wrapper img:nth-child(1){ left: 0; } .wrapper img:nth-child(2){ left: 400px; } .wrapper img:nth-child(3){ left: 800px; } .wrapper img:nth-child(4){ left: 1200px; } .wrapper img:nth-child(5){ left: 1600px; }
 
 /*캐러셀 슬라이드*/ 
@@ -564,6 +572,44 @@ button:hover {
   .pic_td{
   	overflow:hidden;
   }
+  
+  .board_view {
+   width:100%;
+   border-bottom:1px solid #ccc;
+} 
+.board_view tbody th {
+   text-align:left;
+   background: #f7f7f7;
+   color:black;
+} 
+.board_view tbody th.list_tit {
+   font-size:13px;
+   color:#000;
+   letter-spacing:0.1px
+} 
+.board_view tbody .no_line_b th, .board_view tbody .no_line_b td {
+   border-bottom:none
+} 
+.board_view tbody th, .board_view tbody td {
+   padding:15px 0 16px 16px;
+   border-bottom:1px solid #ccc
+} 
+.board_view tbody td.view_text {
+   border-top:1px solid #ccc; 
+   border-bottom:1px solid #ccc;
+   padding:45px 18px 45px 18px;
+} 
+.board_view tbody th.th_file {
+   padding:0 0 0 15px; 
+   vertical-align:middle;
+}
+
+
+.board_view {
+   width: 100%;
+    margin: inherit;
+    text-align: center;
+}
  </style>
 </head>
 <body>
@@ -642,21 +688,45 @@ button:hover {
         </div>
     </div>
  
-	
-    <section class="rest_section">
-   
-       
+     <section class="rest_section">
+       <!-- /restaurant/${rest.resPath}/${rest.resSaved} -->
         <img src="/restaurant/${rest.resPath}/${rest.resSaved}" class="main_image" style="width: 500px;" style="height: 500px;"/>
         <div class="rest_detail">
             <p>${rest.resName}</p>
-            <span>★4.5</span> &nbsp;<span>(45)</span><br><br>
-            <p>영업시간 : ${rest.resOpenTime} ~ ${rest.resCloseTime}</p>
-            <p>전화번호 : ${rest.resTel}</p>
-            <div class="comment_box">
-				주인장이 남기는 말<br>            
-	            <p>${rest.resContent}</p>
-            </div>
-            
+            <table class="board_view">
+               <colgroup> 
+               <col width="15%"/>
+               <col width="35%"/> 
+               <col width="15%"/>
+               
+               <tbody> 
+
+               <tr> 
+               <th scope="row">별점 </th>
+               <td colspan="5">★4.5&nbsp;</td> 
+              </tr>
+
+              <tr> 
+               <th scope="row">영업 시간</th>
+               <td colspan="5"> ⏰&nbsp;${rest.resOpenTime} ~ ${rest.resCloseTime}</td> 
+              </tr>
+
+              <tr> 
+               <th scope="row">전화번호</th>
+               <td colspan="5">${rest.resTel}</td> 
+              </tr>
+
+              <tr> 
+               <th scope="row">주인장이 남기는말</th>
+               <td colspan="5">${rest.resContent}</td> 
+              </tr>
+            <tr> 
+            </tbody>
+         </div>
+        </table> <br><br>
+ 
+	
+  
             <!--******************************************* 예약하기********************************************** -->
            
 			<div   class="modal" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" style="display: hidden;" aria-modal="true" role="dialog">
@@ -736,15 +806,16 @@ button:hover {
 					 </form>
 				  </c:if><br>
 				     <a href="/restaurant/user/findMenuList?resNo=${rest.resNo}"id="menu_btn" class="btn btn-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >${rest.resName}의 대표메뉴를 확인해보세요!</a>
-						<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-						  <div class="offcanvas-header">
-						    <h5 id="offcanvasRightLabel">${rest.resName}의 메뉴를 확인해보세요 !</h5>
-						    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-						  </div>
-						  <div class="offcanvas-body" id="menu_list">
-						  		
-						  </div>
-						</div>
+						
+						                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header" style="background-color: #FE7773">
+                      <h5 id="offcanvasRightLabel"">${rest.resName}의 메뉴를 확인해보세요 </h5>
+                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body" id="menu_list">
+                          
+                    </div>
+                  </div>
 				</div>
 				<!-- *****************************************************예약하기끝 ******************************************************************** -->
         </div>
@@ -755,7 +826,7 @@ button:hover {
     
     <!-- ---------------------- 리뷰에서 받아오는 -------------------------->
     
-    <section class="review_section">
+    <section class="review_section" style="margin-top: 150px;">
 	    <div class="review_title">한 줄 방문자 리뷰!
 	            <a href="/restaurant/user/moreReview">더 보기 >> </a>
 	        </div>
@@ -798,21 +869,32 @@ button:hover {
 		  </div>
     </section>
     
+    <c:set var="doneLoop" value="false"/> 
+
     <section class="review_section">
-        <!-- 해당 이미지를 누르면 해당 리뷰로 이동한다 -->
         <div class="picture_title"> 식당 내부 사진</div>
         <table class="image_table" style="width: 600px">
             <tbody class="review_image_table">
             	 <c:if test="${not empty pic}">
-		            	<c:forEach var="pic" items="${pic}">
-	                        <a href="">
-	                            <img src="/restaurant/${pic.path}/${pic.uuid}" width="200px" height="200px" class="review_image_header">
-	                        </a>
+		            	<c:forEach var="pic" items="${pic}" begin="1" end="10" varStatus="status">
+		            		<c:if test="${not doneLoop}">
+		            			<td>
+		                        <a href="#">
+		                            <img src="/restaurant/${pic.path}/${pic.uuid}" width="200px" height="200px" class="review_image_header">
+		                        </a>
+		                        </td>
+		            			<c:if test="${status.count ==4}">
+		            				<c:set var="doneLoop" value="true"/> 
+		            			</c:if>
+		            		</c:if>
+		            		
 	                	</c:forEach>
 		          </c:if>
             </tbody>
         </table>
     </section>
+    
+    
     
 	  <script>
 		  const container = document.querySelector(".container");
