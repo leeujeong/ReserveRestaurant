@@ -109,16 +109,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String path = "resources" + sep + "upload"  + sep + sdf.format(new Date()).replaceAll("-", sep);
 				String realPath = multipartRequest.getServletContext().getRealPath(path);
-<<<<<<< HEAD
-				File dir = new File(realPath);
-				if (dir.exists() == false) {
-					dir.mkdirs();
-				}
-				
-				// * 첨부파일 서버에 업로드 (예외 처리 필요)
-				File uploadFile = new File(realPath, saved);  // new File(경로, 파일)
-				file.transferTo(uploadFile);  // 업로드 진행 코드
-=======
+
 				
 				File dir = new File(realPath);
 				if (dir.exists() == false) {
@@ -127,9 +118,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 				
 				File uploadFile = new File(realPath, saved); 
 				file.transferTo(uploadFile);
-				
-				
->>>>>>> refs/heads/owner
+
 				restaurant.setResPath(path);
 				restaurant.setResOrigin(origin);
 				restaurant.setResSaved(saved);
