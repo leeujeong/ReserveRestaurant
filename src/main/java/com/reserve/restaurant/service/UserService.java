@@ -32,7 +32,7 @@ public interface UserService {
 	public void updateUser(User user, HttpSession session , HttpServletResponse response);
 	public Map<String, Object> hourCheck(String bookHours);
 	public Map<String, Object> findMenuList(Long resNo);
-	public Map<String, Object> findReviewList(Long resNo);
+	public Map<String, Object> findReviewList();
 	public Map<String, Object> findCartList(Integer page);
 	public Map<String, Object> findPayList(Integer page ,  Long userNo);
 	public Map<String, Object> goCartRes(Long resNo);

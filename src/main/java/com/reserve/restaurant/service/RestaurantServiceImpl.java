@@ -277,7 +277,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("레스토랑 파일" +restaurant );
 		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
 		int result = repository.modifyRestaurant(restaurant);
 		
@@ -375,7 +374,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public void menuDelete(Long menuNo) {
 		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		System.out.println("메뉴 ㄴ머서"+menuNo);
 		repository.menuDelete(menuNo);
 	}
 	

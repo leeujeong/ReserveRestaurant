@@ -220,10 +220,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Map<String, Object> findReviewList(Long resNo) {
+	public Map<String, Object> findReviewList() {
 		
 		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Menu> list = repository.selectReviewList(resNo);
+		List<Menu> list = repository.selectReviewList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;

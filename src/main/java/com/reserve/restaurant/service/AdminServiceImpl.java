@@ -350,7 +350,11 @@ public class AdminServiceImpl implements AdminService {
 	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
 	      }
+	      
 	      model.addAttribute("reviewList",reviewList);
+	      if(reviewList != null) {
+	    	  request.getSession().setAttribute("review", reviewList);
+	      }
 	      
 	      model.addAttribute("pic" ,  picList);
 	      if (picList != null) {
@@ -415,8 +419,18 @@ public class AdminServiceImpl implements AdminService {
 	public void newOpen(Model model) {
 		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
 		List<Restaurant> list = repository.newOpen();
-		System.out.println(list.toString());
 		model.addAttribute("list", list);
+		
+		
+	}
+	
+	@Override
+	public Map<String, Object> indexNewOpen(int resState) {
+		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = repository.indexnewOpen(resState);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
 	}
 	
 	

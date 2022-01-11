@@ -461,6 +461,7 @@ header #gnb li:last-child {
 .box .info {
     color: #fff;
     position: absolute;
+    top: 30;
     left: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
