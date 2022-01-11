@@ -66,8 +66,25 @@ $('document').ready(function(){
         input_menu_price.setAttribute("name", "price");
         input_menu_price.setAttribute("placeholder", "가격(원)")
         clone_menu_input_box.appendChild(input_menu_price);
+        let delete_button = document.createElement("input");
+        delete_button.setAttribute("type", "button");
+        delete_button.setAttribute("value", "메뉴삭제");
+       	delete_button.setAttribute("class", "deleteMenuBtn");
+       	clone_menu_input_box.appendChild(delete_button);
+       	delete_button.addEventListener("click", function() {
+       		console.log("menu_input length : " + $(".menu_input").length);
+       		if($(".menu_input_box").length > 1){
+	    		$(this).parent().remove();
+	    	}
+       	});
         document.querySelector(".menu_input").appendChild(clone_menu_input_box);
     });
+    
+    $('.deleteMenuBtn').on('click', function() {
+    	if($(".menu_input_box").length > 1){
+    		$(this).parent().remove();
+    	}
+    })
     
 	
 	    //회원정보 수정 함수 

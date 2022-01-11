@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<!-- 댓글 조회 -->	
 	<select id="qnaReplyList"  parameterType="Long" resultType="Reply">
-		SELECT *
+		SELECT * 
 		 FROM REPLY
 		WHERE qna_no = #{qnaNo}
 		 

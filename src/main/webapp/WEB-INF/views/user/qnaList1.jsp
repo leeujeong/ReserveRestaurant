@@ -24,7 +24,6 @@ body{
 
 a:hover {
     cursor: pointer;
-    color:black;
 }
 /*question 테이블 작업*/
 table{
@@ -74,20 +73,7 @@ select{
 .infobox td:first-child{
 	width:200px;
 } 
-.infobox input{
-	width:250px;
-}
-#check_id, #check_pw{
-	width:100px;
-    background-color: #da5e531605738;
-    border: none;
-    color: gray;
-    padding: 5px;
-    border-radius: 10px;
-}
-#check_id:hover, #check_pw:hover{
-    cursor: pointer;
-}
+
 .empty_content{
 	padding: 5px;
 }
@@ -276,14 +262,14 @@ $(document).ready(function () {
 						<tr>
 							 <th scope="col">번호</th>
 							 <th scope="col">작성자</th>
-							 <th scope="col"><i class="fas fa-mouse"></i>&nbsp;제목</th>
+							 <th scope="col">제목</th>
 							 <th scope="col">작성일자</th>
 						</tr>
 					</thead>
 					<tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<th scope="col" colspan="5">문의내역 없음</td>
+									<td scope="col" colspan="5">문의내역 없음</td>
 								</tr>
 							</c:if>
 						<c:if test="${not empty list}">
@@ -306,8 +292,8 @@ $(document).ready(function () {
 					    </c:if>
 					</div>
 			
-                    
-                    
+                    </div>
+                   </div> 
          </div>
         
      </div>

@@ -33,16 +33,22 @@
 		
 		.page_area{
 			display: flex;
-			margin-left: 220px;
+		    justify-content: center;
 		}
 		#accordionFlushExample{
-		
-		width: 700px;
-		margin-right: 100px;
+			width: 700px;
+			margin-right: 100px;
 		
 		}
 		table{
 			width: 600px;
+			text-align: center;
+		}
+		.col-4{
+			width: 20%;
+		}
+		.col-6{
+			width: 70%;
 		}
     </style>
     
@@ -155,7 +161,7 @@
 			
                </div>
 	      
-			    
+		</div>	    
 			
 							
 				

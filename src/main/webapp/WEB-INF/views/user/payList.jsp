@@ -17,6 +17,19 @@
 		    text-decoration: none;
 		    color: inherit;
 		}
+		.row{
+			margin: 0px;
+		}
+		.col-4{
+			width: 20%;
+   			flex: 0 0 auto;
+		}
+		.col-6{
+			width: 70%;
+		}
+		#review_btn, #cancel_btn{
+			margin: 5px;
+		}
     </style>
     
     <script>
@@ -205,14 +218,12 @@
             		  <li><a href="/restaurant/admin/myPage">ADMIN PAGE</a></li>
             	</c:if>
             	
-            	<!-- 사업자는 어떻게? -->
+          	<!-- 사업자 -->
               <c:if test="${loginUser.state == 3}">
             		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
             		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
             	</c:if>
-                
-         
             </ul>
         </div>
     </header>
@@ -222,7 +233,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="menu_nav">
-                    <h2 class="menu_title">예약내역</h2>
+                    <h2 class="menu_title">예약 내역</h2>
                     <ul>
                          <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
                         <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>
@@ -248,44 +259,38 @@
             <div class="col-6">
                  
                 <div>
-                    <h3 class="ing_title" style="font-size: 30px" >예약금 결제내역</h3>
+                    <h2 class="ing_title">예약금 결제내역</h2>
                 </div>
                 <hr style="width: 900px;">
                 <div class="ing_menu">
                 
                 </div> 
 					<form id="f" method="post">
-             <table class="table table-hover" >
-					 <thead>
-						<tr>
-							 <th scope="col">#</th>
-							 <th scope="col" style="width: 50px;">번호</th>
-							 <th scope="col">사용자</th>
-							 <th scope="col">결제항목</th>
-							 <th scope="col">금액</th>
-							 <th scope="col">결제일</th>
-						</tr>
-					</thead>
-						<tbody id="pay_list">
-							
-						</tbody>
-					<tfoot>
-						<tr>
-							<td style="border: none;" colspan="7"><div id="paging" style="display: flex; justify-content: center;"></div></td>
-						</tr>
-					</tfoot>
-					</table>
+             			<table class="table table-hover" >
+							 <thead>
+								<tr>
+									 <th scope="col">#</th>
+									 <th scope="col">번호</th>
+									 <th scope="col">사용자</th>
+									 <th scope="col">결제항목</th>
+									 <th scope="col">금액</th>
+									 <th scope="col">결제일</th>
+								</tr>
+							</thead>
+							<tbody id="pay_list">
+								
+							</tbody>
+							<tfoot>
+								<tr>
+									<td style="border: none;" colspan="7"><div id="paging" style="display: flex; justify-content: center;"></div></td>
+								</tr>
+							</tfoot>
+						</table>
 					</form>
-			
                </div>
-            
-               
-                 
-              
             </div>
         </div>
         
-     </div>
 	    <section id="bottom">
 	        <div class="wrap">
 	            <div class="footer">

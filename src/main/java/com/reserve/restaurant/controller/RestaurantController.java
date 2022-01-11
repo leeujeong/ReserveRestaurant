@@ -20,9 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.service.RestaurantService;
@@ -40,8 +42,9 @@ public class RestaurantController {
 	public String selectList(@RequestParam("resNo")Long resNo, Model model , HttpServletRequest request) {
 		
 		
+		List<Menu> list = restaurantService.selectMenu(resNo);
 		model.addAttribute("restaurant", restaurantService.selectList(resNo));
-		model.addAttribute("menu_list", restaurantService.selectMenu(resNo));
+		model.addAttribute("list", list);
 		model.addAttribute("file_list", restaurantService.selectFile(resNo));
 		
 		return "owner/detail";
@@ -82,10 +85,11 @@ public class RestaurantController {
 	}
 	
 	//메뉴 삭제
-	@GetMapping(value="owner/menuDelete", produces="application/json; charset=UTF-8")
-	public void menuDelete(Long menuNo) {
-		System.out.println("메뉴 ㄴ머서"+menuNo);
+	@GetMapping(value="owner/menuDelete")
+	@ResponseBody
+	public Long menuDelete(Long menuNo) {
 		restaurantService.menuDelete(menuNo);
+		return menuNo;
 	}
 
 }

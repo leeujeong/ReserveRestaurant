@@ -17,7 +17,7 @@
 	<style>
 	
 		 #contentBtn, .contentBtn{
-			width: 70px;
+			width: 100px;
 		    background-color: rgb(230, 225, 225);
 		    border: none;
 		    color: gray;
@@ -50,11 +50,29 @@
 		}
 		.commentTextarea{
 			padding: 5px;
-			width: 700px;
+			width: 600px;
 			border: 1px solid  rgb(230, 225, 225);
 		}
 		.commentTitle{
 			line-height:70px;
+		}
+		#list_btn, #content_btn{
+			width: 100px;
+		    background-color: rgb(160, 57, 38);
+		    border: none;
+		    color: white;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
+		#list_btn:hover, #content_btn:hover{
+			background-color:  rgba(160, 57, 38, 0.795);
+		}
+		.bottombtn{
+			   justify-content: center;
+		}
+		td{
+			font-size: 18px;
 		}
 		
 	</style>
@@ -148,37 +166,46 @@
 		
 	</script>
 	
-	
-	
-	<style>
-		#list_btn, #content_btn{
-			width: 100px;
-		    background-color: rgb(160, 57, 38);
-		    border: none;
-		    color: white;
-		    padding: 5px;
-		    margin: 5px;
-		    border-radius: 10px;
-		}
-		#list_btn:hover, #content_btn:hover{
-			background-color:  rgba(160, 57, 38, 0.795);
-		}
-		.bottombtn{
-			   justify-content: center;
-		}
-	</style>
 </head>
 <body>
-    <header>
+   <header>
         <div class="wrap">
             <h1>
                 <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-               	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/managePage">MYPAGE</a></li>
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
+            	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	<!-- 사업자 -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            	</c:if>
+                
+                
             </ul>
         </div>
     </header>
@@ -240,7 +267,7 @@
                            <div class="replyInput">
                            <form id="commentForm"> 
                             	<div class="comment">
-                           			<div class="commentTitle">댓글달기</div>
+                           			<div class="commentTitle">댓글<br>달기</div>
                            			<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
                            			<input type="hidden" value="${loginUser.name}" name="replyWriter">
                            			<textarea class="commentTextarea" id="content" rows="3" cols="70" name="replyContent" placeholder="댓글을 남겨보세요"></textarea>

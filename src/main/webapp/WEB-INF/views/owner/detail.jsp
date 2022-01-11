@@ -27,16 +27,24 @@
 		
 	    //메뉴 삭제
 	    $('.menuDelete').on('click', function(){
-	    	alert('삭제할거야');
+		    var menuNo = $(this).siblings().filter("#menuNo").first().val();
+		    alert(menuNo);
 	    	$.ajax({
-	    		url : '/restaurant/owner/menuDelete?menuNo=${menu.menuNo}',
+	    		url : '/restaurant/owner/menuDelete?menuNo=' + menuNo,
 	    		type : 'get',
+	    		error: function(error) {
+	    			console.log("에러  ");
+	    			console.log(error);
+	    		},
 	    		success : function(menuNo){
-	    			$('.menuInput_${menu.menuNo}').hide();
+	    			console.log("성공  ");
+	    			console.log("menuNo :" + menuNo);
+	    			$('.menuInput_' + menuNo).hide();
 	    		}
+	    		
 	    	});
 	    });
-	
+	    
 	});
 	
 	
@@ -65,6 +73,15 @@
 		    background-color: white;
 		    border: none;
 		}
+		.menuDelete, .deleteMenuBtn, .resetBtn {
+			width: 70px;
+		    background-color: rgb(230, 225, 225);
+		    border: none;
+		    color: gray;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
 	</style>
 	<script>
 
@@ -86,10 +103,38 @@
                 <a href="/restaurant/">
                     <img src="/restaurant/resources/image/index/projectlogo.png">
                 </a>
+                
             </h1>
             <ul id="gnb">
-            	<li><a href="/restaurant/owner/logout">LOGOUT</a></li>
-                <li><a href="/restaurant/owner/bookPage">MYPAGE</a></li>
+            
+            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+            
+            	<c:if test="${loginUser == null}">
+	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	
+            	<!-- 사용자 state =1 -->
+            	<c:if test="${loginUser.state == 1}">
+	            	<c:if test="${loginUser.name != '관리자'}">
+	            			<li>${loginUser.id} 님 환영합니다</li>
+	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+	            	</c:if>
+            	</c:if>
+            	<c:if test="${loginUser.name == '관리자'}">
+            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
+            	</c:if>
+            	<!-- 사업자 -->
+              <c:if test="${loginUser.state == 3}">
+            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+            		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
+            	</c:if>
+                
+                
             </ul>
         </div>
     </header>
@@ -187,21 +232,28 @@
 	                                       </div>
 		                                       
 	                                       </c:if>
+	                                       <input type="button" value="초기화" class="resetBtn"> 
                                        </div>
                                        <script> 
                                        
-                                       $("#file_add").on('click',function(){ $('#newFile').click(); }); 
+                                       	$("#file_add").on('click',function(){ $('#newFile').click(); }); 
                                        
 		                                  	function setThumbnail(event) {
 		                                  		for (var image of event.target.files) {
 		                                  			var reader = new FileReader(); reader.onload = function(event) {
-		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result);
+		                                  				var img = document.createElement("img"); img.setAttribute("src", event.target.result); img.className ='reset';
 		                                  				document.querySelector("div.image_container").appendChild(img); 
 		                                  				};
 		                                  				console.log(image);
 		                                  				reader.readAsDataURL(image); 
 		                                  			}
 		                                  		} 
+		                                  	
+		                                  	$('.resetBtn').click(function(){
+		                                  		if(confirm("삭제할까요?")){
+			                                  		$('.image_container').empty();
+		                                  		}
+		                                  	});
 		                                  </script>
                                        
                                        
@@ -210,17 +262,25 @@
                                <tr>
 	                                <td>메뉴 등록하기</td>
 	                                <td class="menu">
-	                                	<c:forEach var="menu" items="${menu_list}">
-		                                	<div class="menu_input">
-		                                        <div class="menu_input_box default">
-		                                        	<div  class="menuInput_${menu.menuNo}" >
-			                                        	<input type="hidden" name="menuNo"value="${menu.menuNo}">
+                                		<div class="menu_input">
+                                			<c:if test="${empty list}">
+	                                         <div class="menu_input_box default">
+	                                             <input type="text" name="menu" placeholder="메뉴명"/>
+	                                             <input type="text" name="price" placeholder="가격 (원)"/>
+	                                             <input type="button" class="deleteMenuBtn" style="width: 30px;" value="메뉴삭제" />
+	                                         </div>
+	                                         </c:if>
+	                                     
+		                                     <c:forEach var="menu" items="${list}" varStatus = "status">
+		                                        <div class="menu_input_box">
+		                                        	<div class="menuInput_${menu.menuNo}" >
+			                                        	<input type="hidden" name="menuNo" id="menuNo" value="${menu.menuNo}" data-menu="${menu.menuNo}">
 			                                            <input type="text" name="menu" id="s_menu1" placeholder="메뉴명" value="${menu.menuName}"/><input type="text" name="price" id="s_price1" placeholder="가격 (원)" value="${menu.menuPrice}"/>
 			                                            <input type="button" name="menuDelete" value="메뉴삭제" class="menuDelete">
 		                                        	</div>
 		                                        </div>
-		                                    </div>
-	                                	</c:forEach>
+		                                	</c:forEach>
+	                                	</div>
 	                                    <button class="plus_btn">
 	                                        <i class="far fa-plus-square" ></i>
 	                                    </button>

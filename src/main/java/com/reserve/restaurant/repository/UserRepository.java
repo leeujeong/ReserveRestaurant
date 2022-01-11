@@ -10,6 +10,7 @@ import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
@@ -42,6 +43,7 @@ public interface UserRepository {
 	public int deleteQna(Long qnaNo);
 	public int updateQna(Qna qna);
 	public int selectTotalpayCount();
+	public Map<String, Object> qnaReplyByUser(Long qnaNo);
 	public int insertLoginLog(Long userNo);
 	public int updateUserPoint(Long userNo);
 	public int selectTotalReviewCount();

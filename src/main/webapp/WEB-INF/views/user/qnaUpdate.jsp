@@ -177,10 +177,16 @@ select{
 table{
 	font-size: 16px;
 }
+.footerInput{
+	text-align: center;
+}
+
     </style>
 
 <script>
 $(document).ready(function () {
+	
+	commentList(); 
 	
 	$('#update_btn').click(function () {
 		
@@ -213,6 +219,8 @@ $(document).ready(function () {
 			}
 		}
 	});
+	
+	
 });
 
 
@@ -343,19 +351,24 @@ $(document).ready(function () {
                                  	</c:if>
                                  </tbody>
                               </table>
-                           <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
-                           <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
+                              <div class="containerForm">
+							    <div id="commentListForm">
+							        <div class="commentList">
+							        	
+							        </div>
+							    </div>
+							</div>
+                              <div class="fotterInput">	                           
+	                              <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
+		                          <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
+                              </div>
                            </form>
                            
                         </div>
                     </div>
                   </div> 
               
-                
-                
-                
-              
-        
+               </div>
      </div>
 	    <section id="bottom">
 	        <div class="wrap">

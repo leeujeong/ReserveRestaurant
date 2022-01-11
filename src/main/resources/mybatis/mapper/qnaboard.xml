@@ -54,9 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Reply 불러오기 -->
 	<select id="selectReply" parameterType="Long" resultType="Reply">
-		SELECT REPLY_NO, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE
+		SELECT *
 		  FROM REPLY
-		 WHERE QNA_NO = #{qanNo}
+		 WHERE QNA_NO = #{qnaNo}
 	</select>
 	
 	

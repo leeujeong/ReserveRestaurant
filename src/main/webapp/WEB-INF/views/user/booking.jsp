@@ -15,8 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-	
-	
+
 	
 <script type="text/javascript">
 
@@ -25,16 +24,12 @@ $(document).ready(function () {
 	
 	fnPaygogo();
 
-	
-	
-	
-	
-	
   });// 페이지로드 끝
+  
   
   function fnPaygogo() {
 		
-		$('.pay_btn').on('click',function () {
+			$('.pay_btn').on('click',function () {
 			var IMP = window.IMP;
 	        IMP.init('imp27170655');
 
@@ -83,7 +78,7 @@ $(document).ready(function () {
 	           // document.location.href="/user/mypage/home"; //alert창 확인 후 이동할 url 설정
 	        });
 	    });
-}//fn paygogo end
+	}//fn paygogo end
 		
 		
 	
@@ -105,10 +100,18 @@ $(document).ready(function () {
 	    color: inherit;
 	    font-weight: normal;
 	}
-	
 	.page_area{
 		display: flex;
-		margin-left: 220px;
+		justify-content: center;
+	}
+	table{
+		text-align : center;
+	}
+	.col-4{
+		width: 20%;
+	}
+	.col-6{
+		width: 70%;
 	}
     </style>
     
@@ -223,10 +226,17 @@ $(document).ready(function () {
 										<td>${booking.bookPeople}</td>
 										<td>${booking.bookDate}</td>
 										<td>
+<<<<<<< HEAD
 											<input type="hidden" class="resNo" value="${booking.resNo}">
 											<input type="button" value='예약금결제' class="pay_btn" onclick="fnPaygogo()" >
 											<input type="hidden" class="bookNo" value="${booking.bookNo}">
 											<input type="button" value='취소' class="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
+=======
+										 <input type="hidden" class="resNo" value="${booking.resNo}">
+										<input type="button" value='예약금결제' class="pay_btn" class="btn btn-danger">
+										 <input type="hidden" class="bookNo" value="${booking.bookNo}">
+										<input type="button" value='취소' class="cancel_btn" class="btn btn-danger" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
+>>>>>>> refs/heads/main
 										</td>
 									</tr>
 									</c:if>
