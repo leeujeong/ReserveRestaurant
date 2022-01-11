@@ -177,6 +177,10 @@ select{
 table{
 	font-size: 16px;
 }
+.footerInput{
+	text-align: center;
+}
+
     </style>
 
 <script>
@@ -354,9 +358,10 @@ $(document).ready(function () {
 							        </div>
 							    </div>
 							</div>
-                              
-                           <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
-                           <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
+                              <div class="fotterInput">	                           
+	                              <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
+		                          <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
+                              </div>
                            </form>
                            
                         </div>

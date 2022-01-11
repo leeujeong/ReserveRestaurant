@@ -311,6 +311,7 @@ public class UserServiceImpl implements UserService {
 		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
 		Qna list2= repository.selectQna2(qnaNo);
 		Qna list3= repository.selectQna3(qnaNo);
+		
 		model.addAttribute("reply", repository.qnaReplyByUser(qnaNo));
 		model.addAttribute("list2", list2);
 		model.addAttribute("list3", list3);

@@ -113,10 +113,9 @@
 <script>
 	$(document).ready(function () {
 		fnremoveQna();
-		getFormatDate();
 		
 		$('#update_btn1').click(function () {
-			if($('#qnaState2').val() == 2){
+			  if($('#qnaState2').val() == 2){
 				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('#qnaNo2').val();
 			} else{
 				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('#qnaNo3').val();

@@ -290,3 +290,7 @@ a:link, a:visited {
 .footer_copy img {
    margin-bottom: 10px;
 }
+
+.footerInput{
+	text-align: center;
+}
