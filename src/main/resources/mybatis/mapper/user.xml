@@ -37,6 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE ID = #{id} AND PW = #{pw}
 	</select>
 	
+	<insert id="insertLoginLog" parameterType="Long">
+		INSERT INTO USERLOG VALUES (LOG_NO_SEQ.NEXTVAL, SYSDATE, #{userNo})
+	</insert>
+	
 	
 	<update id="updatePw" parameterType="User">
 		UPDATE USERTABLE
@@ -57,6 +61,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
+	<update id="updateUserPoint" parameterType="Long">
+		UPDATE USERTABLE
+		   SET POINT = POINT + 10
+		 WHERE USER_NO = #{userNo}
+	</update>
 	
 	
 	<resultMap type="Book" id="BookMap"> 

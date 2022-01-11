@@ -41,4 +41,6 @@ public interface UserRepository {
 	public int updateQna(Qna qna);
 	public int selectTotalpayCount();
 	public Map<String, Object> qnaReplyByUser(Long qnaNo);
+	public int insertLoginLog(Long userNo);
+	public int updateUserPoint(Long userNo);
 }

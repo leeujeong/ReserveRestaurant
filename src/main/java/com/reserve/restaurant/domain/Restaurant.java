@@ -32,7 +32,6 @@ public class Restaurant {
 	private String resPath;
 	private int resState;
 	
-	private Book book;
 
 	
 	

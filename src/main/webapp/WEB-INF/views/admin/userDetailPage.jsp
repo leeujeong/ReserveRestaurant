@@ -19,7 +19,6 @@
     		fnChangePage();
     	})
     	
-    	// 전체 목록 함수 + page 전역변수
     	var page = 1;
     	var userNo = '${user.userNo}';
     	function fnAllBookList() {
@@ -35,16 +34,13 @@
     		})
     	}  // end fnAllBookList
     	
-    	// 예약목록 리스트만 출력하는 함수
     	function fnPrintBookList(map) {
     		$('#bookList').empty();
-    		// 페이지 처리 모든 정보를 변수 p에 저장
     		var p = map.pageUtils;
     		var endRecord = p.endRecord;
     		var beginRecord = p.beginRecord;
     		var tbody = '';
     		var addRow = '<tr><td height="30px"></td><td></td><td></td><td></td><td></td></tr>';
-    		// 목록 만들기
     		if (p.totalRecord == 0) {
     			$('<tr rowspan="5">')
     			.append( $('<td colspan="5">').text('최근 예약 식당이 없습니다.') )
@@ -64,6 +60,9 @@
     				tbody += addRow;
     			}
     			$('#bookList').append(tbody);
+    			
+    			
+    			
     			/*
 	    		if (endRecord - beginRecord == 0) {
 	    			tbody += addRow; tbody += addRow; tbody += addRow; tbody += addRow;
@@ -198,27 +197,22 @@
     			$('#bookList').append(tbody);
     		} */ 
     		
-    	// 페이징 출력 함수
     	function fnPrintPaging(p) {
-    		// 페이징 영역 초기화
     		$('#paging').empty();
     		if (p.totalRecord == 0) {
     			$('#paging').text('');
     			return true;
     		}
-    		// 1페이지로 이동
     		if (page == 1) {
     			$('<span class="disable_link">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
     			$('<span class="enable_link" data-page="1">&lt;&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
-    		// 이전 블록으로 이동
     		if (page <= p.pagePerBlock) {
     			$('<span class="disable_link">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
     			$('<span class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
-    		// 페이지 번호
     		for (let i = p.beginPage; i <= p.endPage; i++) {
     			if (i == page) {
     				$('<span class="disable_link now_page">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
@@ -226,13 +220,11 @@
     				$('<span class="enable_link" data-page="'+i+'">'+i+'&nbsp;&nbsp;</span>').appendTo('#paging');
     			}
     		}
-    		// 다음 블록으로 이동
     		if (p.endPage == p.totalPage) {
     			$('<span class="disable_link">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
     			$('<span class="enable_link" data-page="'+(p.endPage+1)+'">&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		}
-    		// 마지막 페이지로 이동
     		if (page == p.totalPage) {
     			$('<span class="disable_link">&gt;&gt;&nbsp;&nbsp;</span>').appendTo('#paging');
     		} else {
@@ -240,7 +232,7 @@
     		}
     	}  // end fnPrintPaging
     	
-    	// 페이징 링크 처리 함수(전역변수 page값을 바꾸고, fnFindAllMember() 호출)
+    	
     	function fnChangePage(){
     		$('body').on('click', '.enable_link', function(){
     			page = $(this).data('page');
