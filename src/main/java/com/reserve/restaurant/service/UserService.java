@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
 
 public interface UserService {
@@ -32,8 +33,10 @@ public interface UserService {
 	public void updateUser(User user, HttpSession session , HttpServletResponse response);
 	public Map<String, Object> hourCheck(String bookHours);
 	public Map<String, Object> findMenuList(Long resNo);
+	public Map<String, Object> FindCommentList(Long reviewNo);
 	public Map<String, Object> findReviewList();
 	public Map<String, Object> findCartList(Integer page);
+	public Map<String, Object> findCardReviewList(Integer page);
 	public Map<String, Object> findPayList(Integer page ,  Long userNo);
 	public Map<String, Object> goCartRes(Long resNo);
 	public Map<String, Object> removeCart(Long resNo);
@@ -43,7 +46,8 @@ public interface UserService {
 	public void findQnaByNo(Long qnaNo, Model model, HttpServletRequest request);
 	public void removeQna(Long qnaNo , HttpServletResponse response);
 	public void qnaUpdate(Qna qna , HttpServletResponse response);
-	
+	public Review indexReviewdetail(Long reviewNo, Model model);
+
 
 	//message method
 	public default void message(int result, HttpServletResponse response, 

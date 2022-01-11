@@ -167,15 +167,15 @@ header #gnb li:last-child {
 /* 메뉴끝 */
 
 .container{
-	
-	margin-top: 200px;
+   
+   margin-top: 200px;
 }
 
 table{
-	width: 80%;
-	margin-left: 100px; 
-	text-align: center;
-	
+   width: 80%;
+   margin-left: 100px; 
+   text-align: center;
+   
 }
 
 /* footer시작 */

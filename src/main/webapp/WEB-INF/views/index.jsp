@@ -71,10 +71,10 @@
 		} else {
 			$.each(map.list, function(i, review){
 				if(review.reviewPath == null){
-					$('<div class="box"><div style="text-align:center; margin-top: 70px;"  class="img"><a href="#">등록된 이미지가 없는 리뷰입니다.</a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
+					$('<div class="box"><div style="text-align:center; margin-top: 70px;"  class="img"><a href="/restaurant/admin/goResDetail?resNo='+review.resNo+'">등록된 이미지가 없는 리뷰입니다.</a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
 					.appendTo('#review_list');
 				} else {
-					$('<div class="box"><div class="img"><a href="#"><img  alt="Hover Effect" src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 250px; height:250px;"></a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
+					$('<div class="box"><div class="img"><a href="/restaurant/admin/goResDetail?resNo='+review.resNo+'"><img  alt="Hover Effect" src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 250px; height:250px;"></a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
 					.appendTo('#review_list');
 				}
 			});
@@ -137,7 +137,6 @@
             </span>
             <ul>
                 <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
-                <li><a href="식당검색페이지"> 할인 되는 식당</a></li>
                 <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
@@ -160,7 +159,7 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/user/detail">다이닝 매거진</a></li>
+                <li><a href="#">다이닝 매거진</a></li>
             </ul>
         </div>
     </div>

@@ -11,7 +11,7 @@
  -->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-  	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="/resources/css/notice.css"/>" rel="stylesheet">
@@ -19,7 +19,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
-	<script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+   <script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 <!-- 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
@@ -27,17 +27,47 @@
  -->
  
 <script type="text/javascript">
-	$(document).ready(function() {
-	
-	});
+   $(document).ready(function() {
+   
+   });
 
+   // 썸머 노트
+   $(document).ready(function() {
+      //여기 아래 부분
+      $('.summernote').summernote({
+           height: 300,                       // 에디터 높이
+           minHeight: null,                   // 최소 높이
+           maxHeight: null,                   // 최대 높이
+           focus: true,                       // 에디터 로딩후 포커스를 맞출지 여부
+           lang: "ko-KR",               // 한글 설정
+           placeholder: '내용을 작성해주세요.'   //placeholder 설정
+             
+      });
+   });     
+
+   $('.summernote').summernote({
+           toolbar: [
+                // [groupName, [list of button]]
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                ['color', ['forecolor','color']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert',['picture','link','video']],
+                ['view', ['fullscreen', 'help']]
+              ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        });
 </script>
 
 <style>
-	a{
-	text-decoration: none;
-	color: black;
-	
+   a{
+   text-decoration: none;
+   color: black;
+   
 }
 
 .container{
@@ -56,8 +86,8 @@ input#noticeTitle {
 
 </head>
 <body>
-	
-	  <header>
+   
+     <header>
         <div class="wrap">
             <h1>
                 <a href="/restaurant/">
@@ -67,32 +97,32 @@ input#noticeTitle {
             </h1>
             <ul id="gnb">
             
-            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+               <li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
-            	<c:if test="${loginUser == null}">
-	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
-            	</c:if>
-            	
-            	<!-- 사용자 state =1 -->
-            	<c:if test="${loginUser.state == 1}">
-            			<li>${loginUser.id} 님 환영합니다</li>
-            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
-            	</c:if>
-            	
-            	<!-- 관리자 state 2 -->
-            	<c:if test="${loginUser.state == 2}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
-            	</c:if>
-            	
-            	<!-- 사업자는 어떻게? -->
+               <c:if test="${loginUser == null}">
+                   <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+                   <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+               </c:if>
+               
+               <!-- 사용자 state =1 -->
+               <c:if test="${loginUser.state == 1}">
+                     <li>${loginUser.id} 님 환영합니다</li>
+                    <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                    <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+               </c:if>
+               
+               <!-- 관리자 state 2 -->
+               <c:if test="${loginUser.state == 2}">
+                    <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+                    <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
+               </c:if>
+               
+               <!-- 사업자는 어떻게? -->
               <c:if test="${loginUser.state == 3}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
-            	</c:if>
+                    <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+                    <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                    <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+               </c:if>
                 
                 
             </ul>
@@ -106,9 +136,8 @@ input#noticeTitle {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
-                <li><a href="식당검색페이지"> 할인되는식당</a></li>
-                <li><a href="#"> 신규오픈 </a></li>
+               <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
         
@@ -118,9 +147,9 @@ input#noticeTitle {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="공지사항"> 공지사항 </a></li>
-                <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+                 <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
+                <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
         
@@ -135,38 +164,38 @@ input#noticeTitle {
         </div>
     </div>
 
-	<div class="container">
-	
-		 <div style="width: 600px; text-align: center;">
+   <div class="container">
+   
+       <div style="width: 600px; text-align: center;">
              <h2 class="ing_title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👾&nbsp;&nbsp;공지사항 작성하기&nbsp;&nbsp;👾</h2><br><br><br><br>      
          </div>
-				<form  method="post" action="/restaurant/notice/addNotice">
-			     	<div class="input-group input-group-sm mb-3" style="width: 100%;">
-					  <span class="input-group-text" id="inputGroup-sizing-sm">제목</span><br>
-					  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="noticeTitle" id="noticeTitle" placeholder="제목을 입력하세요.">
-					</div>
-					   <br><br>
-					   
-					   <div class="form-group">
-				       <textarea class="summernote" name="noticeContent" id="noticeContent" placeholder="내용을 입력해주세요"></textarea><br>
-				       </div>
-					<!-- 
-					<div class="form-floating" style="width: 600px; margin-left: 100px;">
-					  <textarea class="form-control" placeholder="내용을 입력해주세요" id="noticeContent" style="height: 300px" name="noticeContent"></textarea>
-					  <label for="floatingTextarea2">Comments</label>
-					</div>					
-					 -->
-					<br>
-					<input type="hidden" name="noticeWriter" value="${loginUser.name}">
-					
-					<div style="width: 500px;  margin-left: 100px; text-align: center;" >
-						<button class="btn btn-danger">작성</button>
-						<input class="btn btn-danger" type="button" value="목록" onclick="location.href='/restaurant/notice/selectNoticeList'">
-					</div>
-				</form>
-				
-	</div>
-		
+            <form  method="post" action="/restaurant/notice/addNotice">
+                 <div class="input-group input-group-sm mb-3" style="width: 100%;">
+                 <span class="input-group-text" id="inputGroup-sizing-sm">제목</span><br>
+                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="noticeTitle" id="noticeTitle" placeholder="제목을 입력하세요.">
+               </div>
+                  <br><br>
+                  
+                  <div class="form-group">
+                   <textarea class="summernote" name="noticeContent" id="noticeContent" placeholder="내용을 입력해주세요"></textarea><br>
+                   </div>
+               <!-- 
+               <div class="form-floating" style="width: 600px; margin-left: 100px;">
+                 <textarea class="form-control" placeholder="내용을 입력해주세요" id="noticeContent" style="height: 300px" name="noticeContent"></textarea>
+                 <label for="floatingTextarea2">Comments</label>
+               </div>               
+                -->
+               <br>
+               <input type="hidden" name="noticeWriter" value="${loginUser.name}">
+               
+               <div style="width: 500px;  margin-left: 100px; text-align: center;" >
+                  <button class="btn btn-danger">작성</button>
+                  <input class="btn btn-danger" type="button" value="목록" onclick="location.href='/restaurant/notice/selectNoticeList'">
+               </div>
+            </form>
+            
+   </div>
+      
 
     <section id="bottom">
         <div class="wrap">

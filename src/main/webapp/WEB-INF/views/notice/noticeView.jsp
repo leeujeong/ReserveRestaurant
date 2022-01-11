@@ -14,10 +14,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-   	<!-- 썸머노트 한글 반영하기(꼭) -->  
+      <!-- 썸머노트 한글 반영하기(꼭) -->  
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.js"></script>
  
 <script type="text/javascript">
    $(document).ready(function() {
@@ -79,35 +79,36 @@
    }// fndeleteNotice
  
 // 썸머 노트
-	$(document).ready(function() {
-		//여기 아래 부분
-		$('.summernote').summernote({
-			  height: 300,                 		// 에디터 높이
-			  minHeight: null,             		// 최소 높이
-			  maxHeight: null,             		// 최대 높이
-			  focus: true,                 		// 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '내용을 작성해주세요.'	//placeholder 설정
-	          
-		});
-	});     
+   $(document).ready(function() {
+      //여기 아래 부분
+      $('.summernote').summernote({
+           height: 300,                       // 에디터 높이
+           minHeight: null,                   // 최소 높이
+           maxHeight: null,                   // 최대 높이
+           focus: false,                       // 에디터 로딩후 포커스를 맞출지 여부
+           lang: "ko-KR",               // 한글 설정
+           placeholder: '내용을 작성해주세요.'   //placeholder 설정
+           
+             
+      });
+   });     
 
-	$('.summernote').summernote({
-			  toolbar: [
-				    // [groupName, [list of button]]
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['para', ['ul', 'ol', 'paragraph']],
-				    ['height', ['height']],
-				    ['insert',['picture','link','video']],
-				    ['view', ['fullscreen', 'help']]
-				  ],
-				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		  });
+   $('.summernote').summernote({
+           toolbar: [
+                // [groupName, [list of button]]
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                ['color', ['forecolor','color']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert',['picture','link','video']],
+                ['view', ['fullscreen', 'help']]
+              ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        });
   
     
 </script>
@@ -143,40 +144,40 @@ h3{margin-left: 100px;}
 
 
 .board_view {
-	width:100%;
-	border-top:2px solid #252525;
-	border-bottom:1px solid #ccc
+   width:100%;
+   border-top:2px solid #252525;
+   border-bottom:1px solid #ccc
 } 
 .board_view tbody th {
-	text-align:left;
-	background:#f7f7f7;
-	color:#3b3a3a
+   text-align:left;
+   background:#f7f7f7;
+   color:#3b3a3a
 } 
 .board_view tbody th.list_tit {
-	font-size:13px;
-	color:#000;
-	letter-spacing:0.1px
+   font-size:13px;
+   color:#000;
+   letter-spacing:0.1px
 } 
 .board_view tbody .no_line_b th, .board_view tbody .no_line_b td {
-	border-bottom:none
+   border-bottom:none
 } 
 .board_view tbody th, .board_view tbody td {
-	padding:15px 0 16px 16px;
-	border-bottom:1px solid #ccc
+   padding:15px 0 16px 16px;
+   border-bottom:1px solid #ccc
 } 
 .board_view tbody td.view_text {
-	border-top:1px solid #ccc; 
-	border-bottom:1px solid #ccc;
-	padding:45px 18px 45px 18px
+   border-top:1px solid #ccc; 
+   border-bottom:1px solid #ccc;
+   padding:45px 18px 45px 18px
 } 
 .board_view tbody th.th_file {
-	padding:0 0 0 15px; 
-	vertical-align:middle
+   padding:0 0 0 15px; 
+   vertical-align:middle
 }
 
 
 .board_view {
-	width: 100%;
+   width: 100%;
     margin: inherit;
     text-align: center;
 }
@@ -249,8 +250,7 @@ textarea#floatingTextarea2 {
             </span>
             <ul>
                 <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
-                <li><a href="식당검색페이지"> 할인되는식당</a></li>
-                <li><a href="#"> 신규오픈 </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규오픈 </a></li>
             </ul>
         </div>
         
@@ -261,8 +261,8 @@ textarea#floatingTextarea2 {
             </span>
             <ul>
                 <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
-                <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+                <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
         
@@ -281,52 +281,53 @@ textarea#floatingTextarea2 {
       
           <div style="width: 600px;">
                 <h2 class="ing_title">🦞FindTable에서 알려드립니다🦞</h2>
-             </div>
-            <form id="f">
+          </div>
+         <form id="f">
 
-		 <table class="board_view">
-		 <colgroup> 
-		 <col width="15%"/>
-		 <col width="35%"/> 
-		 <col width="15%"/>
+       <table class="board_view">
+       <colgroup> 
+       <col width="15%"/>
+       <col width="35%"/> 
+       <col width="15%"/>
 
-		 
-		 <tbody> 
-		 <tr> 
-		 <th scope="row">글 번호</th>
-		 <td>${notice.noticeNo}</td> 
-		 
-		  
-		 <th scope="row">조회수</th> 
-		 <td>${notice.noticeHit}</td>
-		 </tr>
-		 
-		 <tr> 
-		 <th scope="row">작성일</th>
-		 <td>${notice.noticeDate}</td> 
-		 
-		  
-		 <th scope="row">최종수정일</th> 
-		 <td>${notice.noticeLastmodified}</td>
-		 </tr>
-		 
-		 <tr>
-		 <th scope="row">제목</th> 
-		 <td colspan="5">${notice.noticeTitle}</td> 
-		 <tr>
+       
+       <tbody> 
+       <tr> 
+       <th scope="row">글 번호</th>
+       <td>${notice.noticeNo}</td> 
+       
+        
+       <th scope="row">조회수</th> 
+       <td>${notice.noticeHit}</td>
+       </tr>
+       
+       <tr> 
+       <th scope="row">작성일</th>
+       <td>${notice.noticeDate}</td> 
+       
+        
+       <th scope="row">최종수정일</th> 
+       <td>${notice.noticeLastmodified}</td>
+       </tr>
+       
+       <tr>
+       <th scope="row">제목</th> 
+       <td colspan="5">${notice.noticeTitle}</td> 
+       <tr>
          </tbody>
           </table><br>
           
-               <!-- 
-			
-		       <div class="form-group">
-		       <textarea class="summernote" name="noticeContent" id="summernote" value="${qnaBoardDetail.qnaContent}">${notice.noticeContent}</textarea>
-		       </div>
-                -->
+               
+             <div class="form-group" style="pointer-events: none">
+             <textarea class="summernote" name="noticeContent" id="" value="${notice.noticeContent}" readonly>${notice.noticeContent}</textarea>
+             </div>
+         <!-- 
                 <div class="form-floating">
-                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px" readonly >${notice.noticeContent}</textarea>
+                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px" readonly>${notice.noticeContent}</textarea>
                </div>               
-             
+          -->
+                           
+            
              <!-- 
              <form> 태그 아래 
              
@@ -347,20 +348,16 @@ textarea#floatingTextarea2 {
               
               <br>
 
-				
+         <c:if test="${loginUser.state == 2}">   
                <div class="top_btn">
                    <input type="hidden" name="noticeNo" id="noticeNo" value="${notice.noticeNo}">
                    <input type="button" class="btn btn-danger" id="update_btn" value="수정" onclick="location.href='/restaurant/notice/noticeDetailByNo?noticeNo='+${notice.noticeNo}">
                    <input type="button" class="btn btn-danger" id="delete_btn" value="삭제">
                    <input type="button" class="btn btn-danger" id="update_btn" value="목록" onclick="location.href='/restaurant/notice/selectNoticeList'">
                </div>
-               
+         </c:if>
             </form>
       </div>
-
-      
-
-
 
     <section id="bottom">
         <div class="wrap">

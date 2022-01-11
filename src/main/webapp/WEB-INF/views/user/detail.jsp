@@ -275,7 +275,6 @@
 		            .append($('<div>').text('No.'+menu.menuNo))
 		            .append($('<div>').text('음식 : ' + menu.menuName))
 		            .append($('<div>').text('가격 : ' + menu.menuPrice + '원'))
-		            
 		            .appendTo('#menu_list');
 		         });
 		      }

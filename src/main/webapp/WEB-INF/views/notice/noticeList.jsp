@@ -17,22 +17,22 @@
 
  
 <script type="text/javascript">
-	$(document).ready(function() {
-			
-	});
-	
-	
-	 
+   $(document).ready(function() {
+         
+   });
+   
+   
+    
 </script>
 
 <style>
-	a{
-	text-decoration: none;
-	color: black;
+   a{
+   text-decoration: none;
+   color: black;
 }
 
 h3{
-	margin-left: 100px;
+   margin-left: 100px;
 }
 table tr td{
   white-space: nowrap; 
@@ -43,7 +43,7 @@ table tr td{
 input.btn.btn-danger {
     width: 20%;
     float: right;
-}	
+}   
 div.title {
     font-size: 50px;
 }
@@ -51,8 +51,8 @@ div.title {
 
 </head>
 <body>
-	
-	  <header>
+   
+     <header>
         <div class="wrap">
             <h1>
                 <a href="/restaurant/">
@@ -62,32 +62,32 @@ div.title {
             </h1>
             <ul id="gnb">
             
-            	<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
+               <li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li> 
             
-            	<c:if test="${loginUser == null}">
-	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
-	                <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
-            	</c:if>
-            	
-            	<!-- 사용자 state =1 -->
-            	<c:if test="${loginUser.state == 1}">
-            			<li>${loginUser.id} 님 환영합니다</li>
-            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
-            	</c:if>
-            	
-            	<!-- 관리자 state 2 -->
-            	<c:if test="${loginUser.state == 2}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
-            	</c:if>
-            	
-            	<!-- 사업자는 어떻게? -->
+               <c:if test="${loginUser == null}">
+                   <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
+                   <li><a href="/restaurant/user/join">JOIN&nbsp;&nbsp;&nbsp;</a></li>
+               </c:if>
+               
+               <!-- 사용자 state =1 -->
+               <c:if test="${loginUser.state == 1}">
+                     <li>${loginUser.id} 님 환영합니다</li>
+                    <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                    <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
+               </c:if>
+               
+               <!-- 관리자 state 2 -->
+               <c:if test="${loginUser.state == 2}">
+                    <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+                    <li><a href="/restaurant/admin/adminPage">ADMIN PAGE</a></li>
+               </c:if>
+               
+               <!-- 사업자는 어떻게? -->
               <c:if test="${loginUser.state == 3}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
-            		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
-            		  <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
-            	</c:if>
+                    <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+                    <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
+                    <li><a href="/restaurant/owner/managePage">OWNER PAGE</a></li>
+               </c:if>
                 
                 
             </ul>
@@ -101,9 +101,8 @@ div.title {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
-                <li><a href="식당검색페이지"> 할인되는식당</a></li>
-                <li><a href="#"> 신규오픈 </a></li>
+                <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
+                <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
             </ul>
         </div>
         
@@ -113,9 +112,9 @@ div.title {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
-                <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+               <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
+                <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
         
@@ -129,53 +128,53 @@ div.title {
             </ul>
         </div>
     </div>
-	
-	<div class="container">
-		 <div style="width: 600px; margin-left: 100px;">
+   
+   <div class="container">
+       <div style="width: 600px; margin-left: 100px;">
              <div class="title" style="">🐙&nbsp;&nbsp;공지사항&nbsp;&nbsp;🐙</div>        
          </div><br><br><br>
-		<table class="table table-hover" style="table-layout:fixed">
-		      <thead>
-		    <tr>
-		      <th scope="col">번호</th>
-		      <th scope="col">제목</th>
-		      <th scope="col">작성자</th>
-		      <th scope="col">날짜</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<c:if test="${empty list}">
-			    <tr>
-			      <th scope="row"></th>
-			      <td colspan="2">작성 된 공지사항이 없습니다.</td>
-			    </tr>
-		  	</c:if>
-		  	<c:if test="${not empty list}">
-		  		<c:forEach var="notice" items="${list}">
-		  		<tr>
-		  			<th scope="row">${notice.noticeNo}</th>
-		  			<td><a href="/restaurant/notice/findNoticeByNo?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
-		  			<td>${notice.noticeWriter}</td>
-		  			<td>${notice.noticeDate}</td>
-		  		</tr>
-		  		</c:forEach>
-		  	</c:if>
-		  	
-		   
-		  </tbody>
-		  <tfoot>
-		  		<c:if test="${loginUser.state == 2}">
-		  		   <td style="border: none;"></td>
-		  		   <td style="border: none;"></td>
-		  		   <td style="border: none;"></td>
-				   <td style="border: none;"><input class="btn btn-danger" type="button" value="작성" onclick="location.href='/restaurant/notice/insertPage'"></td>
-		  		</c:if>
-		  </tfoot>
-		  </table>
-	</div>
-			
+      <table class="table table-hover" style="table-layout:fixed">
+            <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+           <c:if test="${empty list}">
+             <tr>
+               <th scope="row"></th>
+               <td colspan="2">작성 된 공지사항이 없습니다.</td>
+             </tr>
+           </c:if>
+           <c:if test="${not empty list}">
+              <c:forEach var="notice" items="${list}">
+              <tr>
+                 <th scope="row">${notice.noticeNo}</th>
+                 <td><a href="/restaurant/notice/findNoticeByNo?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
+                 <td>${notice.noticeWriter}</td>
+                 <td>${notice.noticeDate}</td>
+              </tr>
+              </c:forEach>
+           </c:if>
+           
+         
+        </tbody>
+        <tfoot>
+              <c:if test="${loginUser.state == 2}">
+                 <td style="border: none;"></td>
+                 <td style="border: none;"></td>
+                 <td style="border: none;"></td>
+               <td style="border: none;"><input class="btn btn-danger" type="button" value="작성" onclick="location.href='/restaurant/notice/insertPage'"></td>
+              </c:if>
+        </tfoot>
+        </table>
+   </div>
+         
 
-	
+   
 
 
 

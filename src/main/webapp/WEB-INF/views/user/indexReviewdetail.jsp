@@ -18,99 +18,43 @@
  
 <script type="text/javascript">
 	$(document).ready(function() {
-		fnFindAllReview();
-    	fnChangePage();
-    	
-
+		fnFindCommentList();
+		
 	});
 	
-	var page =1;
-	function fnFindAllReview() {
+	
+	function fnFindCommentList() {
 		$.ajax({
-			url: '/restaurant/user/findCardReviewList/page/'+page,
-			type : 'get',
-			dataTye: 'json',
-			success : function (map) {
-				console.log(map.list);
-				fnPrintReviewList(map);
-			},
-			error : function () {
-				alert('에러 발생');
+			url : '/restaurant/user/FindCommentList',
+			type: 'get',
+			data : 'reviewNo='+$('#reviewNo').val(),
+			dataType: 'json',
+			success: function(map){
+				fnPrintCommentList(map);
 			}
 		});
-	}// end of fnFindAllReview
+	}
+	
 
-	function fnPrintReviewList(map){
-		// 목록 초기화
-		$('#cardReview_list').empty();
-		var p = map.pageUtils;
-		// 목록 만들기
-		if (p.totalRecord == 0) {
-			$('<div class="card" style="width: 18rem; margin: 10px;">')
-			.append( $('<p>').text('등록된 리뷰가 없습니다.') )
-			.appendTo( '#cardReview_list' );
-		} else {
-			$.each(map.list, function(i, review){
-				if(review.reviewPath == null){
-					$('<div class="card" style="width: 18rem; margin: 10px;"><p>등록된 이미지가 없는 리뷰입니다.</p><div class="card-body"><h5 class="card-title">'+review.reviewWriter+'</h5><p>'+review.reviewContent+'</p><a href="상세보기" class="btn btn-danger">상세보기</a>')
-					.appendTo('#cardReview_list');
-				} else {
-					$('<div class="card" style="width: 237px; margin: 10px;"><img src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" class="card-img-top" style="width:237px; height:200px;" alt=""><div class="card-body"><h5 class="card-title">'+review.reviewWriter+'<span style="margin-left:40px; font-size: 14px; color:silver;">'+'평점 :'+review.reviewRate+'점'+'</span></h5><p>'+review.reviewContent+'</p><a href="/restaurant/user/indexReviewdetail?reviewNo='+review.reviewNo+'" class="btn btn-danger">상세보기</a>')
-					.appendTo('#cardReview_list');
-				}
-			});
-			fnPrintPaging(map.pageUtils);
-		}
-	}  // end fnPrintReviewList
-	function fnPrintPaging(p) {
-		$('#paging').empty();
-		
-		if (page == 1) {
-			//$('<div class="disable_link">&lt;&lt;</div>').appendTo('#paging');
-			$('<div>').addClass('disable_link').html('&lt;&lt;').appendTo('#paging');
-		} else {
-			//$('<div class="enable_link" data-page="1">&lt;&lt;</div>').appendTo('#paging');
-			$('<div>').addClass('enable_link').html('&lt;&lt;').attr('data-page', 1).appendTo('#paging');
-		}
-		// 이전 블록으로 이동
-		if (page <= p.pagePerBlock) {
-			$('<div class="disable_link">&lt;</div>').appendTo('#paging');
-		} else {
-			$('<div class="enable_link" data-page="'+(p.beginPage-1)+'">&lt;</div>').appendTo('#paging');
-		}
-		// 페이지 번호
-		for (let i = p.beginPage; i <= p.endPage; i++) {
-			if (i == page) {
-				$('<div class="disable_link now_page">'+i+'</div>').appendTo('#paging');
-			} else {
-				$('<div class="enable_link" data-page="'+i+'">'+i+'</div>').appendTo('#paging');
-			}
-		}
-		// 다음 블록으로 이동
-		if (p.endPage == p.totalPage) {
-			$('<div class="disable_link">&gt;</div>').appendTo('#paging');
-		} else {
-			$('<div class="enable_link" data-page="'+(p.endPage+1)+'">&gt;</div>').appendTo('#paging');
-		}
-		// 마지막 페이지로 이동
-		if (page == p.totalPage) {
-			$('<div class="disable_link">&gt;&gt;</div>').appendTo('#paging');
-		} else {
-			$('<div class="enable_link" data-page="'+p.totalPage+'">&gt;&gt;</div>').appendTo('#paging');
-		}
-	}  // end fnPrintPaging
-	
-	// 페이징 링크 처리 함수(전역변수 page값을 바꾸고)
-	function fnChangePage(){
-		$('body').on('click', '.enable_link', function(){
-			page = $(this).data('page');
-			fnFindAllReview();
-			fnPrintPaging(map.pageUtils);
-
-		});
-	}  // end fnChangePage
-	
-	
+	   function fnPrintCommentList(map){
+		      // 목록 초기화
+		      $('.commentList').empty();
+		      // 목록 만들기
+		      if (map.list == null) {
+		         $('<div>').text('등록된 댓글 없습니다.')
+		         .appendTo( '.commentList' );
+		      } else {
+		    	  var a = '';
+		         $.each(map.list, function(i, comment){
+	        	 	a += '<div class="commentBorder">';
+					a += '<div class="updateDeleteLink"><input class="commentNo" type="hidden" value="' + comment.commentNo + '">'+' 사장님 : '+ comment.writer
+	                a += '</div></div>';
+	                a += '<div class="commentContent" id="commentContent'+comment.commentNo+'"> <p style="margin-left:10px;"> 작성 내용 : ' + comment.content + '</p>';
+	                a += '</div></div>';
+		         });
+		         $(".commentList").html(a);
+		      }
+		   }  // end fnPrintMemberList
 	 
 </script>
 
@@ -123,38 +67,79 @@
 h3{
 	margin-left: 100px;
 }
-table tr td{
-  white-space: nowrap; 
-  width: 100px; 
-  overflow: hidden;
-  text-overflow: clip; 
-}
-input.btn.btn-danger {
-    width: 20%;
-    float: right;
-}	
-div.title {
-    font-size: 30px;
+body{
+  font-family: nanumsquare;
 }
 
-	#paging > div {
-		width: 20px;
-		height: 20px;
-		text-align: center;
-	}
-	.disable_link {
-		color: lightgray;
-	}
-	.enable_link {
-		cursor: pointer;
-	}
-	.now_page {
-		color: red;
-	}
-	.card{
-		box-shadow: 2px 2px 2px 2px gray;
-	}
 
+
+.card{
+	width: 800px;
+	margin: 0 auto;
+	border: 1px solid silver;
+	 box-shadow: 3px 3px 3px 3px gray;
+}
+
+.title{
+	margin-left: 260px;
+	font-weight: bold;
+	font-size: 38px;
+
+}
+
+#contentBtn, .contentBtn{
+			width: 70px;
+		    background-color: rgb(230, 225, 225);
+		    border: none;
+		    color: gray;
+		    padding: 5px;
+		    margin: 5px;
+		    border-radius: 10px;
+		}
+		#list_btn:hover{
+			background-color:  rgba(160, 57, 38, 0.795);
+		}
+		.bottombtn{
+			   justify-content: center;
+		}
+		.qnatable td:first-child{
+			text-align:center;
+		}
+		.reviewimg{
+			width:200px;
+			height:200px;
+		}
+		.commentTitle{
+			line-height:70px;
+		}
+		.containerForm{
+			margin:30px 0;
+		}
+		.commentBorder{
+			border-bottom: 1px solid rgb(230, 225, 225);
+			border-top: 1px solid  rgb(230, 225, 225);
+			margin:10px 0;
+			padding: 10px;
+		}
+		.updateDeleteLink, .updateDeleteLink2{
+			display:flex;
+		}
+		.updatelink, .deletelink{
+			color:gray;
+			margin:0 10px;
+		}
+		.commentContent{
+			padding: 5px 0 ;
+			border-top: none;
+		}
+		.updateDeleteLink2{
+			margin-left: 100px;
+		}
+		.commentTextarea{
+			padding: 5px;
+			width: 700px;
+			border: 1px solid  rgb(230, 225, 225);
+		}
 </style>
 
 </head>
@@ -209,7 +194,7 @@ div.title {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-              <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
+                 <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
                 <li><a href="/restaurant/admin/newOpen"> 신규오픈 </a></li>
             </ul>
         </div>
@@ -220,7 +205,7 @@ div.title {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
+               <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
                 <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
@@ -240,13 +225,26 @@ div.title {
 
 	
 	<div class="container">
-		 <div style="width: 600px; margin-left: 100px;">
-             <div class="title" style="">&nbsp;&nbsp;FindTable의 모든 리뷰를 확인해보세요 !&nbsp;&nbsp;</div>        
+		 <div style="width: 600px;">
+             <div class="title" style="">&nbsp;&nbsp;자세히보기&nbsp;&nbsp;</div>        
          </div><br><br><br>
-        <div id="cardReview_list" style="display:flex">
-        </div>
-        <div id="paging" style="display: flex; justify-content: center;"></div>
+       
+       <div class="card" style="">
+		  <img style="width: 800px; height: 500px;" src="/restaurant/${review.reviewPath}/${review.reviewSaved}" class="card-img-top">
+		  <div class="card-body">
+		    <h5 class="card-title">${review.reviewWriter}<span style="margin-left: 500px; font-size: 15px;"> 작성일 : ${review.reviewDate}</span></h5><hr>
+		    <p class="card-text">${review.reviewContent}</p>
+		    <hr>
+		    <p></p>
+		    <div class="commentList">
+		    
+		    </div>
+		    <a href="/restaurant/user/indexReviewPage" class="btn btn-danger">돌아가기</a>
+		  </div>
+		</div>
 	</div>
+	<input type="hidden" id="reviewNo" value="${review.reviewNo}">
+	
 
     <section id="bottom">
         <div class="wrap">
@@ -272,3 +270,9 @@ div.title {
     </section>
 </body>
 </html>
+
+
+
+
+
+			

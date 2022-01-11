@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -18,13 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 
+import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Restaurant;
+import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
+import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 import com.reserve.restaurant.util.SecurityUtils;
 
 public class UserServiceImpl implements UserService {
@@ -236,6 +241,15 @@ public class UserServiceImpl implements UserService {
 		map.put("list", list);
 		return map;
 	}
+	@Override
+	public Map<String, Object> FindCommentList(Long reviewNo) {
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		List<Comment> list = repository.selectComment(reviewNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	
 	
 	@Override
 	public Map<String, Object> findReviewList() {
@@ -260,6 +274,27 @@ public class UserServiceImpl implements UserService {
 		m.put("endRecord", pageUtils.getEndRecord());
 		
 		List<Restaurant> list = repository.selectCartList(m);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageUtils", pageUtils);
+		map.put("totalRecord", totalRecord);
+		map.put("list", list);
+		return map;
+	}
+	@Override
+	public Map<String, Object> findCardReviewList(Integer page) {
+		
+		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		
+		int totalRecord = repository.selectTotalReviewCount();
+		PageUtils pageUtils = new PageUtils();
+		pageUtils.setPageEntity(totalRecord, page);
+		
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("beginRecord", pageUtils.getBeginRecord());
+		m.put("endRecord", pageUtils.getEndRecord());
+		
+		List<Review> list = repository.selectCardReviewList(m);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageUtils", pageUtils);
@@ -356,4 +391,12 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 	
+	
+	@Override
+	public Review indexReviewdetail(Long reviewNo, Model model) {
+		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
+		Review review = repository.selectCardReview(reviewNo);
+		model.addAttribute("review", review);
+		return review;
+	}
 }

@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- qna 등록하기 -->
 	<insert id="qnaInsert" parameterType="Qna">
-		INSERT INTO QNA VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE, SYSDATE, 1, 0)
+		INSERT INTO QNA VALUES (QNA_NO_SEQ.NEXTVAL, #{qnaWriter}, #{qnaTitle}, #{qnaContent}, 0, SYSDATE,  SYSDATE, 1, 0)
 	</insert>
 	
 	<!-- qna 삭제하기 -->

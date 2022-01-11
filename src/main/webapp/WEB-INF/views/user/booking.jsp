@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -34,7 +34,7 @@ $(document).ready(function () {
   
   function fnPaygogo() {
 		
-		$('#pay_btn').on('click',function () {
+		$('.pay_btn').on('click',function () {
 			var IMP = window.IMP;
 	        IMP.init('imp27170655');
 
@@ -50,12 +50,12 @@ $(document).ready(function () {
 	                msg += '**결제 금액: ' + rsp.paid_amount+'원**';
 	                let pay = JSON.stringify({
 	    				userNo : $('#userNo').val(),
-	    				resNo : $('#resNo').val(),
-	    				amount : 1,
+	    				resNo : $('.resNo').val(),
+	    				amount : 30000,
 	    				payName : '예약금',
 	    				id : $('#id').val(),
 	    				payMethod : 'card',
-	    				bookNo :  $('#bookNo').val()
+	    				bookNo :  $('.bookNo').val()
 	    			});
 	                $.ajax({
 	                    url: '/restaurant/user/gogopay', 
@@ -65,10 +65,10 @@ $(document).ready(function () {
 	                    dataType : 'json',
 	                	success : function (map) {
 	    					if(map.result > 0){
-	    						alert('성공.');
+	    						alert('결제 되었습니다.');
 	    					} else{
 	    						
-	    						alert('실패');
+	    						alert('결제 되지 않았습니다.');
 	    					}
 	    				},
 	    				error : function (xhr) {
@@ -85,6 +85,8 @@ $(document).ready(function () {
 	    });
 }//fn paygogo end
 		
+		
+	
 
 </script>
   <style>
@@ -221,13 +223,13 @@ $(document).ready(function () {
 										<td>${booking.bookPeople}</td>
 										<td>${booking.bookDate}</td>
 										<td>
-										<input type="button" value='예약금결제' id="pay_btn" onclick="fnPaygogo()" >
-										<input type="button" value='취소' id="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
+											<input type="hidden" class="resNo" value="${booking.resNo}">
+											<input type="button" value='예약금결제' class="pay_btn" onclick="fnPaygogo()" >
+											<input type="hidden" class="bookNo" value="${booking.bookNo}">
+											<input type="button" value='취소' class="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
 										</td>
 									</tr>
 									</c:if>
-									 <input type="hidden" id="resNo" value="${booking.resNo}">
-									 <input type="hidden" id="bookNo" value="${booking.bookNo}">
 							</c:forEach>
 						</c:if> 
 					</tbody>

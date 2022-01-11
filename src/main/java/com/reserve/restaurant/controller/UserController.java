@@ -227,12 +227,26 @@ public class UserController {
 			Integer page = opt.orElse(1);
 			return userService.findCartList(page);
 		}
+		// 리뷰  ajax
+		@GetMapping(value="findCardReviewList/page/{page}", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> findCardReviewList(@PathVariable(value = "page", required = false) Optional<Integer> opt ) {
+			Integer page = opt.orElse(1);
+			return userService.findCardReviewList(page);
+		}
 		// 결제 목록 ajax
 		@GetMapping(value="findPayList/page/{page}", produces="application/json; charset=UTF-8")
 		@ResponseBody
 		public Map<String, Object> findPayList(@PathVariable(value = "page", required = false)@RequestParam(value = "userNo") Long userNo,Optional<Integer> opt ) {
 			Integer page = opt.orElse(1);
 			return userService.findPayList(page, userNo);
+		}
+
+		// 리뷰 댓글 목록 ajax
+		@GetMapping(value="FindCommentList", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> FindCommentList(@RequestBody @RequestParam(value = "reviewNo") Long reviewNo) {
+			return userService.FindCommentList(reviewNo);
 		}
 		
 		
@@ -311,6 +325,12 @@ public class UserController {
 		@GetMapping(value = "indexReviewPage")
 		public String indexReviewPage() {
 			return "user/indexReview";
+		}
+		
+		@GetMapping(value = "indexReviewdetail")
+		public String indexReviewdetail(@RequestParam("reviewNo") Long reviewNo, Model model, HttpServletRequest request) {
+			userService.indexReviewdetail(reviewNo, model);
+			return "user/indexReviewdetail";
 		}
 		
 				
