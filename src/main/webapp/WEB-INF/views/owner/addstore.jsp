@@ -32,7 +32,10 @@
 			cursor: hover;
 			border-radius: 30px;
 		}
-		
+		.fas{
+			color:gray;
+			font-size: 18px;
+		}
 	</style>
 </head>
 <script>

@@ -2,6 +2,7 @@ package com.reserve.restaurant.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ public interface ReviewService {
 	public void moreReview(Model model);
 
 	public List<Comment> commentList(Long reviewNo, Model model);
+	public Map<String, Object>  commentList1(Long resNo);
 	public int addComment(HttpServletRequest request);
 	public int removeComment(Long commnetNo);
 	public int updateComment(Comment comment);

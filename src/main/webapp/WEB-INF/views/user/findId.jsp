@@ -49,7 +49,7 @@ function fnFindId(){
 			data: 'email=' + $('#email').val(),
 			dataType: 'json',
 			success: function(map) {
-				if(map.result >0){
+				if(map.result != null){
 					$('#search_result').text("회원님의 아이디는 " + map.result.id + "입니다!");
 				} else {
 					alert('일치하는 아이디가 없습니다.');

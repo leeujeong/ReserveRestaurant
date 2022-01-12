@@ -186,7 +186,7 @@ table{
 <script>
 $(document).ready(function () {
 	
-	commentList(); 
+
 	
 	$('#update_btn').click(function () {
 		

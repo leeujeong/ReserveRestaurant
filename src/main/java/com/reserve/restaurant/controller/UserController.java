@@ -352,5 +352,9 @@ public class UserController {
 			return "user/indexReviewdetail";
 		}
 		
-				
+		@GetMapping(value="CommentListByReviewNo", produces="application/json; charset=UTF-8")
+	      @ResponseBody
+	      public Map<String, Object> CommentListByReviewNo(@RequestBody @RequestParam(value = "resNo") Long resNo) {
+	         return reviewService.commentList1(resNo);
+	      }	
 }

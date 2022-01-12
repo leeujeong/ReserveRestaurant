@@ -68,8 +68,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> 
 
 	
-	<!-- 사장님 댓글 -->
-
 	<!--전체 댓글수 -->
 	<select id="commentCount" resultType="int">
         SELECT
@@ -83,8 +81,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		 FROM comments
 		WHERE review_no = #{reviewNo}
-		 
 	</select> 
+	
+	<!-- 리뷰에 해당하는 댓글 가져오기 -->
+	<select id="commentList1" parameterType="Long" resultType="Comment">
+		SELECT c.content, c.create_date
+		  FROM review rv, comments c, restaurant r
+		 WHERE r.res_no = rv.res_no
+		   AND rv.review_no = c.review_no
+		   AND r.res_no = #{resNo}
+		   AND c.review_no = #{reviewNo}
+	</select>
 		
 	<!-- 댓글 추가 -->
 	<insert id="addComment" parameterType="Comment">

@@ -323,19 +323,19 @@
                                 </tr>
                                 <tr>
                                 	<td>현재 비밀번호 :</td>
-                                	<td><input class="input_text" type="text" name="pw0" id="pw0"></td>
+                                	<td><input class="input_text" type="password" name="pw0" id="pw0"></td>
                                 </tr>
                                 <tr>
                                     <td>새 비밀번호 :</td>
                                     <td>
-                                        <input class="input_text" type="text" name="pw" id="pw">
+                                        <input class="input_text" type="password" name="pw" id="pw">
                                          <p id="pw_result"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>새 비밀번호 확인 :</td>
                                     <td>
-                                       <input class="input_text" type="text" name="pw2" id="pw2">
+                                       <input class="input_text" type="password" name="pw2" id="pw2">
                                        <!--  <input type="button" value="비밀번호 확인" name="check_pw" id="check_pw"/> -->
                                         <p id="pw2_result"></p>
                                     </td>

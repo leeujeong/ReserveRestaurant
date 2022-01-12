@@ -58,7 +58,8 @@
 			padding: 0 15px;
 		}
 		.reviewlist{
-			border-bottom:1px solid gray;
+			border-bottom:1px solid silver;
+			padding: 10px;
 		}
 		.replybox a{
 			padding: 10px;
@@ -66,7 +67,13 @@
 		}
 		.emptyReview{
 			padding: 10px;
+			text-align: center;
 		}
+		.fas{
+			color:gray;
+			font-size: 18px;
+		}
+	
 	</style>
 </head>
 <body>
@@ -141,16 +148,16 @@
                     <h4 class="ing_title">리뷰 관리</h4>
                 </div>
                 <hr>
-                <div class="reviewlist">
+                <div>
 	               <c:if  test="${empty reviewlist}">
 			 			<div class="emptyReview">
-			 				작성된 리뷰가 없습니다.
+			 				<i class="fas fa-search"></i>&nbsp;작성된 리뷰가 없습니다.
 			 			</div>
 			 		</c:if>
 			 		<c:if test="${not empty reviewlist}">
 				 		<c:forEach var="review" items="${reviewlist}">
 				 		<input type="hidden" value="${review.get('REVIEW_NO')}">
-			            	<div>
+			            	<div class="reviewlist">
 			            		<h3>${review.get("RES_NAME")}</h3>
 			                    <div class="reviewContent">
 				            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">

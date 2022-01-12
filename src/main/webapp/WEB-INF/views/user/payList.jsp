@@ -282,7 +282,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<td style="border: none;" colspan="7"><div id="paging" style="display: flex; justify-content: center;"></div></td>
+									<td style="border: none;" colspan="7"><div id="paging" class="paging"></div></td>
 								</tr>
 							</tfoot>
 						</table>
