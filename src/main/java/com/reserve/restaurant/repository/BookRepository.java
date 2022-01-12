@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Restaurant;
 
+@Mapper
 public interface BookRepository {
 		
 	public int insertBook(Book book);

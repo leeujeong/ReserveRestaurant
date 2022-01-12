@@ -4,7 +4,6 @@ package com.reserve.restaurant.controller;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
@@ -31,8 +29,6 @@ import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.RestaurantService;
 import com.reserve.restaurant.service.ReviewService;
 import com.reserve.restaurant.service.UserService;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("user/*")
@@ -48,6 +44,7 @@ public class UserController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
 	//검색페이지
 	@GetMapping(value = "search")
 	public String search() {

@@ -3,8 +3,11 @@ package com.reserve.restaurant.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.reserve.restaurant.domain.Restaurant;
 
+@Mapper
 public interface RestaurantRepository {
 
 	public int selectTotalCount(String id);

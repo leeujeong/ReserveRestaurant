@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		    	  		WHERE rv.res_no = r.res_no
  		    	  		ORDER BY rv.review_date)A)B
  	</select>
- 		<!--  WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord}  -->
+
 
 	<!-- 사용자가 리뷰 삽입 -->
 	<insert id="insertReview" parameterType="Review" >
@@ -66,13 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where rv.res_no = r.res_no
 		   and rv.res_no = #{resNo}
 	</select> 
-	
-	<!-- 
-	<delete id="deleteReview" parameterType="Long">
-		DELETE
-		  FROM REVIEW
-		 WHERE REVIW_NO = #{reviewNo}
-	</delete> -->
+
 	
 	<!-- 사장님 댓글 -->
 
@@ -121,14 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            AND rv.res_no = #{resNo}
    </select>
    
-   <!-- 리뷰개수 세기(총 개수가 아님!!) -->
-<!--    <select id="reviewCountByRate" parameterType="Map" resultType="Integer">
-   		SELECT COUNT(*)
-   		  FROM review, restaurant r
-   		 WHERE rv.res_no = r.res_no
-   		   AND rv.res_no = #{resNo}
-   		   AND r.review_rate = #{reviewRate}
-   </select> -->
+
 
 	<!-- 리뷰 개수 리스트 -->
 	<select id="selectReviewCount" resultType="Integer" parameterType="Long">
