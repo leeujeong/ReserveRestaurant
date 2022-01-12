@@ -227,9 +227,9 @@ $(document).ready(function () {
 										<td>${booking.bookDate}</td>
 										<td>
 											<input type="hidden" class="resNo" value="${booking.resNo}">
-											<input type="button" value='예약금결제' class="pay_btn" onclick="fnPaygogo()" >
+											<input type="button" value='예약금결제' class="pay_btn btn btn-danger" onclick="fnPaygogo()" >
 											<input type="hidden" class="bookNo" value="${booking.bookNo}">
-											<input type="button" value='취소' class="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
+											<input type="button" value='취소' class="cancel_btn btn btn-danger" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
 										</td>
 									</tr>
 									</c:if>

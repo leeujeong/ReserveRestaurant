@@ -136,19 +136,20 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Long userNo = (Long) m.get("userNo");
 		Long resNo = (Long)m.get("resNo");
-		
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("resNo", resNo);
 		
-		//평균과 전체 글수
-//		int avgReview = reviewRepository.avgReviewRate(resNo);
-//		int totalCount = reviewRepository.totalReview(resNo);
+		Integer avgReview = reviewRepository.avgReviewRate(resNo);
+		Integer totalReviewCount = reviewRepository.totalReview(resNo);
 		
+		List<Integer> reviewCountList = reviewRepository.selectReviewCount(resNo);
 		List<Review> list = reviewRepository.reviewList(map);
 		
-		model.addAttribute("reviewlist", list);
-//		model.addAttribute("avgReview", avgReview);
-//		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resNo", resNo)
+;		model.addAttribute("reviewlist", list);
+		model.addAttribute("avgReview", avgReview);
+		model.addAttribute("totalReviewCount", totalReviewCount);
+		model.addAttribute("reviewCountList", reviewCountList);
 		
 	}
 
@@ -213,7 +214,6 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 		return reviewRepository.updateComment(comment);
 	}
-
 
 	
 }

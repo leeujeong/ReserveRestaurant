@@ -15,14 +15,47 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/owner1.css"/>" rel="stylesheet">
-	<link href="<c:url value="/resources/css/userCSsS/detail.css"/>" rel="stylesheet">
+	<link href="<c:url value="/resources/css/userCSS/detail.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/userJS/detail.js"/>"></script>
  <script>
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
-	})
+	    
+	    //리뷰 개수 구하기
+	   const arr = '${reviewCountList}';
+	   
+	   let count5 = 0;
+	   let count4 = 0;
+	   let count3 = 0;
+	   let count2 = 0;
+	   let count1 = 0;
+	   
+	   for (let i = 0; i < arr.length; i++) {
+		   if (arr[i] == 5){count5 += 1;}
+		   if (arr[i] == 4){count4 += 1;}
+		   if (arr[i] == 3){count3 += 1;}
+		   if (arr[i] == 2){count2 += 1;}
+		   if (arr[i] == 1){count1 += 1;}
+	   }
+	   $('#5score').html(count5);
+	   $('#5bar').attr('value', count5);
+	   
+	   $('#4score').html(count4);
+	   $('#4bar').attr('value', count4);
+	   
+	   $('#3score').html(count3);
+	   $('#3bar').attr('value', count3);
+	   
+	   $('#2score').html(count2);
+	   $('#2bar').attr('value', count2);
+	   
+	   $('#1score').html(count1);
+	   $('#1bar').attr('value', count1);
+	   
+	})//리뷰개수 구하기
+	
 
 	function fnQuickMenu() {
 	    var currentPosition = parseInt($(".quickmenu").css("top"));
@@ -48,7 +81,6 @@
 	        });
 	    })(jQuery);
 	}
-	
  </script>
  
  <style>
@@ -71,6 +103,7 @@
 	}
 	.returnbtn{
 		font-weight:800;
+		font-size: 20px;
 	}
 	.average{
 		font-size: 20px;
@@ -85,7 +118,16 @@
 	.col-9 {
 	    display: flex;
 	    flex: 0 0 auto;
-	    width: 75%;
+	    width: 100%;
+	   background-color: rgb(233 233 233);
+	   padding: 20px;
+	   border-radius: 20px;
+	   margin: 10px;
+	}
+	.col-4{
+		margin: 0;
+		text-align: center;
+		line-height: 3;
 	}
 	.col-6 {
 	    flex: 0 0 auto;
@@ -96,8 +138,50 @@
 		height:150px;
 	}
 	.dateinput{
+		width: 93px;
 		border:none;
 		outline:none;'
+	}
+	.reviewmultiple{
+		border-bottom : 1px solid silver;
+		padding: 10px;
+	}
+	.review_content>p:nth-of-type(2){
+		margin: 10px;
+	}
+	.reviewContent{
+		margin-top: 10px;
+	}
+	.reviewStar{
+		font-size: 30px;
+	}
+	.reviewCount{
+		font-size: 20px;
+	}
+	.progress{
+		background-color: #cfcfcf;
+		margin: 3px;
+	} 
+	.emptyReview{
+		font-size: 20px;
+		padding: 10px;
+		text-align: center;
+        margin: 50px;
+	}
+	.progress{
+		width: 500px;
+	}
+	progress {
+
+ 	 -webkit-appearance: none;
+	}
+	
+	::-webkit-progress-bar {
+	  background-color: grey;
+	}
+	
+	::-webkit-progress-value {
+	  background-color: orange;
 	}
  </style>
 </head>
@@ -114,7 +198,7 @@
             </h1>
             <ul id="gnb">
             
-            		<li><a href="/restaurant/user/search"><i class="fas fa-search fa-lg"></i></a></li>
+            		<li><a href="/restaurant/admin/searchPage"><i class="fas fa-search fa-lg"></i></a></li>
             
             	<c:if test="${loginUser == null}">
 	                <li><a href="/restaurant/user/loginPage">LOGIN&nbsp;&nbsp;&nbsp;/</a></li>
@@ -180,52 +264,47 @@
 		 <section>
 	 	<div>
 	 		<div>
-	 		<a href="/restaurant/user/detail" class="returnbtn"> << 돌아가기</a>
+	 		<a href="/restaurant/admin/goResDetail?resNo=${resNo}" class="returnbtn"> << 돌아가기</a>
 	 		</div>
 	 		<div class="reviewrating">
 			  <div class="row">
 			    <div class="col-9">
 			    
 				    <div class="col-4">
-					    <h5><span>total count 개의 리뷰</span></h5>
-					    <strong>( 4.5 )</strong>  
+					    <div class="reviewStar"> ★${avgReview}</div>
+					    <div class="reviewCount"><strong>${totalReviewCount}</strong>개의 리뷰</div>
 					</div>
 				    <div class="col-6 average">
 					    <div>
 				 			<ul>
 				 				<li>
-				 					<span class="score">5점</span>&nbsp; <span class="count">251</span>
-				 					<span class="progress">
-				 						<span class="bar" style="52%;"></span>
-				 					</span>
+				 					<c:forEach var="review" items="${reviewlist}">
+				 						<c:if test="${review.get('REVIEW_RATE')} == 5">
+				 							
+				 						</c:if>
+				 					</c:forEach>
+				 					<span class="score">5점</span>&nbsp;(<span id="5score"></span>)
+				 					<progress class="progress" max="10" id="5bar"></progress>
 				 					
 				 				</li>
 				 				
 				 				<li>
-				 					<span class="score">4점</span>&nbsp;<span class="count">251</span>
-				 					<span class="progress">
-				 						<span class="bar" style="52%;"></span>
-				 					</span>
+				 					<span class="score">4점</span>&nbsp;(<span id="4score"></span>)
+				 					<progress class="progress" max="10" id="4bar"></progress>
 				 					
 				 				</li>
 				 				<li>
-				 					<span class="score">3점</span>&nbsp;<span class="count">251</span>
-				 					<span class="progress">
-				 						<span class="bar" style="52%;"></span>
-				 					</span>
+				 					<span class="score">3점</span>&nbsp;(<span id="3score"></span>)
+				 					<progress class="progress" max="10" id="3bar"></progress>
 				 					
 				 				</li>
 				 				<li>
-				 					<span class="score">2점</span>&nbsp;	<span class="count">251</span>
-				 					<span class="progress">
-				 						<span class="bar" style="52%;"></span>
-				 					</span>
+				 					<span class="score">2점</span>&nbsp;	(<span id="2score"></span>)
+				 					<progress class="progress" max="10" id="2bar"></progress>
 				 				</li>
 				 				<li>
-				 					<span class="score">1점</span>&nbsp;	<span class="count">251</span>
-				 					<span class="progress">
-				 						<span class="bar" style="52%;"></span>
-				 					</span>
+				 					<span class="score">1점</span>&nbsp;	(<span id="1score"></span>)
+				 					<progress class="progress" max="10" id="1bar"></progress>
 				 				
 				 				</li>
 				 			</ul>
@@ -233,7 +312,7 @@
 				    </div>
 				</div>
 	 		<c:if  test="${empty reviewlist}">
-	 			<div>
+	 			<div class="emptyReview">
 	 				작성된 리뷰가 없습니다.
 	 			</div>
 	 		</c:if>
@@ -243,13 +322,12 @@
 	            		<h3>${review.get("RES_NAME")}</h3>
 	            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 		                    <div class="review_content">
-		                        <p>${review.get("REVIEW_WRITER")}</p>
+		                        <div>${review.get("REVIEW_WRITER")}</div>
 		                        <div class="reviewdaterate">
 			                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
-			                        <span>${review.get("REVIEW_RATE")}</span>
+			                        <span>★${review.get("REVIEW_RATE")}</span>
 		                        </div>
-		                        
-		                        <p>${review.get("REVIEW_CONTENT")}</p>
+		                        <div class="reviewContent">${review.get("REVIEW_CONTENT")}</div>
 		                    </div>
 	            	</div>
 	            	</c:forEach>
@@ -258,29 +336,7 @@
 			    
 			    
 			  </div>
-			</div><%-- 
-	 		
-	 		
-	 		
-	 		
-	 		
-	 		
-	 		
-	 		<c:if test="${not empty reviewlist}">
-	 			<div>
-	 				${review.reviewWriter}
-	 			</div>
-	 			<div>
-	 				${review.reviewDate} ${review.reviewRate}
-	 			</div>
-	 			<div>
-	 				${review.reviewOrgin}
-	 			</div>
-	 			<div>
-	 				${reivew.reviewContetnt}
-	 			</div>
-	 		</c:if>
-	 	</div> --%>
+			</div>
 	 </section>
        
 		</div>

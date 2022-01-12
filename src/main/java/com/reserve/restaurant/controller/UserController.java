@@ -4,7 +4,6 @@ package com.reserve.restaurant.controller;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,16 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.service.BookService;
 import com.reserve.restaurant.service.RestaurantService;
 import com.reserve.restaurant.service.ReviewService;
 import com.reserve.restaurant.service.UserService;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("user/*")
@@ -46,6 +44,7 @@ public class UserController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
 	//검색페이지
 	@GetMapping(value = "search")
 	public String search() {
@@ -94,9 +93,18 @@ public class UserController {
 	@GetMapping(value="moreReview")
 	public String moreReview(HttpServletRequest request,Model model) {
 		HttpSession session  = request.getSession();
-		User user = (User)session.getAttribute("loginUser");
-				
-		model.addAttribute("userNo", user.getUserNo());
+		Object object = session.getAttribute("loginUser");
+		
+		if(object.getClass() == Owner.class) {
+			Owner owner = (Owner) object;
+			model.addAttribute("userNo", owner.getOwnerNo());
+		} else {
+			User user = (User) object;
+			model.addAttribute("userNo", user.getUserNo());
+		}
+		
+		Restaurant restaurant = (Restaurant)session.getAttribute("rest");
+		model.addAttribute("resNo", restaurant.getResNo());
 		model.addAttribute("request", request);
 		
 		reviewService.moreReview(model);

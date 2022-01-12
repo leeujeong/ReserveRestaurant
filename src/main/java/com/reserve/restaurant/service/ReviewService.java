@@ -20,17 +20,14 @@ public interface ReviewService {
 	public Review selectReviewList(Long reviewNo);
 	public void insertReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void moreReview(Model model);
-	//	public int avgReviewRate(Long resNo);
-	
-	
-//	public int avgReviewRate(Long resNo);
-//	public int totalReview(Long resNo);
-	
-	
+
 	public List<Comment> commentList(Long reviewNo, Model model);
 	public int addComment(HttpServletRequest request);
 	public int removeComment(Long commnetNo);
 	public int updateComment(Comment comment);
+	
+	//리뷰 더보기에 사용될 리뷰들의 평점별 개수
+//	public List<Review> reviewCountByRate(Model model);
 	
 	
 	//message method

@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -24,11 +25,8 @@ import com.reserve.restaurant.util.PageUtils;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
+	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	public AdminServiceImpl(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	@Override
 	public void findAllUser(Model model) {
@@ -308,13 +306,17 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	   public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
+
+	public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
 	      AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
-	      
+	      ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 	      
 	      Long resNo = restaurant.getResNo();
 	      Restaurant rest = adminRepository.selectResDetail(resNo);
-	      List<Review> reviewList = adminRepository.selectReviewList1(resNo);
+	      Integer totalReviewCount  = reviewRepository.totalReview(resNo);
+	      Integer avgReview = reviewRepository.avgReviewRate(resNo);
+	      
+	      List<Review> reviewList = adminRepository.selectReviewList(resNo);
 	      List<UploadFile> picList = adminRepository.selectFile(resNo);
 	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
@@ -329,6 +331,8 @@ public class AdminServiceImpl implements AdminService {
 	      if (picList != null) {
 	    	  request.getSession().setAttribute("pic", picList);
 	      }
+	     model.addAttribute("reviewCount", totalReviewCount);
+	     model.addAttribute("avgReview", avgReview);
 	      
 	      
 	   }

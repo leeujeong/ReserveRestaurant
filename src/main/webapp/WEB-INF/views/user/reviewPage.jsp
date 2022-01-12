@@ -15,7 +15,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/owner.css"/>" rel="stylesheet">
-	<link href="<c:url value="/resources/css/userCSsS/detail.css"/>" rel="stylesheet">
 	<script src="<c:url value="/resources/js/index.js"/>"></script>
 	<script src="<c:url value="/resources/js/userJS/detail.js"/>"></script>
  <script>
@@ -121,8 +120,12 @@
 	    border: none;
 	    color: white;
 	    padding: 7px;
-	    margin:5px;
+	    margin: 15px;
 	    border-radius: 10px;
+ 	}
+ 	.replyReviewTitle{
+ 		padding-top: 30px;
+ 		text-align: center;
  	}
  </style>
 </head>
@@ -205,9 +208,9 @@
 		  <div class="row">
 		    <div class="col-4">
 		     <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="main_image"/>
-			 <h3 >${restaurant.resName}</h3>
+			 <h3 class="replyReviewTitle">${restaurant.resName}</h3>
 
-			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/user/detail?resNo='+'${restaurant.resNo}'">  	
+			 <input type="button" value="식당정보로 돌아가기" class="returndetailbtn" onclick="location.href='/restaurant/admin/goResDetail?resNo='+'${restaurant.resNo}'">  	
 
 		    </div>
 		    <div class="col-6">

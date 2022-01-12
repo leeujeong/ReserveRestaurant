@@ -3,19 +3,17 @@ package com.reserve.restaurant.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
-import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
 
-@Repository
+@Mapper
 public interface UserRepository {
 
 	public User selectUserById(String id);
