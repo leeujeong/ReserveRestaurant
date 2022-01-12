@@ -258,7 +258,7 @@ $(document).ready(function () {
                         <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.id}">예약 문의</a></li>
                         <li class="reserve_question"><a href="/restaurant/user/findQnaList2?qnaWriter=${loginUser.id}">사이트 이용 문의</a></li>
                     </ul>
-                    <table class="table table-hover" style="text-align: center;">
+                     <table class="table table-hover" style="text-align: center;">
 					 <thead>
 						<tr>
 							 <th scope="col">번호</th>
@@ -268,11 +268,8 @@ $(document).ready(function () {
 						</tr>
 					</thead>
 					<tbody>
-							<c:if test="${empty list}">
-								<tr>
-									<td scope="col" colspan="5">문의내역 없음</td>
-								</tr>
-							</c:if>
+					    <c:set var="doneLoop" value="false"/> 
+							
 						<c:if test="${not empty list}">
 									<c:forEach var="qna" items="${list}">
 										<c:if test="${qna.qnaState ==3}">
@@ -283,6 +280,7 @@ $(document).ready(function () {
 												<td>${qna.qnaDate}</td>
 											</tr>
 										</c:if>
+									
 									</c:forEach>
 								</c:if>
 						</tbody>

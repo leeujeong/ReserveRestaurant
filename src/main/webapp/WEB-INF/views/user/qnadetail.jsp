@@ -287,17 +287,35 @@
                               	</c:if>
                               </tbody>
                             </table>
-                           <div class ="commentList">
-                                <label>가게 : </label>
-						       <input type="text" value="${reply.get('RES_NAME')}" readonly>
-						       <label> 등록 날짜 : </label>
-						       <input type="text" class="formatDate" value="${reply.get('REPLY_DATE')}" readonly >
-						      
-						       <div>
-						       <label>댓글 : </label>
-							       <input type="text" value="${reply.get('REPLY_CONTENT')}" readonly>
-						       </div>
-						    </div>
+                            <c:if test="${list1.qnaState != 1}">
+	                           <div class ="commentList">
+	                                <label>가게 : </label>
+							       <input type="text" value="${reply.get('RES_NAME')}" readonly>
+							       <label> 등록 날짜 : </label>
+							       <input type="text" class="formatDate" value="${reply.get('REPLY_DATE')}" readonly >
+							      
+							       <div>
+							       <label>댓글 : </label>
+								       <input type="text" value="${reply.get('REPLY_CONTENT')}" readonly>
+							       </div>
+							    </div>
+                            </c:if>
+                             <c:if test="${list1.qnaState == 1}">
+                             	<c:if test="${not empty adminReply}">
+                             	  <c:forEach var="reply" items="${adminReply}">
+			                           <div class ="commentList">
+			                                <label>관리자 : </label>
+									       <input type="text" value="${reply.replyWriter}" readonly>
+									       <label> 등록 날짜 : </label>
+									       <input  type="text" class="formatDate" value="${reply.replyDate}" readonly >
+									       <div>
+									       <label>댓글 : </label>
+									       <input style="width: 550px;" type="text" value="${reply.replyContent}" readonly>
+									       </div>
+		                            	</div>
+                             	  </c:forEach>
+                             	</c:if>
+                             </c:if>
 						    <script>
 						    	
 						    </script>
