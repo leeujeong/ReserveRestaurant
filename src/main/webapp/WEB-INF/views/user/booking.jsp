@@ -26,9 +26,10 @@ $(document).ready(function () {
 
   });// 페이지로드 끝
   
+  
   function fnPaygogo() {
-		
-		$('#pay_btn').on('click',function () {
+			$('.pay_btn').on('click',function () {
+			alert('??');
 			var IMP = window.IMP;
 	        IMP.init('imp27170655');
 
@@ -44,12 +45,12 @@ $(document).ready(function () {
 	                msg += '**결제 금액: ' + rsp.paid_amount+'원**';
 	                let pay = JSON.stringify({
 	    				userNo : $('#userNo').val(),
-	    				resNo : $('#resNo').val(),
+	    				resNo : $('this').prev().val(),
 	    				amount : 1,
 	    				payName : '예약금',
 	    				id : $('#id').val(),
 	    				payMethod : 'card',
-	    				bookNo :  $('#bookNo').val()
+	    				bookNo :  $('this').next().val()
 	    			});
 	                $.ajax({
 	                    url: '/restaurant/user/gogopay', 
@@ -77,7 +78,7 @@ $(document).ready(function () {
 	           // document.location.href="/user/mypage/home"; //alert창 확인 후 이동할 url 설정
 	        });
 	    });
-}//fn paygogo end
+	}//fn paygogo end
 		
 
 </script>
@@ -223,13 +224,13 @@ $(document).ready(function () {
 										<td>${booking.bookPeople}</td>
 										<td>${booking.bookDate}</td>
 										<td>
-										<input type="button" value='예약금결제' id="pay_btn" class="btn btn-danger" onclick="fnPaygogo()" >
-										<input type="button" value='취소' id="cancel_btn" class="btn btn-danger" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
+										 <input type="hidden" class="resNo" value="${booking.resNo}">
+										<input type="button" value='예약금결제' class="pay_btn" class="btn btn-danger">
+										 <input type="hidden" class="bookNo" value="${booking.bookNo}">
+										<input type="button" value='취소' class="cancel_btn" class="btn btn-danger" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
 										</td>
 									</tr>
 									</c:if>
-									 <input type="hidden" id="resNo" value="${booking.resNo}">
-									 <input type="hidden" id="bookNo" value="${booking.bookNo}">
 							</c:forEach>
 						</c:if> 
 					</tbody>

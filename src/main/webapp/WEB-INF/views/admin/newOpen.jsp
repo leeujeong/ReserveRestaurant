@@ -29,6 +29,13 @@
 		
 	}
 </script>
+<style>
+	.res_img {
+		width: 300px;
+		height: 250px;	
+		padding-right: 30px;	
+	}
+</style>
 </head>
 <body>
 	  <header>
@@ -127,7 +134,7 @@
 	    	<c:forEach var="restaurant" items="${list}">
 		        <div class="rest_info">
 		            <div>
-		               <!-- <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}"> -->
+		               <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="res_img">
 		            </div>
 		            <div>
 		                <span class="rest_name">
