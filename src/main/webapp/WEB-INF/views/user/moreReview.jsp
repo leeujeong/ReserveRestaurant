@@ -84,7 +84,7 @@
 	    })(jQuery);
 	}
 	
-	
+	/* 
 	 function fnFindCommentList() {
 	      $.ajax({
 	         url : '/restaurant/user/CommentListByReviewNo?resNo=' + ${resNo},
@@ -94,10 +94,10 @@
 	            fnPrintCommentList(map);
 	         }
 	      });
-	   }
+	   } */
 	   
 
-      function fnPrintCommentList(map){
+      /* function fnPrintCommentList(map){
             // 목록 초기화
             $('.commentList').empty();
             // 목록 만들기
@@ -116,7 +116,7 @@
                $(".commentList").html(a);
             }
          }  
-
+ */
 
  </script>
  
@@ -373,6 +373,15 @@
 		                    </div>
 		            	</div>
 		            	<div class="commentList">
+		            	<c:forEach var="commentlist" items="${commentlist}">
+		            		<c:if test="${review.get('REVIEW_NO'} == ${commentlist.reviewNo}">
+								<div>
+									${comment.createdDate}<br>
+									${comment.content}
+								</div>
+		            		</c:if>
+		            	
+		            	</c:forEach>
 		            	</div>
 		            </c:forEach>
 		           </c:if>

@@ -219,15 +219,11 @@ public class ReviewServiceImpl implements ReviewService {
    }
 
 @Override
-public Map<String, Object>  commentList1(Long resNo) {
+public void commentList1(Long resNo, Model model) {
 	ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 	List<Comment> list = reviewRepository.commentList1(resNo);
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("list", list);
-	
-	System.out.println(map.toString());
-	
-	return map;
+	System.out.println(list.toString());
+	model.addAttribute("commentlist", list);
 }
 
    

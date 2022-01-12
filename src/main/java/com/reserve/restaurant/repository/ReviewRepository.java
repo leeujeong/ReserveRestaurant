@@ -20,7 +20,6 @@ public interface ReviewRepository {
 	public int insertReview(Review review);
 	public Integer avgReviewRate(Long resNo);
 	public Integer totalReview(Long resNo);
-//	public Integer reviewCountByRate(Map<String, Object> map);
 	public List<Integer> selectReviewCount(Long resNo);
 	
 	//comment
