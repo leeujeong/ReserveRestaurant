@@ -210,11 +210,14 @@ $(document).ready(function () {
 				return false;
 			}
 		if(confirm('수정 할까요?')){
-			if($('#qnaState2').val() == 2){
-				$('#qnaform2').attr('action', '/restaurant/user/qnaUpdate?qnaNo='+$('#qnaNo2').val());
+			if($('.qnaState2').val() == 2){
+				$('#qnaform2').attr('action', '/restaurant/user/qnaUpdate?qnaNo='+$('.qnaNo2').val());
 				$('#qnaform2').submit();
-			} else if($('#qnaState3').val()== 3){
-				$('#qnaform2').attr('action', '/restaurant/user/qnaUpdate?qnaNo='+$('#qnaNo3').val());
+			} else if($('.qnaState3').val()== 3){
+				$('#qnaform2').attr('action', '/restaurant/user/qnaUpdate?qnaNo='+$('.qnaNo3').val());
+				$('#qnaform2').submit();
+			} else{
+				$('#qnaform2').attr('action', '/restaurant/user/qnaUpdate?qnaNo='+$('.qnaNo1').val());
 				$('#qnaform2').submit();
 			}
 		}
@@ -286,7 +289,7 @@ $(document).ready(function () {
                 <div class="menu_nav"> 
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">문의 내역</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.id}">문의 내역</a></li>
                         <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
@@ -307,10 +310,12 @@ $(document).ready(function () {
                 <div class="containers">
                      <div class="col-sm-9">
                            <form id="qnaform2" method="post"> 
-                               <input type="hidden" value="${list2.qnaNo}" name="qnaNo" id="qnaNo2">
-                               <input type="hidden" value="${list2.qnaState}" id="qnaState2">
-                               <input type="hidden" value="${list3.qnaState}" id="qnaState3">
-                               <input type="hidden" value="${list3.qnaNo}" name="qnaNo" id="qnaNo3">
+                                 <input type="hidden" value="${list2.qnaNo}" name="qnaNo" class="qnaNo2">
+		                         <input type="hidden" value="${list3.qnaNo}" name="qnaNo" class="qnaNo3">
+		                         <input type="hidden" value="${list2.qnaState}" name=qnaState class="qnaState2">
+		                         <input type="hidden" value="${list3.qnaState}" name="qnaState" class="qnaState3">
+		                         <input type="hidden" value="${list1.qnaNo}" name="qnaNo" class="qnaNo1">
+		                         <input type="hidden" value="${list1.qnaState}" name="qnaState" class="qnaState1">
                                <table class="qnatable ">
                                  <tbody>
                                  	<c:if test="${list2.qnaState ==2 }">
@@ -347,6 +352,24 @@ $(document).ready(function () {
 	                                    <tr>
 	                                       <td>내용</td>
 	                                       <td><textarea rows="20" cols="70" name="qnaContent" id="qnaContent">${list3.qnaContent}</textarea></td>
+	                                    </tr>
+                                 	</c:if>
+                                 	<c:if test="${list1.qnaState ==1 }">
+	                                    <tr style="margin: 5px;">
+	                                       <td>작성자</td>
+	                                       <td><input type="text" value="${list1.qnaWriter}" id="qnaWriter" name="qnaWriter" readonly></td>
+	                                    </tr>
+	                                    <tr style="margin: 5px;">
+	                                       <td>제목</td>
+	                                       <td><input type="text" value="${list1.qnaTitle}" id="qnaTitle" name="qnaTitle"></td>
+	                                    </tr>
+	                                    <tr style="margin: 5px;">
+	                                        <td>작성일</td>
+	                                        <td><input type="text" value="${list1.qnaDate}" id="qnaDate" readonly></td>
+	                                    </tr>
+	                                    <tr>
+	                                       <td>내용</td>
+	                                       <td><textarea rows="20" cols="70" name="qnaContent" id="qnaContent">${list1.qnaContent}</textarea></td>
 	                                    </tr>
                                  	</c:if>
                                  </tbody>

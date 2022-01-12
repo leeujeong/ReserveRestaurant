@@ -257,8 +257,9 @@ table{
                 <hr>
                 <div>
                     <ul class="question_btn">
-                           <li class="store_question"><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">식당 정보 문의</a></li>
-                        <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.name}">예약 문의</a></li>
+                           <li class="store_question"><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.id}">식당 정보 문의</a></li>
+                        <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.id}">예약 문의</a></li>
+                        <li class="reserve_question"><a href="/restaurant/user/findQnaList2?qnaWriter=${loginUser.id}">사이트 이용 문의</a></li>
                     </ul>
                     <table class="table table-hover" style="text-align: center;">
 					 <thead>

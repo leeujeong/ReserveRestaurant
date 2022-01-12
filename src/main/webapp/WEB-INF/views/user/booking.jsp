@@ -226,17 +226,10 @@ $(document).ready(function () {
 										<td>${booking.bookPeople}</td>
 										<td>${booking.bookDate}</td>
 										<td>
-<<<<<<< HEAD
 											<input type="hidden" class="resNo" value="${booking.resNo}">
 											<input type="button" value='예약금결제' class="pay_btn" onclick="fnPaygogo()" >
 											<input type="hidden" class="bookNo" value="${booking.bookNo}">
 											<input type="button" value='취소' class="cancel_btn" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
-=======
-										 <input type="hidden" class="resNo" value="${booking.resNo}">
-										<input type="button" value='예약금결제' class="pay_btn" class="btn btn-danger">
-										 <input type="hidden" class="bookNo" value="${booking.bookNo}">
-										<input type="button" value='취소' class="cancel_btn" class="btn btn-danger" onclick="location.href='/restaurant/book/bookingCancel?bookNo='+${booking.bookNo}">
->>>>>>> refs/heads/main
 										</td>
 									</tr>
 									</c:if>

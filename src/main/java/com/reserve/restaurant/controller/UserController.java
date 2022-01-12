@@ -126,6 +126,12 @@ public class UserController {
 		return userService.sendAuthCode(email);
 	}
 	
+	@PostMapping(value = "tempPassword" , produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> tempPassword(User user, HttpServletResponse response) {
+		return userService.tempPassword(user, response);
+	}
+	
 	
 	// 회원등록
 	@PostMapping(value = "insertUser")
@@ -282,6 +288,11 @@ public class UserController {
 		public String findQnaList1(@RequestParam(value = "qnaWriter") String qnaWriter, Model model) {
 			userService.findQnaList(qnaWriter, model);
 			return "user/qnaList1";
+		}
+		@GetMapping(value = "findQnaList2")
+		public String findQnaList2(@RequestParam(value = "qnaWriter") String qnaWriter, Model model) {
+			userService.findQnaList(qnaWriter, model);
+			return "user/qnaList2";
 		}
 		@GetMapping(value = "findQnaByNo")
 		public String findQnaByNo(@RequestParam(value = "qnaNo") Long qnaNo, Model model, HttpServletRequest request) {

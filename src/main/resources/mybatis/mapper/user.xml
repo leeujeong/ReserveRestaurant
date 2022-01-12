@@ -248,8 +248,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<insert id="insertQna" parameterType="Qna">
-		INSERT INTO QNA (QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_STATE, RES_NO)
-		VALUES(QNA_NO_SEQ.NEXTVAL,#{qnaWriter}, #{qnaTitle},  #{qnaContent}, 0, SYSDATE, #{qnaState}, #{resNo})
+		INSERT INTO QNA (QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_HIT, QNA_DATE, QNA_LASTMODIFIED, QNA_STATE, RES_NO)
+		VALUES(QNA_NO_SEQ.NEXTVAL,#{qnaWriter}, #{qnaTitle},  #{qnaContent}, 0, SYSDATE, SYSDATE, #{qnaState}, #{resNo})
 	</insert>
 	
 	<select id="selectQnaList" parameterType="String" resultType="Qna">
@@ -258,6 +258,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE QNA_WRITER = #{qnaWriter}
 	</select>
 	
+	
+	<select id="selectQna1" parameterType="Long" resultType="Qna">
+		SELECT *
+		  FROM QNA
+		 WHERE QNA_NO = #{qnaNo}
+		   AND QNA_STATE = 1
+	</select>
 	<select id="selectQna2" parameterType="Long" resultType="Qna">
 		SELECT *
 		  FROM QNA

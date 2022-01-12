@@ -115,11 +115,12 @@
 		fnremoveQna();
 		
 		$('#update_btn1').click(function () {
-			  if($('#qnaState2').val() == 2){
-				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('#qnaNo2').val();
-			} else{
-				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('#qnaNo3').val();
-	
+			  if($('.qnaState2').val() == 2){
+				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('.qnaNo2').val();
+			} else if ($('.qnaState3').val() == 3){
+				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('.qnaNo3').val();
+			} else {
+				location.href='/restaurant/user/qnaUpdatePage?qnaNo='+$('.qnaNo1').val();
 			}
 		});
 	});
@@ -128,13 +129,15 @@
 	function fnremoveQna() {
 		$('#delete_btn').click(function () {
 			if(confirm('정말로 삭제하시겠습니까?')){
-				if($('#qnaState2').val() == 2){
-					$('#qnaform1').attr('action', '/restaurant/user/removeQna?qnaNo='+$('#qnaNo2').val());
+				if($('.qnaState2').val() == 2){
+					$('#qnaform1').attr('action', '/restaurant/user/removeQna?qnaNo='+$('.qnaNo2').val());
+					$('#qnaform1').submit();
+				} else if($('.qnaState3').val() == 3){
+					$('#qnaform1').attr('action', '/restaurant/user/removeQna?qnaNo='+$('.qnaNo3').val());
 					$('#qnaform1').submit();
 				} else{
-					$('#qnaform1').attr('action', '/restaurant/user/removeQna?qnaNo='+$('#qnaNo3').val());
+					$('#qnaform1').attr('action', '/restaurant/user/removeQna?qnaNo='+$('.qnaNo1').val());
 					$('#qnaform1').submit();
-	
 				}
 			}
 		});
@@ -200,7 +203,7 @@
                 <div class="menu_nav"> 
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">문의 내역</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.id}">문의 내역</a></li>
                         <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
@@ -219,10 +222,13 @@
                 <hr>
                 <div class="containers">
                      <div class="col-sm-9">
-                         <input type="hidden" value="${list2.qnaNo}" name="qnaNo" id="qnaNo2">
-                         <input type="hidden" value="${list3.qnaNo}" name="qnaNo" id="qnaNo3">
-                         <input type="hidden" value="${list2.qnaState}" name=qnaState id="qnaState2">
-                         <input type="hidden" value="${list3.qnaState}" name="qnaState" id="qnaState3">
+                    <form id="qnaform1" method="post"> 
+                         <input type="hidden" value="${list2.qnaNo}" name="qnaNo" class="qnaNo2">
+                         <input type="hidden" value="${list3.qnaNo}" name="qnaNo" class="qnaNo3">
+                         <input type="hidden" value="${list2.qnaState}" name=qnaState class="qnaState2">
+                         <input type="hidden" value="${list3.qnaState}" name="qnaState" class="qnaState3">
+                         <input type="hidden" value="${list1.qnaNo}" name="qnaNo" class="qnaNo1">
+                         <input type="hidden" value="${list1.qnaState}" name="qnaState" class="qnaState1">
                          <table class="qnatable">
                               <tbody>
                               	<c:if test="${list2.qnaState ==2 }">
@@ -261,6 +267,24 @@
                                      <td><textarea rows="20" cols="70" name="qnaContent" readonly>${list3.qnaContent}</textarea></td>
                                   </tr>
                               	</c:if>
+                              	<c:if test="${list1.qnaState ==1 }">
+                                  <tr>
+                                     <td>작성자</td>
+                                     <td><input type="text" value="${list1.qnaWriter}" id="qnaWriter" readonly></td>
+                                  </tr>
+                                  <tr>
+                                     <td>제목</td>
+                                     <td><input type="text" value="${list1.qnaTitle}" id="qnaTitle" readonly></td>
+                                  </tr>
+                                  <tr>
+                                      <td>작성일</td>
+                                      <td><input type="text" value="${list1.qnaDate}" id="qnaDate" readonly></td>
+                                  </tr>
+                                  <tr>
+                                     <td>내용</td>
+                                     <td><textarea rows="20" cols="70" name="qnaContent" readonly>${list1.qnaContent}</textarea></td>
+                                  </tr>
+                              	</c:if>
                               </tbody>
                             </table>
                            <div class ="commentList">
@@ -279,10 +303,11 @@
 						    </script>
 							
                            <div class="footerInput">
-	                           <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
+	                           <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.id}'">
 	                           <input type="button" value="수정하기" class="btn btn-danger" id="update_btn1">
 	                           <input type="reset" value="삭제하기" class="btn btn-danger" id="delete_btn">
 	                       </div>
+                         </form>
                         </div>
                     </div>
                   </div> 

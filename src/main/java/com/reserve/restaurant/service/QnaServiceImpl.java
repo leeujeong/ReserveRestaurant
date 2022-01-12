@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Owner;
@@ -17,7 +18,7 @@ import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.repository.QnaRepository;
 import com.reserve.restaurant.util.PageUtils;
-
+@Service
 public class QnaServiceImpl implements QnaService {
 	
 	@Autowired
@@ -26,14 +27,14 @@ public class QnaServiceImpl implements QnaService {
 	//식당문의
 	@Override
 	public void selectQnaList1(Model model) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
 		int state = 2;
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		Long ownerNo = (Long)m.get("ownerNo");
 		
 		//페이징
-		int totalRecord = repository.ListTotalCount1(ownerNo);
+		int totalRecord = qnaRepository.ListTotalCount1(ownerNo);
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
@@ -46,7 +47,7 @@ public class QnaServiceImpl implements QnaService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		
 		
-		List<Qna> qnalist1 = repository.selectQnaList1(map);
+		List<Qna> qnalist1 = qnaRepository.selectQnaList1(map);
 		
 		
 		model.addAttribute("state",state);
@@ -59,7 +60,7 @@ public class QnaServiceImpl implements QnaService {
 	//예약문의
 	@Override
 	public void selectQnaList2(Model model) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
 		int state = 3;
 		
 		Map<String, Object> m = model.asMap();
@@ -68,7 +69,7 @@ public class QnaServiceImpl implements QnaService {
 		
 		
 		//페이징
-		int totalRecord = repository.ListTotalCount2(ownerNo);
+		int totalRecord = qnaRepository.ListTotalCount2(ownerNo);
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
@@ -80,7 +81,7 @@ public class QnaServiceImpl implements QnaService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		map.put("ownerNo", ownerNo);		
 		
-		List<Qna> qnalist2 = repository.selectQnaList2(map);
+		List<Qna> qnalist2 = qnaRepository.selectQnaList2(map);
 		
 		model.addAttribute("state",state);
 		model.addAttribute("qnalist2", qnalist2);
@@ -92,30 +93,30 @@ public class QnaServiceImpl implements QnaService {
 	//하나의 문의 선택
 	@Override
 	public Qna selectQnaByNo(Long qnaNo) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		repository.updateQnaHit(qnaNo);
-		return repository.selectQnaByNo(qnaNo);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		qnaRepository.updateQnaHit(qnaNo);
+		return qnaRepository.selectQnaByNo(qnaNo);
 	}
 	
 	//문의 삭제
 	@Override
 	public int deleteQna(Long qnaNo) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.deleteQna(qnaNo);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		return qnaRepository.deleteQna(qnaNo);
 	}
 	
 //	공지사항 댓글
 	@Override
 	public List<Reply> qnaReplyList(Long qnaNo, Model model) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.qnaReplyList(qnaNo);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		return qnaRepository.qnaReplyList(qnaNo);
 	}
 
 	@Override
 	public int qnaReplyInsert(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Owner loginUser = (Owner)session.getAttribute("loginUser");
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
 		Reply reply = new Reply();
 		Long qnaNo = Long.parseLong(request.getParameter("qnaNo"));
 		String replyContent = request.getParameter("replyContent");
@@ -125,24 +126,24 @@ public class QnaServiceImpl implements QnaService {
 		reply.setReplyWriter(loginUser.getName());
 		
 		
-		return repository.qnaReplyInsert(reply) ;
+		return qnaRepository.qnaReplyInsert(reply) ;
 	}
 
 	@Override
 	public int qnaReplyUpdate (Reply reply){
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.qnaReplyUpdate(reply);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		return qnaRepository.qnaReplyUpdate(reply);
 	}
 
 	@Override
 	public int qnaReplyDelete (Long replyNo){
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		return repository.qnaReplyDelete(replyNo);
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		return qnaRepository.qnaReplyDelete(replyNo);
 	}
 
 	@Override
 	public void updateQnaHit(Long qnaNo) {
-		QnaRepository repository = sqlSession.getMapper(QnaRepository.class);
-		repository.updateQnaHit(qnaNo);;
+		QnaRepository qnaRepository = sqlSession.getMapper(QnaRepository.class);
+		qnaRepository.updateQnaHit(qnaNo);;
 	}
 }

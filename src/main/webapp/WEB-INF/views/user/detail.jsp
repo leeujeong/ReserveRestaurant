@@ -1097,7 +1097,7 @@ button:hover {
                 </div>
                 <hr>
 		        <span class="reserve_text">작성자</span><br>	 
-		        <input type="text" class="form-control" id="qnaWriter" name="qnaWriter" value="${loginUser.name}"  style="width: 200px; height: 50px;">
+		        <input type="text" class="form-control" id="qnaWriter" name="qnaWriter" value="${loginUser.id}"  style="width: 200px; height: 50px;">
 		        <hr>
 		        <span class="reserve_text">제목</span><br>	 
 		        <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" style="width: 300px;">

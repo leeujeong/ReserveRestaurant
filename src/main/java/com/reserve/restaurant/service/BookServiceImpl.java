@@ -14,17 +14,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Restaurant;
-import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.BookRepository;
-import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 
-
+@Service
 public class BookServiceImpl implements BookService {
 
 	@Autowired
@@ -32,8 +31,8 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public Map<String, Object> booking(Book book , HttpServletRequest request) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
-		int result = repository.insertBook(book);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
+		int result = bookRepository.insertBook(book);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("bookNo", book.getBookNo());
@@ -42,11 +41,11 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void selectBookingList(Long userNo, Model model) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
-		int totalRecord = repository.selectTotalBookingCount();
+		int totalRecord = bookRepository.selectTotalBookingCount();
 		
 		//전달된 페이지 번호
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -61,7 +60,7 @@ public class BookServiceImpl implements BookService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		map.put("userNo", userNo);
 		
-		List<Book> list = repository.selectBookingListByuserNo(map);
+		List<Book> list = bookRepository.selectBookingListByuserNo(map);
 		
 		
 		model.addAttribute("list", list);
@@ -76,12 +75,12 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void selectBookingDetail(Long resNo, Model model) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
-		int totalRecord = repository.selectTotalResCount();
+		int totalRecord = bookRepository.selectTotalResCount();
 		
 		//전달된 페이지 번호
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -97,7 +96,7 @@ public class BookServiceImpl implements BookService {
 		map.put("resNo", resNo);
 		
 		
-		List<Book> list = repository.selectBookingByresNo(map);
+		List<Book> list = bookRepository.selectBookingByresNo(map);
 		model.addAttribute("detail", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging" , pageUtils.getPageEntity("selectBookingDetail?resNo="+resNo)); 
@@ -107,17 +106,17 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void bookingCancel(Long bookNo, HttpServletResponse response) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
-		int result = repository.updatebookingState(bookNo);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
+		int result = bookRepository.updatebookingState(bookNo);
 		message(result, response, "예약이 취소 되었습니다", "예약이 취소되지 않았습니다.", "/restaurant/book/findCancelList");
 	}
 	
 	@Override
 	public void FindCancelList(Model model) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
-		int totalRecord = repository.selectCancelCount();
+		int totalRecord = bookRepository.selectCancelCount();
 
 		//전달된 페이지 번호
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -132,7 +131,7 @@ public class BookServiceImpl implements BookService {
 		map.put("endRecord", pageUtils.getEndRecord());
 
 		
-		List<Book> list = repository.selectCancelList(map);
+		List<Book> list = bookRepository.selectCancelList(map);
 		
 		model.addAttribute("cancelList", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
@@ -144,7 +143,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void bookList(Model model) {	
 		
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
@@ -155,7 +154,7 @@ public class BookServiceImpl implements BookService {
 		map.put("ownerNo", ownerNo);
 		
 		
-		List<Map<String, String>> list = repository.bookList(map);
+		List<Map<String, String>> list = bookRepository.bookList(map);
 		
 		JSONArray json_array = new JSONArray();
 		for(Map<String, String> result : list) {
@@ -174,8 +173,8 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void selectBookBybookNo(HttpServletRequest request, Model model) {
 		Long bookNo = Long.parseLong(request.getParameter("bookNo"));
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
-		Restaurant restaurant = repository.selectBookBybookNo(bookNo);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
+		Restaurant restaurant = bookRepository.selectBookBybookNo(bookNo);
 		model.addAttribute("restaurant", restaurant);
 		
 	}
@@ -183,10 +182,10 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public Map<String, Object> hourCheck(Book book , HttpServletRequest request) {
-		BookRepository repository = sqlSession.getMapper(BookRepository.class);
+		BookRepository bookRepository = sqlSession.getMapper(BookRepository.class);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", repository.hourCheck(book));
+		map.put("result", bookRepository.hourCheck(book));
 		return map;
 	}
 

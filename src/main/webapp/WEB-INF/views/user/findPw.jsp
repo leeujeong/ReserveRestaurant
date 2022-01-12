@@ -12,6 +12,9 @@
  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <link href="<c:url value="/resources/css/userCSS/login.css"/>" rel="stylesheet">
 
 <style type="text/css">
@@ -35,7 +38,8 @@ li{
 $(document).ready(function(){
 	fnSendAuthCode();
 	fnFindPw();
-	
+	fnIdCheck();
+	fnEmailCheck()
 	
 });
 // 이메일 인증코드 전송함수
@@ -47,16 +51,16 @@ function fnSendAuthCode(){
 			return;
 		}
 		$.ajax({
-			url: '/restaurant/user/sendAuthCode',
+			url: '/restaurant/user/tempPassword',
 			type: 'post',
-			data: 'email=' + $('#email').val(),
+			data: $('#f').serialize(),
 			dataType: 'json',
 			success: function(map) {
-				alert('인증코드가 발송되었습니다.');
+				alert('임시 비밀번호가 발송되었습니다. 발송된 비밀번호로 로그인하여 새로운 비밀번호로 변경해주세요.');
 				fnVerifyAuthCode(map.authCode);
 			},
 			error: function() {
-				alert('인증코드 전송 실패');
+				alert('비밀번호 전송 실패');
 			}
 		});
 	});
@@ -67,9 +71,10 @@ function fnVerifyAuthCode(authCode) {
 	$('#verify_btn').click(function(){
 		if ( $('#authCode').val() == authCode ) {
 			alert('인증되었습니다.');
-			
+			$('#pass_btn').removeClass('.bad').addClass('.good');
 		} else {
 			alert('인증에 실패했습니다.');
+			$('#pass_btn').addClass('.good').removeClass('.bad');
 		}
 	});
 }  // end fnVerifyAuthCode
@@ -99,6 +104,75 @@ function fnFindPw(){
 }
 
 
+let idPass = false;
+function fnIdCheck() {
+	$('#id').keyup(function(){
+		
+        let regId = /^[a-zA-Z0-9-_]{4,}$/;
+		if ( regId.test($(this).val()) == false ) {
+			$('#id_result').text('아이디는 대문자,숫자,특수문자 -,_ 사용해서 4자 이상 입력해주세요.').addClass('no').removeClass('ok');
+			idPass = false;
+			return;
+		}
+		
+		$.ajax({
+			url: '/restaurant/user/idCheck',
+			type: 'post',
+			data: 'id=' + $(this).val(),
+			dataType: 'json',
+			success: function(map){
+				if (map.result == null) {
+					$('#id_result').text('일치하지 않는 아이디입니다').addClass('no').removeClass('ok');
+					idPass = false;
+				} else {
+					$('#id_result').text('일치하는 아이디입니다').addClass('ok').removeClass('no');
+					idPass = true;
+				}
+			},
+			error: function(xhr){
+				$('#id_result').text(xhr.responseText).addClass('no').removeClass('no');
+				idPass = false;
+			}
+		});
+	});
+}  // end fnIdCheck
+
+//이메일 중복체크 변수와 함수
+let emailPass = false;
+function fnEmailCheck() {
+	$('#email').blur(function(){
+		let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+		if ( regEmail.test($(this).val()) == false ) {
+			alert('이메일 형식을 확인하세요.');
+			emailPass = false;
+			return;
+		}
+		$.ajax({
+			url: '/restaurant/user/emailCheck',
+			type: 'post',
+			data: 'email=' + $(this).val(),
+			dataType: 'json',
+			success: function(map){
+				if (map.result == null) {
+					alert('일치하는 이메일이 없습니다. 다시 한번 확인해주세요.');
+					fnInit();
+					emailPass = false;
+				} else {
+					alert('동일한 이메일 입니다. 인증버튼을 눌러 인증을 진행해주세요.');
+					emailPass = true;
+				}
+			},
+			error: function(){
+				alert('일치하는 이메일이 없습니다. 다시 한번 확인해주세요.');
+				emailPass = false;
+			}
+		})
+	});
+}  // end fnEmailCheck
+function fnInit() {
+		$('#email').val('');
+	
+}
 
  </script>
 <style>
@@ -120,13 +194,24 @@ function fnFindPw(){
  	font-size: 12px;
 }
 
-.no{
-	color: red;
-	
+#pass_btn{
+
 }
-.ok{
-	color: green;
-}
+
+
+ 
+  .bad{
+  	display: none;
+  }
+  .good{
+  display: inline;
+  }
+	.no{
+		color:red;
+	}
+	.ok{
+		color:green;
+	}
 </style>
 
 </head>
@@ -174,16 +259,9 @@ function fnFindPw(){
              <label for="email" class="loginMiddle">
              <span>이메일</span>
              <input type="text" name="email" id="email" placeholder="가입 당시 이메일을 입력해주세요."></label>
-				<label for="id" class="loginMiddle">
-           	    <span>인증번호</span>
-				<input type="text" name="authCode" id="authCode"></label>
-				
-					<input type="button" value="인증번호받기" id="authCode_btn" class="tbtns rs-mt5">
-					<input type="button" value="인증하기&비밀번호찾기" id="verify_btn" class="tbtns rs-mt5">
+					<input type="button" value="이메일로 임시 비밀번호 받기" id="authCode_btn" class="tbtns rs-mt5">
 					
-					<div id="search_result">
-						
-					</div>
+					
 					
 			</form>
 			</div>

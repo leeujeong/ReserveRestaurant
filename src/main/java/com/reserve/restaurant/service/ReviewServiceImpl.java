@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,7 +28,7 @@ import com.reserve.restaurant.repository.RestaurantRepository;
 import com.reserve.restaurant.repository.ReviewRepository;
 
 import net.coobird.thumbnailator.Thumbnails;
-
+@Service
 public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired
@@ -83,8 +84,8 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-		int result = repository.insertReview(review);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+		int result = reviewRepository.insertReview(review);
 		
 		String opt = multipartRequest.getParameter("resNo");
 		Long resNo =  Long.parseLong(opt);
@@ -97,7 +98,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void reviewList(Model model) {
 		
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 		RestaurantRepository resRepository = sqlSession.getMapper(RestaurantRepository.class);
 		
 		Map<String, Object> m = model.asMap();
@@ -110,18 +111,15 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("resNo", resNo);
 		
 		
-		//평균과 전체 글수
-//		int avgReview = repository.avgReviewRate(resNo);
-		int totalCount = repository.totalReview(resNo);
+		int totalCount = reviewRepository.totalReview(resNo);
 //		
-		List<Review> list = repository.reviewList(map);
+		List<Review> list = reviewRepository.reviewList(map);
 		
 		Restaurant restaurant = resRepository.selectList(resNo);
 
 		model.addAttribute("resNo", resNo);
 		model.addAttribute("reviewlist", list);
 		model.addAttribute("restaurant", restaurant);
-//		model.addAttribute("avgReview", avgReview);
 		model.addAttribute("totalCount", totalCount);
 		
 	}
@@ -131,7 +129,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void moreReview(Model model) {
 		
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
@@ -143,10 +141,10 @@ public class ReviewServiceImpl implements ReviewService {
 		map.put("resNo", resNo);
 		
 		//평균과 전체 글수
-//		int avgReview = repository.avgReviewRate(resNo);
-//		int totalCount = repository.totalReview(resNo);
+//		int avgReview = reviewRepository.avgReviewRate(resNo);
+//		int totalCount = reviewRepository.totalReview(resNo);
 		
-		List<Review> list = repository.reviewList(map);
+		List<Review> list = reviewRepository.reviewList(map);
 		
 		model.addAttribute("reviewlist", list);
 //		model.addAttribute("avgReview", avgReview);
@@ -157,7 +155,7 @@ public class ReviewServiceImpl implements ReviewService {
 	//사업자한테 보여주는 리스트
 	@Override
 	public void ownerReviewList(Model model) {
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
@@ -167,7 +165,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("ownerNo", ownerNo);
 		
-		List<Review> reviewlist = repository.ownerReviewList(map);
+		List<Review> reviewlist = reviewRepository.ownerReviewList(map);
 		
 		model.addAttribute("reviewlist", reviewlist);
 	}
@@ -175,14 +173,14 @@ public class ReviewServiceImpl implements ReviewService {
 	//하나의 리뷰 조회
 	@Override
 	public Review selectReviewList(Long reviewNo) {
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-		return repository.selectReviewList(reviewNo);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+		return reviewRepository.selectReviewList(reviewNo);
 	}
 	//댓글 리스트
 	@Override
 	public List<Comment> commentList(Long reviewNo, Model model) {
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-		return repository.commentList(reviewNo);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+		return reviewRepository.commentList(reviewNo);
 	}
 
 	//댓글추가
@@ -199,41 +197,23 @@ public class ReviewServiceImpl implements ReviewService {
 		 comment.setContent(content);
 		 comment.setWriter(loginUser.getName());
 		 
-	   ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-	   return repository.addComment(comment);
+	   ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+	   return reviewRepository.addComment(comment);
 	}
 	//댓글 삭제
 	@Override
 	public int removeComment(Long commentNo) {
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);;
-		return repository.removeComment(commentNo);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);;
+		return reviewRepository.removeComment(commentNo);
 	}
 
 	//댓글 수정
 	@Override
 	public int updateComment(Comment comment) {
-		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-		return repository.updateComment(comment);
+		ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+		return reviewRepository.updateComment(comment);
 	}
 
 
-//	@Override
-//	public int avgReviewRate(Long resNo) {
-//		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-//		int avgReview = repository.avgReviewRate(resNo);
-//		return avgReview;
-//	}
-
-//	@Override
-//	public int totalReview(Long resNo) {
-//		ReviewRepository repository = sqlSession.getMapper(ReviewRepository.class);
-//		int totalCount = repository.totalReview(resNo);
-//		return totalCount;
-//	}
-
-
-	
-	
-//	}
 	
 }

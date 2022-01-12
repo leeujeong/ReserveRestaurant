@@ -47,6 +47,7 @@ public interface UserService {
 	public void removeQna(Long qnaNo , HttpServletResponse response);
 	public void qnaUpdate(Qna qna , HttpServletResponse response);
 	public Review indexReviewdetail(Long reviewNo, Model model);
+	public Map<String, Object> tempPassword(User user, HttpServletResponse response);
 
 
 	//message method

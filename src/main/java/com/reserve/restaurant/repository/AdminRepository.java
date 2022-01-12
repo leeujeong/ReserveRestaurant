@@ -55,7 +55,7 @@ public interface AdminRepository {
 	public List<Restaurant> findRes(Map<String, Object> map);
 	public int countFindRes(Map<String, Object> map);
 	
-	public List<Review> selectReviewList(Long resNo);
+	public List<Review> selectReviewList1(Long resNo);
 	public List<Restaurant> newOpen();
 	public List<Restaurant> indexnewOpen(int resState);
 	

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,7 +30,7 @@ import com.reserve.restaurant.repository.UploadFileRepository;
 import com.reserve.restaurant.util.PageUtils;
 
 import net.coobird.thumbnailator.Thumbnails;
-
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
 
 	@Autowired
@@ -39,16 +40,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public void selectMyRestaurantList(Model model) {
 		
-		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
+		RestaurantRepository restaurantRepository = sqlSession.getMapper(RestaurantRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) m.get("request");
 		
-//		HttpSession session = request.getSession();
-//		String id = (String) session.getAttribute("id");
 		String oid = (String) m.get("oid");
 
-		int totalRecord = repository.selectTotalCount(oid);
+		int totalRecord = restaurantRepository.selectTotalCount(oid);
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
@@ -61,7 +60,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		map.put("id", oid);
 		
 		
-		List<Map<String, Object>> list = repository.selectMyRestaurantList(map);
+		List<Map<String, Object>> list = restaurantRepository.selectMyRestaurantList(map);
 
 		model.addAttribute("list", list);
 		model.addAttribute("startNum", totalRecord - (page -1) * pageUtils.getRecordPerPage());
@@ -130,12 +129,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 			e.printStackTrace();
 		}
 		
-		System.out.println("DB수행전 : "+ restaurant);
 		
-		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
-		int result = repository.addRestaurant(restaurant);
+		RestaurantRepository restaurantRepository = sqlSession.getMapper(RestaurantRepository.class);
+		int result = restaurantRepository.addRestaurant(restaurant);
 		
-		System.out.println("DB수행후 : "+ restaurant);
 		
 		//uploadFile domain에 넣기 위한 파일
 		
@@ -290,8 +287,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
-		int result = repository.modifyRestaurant(restaurant);
+		RestaurantRepository restaurantRepository = sqlSession.getMapper(RestaurantRepository.class);
+		int result = restaurantRepository.modifyRestaurant(restaurant);
 		
 		int fileAttachResult = 0;
 		UploadFileRepository uploadRepository = sqlSession.getMapper(UploadFileRepository.class);
@@ -368,24 +365,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 			menu_repository.addMenu(menu);
 		}
 		
-//		Long menuNo = Long.parseLong();
-//		//기존 메뉴 삭제먼저!
-//		menu_repository.menuDelete(menuNo);
-//		
-//		String[] menus = multipartRequest.getParameterValues("menu");
-//		String[] prices = multipartRequest.getParameterValues("price");
-//		ArrayList<Menu> menuList = new ArrayList<Menu>();
-//		
-//		for(int i = 0; i < menus.length; i++) {
-//			Menu menu = new Menu();
-//			menu.setMenuName(menus[i]);
-//			menu.setMenuPrice(Long.parseLong(prices[i]));
-//			menu.setResNo(restaurant.getResNo());
-//			menuList.add(menu);
-//		}
-//		for(Menu menu : menuList) {
-//			menu_repository.addMenu(menu);
-//		}
+
 		message(result, response, "식당이 수정되었습니다.","식당수정이 실패했습니다.", "managePage");
 	}
 	
@@ -393,16 +373,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 	//하나만 골라
 	@Override
 	public Restaurant selectList(Long resNo) {
-		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
-		return repository.selectList(resNo);
+		RestaurantRepository restaurantRepository = sqlSession.getMapper(RestaurantRepository.class);
+		return restaurantRepository.selectList(resNo);
 	}
 
 	//삭제
 	@Override
 	public void deleteRestaurant(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		Long resNo = Long.parseLong(multipartRequest.getParameter("resNo"));
-		RestaurantRepository repository = sqlSession.getMapper(RestaurantRepository.class);
-		int result = repository.deleteRestaurant(resNo);
+		RestaurantRepository restaurantRepository = sqlSession.getMapper(RestaurantRepository.class);
+		int result = restaurantRepository.deleteRestaurant(resNo);
 		message(result, response, "음식점이 삭제되었습니다.", "삭제 실패", "managePage");
 	}
 	
@@ -410,9 +390,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	//메뉴고르기
 	@Override
 	public List<Menu> selectMenu(Long resNo) {
-		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		List<Menu> list = repository.selectMenu(resNo);
-		System.out.println(list.toString());
+		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
+		List<Menu> list = menu_repository.selectMenu(resNo);
 		
 		return list;
 		
@@ -420,15 +399,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 	//메뉴 삭제
 	@Override
 	public void menuDelete(Long menuNo) {
-		MenuRepository repository = sqlSession.getMapper(MenuRepository.class);
-		repository.menuDelete(menuNo);
+		MenuRepository menu_repository = sqlSession.getMapper(MenuRepository.class);
+		menu_repository.menuDelete(menuNo);
 	}
 	
 	//사진 고르기
 	@Override
 	public List<UploadFile> selectFile(Long resNo) {
-		UploadFileRepository repository = sqlSession.getMapper(UploadFileRepository.class);
-		return repository.selectFile(resNo);
+		UploadFileRepository uploadRepository = sqlSession.getMapper(UploadFileRepository.class);
+		return uploadRepository.selectFile(resNo);
 	}
 	
 	

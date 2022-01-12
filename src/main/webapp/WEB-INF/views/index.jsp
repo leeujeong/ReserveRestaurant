@@ -289,7 +289,7 @@
         </div>
     </section>
 
-	<a style="color: silver;" href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
+	<a style="color: #fff;" href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
     <section id="bottom">
         <div class="wrap">
             <div class="footer">

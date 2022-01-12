@@ -33,12 +33,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void findAllUser(Model model) {
 		
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
-		int totalRecord = repository.countUser();
+		int totalRecord = adminRepository.countUser();
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -50,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		
-		List<User> list = repository.selectUserList(map);
+		List<User> list = adminRepository.selectUserList(map);
 		System.out.println(list.toString());
 		
 		model.addAttribute("totalRecord", totalRecord);
@@ -65,12 +65,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void findAllOwner(Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		
-		int totalRecord = repository.countOwner();
+		int totalRecord = adminRepository.countOwner();
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -82,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		
-		List<Owner> list = repository.selectOwnerList(map);
+		List<Owner> list = adminRepository.selectOwnerList(map);
 		
 		
 		model.addAttribute("totalRecord", totalRecord);
@@ -97,7 +97,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void findUser(Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
@@ -114,7 +114,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("begin", begin);
 		map.put("end", end);
 		
-		int totalRecord = repository.selectFindRecordCount(map);
+		int totalRecord = adminRepository.selectFindRecordCount(map);
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -125,7 +125,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		
-		List<String> list = repository.selectFindList(map);
+		List<String> list = adminRepository.selectFindList(map);
 		model.addAttribute("list", list);
 		model.addAttribute("totalRecord", totalRecord);
 		
@@ -146,7 +146,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void findOwner(Model model) {
 		
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
@@ -163,7 +163,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("begin", begin);
 		map.put("end", end);
 		
-		int totalRecord = repository.selectFindRecordCountOwner(map);
+		int totalRecord = adminRepository.selectFindRecordCountOwner(map);
 		
 		// 전달된 페이지 번호 (전달 안 되면 page = 1 사용)
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -178,7 +178,7 @@ public class AdminServiceImpl implements AdminService {
 		map.put("endRecord", pageUtils.getEndRecord());
 		
 		// 검색된 목록 중 beginRecord ~ endRecord 사이 목록 가져오기
-		List<String> list = repository.selectFindListOwner(map);
+		List<String> list = adminRepository.selectFindListOwner(map);
 		
 		// View(employee/list.jsp)로 보낼 데이터
 		model.addAttribute("ownerList", list);
@@ -203,30 +203,12 @@ public class AdminServiceImpl implements AdminService {
 	// 일반회원상세 정보
 	@Override
 	public void selectUserInfo(Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> m = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)m.get("request");
 		String userNo = request.getParameter("userNo");
-		
-		// int totalRecord = repository.countBookList(userNo);
-		
-		// Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		// int page = Integer.parseInt(opt.orElse("1"));
-		
-		// PageUtils pageUtils = new PageUtils();
-		// pageUtils.setPageEntity(totalRecord, page);
-		
-		// Map<String, Object> map = new HashMap<String, Object>();
-		// map.put("beginRecord", pageUtils.getBeginRecord());
-		// map.put("endRecord", pageUtils.getEndRecord());
-		// map.put("userNo", userNo);
-		
-		// List<Book> bookList = repository.selectBookList(map);
-		
-		// model.addAttribute("paging", pageUtils.getPageEntity("userDetailPage?userNo=" + userNo));
-		
-		User user = repository.selectUserInfo(userNo);
-		int countLog = repository.countUserLog(userNo);
+		User user = adminRepository.selectUserInfo(userNo);
+		int countLog = adminRepository.countUserLog(userNo);
 		// model.addAttribute("bookList", bookList);
 		model.addAttribute("countLog", countLog);
 		model.addAttribute("user", user);
@@ -235,9 +217,9 @@ public class AdminServiceImpl implements AdminService {
 	// userDetail에서 BookList ajax처리
 	@Override
 	public Map<String, Object> userBookList(Long userNo, Integer page) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
-		int totalRecord = repository.countBookList(userNo);
+		int totalRecord = adminRepository.countBookList(userNo);
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
@@ -250,7 +232,7 @@ public class AdminServiceImpl implements AdminService {
 		System.out.println("beginRecord:" + pageUtils.getBeginRecord());
 		System.out.println("endRecord:" + pageUtils.getEndRecord());
 		
-		List<Book> bookList = repository.selectBookList(m);	// 목록
+		List<Book> bookList = adminRepository.selectBookList(m);	// 목록
 		
 		System.out.println(bookList.toString());
 		
@@ -265,14 +247,14 @@ public class AdminServiceImpl implements AdminService {
 	// 사업자회원 상세정보
 	@Override
 	public void selectOwnerInfo(Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> map = model.asMap();
 		Long ownerNo = (Long) map.get("ownerNo");
-		Owner owner = repository.selectOwnerInfo(ownerNo);
-		int count = repository.countOwnerRes(ownerNo);
+		Owner owner = adminRepository.selectOwnerInfo(ownerNo);
+		int count = adminRepository.countOwnerRes(ownerNo);
 		model.addAttribute("count", count);
 		model.addAttribute("owner", owner);
-		List<Restaurant> restList = repository.selectOwnerInfoRes(ownerNo);
+		List<Restaurant> restList = adminRepository.selectOwnerInfoRes(ownerNo);
 		model.addAttribute("restList", restList);
 		
 	}
@@ -280,8 +262,8 @@ public class AdminServiceImpl implements AdminService {
 	// ownerDetail에서 resList ajax처리
 	@Override
 	public Map<String, Object> ownerResList(Long ownerNo, Integer page) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		int totalRecord = repository.countOwnerRes(ownerNo);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
+		int totalRecord = adminRepository.countOwnerRes(ownerNo);
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
@@ -291,7 +273,7 @@ public class AdminServiceImpl implements AdminService {
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("ownerNo", ownerNo);
 		
-		List<Restaurant> resList = repository.selectResList(m);	// 목록
+		List<Restaurant> resList = adminRepository.selectResList(m);	// 목록
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resList", resList);				// 목록
@@ -307,9 +289,9 @@ public class AdminServiceImpl implements AdminService {
 	// 검색페이지(페이징)
 	@Override
 	public void selectResList(HttpServletRequest request, Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		String query = request.getParameter("query");
-		int totalRecord = repository.searchCountRes(query);	
+		int totalRecord = adminRepository.searchCountRes(query);	
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		PageUtils pageUtils = new PageUtils();
@@ -318,31 +300,22 @@ public class AdminServiceImpl implements AdminService {
 		map.put("query", query);
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
-		List<Restaurant> resList = repository.resListByAddress(map);
+		List<Restaurant> resList = adminRepository.resListByAddress(map);
 		model.addAttribute("resList", resList);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("paging", pageUtils.getPageEntity("searchRestaurant?query=" + query));			
 	}
 
-//	@Override
-//	public void selectResDetail(Model model, Restaurant restaurant) {
-//		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-//		Long resNo = restaurant.getResNo();
-//		Restaurant rest = repository.selectResDetail(resNo); 
-//		System.out.println(resNo);
-//		System.out.println(rest);
-//		model.addAttribute("rest", rest);
-//	}
-	
+
 	@Override
 	   public void selectResDetail(Model model, Restaurant restaurant, HttpServletRequest request) {
-	      AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+	      AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 	      
 	      
 	      Long resNo = restaurant.getResNo();
-	      Restaurant rest = repository.selectResDetail(resNo);
-	      List<Review> reviewList = repository.selectReviewList(resNo);
-	      List<UploadFile> picList = repository.selectFile(resNo);
+	      Restaurant rest = adminRepository.selectResDetail(resNo);
+	      List<Review> reviewList = adminRepository.selectReviewList1(resNo);
+	      List<UploadFile> picList = adminRepository.selectFile(resNo);
 	      if (rest != null) {
 	         request.getSession().setAttribute("rest", rest);
 	      }
@@ -365,9 +338,9 @@ public class AdminServiceImpl implements AdminService {
 	// 전체 사업장 리스트 출력
 	@Override
 	public Map<String, Object> resList(Integer page, Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		
-		int totalRecord = repository.countRes();
+		int totalRecord = adminRepository.countRes();
 		
 		model.addAttribute("totalReocrd", totalRecord);
 		
@@ -378,7 +351,7 @@ public class AdminServiceImpl implements AdminService {
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 
-		List<Restaurant> list = repository.selectRes(m);
+		List<Restaurant> list = adminRepository.selectRes(m);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("resList", list);
@@ -390,11 +363,11 @@ public class AdminServiceImpl implements AdminService {
 	// 사업장 검색
 	@Override
 	public Map<String, Object> findRes(Integer page, HttpServletRequest request) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
 		Map<String, Object> m1 = new HashMap<String, Object>();
 		m1.put("column", request.getParameter("column"));
 		m1.put("query", request.getParameter("query"));
-		int totalRecord = repository.countFindRes(m1);
+		int totalRecord = adminRepository.countFindRes(m1);
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);	// 페이징 요소들은 전체 목록 갯수 + 페이지 번호 필요
 		Map<String, Object> m2 = new HashMap<String, Object>();
@@ -402,7 +375,7 @@ public class AdminServiceImpl implements AdminService {
 		m2.put("endRecord", pageUtils.getEndRecord());
 		m2.put("column", request.getParameter("column"));
 		m2.put("query", request.getParameter("query"));
-		List<Restaurant> list = repository.findRes(m2);
+		List<Restaurant> list = adminRepository.findRes(m2);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("pageUtils", pageUtils);
@@ -413,8 +386,8 @@ public class AdminServiceImpl implements AdminService {
 	// 새로 등록된 식당
 	@Override
 	public void newOpen(Model model) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		List<Restaurant> list = repository.newOpen();
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = adminRepository.newOpen();
 		model.addAttribute("list", list);
 		
 		
@@ -422,8 +395,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Map<String, Object> indexNewOpen(int resState) {
-		AdminRepository repository = sqlSession.getMapper(AdminRepository.class);
-		List<Restaurant> list = repository.indexnewOpen(resState);
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = adminRepository.indexnewOpen(resState);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;

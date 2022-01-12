@@ -5,9 +5,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.mail.Message;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,11 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.repository.OwnerRepository;
 import com.reserve.restaurant.util.SecurityUtils;
-
+@Service
 public class OwnerServiceImpl implements OwnerService {
 
 	private SqlSessionTemplate sqlSession;
@@ -41,11 +39,11 @@ public class OwnerServiceImpl implements OwnerService {
 		owner.setTel(owner.getTel());
 		
 		
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		repository.joinOwner(owner);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
+		ownerRepository.joinOwner(owner);
 		
 		
-		int result = repository.joinOwner(owner);
+		int result = ownerRepository.joinOwner(owner);
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
@@ -81,8 +79,8 @@ public class OwnerServiceImpl implements OwnerService {
 		String pw = request.getParameter("pw");
 		String security_pw = SecurityUtils.sha256(pw);
 		owner.setPw(security_pw);
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		Owner loginOwner = repository.loginOwner(owner);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
+		Owner loginOwner = ownerRepository.loginOwner(owner);
 		
 		if(loginOwner != null) {
 			request.getSession().setAttribute("loginUser", loginOwner);
@@ -91,15 +89,15 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public Owner selectOwnerByNo(Long ownerNo) {
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		return repository.selectOwnerByNo(ownerNo);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
+		return ownerRepository.selectOwnerByNo(ownerNo);
 	}
 	
 	//현재 비밀번호 체크
 	@Override
 	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		Owner owner = repository.selectOwnerById(request.getParameter("id"));
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
+		Owner owner = ownerRepository.selectOwnerById(request.getParameter("id"));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", SecurityUtils.sha256(request.getParameter("pw0")).equals(owner.getPw()));
 		return map;
@@ -108,25 +106,25 @@ public class OwnerServiceImpl implements OwnerService {
 	//비밀번호 변경
 	@Override
 	public void updatePw(Owner owner) {
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
 		owner.setPw(SecurityUtils.sha256(owner.getPw()));
-		repository.updatePw(owner);
+		ownerRepository.updatePw(owner);
 	}
 	//탈퇴 하기
 	@Override
 	public void deleteOwner(Long ownerNo, HttpSession session) {
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
-		int result = repository.deleteOwner(ownerNo);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
+		int result = ownerRepository.deleteOwner(ownerNo);
 		if(result > 0) session.invalidate();
 		
 	}
 	@Override
 	public void updateOwner(Owner owner, HttpSession session,  HttpServletResponse response) {
-		OwnerRepository repository = sqlSession.getMapper(OwnerRepository.class);
+		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
 		owner.setEmail(owner.getEmail());
 		owner.setTel(owner.getTel());
 		
-		int result = repository.updateOwner(owner);
+		int result = ownerRepository.updateOwner(owner);
 		message(result, response, "회원정보가 수정되었습니다", "회원정보 수정 실패", "/restaurant/owner/updateOwner");
 		Owner loginUser = (Owner)session.getAttribute("loginUser");
 		loginUser.setName(owner.getName());

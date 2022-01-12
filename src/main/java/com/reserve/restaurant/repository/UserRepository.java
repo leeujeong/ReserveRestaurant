@@ -38,6 +38,7 @@ public interface UserRepository {
 	public int insertQna(Qna qna);
 	public int insertPay(Pay pay);
 	public List<Qna> selectQnaList(String qnaWriter);
+	public Qna selectQna1(Long qnaNo);
 	public Qna selectQna2(Long qnaNo);
 	public Qna selectQna3(Long qnaNo);
 	public int deleteQna(Long qnaNo);

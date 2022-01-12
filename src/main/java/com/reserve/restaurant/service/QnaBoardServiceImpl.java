@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.repository.QnaBoardRepository;
 import com.reserve.restaurant.util.PageUtils;
-
+@Service
 public class QnaBoardServiceImpl implements QnaBoardService {
 
 	@Autowired
@@ -27,12 +28,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	@Override
 	public void selectQnaList(HttpServletRequest request, Model model) {
 		
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
-		int totalRecord = repository.countQnaList();
+		int totalRecord = qnaBoardRepository.countQnaList();
 		
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
@@ -41,7 +42,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		map.put("beginRecord", pageUtils.getBeginRecord());
 		map.put("endRecord", pageUtils.getEndRecord());
 		
-		List<Qna> list = repository.selectQnaList(map);
+		List<Qna> list = qnaBoardRepository.selectQnaList(map);
 		model.addAttribute("list", list);
 		if (totalRecord == 0) {
 			model.addAttribute("paging", null);
@@ -54,16 +55,16 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void selectQnaInfo(Long qnaNo, Model model) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		Qna qna = repository.selectQnaInfo(qnaNo);
-		Reply reply = repository.selectReply(qnaNo);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
+		Qna qna = qnaBoardRepository.selectQnaInfo(qnaNo);
+		Reply reply = qnaBoardRepository.selectReply(qnaNo);
 		model.addAttribute("reply", reply);
 		model.addAttribute("qna", qna);
 	}
 	
 	@Override
 	public void updateQna(HttpServletRequest request, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
 		String qnaTitle = request.getParameter("qnaTitle");
 		String qnaContent = request.getParameter("qnaContent");
 		Long qnaNo = Long.parseLong(request.getParameter("qnaNo"));  
@@ -71,7 +72,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		map.put("qnaTitle", qnaTitle);
 		map.put("qnaContent", qnaContent);
 		map.put("qnaNo", qnaNo);
-		int result = repository.updateQna(map);
+		int result = qnaBoardRepository.updateQna(map);
 		if (result == 1) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
@@ -90,8 +91,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void qnaInsert(Qna qna, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		int result = repository.qnaInsert(qna);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
+		int result = qnaBoardRepository.qnaInsert(qna);
 		if (result == 1) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
@@ -111,8 +112,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void qnaDelete(Long qnaNo, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		int result = repository.qnaDelete(qnaNo);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
+		int result = qnaBoardRepository.qnaDelete(qnaNo);
 		if (result == 1) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
@@ -132,10 +133,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void insertReply(Reply reply, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
 		Long qnaNo = reply.getQnaNo();
 		try {
-			int result = repository.insertReply(reply);
+			int result = qnaBoardRepository.insertReply(reply);
 			if (result == 1) {
 				try {
 					response.setContentType("text/html; charset=UTF-8");
@@ -169,8 +170,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void deleteReply(Long qnaNo, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		int result = repository.deleteReply(qnaNo);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
+		int result = qnaBoardRepository.deleteReply(qnaNo);
 		if (result == 1) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
@@ -190,8 +191,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void updateQnaHit(Long qnaNo, HttpServletResponse response) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
-		int result = repository.updateQnaHit(qnaNo);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
+		int result = qnaBoardRepository.updateQnaHit(qnaNo);
 		try {
 			if (result == 1) {
 				PrintWriter out = response.getWriter();
@@ -207,7 +208,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	
 	@Override
 	public void searchQna(HttpServletRequest request, Model model) {
-		QnaBoardRepository repository = sqlSession.getMapper(QnaBoardRepository.class);
+		QnaBoardRepository qnaBoardRepository = sqlSession.getMapper(QnaBoardRepository.class);
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
@@ -217,7 +218,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		m.put("column", column);
 		m.put("query", query);
 		
-		int totalRecord = repository.countSearchQna(m);
+		int totalRecord = qnaBoardRepository.countSearchQna(m);
 
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
@@ -228,7 +229,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		map.put("column", column);
 		map.put("query", query);
 		
-		List<Qna> list = repository.searchQna(map);
+		List<Qna> list = qnaBoardRepository.searchQna(map);
 		model.addAttribute("list", list);
 		if (totalRecord == 0) {
 			model.addAttribute("paging", null);

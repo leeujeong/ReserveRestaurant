@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -17,22 +16,20 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
-import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
 import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
-import com.reserve.restaurant.util.PageUtilsOnlyforSuhwan;
 import com.reserve.restaurant.util.SecurityUtils;
-
+@Service
 public class UserServiceImpl implements UserService {
 		
 	private SqlSessionTemplate sqlSession;
@@ -47,27 +44,27 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User selectUserByNo(Long userNo) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		return repository.selectUserByNo(userNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		return userRepository.selectUserByNo(userNo);
 	}
 	
 	@Override
 	public void login(HttpServletRequest request , HttpServletResponse response) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		User user = new User();
 		user.setId(request.getParameter("id"));
 		user.setPw(SecurityUtils.sha256(request.getParameter("pw")));
-		User loginUser = repository.login(user);
+		User loginUser = userRepository.login(user);
 		
 		if (loginUser != null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 		
 			// 로그인로그에 기록
 			Long userNo = loginUser.getUserNo();
-			repository.insertLoginLog(userNo);
+			userRepository.insertLoginLog(userNo);
 		
 			// 포인트 적립
-			int result = repository.updateUserPoint(userNo);
+			int result = userRepository.updateUserPoint(userNo);
 			if (result == 1) {
 				try {
 					response.setContentType("text/html; charset=utf-8");
@@ -103,32 +100,32 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> findUserByEmail(String email) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", repository.selectUserByEmail(email));
+		map.put("result", userRepository.selectUserByEmail(email));
 		return map;
 	}
 	
 	@Override
 	public Map<String, Object> idCheck(String id) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", repository.selectUserById(id));
+		map.put("result", userRepository.selectUserById(id));
 		return map;
 		
 	}
 	
 	@Override
 	public Map<String, Object> emailCheck(String email) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", repository.selectUserByEmail(email));
+		map.put("result", userRepository.selectUserByEmail(email));
 		return map;
 	}
 	
 	@Override
 	public void insertUser(User user, HttpServletResponse response) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		user.setId(user.getId());
 		user.setPw(SecurityUtils.sha256(user.getPw()));
 		user.setName(SecurityUtils.xxs(user.getName()));
@@ -137,7 +134,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(user.getEmail());
 		
 	
-		int result = repository.insertUser(user);
+		int result = userRepository.insertUser(user);
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
@@ -182,11 +179,46 @@ public class UserServiceImpl implements UserService {
 			return map;
 	}
 	
+	@Override
+	public Map<String, Object> tempPassword(User user, HttpServletResponse response) {
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+
+		String str = getTemPassword();
+		try {
+			MimeMessage message = javaMailSender.createMimeMessage();
+			message.setHeader("Content-Type", "text/plain; charset=UTF-8");
+			message.setFrom(new InternetAddress("gogospringtest@gmail.com", "임시비밀번호관리자"));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+			message.setSubject("임시 비밀번호 입니다.");
+			message.setText("임시 비밀번호는 " + str + " 입니다.");
+			javaMailSender.send(message);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		user.setPw(SecurityUtils.sha256(str));
+		int result = userRepository.updatePw(user);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("str", str);
+		return map;
+	}
+	
+	public String getTemPassword() {
+		String str ="@$!";
+		for(int i =0; i <= 7; i++) {
+			str += (char)((Math.random()*26)+97);
+		}
+		return str;
+	}
+	
+	
+	
 	
 	@Override
 	public Map<String, Object> presentPwCheck(HttpServletRequest request) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		User user = repository.selectUserById(request.getParameter("id"));
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		User user = userRepository.selectUserById(request.getParameter("id"));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", SecurityUtils.sha256(request.getParameter("pw0")).equals(user.getPw()));
 		return map;
@@ -194,17 +226,17 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void updatePw(User user, HttpServletResponse response) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		user.setPw(SecurityUtils.sha256(user.getPw()));
-		int result = repository.updatePw(user);
+		int result = userRepository.updatePw(user);
 		message(result, response, "비밀번호가 수정되었습니다", "비밀번호 수정 실패", "/restaurant/user/updateUser");
 	}	
 	
 	
 	@Override
 	public void deleteUser(Long userNo,HttpServletResponse response , HttpSession session) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		int result = repository.deleteUser(userNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.deleteUser(userNo);
 		
 		message(result, response, "사용자가 삭제 되었습니다.", " 사용자가 삭제되지 않았습니다.", "/restaurant");
 		if(result > 0 ) session.invalidate();
@@ -212,12 +244,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void updateUser(User user, HttpSession session, HttpServletResponse response) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		user.setEmail(user.getEmail());
 		user.setTel(user.getTel());
 		
 		
-		int result = repository.updateUser(user);
+		int result = userRepository.updateUser(user);
 		message(result, response, "회원정보가 수정되었습니다", "회원정보 수정 실패", "/restaurant/user/updateUser");
 		User loginUser = (User)session.getAttribute("loginUser");
 		loginUser.setEmail(user.getEmail());
@@ -226,8 +258,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> hourCheck(String bookHours) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<User> list = repository.hourCheck(bookHours);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<User> list = userRepository.hourCheck(bookHours);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", list);
 		return map;
@@ -236,16 +268,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findMenuList(Long resNo) {
 		
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Menu> list = repository.selectMenuList(resNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<Menu> list = userRepository.selectMenuList(resNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;
 	}
 	@Override
 	public Map<String, Object> FindCommentList(Long reviewNo) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Comment> list = repository.selectComment(reviewNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<Comment> list = userRepository.selectComment(reviewNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;
@@ -255,8 +287,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findReviewList() {
 		
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Menu> list = repository.selectReviewList();
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<Menu> list = userRepository.selectReviewList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		return map;
@@ -264,9 +296,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findCartList(Integer page) {
 		
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		
-		int totalRecord = repository.selectTotalResCount();
+		int totalRecord = userRepository.selectTotalResCount();
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		
@@ -274,7 +306,7 @@ public class UserServiceImpl implements UserService {
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		
-		List<Restaurant> list = repository.selectCartList(m);
+		List<Restaurant> list = userRepository.selectCartList(m);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageUtils", pageUtils);
@@ -285,9 +317,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findCardReviewList(Integer page) {
 		
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		
-		int totalRecord = repository.selectTotalReviewCount();
+		int totalRecord = userRepository.selectTotalReviewCount();
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		
@@ -295,7 +327,7 @@ public class UserServiceImpl implements UserService {
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		
-		List<Review> list = repository.selectCardReviewList(m);
+		List<Review> list = userRepository.selectCardReviewList(m);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageUtils", pageUtils);
@@ -306,9 +338,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> findPayList(Integer page, Long userNo) {
 		
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		
-		int totalRecord = repository.selectTotalpayCount();
+		int totalRecord = userRepository.selectTotalpayCount();
 		PageUtils pageUtils = new PageUtils();
 		pageUtils.setPageEntity(totalRecord, page);
 		
@@ -316,7 +348,7 @@ public class UserServiceImpl implements UserService {
 		m.put("beginRecord", pageUtils.getBeginRecord());
 		m.put("endRecord", pageUtils.getEndRecord());
 		m.put("userNo", userNo);
-		List<Pay> list = repository.selectPayListByuserNo(m);
+		List<Pay> list = userRepository.selectPayListByuserNo(m);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageUtils", pageUtils);
 		map.put("totalRecord", totalRecord);
@@ -326,16 +358,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> goCartRes(Long resNo) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		int result = repository.UpdateRestState(resNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.UpdateRestState(resNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
 	}
 	@Override
 	public Map<String, Object> removeCart(Long resNo) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		int result = repository.DeleteRestState(resNo);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.DeleteRestState(resNo);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
@@ -343,8 +375,8 @@ public class UserServiceImpl implements UserService {
 		
 	@Override
 	public Map<String, Object> qnaAsk(Qna qna , HttpServletRequest request) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		int result = repository.insertQna(qna);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.insertQna(qna);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
@@ -352,8 +384,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<Qna> findQnaList(String qnaWriter, Model model) {
-		UserRepository repository = sqlSession.getMapper(UserRepository.class);
-		List<Qna> list = repository.selectQnaList(qnaWriter);
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<Qna> list = userRepository.selectQnaList(qnaWriter);
 		model.addAttribute("list", list);
 		return list;
 	}
@@ -361,34 +393,36 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void findQnaByNo(Long qnaNo, Model model, HttpServletRequest request) {
-		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
-		Qna list2= repository.selectQna2(qnaNo);
-		Qna list3= repository.selectQna3(qnaNo);
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		Qna list2= userRepository.selectQna2(qnaNo);
+		Qna list3= userRepository.selectQna3(qnaNo);
+		Qna list1= userRepository.selectQna1(qnaNo);
 		
-		model.addAttribute("reply", repository.qnaReplyByUser(qnaNo));
+		model.addAttribute("reply", userRepository.qnaReplyByUser(qnaNo));
 		model.addAttribute("list2", list2);
 		model.addAttribute("list3", list3);
+		model.addAttribute("list1", list1);
 		
 	}
 	
 	@Override
 	public void removeQna(Long qnaNo, HttpServletResponse response) {
-		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
-		int result = repository.deleteQna(qnaNo);
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.deleteQna(qnaNo);
 		message(result, response, "삭제되었습니다", "삭제 실패", "/restaurant/user/myPage");
 	}
 	@Override
 	public void qnaUpdate(Qna qna, HttpServletResponse response) {
-		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
-		int result = repository.updateQna(qna);
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.updateQna(qna);
 		message(result, response, "수정 되었습니다", "수정 실패", "/restaurant/user/findQnaList?qnaWriter="+qna.getQnaWriter());
 		
 	}
 	
 	@Override
 	public Map<String, Object> gogopay(Pay pay, HttpServletRequest request) {
-		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
-		int result = repository.insertPay(pay);
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.insertPay(pay);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		return map;
@@ -397,8 +431,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Review indexReviewdetail(Long reviewNo, Model model) {
-		UserRepository repository =  sqlSession.getMapper(UserRepository.class);
-		Review review = repository.selectCardReview(reviewNo);
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		Review review = userRepository.selectCardReview(reviewNo);
 		model.addAttribute("review", review);
 		return review;
 	}

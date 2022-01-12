@@ -234,7 +234,7 @@ $(document).ready(function () {
                 <div class="menu_nav"> 
                     <h2 class="menu_title">My 활동</h2>
                     <ul>
-                        <li><a href="/restaurant/user/findQnaList">문의 내역</a></li>
+                        <li><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.id}">문의 내역</a></li>
                         <li><a href="/restaurant/user/goCartPage">찜 목록</a></li>
                     </ul>
                 </div>
@@ -254,8 +254,9 @@ $(document).ready(function () {
                 <hr>
                 <div>
                     <ul class="question_btn">
-                           <li class="store_question"><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.name}">식당 정보 문의</a></li>
-                        <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.name}">예약 문의</a></li>
+                           <li class="store_question"><a href="/restaurant/user/findQnaList?qnaWriter=${loginUser.id}">식당 정보 문의</a></li>
+                        <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.id}">예약 문의</a></li>
+                        <li class="reserve_question"><a href="/restaurant/user/findQnaList2?qnaWriter=${loginUser.id}">사이트 이용 문의</a></li>
                     </ul>
                     <table class="table table-hover" style="text-align: center;">
 					 <thead>
