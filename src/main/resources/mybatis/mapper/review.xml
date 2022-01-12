@@ -41,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		    	  		 FROM review rv, restaurant r
  		    	  		WHERE rv.res_no = r.res_no
  		    	  		ORDER BY rv.review_date)A)B
- 		 WHERE B.rn BETWEEN #{beginRecord} AND #{endRecord} 
  	</select>
+
 
 	<!-- 사용자가 리뷰 삽입 -->
 	<insert id="insertReview" parameterType="Review" >
@@ -50,35 +50,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (REVIEW_NO_SEQ.NEXTVAL, #{reviewWriter}, #{reviewContent}, #{reviewOrigin}, #{reviewSaved}, #{reviewPath}, SYSDATE, #{reviewRate}, #{userNo}, #{resNo})
 	</insert>
 	
-	
-	
-	
-	
-	
-	
 	<!-- 별점 평균 -->
-<!-- 	<select id="avgReviewRate" parameterType="Long" resultType="int">
+ 	<select id="avgReviewRate" parameterType="Long" resultType="Integer">
 		select round(avg(rv.review_rate)), rv.user_no
 		  from review rv, restaurant r
 		 where rv.res_no = r.res_no
 		   and rv.res_no = #{resNo}
 		 group by user_no
-	</select> -->
+	</select>
 	
 	<!-- 총 리뷰 수-->
- 	<select id="totalReview" parameterType="Long" resultType="int">
+ 	<select id="totalReview" parameterType="Long" resultType="Integer">
 		select count(rv.review_no)
 	  	  from review rv, restaurant r
 		 where rv.res_no = r.res_no
 		   and rv.res_no = #{resNo}
 	</select> 
-	
-	<!-- 
-	<delete id="deleteReview" parameterType="Long">
-		DELETE
-		  FROM REVIEW
-		 WHERE REVIW_NO = #{reviewNo}
-	</delete> -->
+
 	
 	<!-- 사장님 댓글 -->
 
@@ -114,17 +102,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="Comment">
         UPDATE COMMENTS
-            SET
-            content = #{content}
+          SET
+          content = #{content}
        	WHERE comment_no =  #{commentNo}
     </update>
-    
-    
-    
-    
-    
-    
-<!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
+     
+	<!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
    <select id="reviewList1"  resultType="Review" parameterType="Long">
       SELECT rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
       FROM review rv, restaurant r
@@ -133,5 +116,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
 
+
+	<!-- 리뷰 개수 리스트 -->
+	<select id="selectReviewCount" resultType="Integer" parameterType="Long">
+	 SELECT rv.review_rate
+       FROM review rv, restaurant r
+      WHERE rv.res_no = r.res_no
+        AND rv.res_no = #{resNo}
+	</select> 
 	 
 </mapper>

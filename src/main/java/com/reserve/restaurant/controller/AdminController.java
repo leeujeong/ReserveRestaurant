@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.service.AdminService;
-import com.reserve.restaurant.service.RestaurantService;
 
 @Controller
 @RequestMapping("admin/*")

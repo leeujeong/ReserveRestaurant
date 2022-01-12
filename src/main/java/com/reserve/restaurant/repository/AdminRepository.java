@@ -3,7 +3,7 @@ package com.reserve.restaurant.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
@@ -12,7 +12,7 @@ import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.UploadFile;
 import com.reserve.restaurant.domain.User;
 
-@Repository
+@Mapper
 public interface AdminRepository {
 
 	public List<User> selectAllUser(Map<String, Object> map);

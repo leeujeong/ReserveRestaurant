@@ -9,21 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.reserve.restaurant.service.AdminService;
-import com.reserve.restaurant.service.AdminServiceImpl;
-import com.reserve.restaurant.service.BookService;
-import com.reserve.restaurant.service.BookServiceImpl;
-import com.reserve.restaurant.service.OwnerService;
-import com.reserve.restaurant.service.OwnerServiceImpl;
-import com.reserve.restaurant.service.QnaService;
-import com.reserve.restaurant.service.QnaServiceImpl;
-import com.reserve.restaurant.service.RestaurantService;
-import com.reserve.restaurant.service.RestaurantServiceImpl;
-import com.reserve.restaurant.service.ReviewService;
-import com.reserve.restaurant.service.ReviewServiceImpl;
-//
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 //
@@ -64,44 +50,6 @@ public class MybaitsConfig {
 	@Bean
 	public SqlSessionTemplate sqlSession() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
-	}
-	
-	@Bean
-	public CommonsMultipartResolver multipartResolver() {
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setDefaultEncoding("UTF-8");
-		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10);
-		multipartResolver.setMaxUploadSize(1024 * 1024 * 40);
-		return multipartResolver;
-	}
-	
-	@Bean
-	public RestaurantService restaurantService() {
-		return new RestaurantServiceImpl();
-	}
-	
-	@Bean
-	public OwnerService ownerService() {
-		return new OwnerServiceImpl();
-	}
-	
-	@Bean
-	public QnaService qnaService() {
-		return new QnaServiceImpl();
-	}
-	@Bean
-	public BookService bookService() {
-		return new BookServiceImpl();
-	}
-	
-	@Bean
-	public AdminService adminService() throws Exception {
-		return new AdminServiceImpl(sqlSession()); 
-	}
-	
-	@Bean
-	public ReviewService reviewService() {
-		return new ReviewServiceImpl();
 	}
 	
 }

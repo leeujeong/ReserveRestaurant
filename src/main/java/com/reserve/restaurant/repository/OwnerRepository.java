@@ -1,10 +1,10 @@
 package com.reserve.restaurant.repository;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.reserve.restaurant.domain.Owner;
 
-@Repository
+@Mapper
 public interface OwnerRepository {
 
 	public Owner selectOwnerById(String id);

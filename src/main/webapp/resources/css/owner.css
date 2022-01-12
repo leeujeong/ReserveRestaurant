@@ -2,7 +2,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 15px;
 	color: #3b3b3b;
 
 }
@@ -61,7 +61,7 @@ a:hover {
 
 td {
     padding: 10px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 tr td:first-child {
@@ -201,7 +201,7 @@ select{
 	width: 308px;
 }
 .address{
-	margin-right:41px;
+	margin-right:31px;
 }
 
 .infobox td:first-child{
@@ -312,5 +312,5 @@ header {
     margin: 0 auto;
 }
 header #gnb li{
-    font-size: 25px;
+    font-size: 20px;
 }
