@@ -9,6 +9,7 @@ import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
+import com.reserve.restaurant.domain.Reply;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
@@ -48,5 +49,6 @@ public interface UserRepository {
 	public int selectTotalReviewCount();
 	public Review selectCardReview(Long reviewNo);
 	public List<Comment> selectComment(Long reviewNo);
+	public List<Reply> selectReplyQna(Long qnaNo);
 	
 }

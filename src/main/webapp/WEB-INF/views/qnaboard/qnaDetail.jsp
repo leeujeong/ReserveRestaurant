@@ -227,7 +227,7 @@
 	        </div>
 	        <div class="reply_show">
 	            <p class="reply_writer">관리자님의 답글</p>
-	            <c:if test="${loginUser.id == 'admin'}">
+	            <c:if test="${loginUser.state == 2 }">
 		            <input type="button" id="delete_reply_btn" class="delete_reply_btn" value="답글 삭제하기">
 	            </c:if>
 	            <textarea class="reply_text" id="reply_content" readonly>${reply.replyContent}</textarea>
@@ -240,7 +240,7 @@
 	            <input type="button" value="목록" class="list_btn" id="list_btn">
 	        </div>
         </form>
-        <c:if test="${loginUser.id == 'admin'}">
+        <c:if test="${loginUser.state == 2}">
 	        <div>
 	            <p class="reply_writer">Q&A 답글 남기기</p>
 	        </div>

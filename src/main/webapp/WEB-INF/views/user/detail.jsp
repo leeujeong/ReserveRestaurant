@@ -661,7 +661,6 @@ button:hover {
             </span>
             <ul style="text-align: center;">
                 <li><a href="/restaurant/user/search"> 식당검색  </a></li>
-                <li><a href="식당검색페이지">할인되는식당</a></li>
                 <li><a href="/restaurant/user/reserve"> 신규 오픈 </a></li>
             </ul>
         </div>
@@ -671,9 +670,9 @@ button:hover {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
-                <li><a href="리뷰"> 리뷰 </a></li>
-                <li><a href="리뷰"> Q&A </a></li>
+               <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
+                <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
+                <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
         </div>
         <div class="cate quickmenu">
