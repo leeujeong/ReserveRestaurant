@@ -154,7 +154,7 @@ function fnFindPw(){
 		</div>
       
      
-      <div>
+    
          <main class="mainlogin"> 
             <div class="sc-kmisXD blbgsK">
                <img src="/restaurant/resources/image/join/FindTableLogo.png" alt="findtablelogo">
@@ -165,28 +165,26 @@ function fnFindPw(){
                   <p>☺️&nbsp;&nbsp;환영합니다.&nbsp;무엇을 도와드릴까요?&nbsp;&nbsp;☺️</p> 
             </div>
             
-         <form id="f" method="post">
-			 <label for="id" class="loginMiddle">
-             <span>아이디</span>
-             <input type="text" name="id" id="id" placeholder="가입 당시 아이디를 입력해주세요."></label>
-             <p id="id_result"></p>
+         	<form id="f" method="post">
+			 	<label for="id" class="loginMiddle">
+             	<span>아이디</span>
+             	<input type="text" name="id" id="id" placeholder="가입 당시 아이디를 입력해주세요."></label>
+             	<p id="id_result"></p>
              
-             <label for="email" class="loginMiddle">
-             <span>이메일</span>
-             <input type="text" name="email" id="email" placeholder="가입 당시 이메일을 입력해주세요."></label>
-				<label for="id" class="loginMiddle">
-           	    <span>인증번호</span>
-				<input type="text" name="authCode" id="authCode"></label>
+             	<label for="email" class="loginMiddle">
+             	<span>이메일</span>
+             	<input type="text" name="email" id="email" placeholder="가입 당시 이메일을 입력해주세요."></label>
+					<label for="id" class="loginMiddle">
+           	   	 	<span>인증번호</span>
+					<input type="text" name="authCode" id="authCode"></label>
 				
 					<input type="button" value="인증번호받기" id="authCode_btn" class="tbtns rs-mt5">
 					<input type="button" value="인증하기&비밀번호찾기" id="verify_btn" class="tbtns rs-mt5">
 					
 					<div id="search_result">
-						
 					</div>
-					
-			</form>
-			</div>
+				</form>
+		
 				<p class="loginBottom">더 많은 서비스를 누려보세요!&nbsp;&nbsp;&nbsp;<a href="/restaurant/user/loginPage">로그인하러가기</a></p> 
 				
 	      	</main>	

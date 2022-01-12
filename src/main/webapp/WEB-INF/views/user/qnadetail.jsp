@@ -103,7 +103,7 @@
 		
 	}
 	.formatDate{
-		width: 115px;
+		width: 88px;
 	}
 	.footerInput{
 		text-align: center;

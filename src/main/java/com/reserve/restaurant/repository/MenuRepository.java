@@ -3,11 +3,11 @@ package com.reserve.restaurant.repository;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.reserve.restaurant.domain.Menu;
 
-@Repository
+@Mapper
 public interface MenuRepository {
 
 	public void addMenu(Menu menu);

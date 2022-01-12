@@ -169,15 +169,7 @@ li{
                </main> 
             </div>
          </div>
-           <!--  <a href="#" class="naver " name="naver"><span>네이버</span></a>  -->
-    		<!-- 
-							<li onclick="kakaoLogout();">
-							      <a href="javascript:void(0)">
-							          <span>카카오 로그아웃</span>
-							      </a>
-							</li>
-    		 -->
-         
+
          <script type="text/javascript">
 		         var naver_id_login = new naver_id_login("3YBssR0gciXfYwTuych2", "http://localhost:9090/restaurant/user/naverlogin");    // Client ID, CallBack URL 삽입
 		                                            // 단 'localhost'가 포함된 CallBack URL

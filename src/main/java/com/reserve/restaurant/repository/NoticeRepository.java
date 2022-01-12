@@ -1,13 +1,12 @@
 package com.reserve.restaurant.repository;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.reserve.restaurant.domain.Notice;
 
-@Repository
+@Mapper
 public interface NoticeRepository {
 
 	

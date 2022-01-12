@@ -3,12 +3,12 @@ package com.reserve.restaurant.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Reply;
 
-@Repository
+@Mapper
 public interface QnaBoardRepository {
 
 	public List<Qna> selectQnaList(Map<String, Object> map);
