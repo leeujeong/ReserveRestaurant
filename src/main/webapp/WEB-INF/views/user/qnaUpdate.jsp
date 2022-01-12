@@ -186,9 +186,8 @@ table{
 <script>
 $(document).ready(function () {
 	
-	commentList(); 
 	
-	$('#update_btn').click(function () {
+	$('#update_btn').on('click', function () {
 		
 			if($('#qnaContent').val() == ''){
 				alert('문의 하실 내용을 입력해주세요.');	
@@ -309,13 +308,13 @@ $(document).ready(function () {
                 <hr>
                 <div class="containers">
                      <div class="col-sm-9">
-                           <form id="qnaform2" method="post"> 
                                  <input type="hidden" value="${list2.qnaNo}" name="qnaNo" class="qnaNo2">
 		                         <input type="hidden" value="${list3.qnaNo}" name="qnaNo" class="qnaNo3">
 		                         <input type="hidden" value="${list2.qnaState}" name=qnaState class="qnaState2">
 		                         <input type="hidden" value="${list3.qnaState}" name="qnaState" class="qnaState3">
 		                         <input type="hidden" value="${list1.qnaNo}" name="qnaNo" class="qnaNo1">
 		                         <input type="hidden" value="${list1.qnaState}" name="qnaState" class="qnaState1">
+                           <form id="qnaform2" method="post"> 
                                <table class="qnatable ">
                                  <tbody>
                                  	<c:if test="${list2.qnaState ==2 }">
@@ -374,15 +373,8 @@ $(document).ready(function () {
                                  	</c:if>
                                  </tbody>
                               </table>
-                              <div class="containerForm">
-							    <div id="commentListForm">
-							        <div class="commentList">
-							        	
-							        </div>
-							    </div>
-							</div>
                               <div class="fotterInput">	                           
-	                              <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.name}'">
+	                              <input type="button" value="목록보기"  class="btn btn-danger" id="list_btn" onclick="location.href='/restaurant/user/findQnaList?qnaWriter=${loginUser.id}'">
 		                          <input type="button" value="수정완료" class="btn btn-danger" id="update_btn" >
                               </div>
                            </form>

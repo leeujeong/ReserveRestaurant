@@ -312,5 +312,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		   AND q.res_no = rs.res_no
    		   AND r.qna_no = #{qnaNo}
    </select>
+   
+   <select id="selectReplyQna" parameterType="Long" resultType="Reply">
+		SELECT *
+		  FROM REPLY
+		 WHERE QNA_NO = #{qnaNo}
+	</select>
 	
 </mapper>

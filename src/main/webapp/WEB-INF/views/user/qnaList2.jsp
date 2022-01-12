@@ -249,7 +249,7 @@ $(document).ready(function () {
             <div class="col-6">
                  
                 <div>
-                    <h3 class="ing_title" style="font-size: 30px" >예약에 대해 문의 하셨습니다 !</h3>
+                    <h3 class="ing_title" style="font-size: 30px" >홈페이지에 대해 문의 하셨습니다 !</h3>
                 </div>
                 <hr>
                 <div>
@@ -258,7 +258,7 @@ $(document).ready(function () {
                         <li class="reserve_question"><a href="/restaurant/user/findQnaList1?qnaWriter=${loginUser.id}">예약 문의</a></li>
                         <li class="reserve_question"><a href="/restaurant/user/findQnaList2?qnaWriter=${loginUser.id}">사이트 이용 문의</a></li>
                     </ul>
-                    <table class="table table-hover" style="text-align: center;">
+                   <table class="table table-hover" style="text-align: center;">
 					 <thead>
 						<tr>
 							 <th scope="col">번호</th>
@@ -268,13 +268,11 @@ $(document).ready(function () {
 						</tr>
 					</thead>
 					<tbody>
-							<c:if test="${empty list}">
-								<tr>
-									<td scope="col" colspan="5">문의내역 없음</td>
-								</tr>
-							</c:if>
+					    <c:set var="doneLoop" value="false"/> 
+							
 						<c:if test="${not empty list}">
 									<c:forEach var="qna" items="${list}">
+									  <c:if test="${not doneLoop}">
 										<c:if test="${qna.qnaState ==1}">
 											<tr>
 												<th scope="col">${qna.qnaNo}</th>				
@@ -283,6 +281,10 @@ $(document).ready(function () {
 												<td>${qna.qnaDate}</td>
 											</tr>
 										</c:if>
+										<c:if test="${qna.qnaState !=1}">
+			      		      				<c:set var="doneLoop" value="true"/> 
+										</c:if>
+									  </c:if>	
 									</c:forEach>
 								</c:if>
 						</tbody>
