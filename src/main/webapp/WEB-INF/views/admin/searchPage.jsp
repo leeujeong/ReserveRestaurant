@@ -23,7 +23,7 @@
 			if ($('#query').val() == '') {
 				alert('검색어를 입력하세요');
 				event.preventDefault();
-			}
+			} 
 		})
 		
 		

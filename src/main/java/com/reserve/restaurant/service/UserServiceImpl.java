@@ -402,7 +402,8 @@ public class UserServiceImpl implements UserService {
 		model.addAttribute("list2", list2);
 		model.addAttribute("list3", list3);
 		model.addAttribute("list1", list1);
-		
+		model.addAttribute("adminReply", userRepository.selectReplyQna(qnaNo));
+		System.out.println(userRepository.selectReplyQna(qnaNo) + " 임플");
 	}
 	
 	@Override

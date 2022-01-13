@@ -280,11 +280,8 @@ table{
 						</tr>
 					</thead>
 					<tbody>
-							<c:if test="${empty list}">
-								<tr>
-									<td scope="col" colspan="5">문의내역 없음</td>
-								</tr>
-							</c:if>
+					    <c:set var="doneLoop" value="false"/> 
+							
 						<c:if test="${not empty list}">
 									<c:forEach var="qna" items="${list}">
 										<c:if test="${qna.qnaState ==2}">
