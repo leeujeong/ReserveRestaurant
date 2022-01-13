@@ -491,6 +491,46 @@ header #gnb li:last-child {
     white-space: nowrap;
     text-transform: uppercase;
 }
+.paging{
+    display: flex;
+    width: 100%;
+    color: rgb(160, 57, 38);
+    padding: 30px;
+    justify-content: center;
+    font-size: 20px;
+	font-weight: 700;
+	cursor: pointer;
+}
+ .paging a{
+	font-size: 20px;
+	padding-right: 5px;
+    padding-left: 5px;
+	font-weight: 700;
+	cursor: pointer;
+	
+} 
+.fas{
+	font-size: 30px;
+	color:  rgb(160, 57, 38);
+	padding-right: 5px;
+	padding-left: 5px;
+	
+}
+.fas:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+.fa-lg{
+	color: gray;
+	
+}
+.fa-lg:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+
+
+
 
 /* radio 설정*/
 /*     .divbox{

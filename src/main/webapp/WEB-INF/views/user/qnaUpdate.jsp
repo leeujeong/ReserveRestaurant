@@ -186,7 +186,6 @@ table{
 <script>
 $(document).ready(function () {
 	
-	
 	$('#update_btn').on('click', function () {
 		
 			if($('#qnaContent').val() == ''){

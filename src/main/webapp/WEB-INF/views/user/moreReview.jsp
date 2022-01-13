@@ -22,6 +22,7 @@
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
+	    fnFindCommentList();
 	    
 	    //리뷰 개수 구하기
 	   const arr = '${reviewCountList}';
@@ -54,7 +55,8 @@
 	   $('#1score').html(count1);
 	   $('#1bar').attr('value', count1);
 	   
-	})//리뷰개수 구하기
+	   
+	});
 	
 
 	function fnQuickMenu() {
@@ -81,6 +83,44 @@
 	        });
 	    })(jQuery);
 	}
+	
+   function fnFindCommentList() {
+	      $.ajax({
+	         url : '/restaurant/user/ReviewCommentList?resNo='+${resNo},
+	         type: 'get',
+	         dataType: 'json',
+	         success: function(list){
+	            fnPrintCommentList(list);
+	         }
+	      });
+	   }
+		   
+
+      function fnPrintCommentList(list){
+            $('.commentList').empty();
+            if (list == null) {
+               $('<div>').text('등록된 댓글 없습니다.')
+               .appendTo( '.commentList' );
+            } else {
+               var a = '';
+               $.each(list, function(i, comment){
+            	   if($('#reviewNo').val() ==  comment.reviewNo){
+	                  a += '<div class="commentBorder">';
+	                  a += '<div ><p><i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ' + comment.createDate + '</p>';
+	                  a += '<div><p><i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : '+ comment.content+ comment.reviewNo+'</p>';
+	                  a += '</div>';
+	                  a += '</div></div>';
+            	   }
+	               });
+               
+            		   
+            		   
+               $(".commentList").html(a);
+            }
+         }  
+	
+	
+	
  </script>
  
  <style>
@@ -136,6 +176,7 @@
 	.reviewimg{
 		width:150px;
 		height:150px;
+		padding-right: 20px;
 	}
 	.dateinput{
 		width: 93px;
@@ -145,6 +186,10 @@
 	.reviewmultiple{
 		border-bottom : 1px solid silver;
 		padding: 10px;
+	}
+	.reviewmultiple h3{
+		padding-left: 10px;
+		
 	}
 	.review_content>p:nth-of-type(2){
 		margin: 10px;
@@ -182,6 +227,12 @@
 	
 	::-webkit-progress-value {
 	  background-color: orange;
+	}
+	.commentBorder{
+		margin: 15px;
+		padding: 5px;
+		border-top: 1px solid silver;
+		border-bottom: 1px solid silver;
 	}
  </style>
 </head>
@@ -264,7 +315,7 @@
 		 <section>
 	 	<div>
 	 		<div>
-	 		<a href="/restaurant/admin/goResDetail?resNo=${resNo}" class="returnbtn"> << 돌아가기</a>
+	 		<a href="/restaurant/admin/goResDetail?resNo=${resNo}" class="returnbtn"><i class="far fa-hand-point-left returnbtn"></i> 돌아가기</a>
 	 		</div>
 	 		<div class="reviewrating">
 			  <div class="row">
@@ -311,32 +362,34 @@
 				 		</div>
 				    </div>
 				</div>
-	 		<c:if  test="${empty reviewlist}">
-	 			<div class="emptyReview">
-	 				작성된 리뷰가 없습니다.
-	 			</div>
-	 		</c:if>
-	 		<c:if test="${not empty reviewlist}">
-		 		<c:forEach var="review" items="${reviewlist}">
-	            	<div class="reviewmultiple">
-	            		<h3>${review.get("RES_NAME")}</h3>
-	            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
+		 		<c:if  test="${empty reviewlist}">
+		 			<div class="emptyReview">
+		 				작성된 리뷰가 없습니다.
+		 			</div>
+		 		</c:if>
+		 		<c:if test="${not empty reviewlist}">
+			 		<c:forEach var="review" items="${reviewlist}">
+		            	<div class="reviewmultiple">
+		            		<input type="text" value="${review.get('REVIEW_NO')}" id="reviewNo">
+		            		<h3>${review.get("RES_NAME")}</h3>
+		            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 		                    <div class="review_content">
 		                        <div>${review.get("REVIEW_WRITER")}</div>
 		                        <div class="reviewdaterate">
 			                        <span><input type="text" class="dateinput" value="${review.get('REVIEW_DATE')}"></span>
-			                        <span>★${review.get("REVIEW_RATE")}</span>
+			                        <span style="color:darkorange;">★&nbsp;${review.get("REVIEW_RATE")}</span>
 		                        </div>
 		                        <div class="reviewContent">${review.get("REVIEW_CONTENT")}</div>
 		                    </div>
-	            	</div>
-	            	</c:forEach>
-	 		</c:if>
-			    </div>
-			    
-			    
-			  </div>
+		            	</div>
+		            	<div class="commentList">
+			            
+		            	</div>
+		            </c:forEach>
+		           </c:if>
+			   </div>
 			</div>
+		</div>
 	 </section>
        
 		</div>
@@ -364,6 +417,5 @@
         </div>
     </section>
     
-	
 </body>
 </html>

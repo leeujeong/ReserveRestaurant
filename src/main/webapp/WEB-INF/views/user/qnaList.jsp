@@ -162,6 +162,15 @@ select{
 table{
 	font-size: 16px;
 }
+.col-4{
+	margin: 0;
+}
+.col-6{
+	margin: 0 30px;
+}
+.menu_title{
+	font-weight: 600;
+}
     </style>
 
 <script>
@@ -227,7 +236,7 @@ table{
         <div class="row">
             <div class="col-4">
                 <div class="menu_nav">
-                    <h2 class="menu_title">예약내역</h2>
+                    <h2 class="menu_title">예약 내역</h2>
                     <ul>
                          <li><a href="/restaurant/book/selectBookingList?userNo=${loginUser.userNo}" class="menu_sub_title">예약완료</a></li>
                         <li><a href="/restaurant/book/findCancelList" class="menu_sub_title">예약취소내역 / 환불</a></li>

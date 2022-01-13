@@ -219,7 +219,7 @@
                 <div class="menu_nav">
                     <h4 class="menu_title">내 정보</h4>
                     <ul>
-                        <li><a href="modifyPage">내 정보 수정</a></li>
+                        <li><a href="modifyOwner?ownerNo=${loginUser.ownerNo}">내 정보 수정</a></li>
                     </ul>
                 </div>
             </div>
@@ -239,7 +239,7 @@
                              <tr>
                                  <td style="background-color:rgb(230, 225, 225);">작성일</td>
                                   <td><input type="text" value="${review.reviewDate}" id="reviewDate" readonly></td>
-                                	<td style="background-color:rgb(230, 225, 225);">평점</td>
+                                	<td style="background-color:rgb(230, 225, 225); ">평점</td>
                                  <td><input type="text" value="★ ${review.reviewRate}" id="reviewRate" readonly></td>
                              </tr>
                               <tr>

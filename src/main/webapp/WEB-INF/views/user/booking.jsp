@@ -100,10 +100,6 @@ $(document).ready(function () {
 	    color: inherit;
 	    font-weight: normal;
 	}
-	.page_area{
-		display: flex;
-		justify-content: center;
-	}
 	table{
 		text-align : center;
 	}
@@ -112,6 +108,10 @@ $(document).ready(function () {
 	}
 	.col-6{
 		width: 70%;
+	}
+	
+	table td, table th{
+		line-height: 40px;
 	}
     </style>
     
@@ -237,7 +237,7 @@ $(document).ready(function () {
 						</c:if> 
 					</tbody>
 				</table>
-					<div class="page_area">
+					<div class="paging">
 					    <c:if test="${not empty paging}">
 						    ${paging}
 					    </c:if>

@@ -18,6 +18,12 @@
 		width:300px;
 		height:200px;
 	}
+	
+	.empty_content{
+		padding: 10px;
+		text-align: center;
+	}
+
 	</Style>
 </head>
 <body>
@@ -101,7 +107,7 @@
                           
                          	<c:if test="${empty list}">
                          		<div class="empty_content">  
-                         			<a href="addPage">음식점 등록하러가기</a>
+                         			<a href="addPage"><i class="fas fa-utensils"></i>&nbsp;음식점 등록하러가기&nbsp;<i class="fas fa-utensils"></i></a>
                          		</div>
                          	</c:if>
                          	

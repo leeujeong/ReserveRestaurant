@@ -82,7 +82,12 @@
 		    margin: 5px;
 		    border-radius: 10px;
 		}
+		.fas{
+			color:gray;
+			font-size: 18px;
+		}
 	</style>
+	
 	<script>
 
 	//체크박스 값 부르기

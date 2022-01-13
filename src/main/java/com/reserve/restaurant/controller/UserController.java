@@ -1,6 +1,7 @@
 package com.reserve.restaurant.controller;
 
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
@@ -264,6 +265,12 @@ public class UserController {
 			return userService.FindCommentList(reviewNo);
 		}
 		
+		// 리뷰 댓글 목록 ajax
+		@GetMapping(value="ReviewCommentList", produces="application/json; charset=UTF-8")
+		@ResponseBody
+		public List<Comment> ReviewCommentList(@RequestBody @RequestParam(value = "resNo") Long resNo) {
+			return userService.ReviewCommentList(resNo);
+		}
 		
 		// 찜하기 
 		@PostMapping(value="goCartRes", produces="application/json; charset=UTF-8")
@@ -365,6 +372,4 @@ public class UserController {
 			return userService.snslogin(user, request);
 		}
 		
-		
-				
 }

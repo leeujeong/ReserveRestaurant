@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 리뷰 리스트 ( detail에보여주기 위한 ) -->
    <select id="reviewList"  resultType="Map">
-      SELECT rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
+      SELECT rv.review_no, rv.review_writer, rv.review_content, rv.review_origin, rv.review_saved, rv.review_path, rv.review_date, rv.review_rate, r.res_name 
       FROM review rv, restaurant r
          WHERE rv.res_no = r.res_no
            AND rv.res_no = #{resNo}
@@ -35,12 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 총 리뷰리스트 -->
  	<select id="moreReview" parameterType="Map" resultType="Review">
- 		SELECT B.*
- 		  FROM (SELECT ROWNUM AS rn, A.*
- 		    	  FROM(SELECT rv.*
- 		    	  		 FROM review rv, restaurant r
- 		    	  		WHERE rv.res_no = r.res_no
- 		    	  		ORDER BY rv.review_date)A)B
+	 	SELECT rv.*, r.res_name
+	 	  FROM review rv, restaurant r
+	 	 WHERE rv.res_no = r.res_no
+	 	 ORDER BY rv.review_date
  	</select>
 
 
@@ -68,8 +66,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> 
 
 	
-	<!-- 사장님 댓글 -->
-
 	<!--전체 댓글수 -->
 	<select id="commentCount" resultType="int">
         SELECT
@@ -83,9 +79,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		 FROM comments
 		WHERE review_no = #{reviewNo}
-		 
 	</select> 
-		
+	
+	<select id="commentList1" parameterType="Long" resultType="Comment">
+		SELECT c.*
+		  FROM restaurant r, review rv, comments c
+		 WHERE r.res_no = rv.res_no
+		  AND rv.review_no = c.review_no
+		  AND r.res_no = #{resNo}
+	</select>
+
 	<!-- 댓글 추가 -->
 	<insert id="addComment" parameterType="Comment">
 		INSERT INTO COMMENTS

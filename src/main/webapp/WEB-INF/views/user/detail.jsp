@@ -830,7 +830,7 @@ button:hover {
     
     <section class="review_section" style="margin-top: 150px;">
 	    <div class="review_title">한 줄 방문자 리뷰!
-	            <a href="/restaurant/user/moreReview">더 보기 >> </a>
+	            <a href="/restaurant/user/moreReview?resNo=${rest.resNo}">더 보기 >> </a>
 	        </div>
 	        <div class="review_aver">
 	            <span><%-- ${avgReview} --%></span>

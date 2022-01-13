@@ -153,7 +153,7 @@
 					
 					</tbody>
 				</table>
-					<div class="page_area">
+					<div class="paging">
 					    <c:if test="${not empty paging}">
 						    ${paging}
 					    </c:if>

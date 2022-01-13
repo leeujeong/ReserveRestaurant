@@ -19,7 +19,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
@@ -27,7 +26,6 @@ import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
-import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.SecurityUtils;
@@ -280,11 +278,20 @@ public class UserServiceImpl implements UserService {
 	public Map<String, Object> FindCommentList(Long reviewNo) {
 		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
 		List<Comment> list = userRepository.selectComment(reviewNo);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
+		
 		return map;
 	}
 	
+	@Override
+	public List<Comment> ReviewCommentList(Long resNo) {
+		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
+		List<Comment> list = userRepository.commentList1(resNo);
+		System.out.println("list"+list.toString());
+		return list;
+	}
 	
 	@Override
 	public Map<String, Object> findReviewList() {
