@@ -50,5 +50,6 @@ public interface UserRepository {
 	public Review selectCardReview(Long reviewNo);
 	public List<Comment> selectComment(Long reviewNo);
 	public List<Reply> selectReplyQna(Long qnaNo);
+	public List<Comment> commentList1(Long resNo);
 	
 }

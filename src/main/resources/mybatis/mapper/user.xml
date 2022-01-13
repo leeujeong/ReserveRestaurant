@@ -72,6 +72,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		  FROM COMMENTS
    		 WHERE REVIEW_NO = #{reviewNo}
    </select>
+   
+   
 	
 	
 	<resultMap type="Book" id="BookMap"> 
@@ -313,10 +315,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		   AND r.qna_no = #{qnaNo}
    </select>
    
+
    <select id="selectReplyQna" parameterType="Long" resultType="Reply">
 		SELECT *
 		  FROM REPLY
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
-	
+
+   
+   
+	<select id="commentList1" parameterType="Long" resultType="Comment">
+		SELECT c.*
+		  FROM restaurant r, review rv, comments c
+		 WHERE r.res_no = rv.res_no
+		  AND rv.review_no = c.review_no
+		  AND r.res_no = #{resNo}
+	</select>
+
 </mapper>

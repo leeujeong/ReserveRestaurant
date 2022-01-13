@@ -84,40 +84,43 @@
 	    })(jQuery);
 	}
 	
-	
-	 function fnFindCommentList() {
+   function fnFindCommentList() {
 	      $.ajax({
-	         url : '/restaurant/user/CommentListByReviewNo?resNo=' + ${resNo},
+	         url : '/restaurant/user/ReviewCommentList?resNo='+${resNo},
 	         type: 'get',
 	         dataType: 'json',
-	         success: function(map){
-	            fnPrintCommentList(map);
+	         success: function(list){
+	            fnPrintCommentList(list);
 	         }
 	      });
 	   }
-	   
+		   
 
-      function fnPrintCommentList(map){
-            // 목록 초기화
+      function fnPrintCommentList(list){
             $('.commentList').empty();
-            // 목록 만들기
-            if (map.list == null) {
+            if (list == null) {
                $('<div>').text('등록된 댓글 없습니다.')
                .appendTo( '.commentList' );
             } else {
                var a = '';
-               $.each(map.list, function(i, comment){
-                  a += '<div class="commentBorder">';
-               a += '<div class="updateDeleteLink"><input class="commentNo" type="hidden" value="' + comment.commentNo + '">'+' 사장님 : '+ comment.writer
-                   a += '</div></div>';
-                   a += '<div class="commentContent" id="commentContent'+comment.commentNo+'"> <p style="margin-left:10px;"> 작성 내용 : ' + comment.content + '</p>';
-                   a += '</div></div>';
-               });
+               $.each(list, function(i, comment){
+            	   if($('#reviewNo').val() ==  comment.reviewNo){
+	                  a += '<div class="commentBorder">';
+	                  a += '<div ><p><i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ' + comment.createDate + '</p>';
+	                  a += '<div><p><i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : '+ comment.content+ comment.reviewNo+'</p>';
+	                  a += '</div>';
+	                  a += '</div></div>';
+            	   }
+	               });
+               
+            		   
+            		   
                $(".commentList").html(a);
             }
          }  
-
-
+	
+	
+	
  </script>
  
  <style>
@@ -224,6 +227,12 @@
 	
 	::-webkit-progress-value {
 	  background-color: orange;
+	}
+	.commentBorder{
+		margin: 15px;
+		padding: 5px;
+		border-top: 1px solid silver;
+		border-bottom: 1px solid silver;
 	}
  </style>
 </head>
@@ -361,6 +370,7 @@
 		 		<c:if test="${not empty reviewlist}">
 			 		<c:forEach var="review" items="${reviewlist}">
 		            	<div class="reviewmultiple">
+		            		<input type="text" value="${review.get('REVIEW_NO')}" id="reviewNo">
 		            		<h3>${review.get("RES_NAME")}</h3>
 		            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 		                    <div class="review_content">
@@ -373,6 +383,7 @@
 		                    </div>
 		            	</div>
 		            	<div class="commentList">
+			            
 		            	</div>
 		            </c:forEach>
 		           </c:if>
@@ -406,6 +417,5 @@
         </div>
     </section>
     
-	
 </body>
 </html>
