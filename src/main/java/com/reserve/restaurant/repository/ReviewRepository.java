@@ -25,7 +25,6 @@ public interface ReviewRepository {
 	//comment
 	public int commentCount();
 	public List<Comment> commentList(Long reviewNo);
-	public List<Comment> commentList1(Long resNo);
 	public int addComment(Comment comment);
 	public int updateComment(Comment commment);
 	public int removeComment(Long commentNo);

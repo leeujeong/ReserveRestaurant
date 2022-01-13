@@ -23,7 +23,6 @@ public interface ReviewService {
 	public void moreReview(Model model);
 
 	public List<Comment> commentList(Long reviewNo, Model model);
-	public void commentList1(Long resNo,  Model model);
 	public int addComment(HttpServletRequest request);
 	public int removeComment(Long commnetNo);
 	public int updateComment(Comment comment);

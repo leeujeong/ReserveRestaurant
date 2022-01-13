@@ -25,6 +25,7 @@
 		.dateinput{
 			border:none;
 			outline:none;
+			width: 95px;
 		}
 		.reviewContent{
 			display:flex;
@@ -156,7 +157,7 @@
 			 		</c:if>
 			 		<c:if test="${not empty reviewlist}">
 				 		<c:forEach var="review" items="${reviewlist}">
-				 		<input type="hidden" value="${review.get('REVIEW_NO')}">
+				 			<input type="hidden" value="${review.get('REVIEW_NO')}">
 			            	<div class="reviewlist">
 			            		<h3>${review.get("RES_NAME")}</h3>
 			                    <div class="reviewContent">

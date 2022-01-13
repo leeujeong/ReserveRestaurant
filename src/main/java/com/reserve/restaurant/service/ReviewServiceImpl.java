@@ -218,13 +218,7 @@ public class ReviewServiceImpl implements ReviewService {
       return reviewRepository.updateComment(comment);
    }
 
-@Override
-public void commentList1(Long resNo, Model model) {
-	ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
-	List<Comment> list = reviewRepository.commentList1(resNo);
-	System.out.println(list.toString());
-	model.addAttribute("commentlist", list);
-}
+
 
    
 }

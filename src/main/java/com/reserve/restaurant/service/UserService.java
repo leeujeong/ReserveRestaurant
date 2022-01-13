@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 import com.reserve.restaurant.domain.Book;
+import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Review;
@@ -34,6 +35,9 @@ public interface UserService {
 	public Map<String, Object> hourCheck(String bookHours);
 	public Map<String, Object> findMenuList(Long resNo);
 	public Map<String, Object> FindCommentList(Long reviewNo);
+	public List<Comment> ReviewCommentList(Long reviewNo);
+	
+	
 	public Map<String, Object> findReviewList();
 	public Map<String, Object> findCartList(Integer page);
 	public Map<String, Object> findCardReviewList(Integer page);
