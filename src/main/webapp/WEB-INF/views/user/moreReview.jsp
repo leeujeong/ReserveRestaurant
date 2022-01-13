@@ -86,9 +86,8 @@
 	
    function fnFindCommentList() {
 	      $.ajax({
-	         url : '/restaurant/user/ReviewCommentList',
+	         url : '/restaurant/user/ReviewCommentList?resNo='+${resNo},
 	         type: 'get',
-	         data : 'reviewNo='+$('#reviewNo').val(),
 	         dataType: 'json',
 	         success: function(list){
 	            fnPrintCommentList(list);
@@ -105,12 +104,17 @@
             } else {
                var a = '';
                $.each(list, function(i, comment){
-                  a += '<div class="commentBorder">';
-                  a += '<div ><p><i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ' + comment.createDate + '</p>';
-                  a += '<div><p><i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : '+ comment.content+ comment.reviewNo+'</p>';
-                  a += '</div>';
-                  a += '</div></div>';
-               });
+            	   if($('#reviewNo').val() ==  comment.reviewNo){
+	                  a += '<div class="commentBorder">';
+	                  a += '<div ><p><i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ' + comment.createDate + '</p>';
+	                  a += '<div><p><i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : '+ comment.content+ comment.reviewNo+'</p>';
+	                  a += '</div>';
+	                  a += '</div></div>';
+            	   }
+	               });
+               
+            		   
+            		   
                $(".commentList").html(a);
             }
          }  
@@ -413,6 +417,5 @@
         </div>
     </section>
     
-	
 </body>
 </html>

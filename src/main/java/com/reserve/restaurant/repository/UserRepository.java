@@ -48,5 +48,6 @@ public interface UserRepository {
 	public int selectTotalReviewCount();
 	public Review selectCardReview(Long reviewNo);
 	public List<Comment> selectComment(Long reviewNo);
+	public List<Comment> commentList1(Long resNo);
 	
 }

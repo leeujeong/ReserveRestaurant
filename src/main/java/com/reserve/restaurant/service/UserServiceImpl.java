@@ -287,9 +287,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<Comment> ReviewCommentList(Long reviewNo) {
+	public List<Comment> ReviewCommentList(Long resNo) {
 		UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
-		List<Comment> list = userRepository.selectComment(reviewNo);
+		List<Comment> list = userRepository.commentList1(resNo);
 		System.out.println("list"+list.toString());
 		return list;
 	}

@@ -35,7 +35,7 @@ public interface UserService {
 	public Map<String, Object> hourCheck(String bookHours);
 	public Map<String, Object> findMenuList(Long resNo);
 	public Map<String, Object> FindCommentList(Long reviewNo);
-	public List<Comment> ReviewCommentList(Long reviewNo);
+	public List<Comment> ReviewCommentList(Long resNo);
 	
 	
 	public Map<String, Object> findReviewList();

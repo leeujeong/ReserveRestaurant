@@ -268,8 +268,8 @@ public class UserController {
 		// 리뷰 댓글 목록 ajax
 		@GetMapping(value="ReviewCommentList", produces="application/json; charset=UTF-8")
 		@ResponseBody
-		public List<Comment> ReviewCommentList(@RequestBody @RequestParam(value = "reviewNo") Long reviewNo) {
-			return userService.ReviewCommentList(reviewNo);
+		public List<Comment> ReviewCommentList(@RequestBody @RequestParam(value = "resNo") Long resNo) {
+			return userService.ReviewCommentList(resNo);
 		}
 		
 		// 찜하기 
