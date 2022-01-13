@@ -12,7 +12,6 @@
   
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link href="<c:url value="/resources/css/userCSS/login.css"/>" rel="stylesheet">
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 <meta name ="google-signin-client_id" content="406920167318-vvq0vb00hf9r1874t1fquonanvj8p7f9.apps.googleusercontent.com">
 
 <style type="text/css">
@@ -150,7 +149,7 @@ li{
 					      <ul class="icon_ul">
 					          		 <li id="naver_id_login" style="margin-top: 10px " class="naver" name="naver">
 					              <a href="${url}">
-					                  <img style="width: 10px" src="https://developers.naver.com/inc/devcenter/dist/0739723a031b354f5311473e386d3eb1.png" />
+					                  <img style="width: 45px" src="https://developers.naver.com/inc/devcenter/dist/0739723a031b354f5311473e386d3eb1.png" />
 					              </a>
 					          </li>
 					          <li onclick="kakaoLogin();">
@@ -170,13 +169,15 @@ li{
             </div>
          </div>
 
+		<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
          <script type="text/javascript">
-		         var naver_id_login = new naver_id_login("3YBssR0gciXfYwTuych2", "http://localhost:9090/restaurant/user/naverlogin");    // Client ID, CallBack URL 삽입
+		         var naver_id_login = new naver_id_login("3YBssR0gciXfYwTuych2", "http://localhost:9090/restaurant/");    // Client ID, CallBack URL 삽입
 		                                            // 단 'localhost'가 포함된 CallBack URL
+		         console.log(naver_id_login);
 		         var state = naver_id_login.getUniqState();
 		        
-		         naver_id_login.setButton("white", 4, 40);
-		         naver_id_login.setDomain("http://localhost:9090/restaurant/user/loginPage");    //  URL
+		         naver_id_login.setButton("green", BUTTON_TYPE =1 ,40);
+		         naver_id_login.setDomain("http://localhost:9090/restaurant/loginPage");    //  URL
 		         naver_id_login.setState(state);
 		         naver_id_login.setPopup();
 		         naver_id_login.init_naver_id_login();
@@ -192,11 +193,92 @@ li{
 		        Kakao.API.request({
 		          url: '/v2/user/me',
 		          success: function (response) {
-		        	  console.log(response)
+		        	  console.log(response);
 		        	  var id = response.id;
+		        	  var name =  response.properties.nickname;
+		        	  var email = response.kakao_account.email;
 					  scope : 'account_email';
-					alert('로그인성공');
-		              location.href="http://localhost:9090/restaurant/";
+		        	  //아이디 중복체크
+		        	  $.ajax({
+		  				url: '/restaurant/user/idCheck',
+		  				type: 'post',
+		  				data: {"id" : id},
+		  				dataType: 'json',
+		  				success: function(map){
+		  					console.log(map.result);
+		  					if (map.result == null) {
+		  						let join = JSON.stringify({
+		  							id : id,
+		  						    pw : '@sns1234kkk',
+		  							name : name,
+		  							tel : '010-5681-7757',
+		  							hbd : '1994-04-18',
+		  							email : email,
+		  						});
+		  						$.ajax({
+		  							url : '/restaurant/user/snsJoin',
+		  							type : 'post',
+		  							data : join,
+		  							contentType : 'application/json',
+		  							dataType : 'json',
+		  							success : function (map) {
+		  								if(map.result > 0 ){
+		  									let login = JSON.stringify({
+		  			  							id : id,
+		  			  						    pw : '@sns1234kkk'
+		  			  						});
+		  			  						$.ajax({
+		  			  							url : '/restaurant/user/snslogin',
+		  			  							type : 'post',
+		  			  							data : login,
+		  			  							contentType : 'application/json',
+		  			  							dataType : 'json',
+		  			  							success : function (map) {
+		  			  								if(map.result != null){
+		  			  								  alert('카카오 로그인 성공');
+		  			  						          location.href="http://localhost:9090/restaurant/";
+		  			  								} else{
+		  			  									alert('간편 로그인 실패');
+		  			  								}
+		  			  							}
+		  			  						});
+		  									
+		  								} else{
+		  									alert('간편 회원가입 실패');
+		  								}
+		  							},
+		  							error : function (xhr) {
+		  								
+		  							}
+		  						});
+		  					} else{ // 아이디가 존재하면 로그인처리
+		  						let login = JSON.stringify({
+			  							id : id,
+			  						    pw : '@sns1234kkk'
+			  						});
+			  						$.ajax({
+			  							url : '/restaurant/user/snslogin',
+			  							type : 'post',
+			  							data : login,
+			  							contentType : 'application/json',
+			  							dataType : 'json',
+			  							success : function (map) {
+			  								if(map.result != null){
+			  								  alert('카카오 로그인 성공');
+			  						          location.href="/restaurant";
+			  								} else{
+			  									alert('카카오 로그인 실패');
+			  								}
+			  							}
+			  						});
+		  					}
+		  				},
+		  				error: function(xhr){
+		  					alert('서버실패');
+		  				}
+		  			});// 아이디 중복체크 끝
+		        	  
+		           //   location.href="http://localhost:9090/restaurant/";
 		          },
 		          fail: function (error) {
 		            console.log(error)
@@ -252,10 +334,91 @@ li{
 			.done(function(e){
 		        //프로필을 가져온다.
 				var profile = googleUser.getBasicProfile();
-				console.log(profile)
-				alert('로그인성공');
-	              location.href="http://localhost:9090/restaurant/";
+				console.log(profile);
+				var email = profile.getEmail();
+				var name = profile.nf;
+				var id = profile.getId();
+				  //아이디 중복체크
+	        	  $.ajax({
+	  				url: '/restaurant/user/idCheck',
+	  				type: 'post',
+	  				data: {"id" : id},
+	  				dataType: 'json',
+	  				success: function(map){
+	  					console.log(map.result);
+	  					if (map.result == null) {   // 아이디가 없으면 회원가입 진행
+	  						let join = JSON.stringify({
+	  							id : id,
+	  						    pw : '@sns1234kkk',
+	  							name : name,
+	  							tel : '010-5681-7757',
+	  							hbd : '1994-04-18',
+	  							email : email,
+	  						});    
+	  						$.ajax({     // 회원가입 중....
+	  							url : '/restaurant/user/snsJoin',
+	  							type : 'post',
+	  							data : join,
+	  							contentType : 'application/json',
+	  							dataType : 'json',
+	  							success : function (map) {  //회원가입이 성공하면 바로 login을 시킨다.
+	  								if(map.result > 0 ){
+	  									let login = JSON.stringify({
+	  			  							id : id,
+	  			  						    pw : '@sns1234kkk'   // password를 내가 알 수 없으니깐 소셜로그인은 비번을 이걸로 통합시켜서 db에 저장하겠다.
+	  			  						});
+	  			  						$.ajax({
+	  			  							url : '/restaurant/user/snslogin',
+	  			  							type : 'post',
+	  			  							data : login,
+	  			  							contentType : 'application/json',
+	  			  							dataType : 'json',
+	  			  							success : function (map) {
+	  			  								if(map.result != null){
+	  			  								  alert('구글 로그인 성공');
+	  			  						          location.href="http://localhost:9090/restaurant/";
+	  			  								} else{
+	  			  									alert('구글 로그인 실패');
+	  			  								}
+	  			  							}
+	  			  						});
+	  									
+	  								} else{
+	  									alert('구글 회원가입 실패');
+	  								}
+	  							},
+	  							error : function (xhr) {
+	  								
+	  							}
+	  						});
+	  					} else{ // 아이디가 존재하면(중복이 있으면) 로그인처리
+	  						let login = JSON.stringify({
+		  							id : id,
+		  						    pw : '@sns1234kkk'
+		  						});
+		  						$.ajax({
+		  							url : '/restaurant/user/snslogin',
+		  							type : 'post',
+		  							data : login,
+		  							contentType : 'application/json',
+		  							dataType : 'json',
+		  							success : function (map) {
+		  								if(map.result != null){
+		  								  alert('구글 로그인 성공');
+		  						          location.href="/restaurant";
+		  								} else{
+		  									alert('구글 로그인 실패');
+		  								}
+		  							}
+		  						});
+	  					}
+	  				},
+	  				error: function(xhr){
+	  					alert('서버실패');
+	  				}
+	  			});// 아이디 중복체크 끝
 				
+	             // location.href="http://localhost:9090/restaurant/";
 			})
 			.fail(function(e){
 				console.log(e);

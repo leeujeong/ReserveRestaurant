@@ -90,19 +90,19 @@
             	<!-- 사용자 state =1 -->
             	<c:if test="${loginUser.state == 1}">
 	            	<c:if test="${loginUser.name != '관리자'}">
-	            			<li>${loginUser.id} 님 환영합니다</li>
+	            			<li>${loginUser.name} 님 환영합니다</li>
 	            		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
 	            		  <li><a href="/restaurant/user/myPage">MYPAGE&nbsp;&nbsp;&nbsp;</a></li>
 	            	</c:if>
             	</c:if>
             	<c:if test="${loginUser.name == '관리자'}">
-            		  <li>${loginUser.id} 님 환영합니다</li>
+            		  <li>${loginUser.name} 님 환영합니다</li>
             		  <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
             		  <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             	</c:if>
             	<!-- 사업자 -->
               <c:if test="${loginUser.state == 3}">
-            		  <li>${loginUser.id} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
+            		  <li>${loginUser.name} 님 환영합니다&nbsp;&nbsp;&nbsp;/</li>
             		  <li><a href="/restaurant/owner/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
             		  <li><a href="/restaurant/owner/bookPage">OWNER PAGE</a></li>
             	</c:if>

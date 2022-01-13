@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Comment;
 import com.reserve.restaurant.domain.Menu;
 import com.reserve.restaurant.domain.Pay;
@@ -26,6 +27,7 @@ import com.reserve.restaurant.domain.Qna;
 import com.reserve.restaurant.domain.Restaurant;
 import com.reserve.restaurant.domain.Review;
 import com.reserve.restaurant.domain.User;
+import com.reserve.restaurant.repository.BookRepository;
 import com.reserve.restaurant.repository.UserRepository;
 import com.reserve.restaurant.util.PageUtils;
 import com.reserve.restaurant.util.SecurityUtils;
@@ -436,5 +438,25 @@ public class UserServiceImpl implements UserService {
 		Review review = userRepository.selectCardReview(reviewNo);
 		model.addAttribute("review", review);
 		return review;
+	}
+	
+	@Override
+	public Map<String, Object> snsJoin(User user , HttpServletRequest request) {
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		int result = userRepository.insertUser(user);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+	@Override
+	public Map<String, Object> snslogin(User user , HttpServletRequest request) {
+		UserRepository userRepository =  sqlSession.getMapper(UserRepository.class);
+		User loginUser = userRepository.login(user);
+		if (loginUser != null) {
+			request.getSession().setAttribute("loginUser", loginUser);
+			}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", userRepository.login(user));
+		return map;
 	}
 }

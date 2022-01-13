@@ -48,6 +48,8 @@ public interface UserService {
 	public void qnaUpdate(Qna qna , HttpServletResponse response);
 	public Review indexReviewdetail(Long reviewNo, Model model);
 	public Map<String, Object> tempPassword(User user, HttpServletResponse response);
+	public Map<String, Object> snsJoin(User user, HttpServletRequest request);
+	public Map<String, Object> snslogin(User user, HttpServletRequest request);
 
 
 	//message method

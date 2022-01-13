@@ -138,7 +138,7 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li>${loginUser.id} 님 환영합니다</li>
+                <li>${loginUser.name} 님 환영합니다</li>
                 <li><a href="/restaurant/user/logout">LOGOUT&nbsp;&nbsp;&nbsp;/</a></li>
                 <li><a href="/restaurant/admin/adminPage">ADMIN&nbsp;PAGE&nbsp;&nbsp;&nbsp;</a></li>
             </ul>

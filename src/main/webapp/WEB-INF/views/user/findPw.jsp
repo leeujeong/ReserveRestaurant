@@ -158,7 +158,7 @@ function fnEmailCheck() {
 					fnInit();
 					emailPass = false;
 				} else {
-					alert('동일한 이메일 입니다. 인증버튼을 눌러 인증을 진행해주세요.');
+					alert('동일한 이메일 입니다. 버튼을 눌러 임시비밀번호를 발급 받으세요.');
 					emailPass = true;
 				}
 			},

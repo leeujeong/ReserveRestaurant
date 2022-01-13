@@ -31,7 +31,7 @@
                 </a>
             </h1>
             <ul id="gnb">
-                <li>${loginUser.id} 님 환영합니다</li>
+                <li>${loginUser.name} 님 환영합니다</li>
                 <li><span id="logOut">LOGOUT&nbsp;&nbsp;&nbsp;</span></li>
             </ul>
         </div>

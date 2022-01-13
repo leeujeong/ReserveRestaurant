@@ -32,7 +32,7 @@ public class LoginController {
 	}
 
 	//로그인 첫 화면 요청 메소드
-	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
 
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -49,10 +49,9 @@ public class LoginController {
 	}
 
 	//네이버 로그인 성공시 callback호출 메소드
-	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+	@RequestMapping(value = "callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam(required = false) String code, @RequestParam(required = false) String state, HttpSession session) throws IOException, ParseException {
 
-		System.out.println("여기는 callback");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 
@@ -93,7 +92,7 @@ public class LoginController {
 		session.invalidate();
 
 
-		return "redirect:index.jsp";
+		return "redirect:/";
 	}
 
 }

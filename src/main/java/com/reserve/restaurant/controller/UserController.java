@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.reserve.restaurant.domain.Book;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.domain.Pay;
 import com.reserve.restaurant.domain.Qna;
@@ -351,6 +352,19 @@ public class UserController {
 			userService.indexReviewdetail(reviewNo, model);
 			return "user/indexReviewdetail";
 		}
+		
+		@PostMapping(value = "snsJoin" , produces ="application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> snsJoin (@RequestBody User user, HttpServletRequest request){
+		  return userService.snsJoin(user, request);
+		}
+		
+		@PostMapping(value = "snslogin" , produces ="application/json; charset=utf-8")
+		@ResponseBody
+		public Map<String, Object> snslogin (@RequestBody User user, HttpServletRequest request){
+			return userService.snslogin(user, request);
+		}
+		
 		
 				
 }
