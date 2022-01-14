@@ -1,4 +1,4 @@
-@charset "UTF-8";
+list_table@charset "UTF-8";
 * {
     margin: 0;
     padding: 0;
@@ -225,9 +225,10 @@ select{
 	padding: 5px;
 }
 .list_table{
-	border:1px solid #ededed;
+	border-top:1px solid #ededed;
+	border-bottom:1px solid #ededed;
 	margin: 10px;
-	border-radius:30px;
+	padding: 10px;
 }
 
 .list_table:hover{

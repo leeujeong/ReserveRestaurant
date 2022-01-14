@@ -359,7 +359,6 @@ public class UserController {
 			userService.indexReviewdetail(reviewNo, model);
 			return "user/indexReviewdetail";
 		}
-		
 		@PostMapping(value = "snsJoin" , produces ="application/json; charset=utf-8")
 		@ResponseBody
 		public Map<String, Object> snsJoin (@RequestBody User user, HttpServletRequest request){
@@ -372,4 +371,8 @@ public class UserController {
 			return userService.snslogin(user, request);
 		}
 		
+		@GetMapping(value="magazine")
+		public String magazine() {
+			return "magazine";
+		}
 }
