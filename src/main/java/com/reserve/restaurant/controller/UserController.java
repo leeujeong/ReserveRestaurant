@@ -360,4 +360,8 @@ public class UserController {
 			return "user/indexReviewdetail";
 		}
 
+		@GetMapping(value="magazine")
+		public String magazine() {
+			return "magazine";
+		}
 }

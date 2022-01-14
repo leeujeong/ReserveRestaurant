@@ -370,7 +370,7 @@
 		 		<c:if test="${not empty reviewlist}">
 			 		<c:forEach var="review" items="${reviewlist}">
 		            	<div class="reviewmultiple">
-		            		<input type="text" value="${review.get('REVIEW_NO')}" id="reviewNo">
+		            		<input type="hidden" value="${review.get('REVIEW_NO')}" id="reviewNo">
 		            		<h3>${review.get("RES_NAME")}</h3>
 		            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 		                    <div class="review_content">

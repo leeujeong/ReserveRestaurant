@@ -70,8 +70,27 @@
 	      max-width: 1100px;
 	      margin: 40px auto;
 	    }
-	     
-
+	    .bookDetail{
+	    	border-top:1px solid #ededed;
+			border-bottom:1px solid #ededed;
+			margin: 10px;
+			padding: 10px;
+	    } 
+		.bookIng{
+			width: 100%;
+			text-align:center;
+			font-size: 20px;
+			font-weight: 700;
+			color: gray;
+			cursor: pointer;
+		}
+		.resName{
+			font-size:20px;
+			font-weight: 700;
+		}
+		.bookDetail span{
+			font-weight: 700;
+		}
 	</style>
 	
 </head>
@@ -155,30 +174,33 @@
                           <div class="col-8 col-sm-6">
                           
   							<div id='calendar'></div>
- 
-                         	<%-- <c:if test="${empty list}">
-                         		<div class="empty_content">  
-                         			예약이 없습니다.
-                         		</div>
-                         	</c:if>
+                       		<details>
+ 								<summary class="bookIng"><i class="far fa-hand-point-down"></i> &nbsp;이달의 예약 현황&nbsp;<i class="far fa-hand-point-down"></i></summary>
+	                         	 <c:if test="${empty list}">
+		                         		<div class="empty_content">  
+		                         			예약이 없습니다.
+		                         		</div>
+	                         	</c:if>
                          	
-                         	<c:if test="${not empty list}">
-                        		<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
-                         		<div class="list_table">
-		                         	<c:forEach var="book" items="${list}">
-                         				<div>
-                         					<p>${book.get("RES_NAME")}</p>
-                         				
-							          		<p>예약자 성함 : ${book.get("NAME")}</p>
-							          		<p>예약번호 : ${book.get("BOOK_NO")}  , 홀 / 룸 : ${book.get("BOOK_TYPE")}, 인원수:${book.get("BOOK_PEOPLE")}, 예약시간 : ${book.get("BOOK_HOURS")}, 예약날짜: ${book.get("BOOK_DATE")}</p>
-							          	</div>
-								     </c:forEach>
-								</div>
-                         	</c:if> --%>
+	                         	<c:if test="${not empty list}">
+	                        		<input type="hidden" name="resNo" value="${restaurant.resNo}"/>
+	                         		<div class="list_table">
+			                         	<c:forEach var="book" items="${list}">
+	                         				<div class="bookDetail">
+	                         					<p class="resName">${book.get("RES_NAME")}</p>
+	                         				
+								          		<p>예약자 성함 : ${book.get("NAME")}</p>
+								          		<p><span>예약번호</span> : ${book.get("BOOK_NO")}  ,&nbsp; <span>홀 / 룸</span> : ${book.get("BOOK_TYPE")},&nbsp; <span>인원수</span>:${book.get("BOOK_PEOPLE")}&nbsp;명,&nbsp; <span>예약시간</span> : ${book.get("BOOK_HOURS")}&nbsp;시 ,&nbsp; <span>예약날짜</span>: ${book.get("BOOK_DATE")}</p>
+								          		<p><span>요청사항</span> : ${book.get("BOOK_REQUEST")}</p>
+								          	</div>
+									     </c:forEach>
+									</div>
+	                         	</c:if> 
+                        </details>
                       </div>
                     </div>
                   </div>
-                 </div>
+                </div>
             </div>    
         </div> 
     </div>
