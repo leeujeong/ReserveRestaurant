@@ -122,12 +122,9 @@
         </form>
     </section>
     
-    <c:if test="${empty list}">
-	    <section class="search_comment">
-	        <p class="comment">식당을 검색해 보세요!</p>
-	    </section>    
-    </c:if>
+	    <section >
 	        <p style= "width: 300px; margin: 0 auto;" class="comment">별점이 높은 식당입니다.</p>
+	    </section>    
     <c:if test="${not empty list}">
 	    <section class="list_section">
 	    	<c:forEach var="restaurant" items="${list}">

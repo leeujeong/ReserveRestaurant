@@ -38,7 +38,7 @@
 			success : function (map) {
 				$('#new_list').empty();
 				$.each(map.list , function (i, lately) {
-					$('<li style="border: 1px solid rgb(243, 239, 239);"><a href="/restaurant/admin/goResDetail?resNo='+lately.resNo+'"><img style="width: 200px; height: 200px;" src="/restaurant/'+lately.resPath+'/'+lately.resSaved+'"></a><h3 style="text-align:center;">'+lately.resName+'</h3><p>'+lately.resContent+'</p><p>'+'Contact :'+lately.resTel+'</p><p>'+'Running :'+lately.resOpenTime+'~'+lately.resCloseTime+'</p>')
+					$('<li style="border: 1px solid rgb(243, 239, 239); width: 200px; box-shadow: 2px 2px 2px 2px gray; border-radius: 3px 3px 3px 3px;"><a href="/restaurant/admin/goResDetail?resNo='+lately.resNo+'"><img style="width: 200px; height: 200px;" src="/restaurant/'+lately.resPath+'/'+lately.resSaved+'"></a><h3 style="text-align:center; font-weight:bold;">'+lately.resName+'</h3><p style="font-weight:bold;">'+lately.resContent+'</p><p style="font-weight:bold;">'+'Contact :'+lately.resTel+'</p><p style="font-weight:bold;">'+'Running :'+lately.resOpenTime+'~'+lately.resCloseTime+'</p>')
 					.appendTo('#new_list');
 				});
 			},
@@ -74,7 +74,7 @@
 					$('<div class="box"><div style="text-align:center; margin-top: 70px;"  class="img"><a href="/restaurant/admin/goResDetail?resNo='+review.resNo+'">등록된 이미지가 없는 리뷰입니다.</a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
 					.appendTo('#review_list');
 				} else {
-					$('<div class="box"><div class="img"><a href="/restaurant/admin/goResDetail?resNo='+review.resNo+'"><img  alt="Hover Effect" src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 250px; height:250px;"></a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
+					$('<div class="box"><div class="img"><a href="/restaurant/admin/goResDetail?resNo='+review.resNo+'"><img  alt="Hover Effect" src="/restaurant/'+review.reviewPath+'/'+review.reviewSaved+'" style="width: 100%; height:250px;"></a><div class="info"><h3>'+review.reviewWriter+'</h3><p>'+review.reviewContent+'</p>')
 					.appendTo('#review_list');
 				}
 			});
