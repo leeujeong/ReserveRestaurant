@@ -96,10 +96,8 @@
             </div>
       </div>
     </section>
-    
     	 <div class="wrap">
 	    	<h2><i class="fas fa-store"></i>추천 식당</h2><br>
-	    	
 	    </div>
     <section id="location">
     	<div class="wrap">
@@ -168,16 +166,7 @@
 		       </div>
         </div>
     </section>
-    <section id="new">
-      
-    </section>
-
-    <section id="review" style="width: 1200px; margin: 0 auto;">
-        <div class="wrap">
-            
-        </div>
-    </section>
-
+ 
     
 
 	<a style="color: #fff;" href="/restaurant/admin/userAdminPage">관리자페이지 이동</a>
