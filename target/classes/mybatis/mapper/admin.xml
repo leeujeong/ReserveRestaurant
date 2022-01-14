@@ -337,6 +337,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE u.res_no = r.res_no
 		  AND r.res_no = #{resNo}
 	</select>
+	<!-- 별점 순 식당 -->
+	<select id="ReviewRate" resultType="Restaurant">
+	   select round(avg(rv.review_rate)),
+	   		  R.RES_NO, 
+	   		  R.RES_NAME, 
+	   		  R.RES_ADDRESS, 
+	   		  R.RES_ADDRESS_DETAIL, 
+	   		  R.RES_OPEN_TIME, 
+	   		  R.RES_CLOSE_TIME, 
+	   		  R.RES_TEL, 
+	   		  R.RES_CONTENT, 
+	   		  R.RES_OPTION, 
+	   		  R.RES_ORIGIN, 
+	   		  R.RES_SAVED, 
+	   		  R.RES_PATH, 
+	   		  R.OWNER_NO
+		  from review rv, restaurant r
+		 where rv.res_no = r.res_no
+		 group by R.RES_NO,
+		 		  R.RES_NAME,
+		 		  R.RES_ADDRESS,
+		 		  R.RES_ADDRESS_DETAIL,
+		 		  R.RES_OPEN_TIME, 
+		 		  R.RES_CLOSE_TIME, R.RES_TEL, 
+		 		  R.RES_CONTENT, R.RES_OPTION, 
+		 		  R.RES_ORIGIN, R.RES_SAVED, 
+		 		  R.RES_PATH, 
+		 		  R.OWNER_NO
+	</select>
 	
 
 

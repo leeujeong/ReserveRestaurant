@@ -122,15 +122,15 @@
         </form>
     </section>
     
-    <c:if test="${empty resList}">
+    <c:if test="${empty list}">
 	    <section class="search_comment">
 	        <p class="comment">식당을 검색해 보세요!</p>
 	    </section>    
     </c:if>
-    
-    <c:if test="${not empty resList}">
+	        <p style= "width: 300px; margin: 0 auto;" class="comment">별점이 높은 식당입니다.</p>
+    <c:if test="${not empty list}">
 	    <section class="list_section">
-	    	<c:forEach var="restaurant" items="${resList}">
+	    	<c:forEach var="restaurant" items="${list}">
 		        <div class="rest_info">
 		            <div>
 		                <img alt="${restaurant.resOrigin}" src="/restaurant/${restaurant.resPath}/${restaurant.resSaved}" class="rest_img">

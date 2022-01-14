@@ -39,7 +39,16 @@
 	</style>
 </head>
 <script>
-
+  $(document).ready(function () {
+	 $('#price').on('blur', function () {
+	  if(isNaN($('#price').val())){
+		  alert('정수만 입력해주세요');
+		  $('#price').focus();
+		  $('#price').val('');
+		  return false;
+	  }
+	});
+});
 	
 	
 </script>
@@ -196,7 +205,7 @@
 		                                 <td class="menu">
 		                                     <div class="menu_input">
 		                                         <div class="menu_input_box default">
-		                                             <input type="text" name="menu" placeholder="메뉴명"/><input type="text" name="price" placeholder="가격 (원)"/>
+		                                             <input type="text" name="menu" placeholder="메뉴명"/><input type="text"  id="price" name="price" placeholder="가격 (원)"/>
 		                                         </div>
 		                                     </div>
 		                                     <button class="plus_btn">

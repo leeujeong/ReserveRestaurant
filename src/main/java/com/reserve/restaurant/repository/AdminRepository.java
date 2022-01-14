@@ -64,4 +64,5 @@ public interface AdminRepository {
 	
 	
 	public List<UploadFile> selectFile(Long resNo);
+	public List<Restaurant>ReviewRate();
 }

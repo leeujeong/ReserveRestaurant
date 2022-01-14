@@ -662,6 +662,7 @@ button:hover {
             <ul style="text-align: center;">
                 <li><a href="/restaurant/user/search"> 식당검색  </a></li>
                 <li><a href="/restaurant/user/reserve"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/admin/reviewRate"> 평점좋은식당 </a></li>
             </ul>
         </div>
         <div class="cate quickmenu">

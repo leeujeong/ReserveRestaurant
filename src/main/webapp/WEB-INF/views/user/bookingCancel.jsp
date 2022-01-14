@@ -50,6 +50,47 @@
 		.col-6{
 			width: 70%;
 		}
+		
+		
+.paging{
+    display: flex;
+    width: 100%;
+    color: #dc3545;
+    padding: 30px;
+    justify-content: center;
+    font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+}
+ .paging a{
+	font-size: 20px;
+	padding-right: 5px;
+    padding-left: 5px;
+	font-weight: 700;
+	cursor: pointer;
+	
+} 
+.fas{
+	font-size: 20px;
+	color:  #dc3545;
+	padding-right: 5px;
+	padding-left: 5px;
+	
+}
+.fas:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+.fa-lg{
+	color: gray;
+	
+}
+.fa-lg:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+
+		
     </style>
     
 </head>

@@ -211,6 +211,7 @@ div.title {
             <ul>
               <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
                 <li><a href="/restaurant/admin/newOpen"> 신규오픈 </a></li>
+                <li><a href="/restaurant/admin/reviewRate"> 평점좋은식당 </a></li>
             </ul>
         </div>
         

@@ -136,8 +136,10 @@ input#noticeTitle {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-               <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
+                <li><a href="/restaurant/admin/searchPage"> 식당 검색  </a></li>
                 <li><a href="/restaurant/admin/newOpen"> 신규 오픈 </a></li>
+                <li><a href="/restaurant/admin/reviewRate"> 평점좋은식당 </a></li>
+                
             </ul>
         </div>
         
@@ -147,7 +149,7 @@ input#noticeTitle {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                 <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
+                <li><a href="/restaurant/notice/selectNoticeList"> 공지사항 </a></li>
                 <li><a href="/restaurant/user/indexReviewPage"> 리뷰 </a></li>
                 <li><a href="/restaurant/qnaboard/qnaList"> Q&A </a></li>
             </ul>
@@ -159,7 +161,7 @@ input#noticeTitle {
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="/restaurant/user/detail">다이닝 매거진</a></li>
+                <li><a href="#">다이닝 매거진</a></li>
             </ul>
         </div>
     </div>

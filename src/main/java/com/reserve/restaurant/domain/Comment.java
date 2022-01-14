@@ -22,5 +22,5 @@ public class Comment {
 	private Long reviewNo;
 	private String content;
 	private String writer;
-	private Date createDate;
+	private String createDate;
 }

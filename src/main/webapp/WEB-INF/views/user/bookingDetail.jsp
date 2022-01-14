@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link href="<c:url value="/resources/css/userCSS/myPage.css"/>" rel="stylesheet">
@@ -54,6 +56,47 @@
 		.col-6{
 			width: 70%;
 		}
+	
+	
+	
+.paging{
+    display: flex;
+    width: 100%;
+    color: #dc3545;
+    padding: 30px;
+    justify-content: center;
+    font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+}
+ .paging a{
+	font-size: 20px;
+	padding-right: 5px;
+    padding-left: 5px;
+	font-weight: 700;
+	cursor: pointer;
+	
+} 
+.fas{
+	font-size: 20px;
+	color:  #dc3545;
+	padding-right: 5px;
+	padding-left: 5px;
+	
+}
+.fas:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+.fa-lg{
+	color: gray;
+	
+}
+.fa-lg:hover{
+	color: rgba(160, 57, 38, 0.795);
+	cursor: pointer;
+}
+
 	
 		
 		
@@ -170,12 +213,14 @@
 						   
 						    <div class="col"><span class="detail_text">주소</span></div>
 						    <div class="col">${detail.restaurant.resAddress} ${detail.restaurant.resAddressDetail}</div>
-					 	<c:if test="${not empty paging}">
-					 		<div class="page_area">
-					 			${paging}
-					 		</div>	
-					    </c:if>
+					 	
 				
+						<div class="paging">
+					    <c:if test="${not empty paging}">
+						    ${paging}
+					    </c:if>
+					</div>
+						
 						  </div>
 	                 </c:forEach>
 					 </c:if>

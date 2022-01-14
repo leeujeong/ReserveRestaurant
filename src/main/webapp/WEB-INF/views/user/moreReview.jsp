@@ -22,7 +22,7 @@
  $(document).ready(function() {
 	    fnhover();
 	    fnQuickMenu();
-	    fnFindCommentList();
+	   // fnFindCommentList();
 	    
 	    //리뷰 개수 구하기
 	   const arr = '${reviewCountList}';
@@ -104,17 +104,12 @@
             } else {
                var a = '';
                $.each(list, function(i, comment){
-            	   if($('#reviewNo').val() ==  comment.reviewNo){
 	                  a += '<div class="commentBorder">';
 	                  a += '<div ><p><i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ' + comment.createDate + '</p>';
 	                  a += '<div><p><i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : '+ comment.content+ comment.reviewNo+'</p>';
 	                  a += '</div>';
 	                  a += '</div></div>';
-            	   }
 	               });
-               
-            		   
-            		   
                $(".commentList").html(a);
             }
          }  
@@ -279,7 +274,7 @@
         </div>
     </header>
     
-    <div class="accordion">
+    <div class="accordion"  style="margin-top: 180px;">
         <div class="cate quickmenu">
             <span class="menu">
                 <a href="#" class="menulink">Reservation</a>
@@ -288,6 +283,7 @@
             <ul>
                 <li><a href="/restaurant/admin/searchPage"> 식당검색  </a></li>
                 <li><a href="/restaurant/admin/newOpen"> 신규오픈 </a></li>
+                <li><a href="/restaurant/admin/reviewRate"> 평점좋은식당 </a></li>
             </ul>
         </div>
         <div class="cate quickmenu">
@@ -314,7 +310,7 @@
         <div class="container">
 		 <section>
 	 	<div>
-	 		<div>
+	 		<div style="display: inline-block;">
 	 		<a href="/restaurant/admin/goResDetail?resNo=${resNo}" class="returnbtn"><i class="far fa-hand-point-left returnbtn"></i> 돌아가기</a>
 	 		</div>
 	 		<div class="reviewrating">
@@ -370,7 +366,7 @@
 		 		<c:if test="${not empty reviewlist}">
 			 		<c:forEach var="review" items="${reviewlist}">
 		            	<div class="reviewmultiple">
-		            		<input type="text" value="${review.get('REVIEW_NO')}" id="reviewNo">
+							<c:set var="reviewNo" value="${review.get('REVIEW_NO')}"/>
 		            		<h3>${review.get("RES_NAME")}</h3>
 		            		<img alt="${review.get('REVIEW_ORIGIN')}" src="/restaurant/${review.get('REVIEW_PATH')}/${review.get('REVIEW_SAVED')}" class="reviewimg">
 		                    <div class="review_content">
@@ -382,9 +378,26 @@
 		                        <div class="reviewContent">${review.get("REVIEW_CONTENT")}</div>
 		                    </div>
 		            	</div>
-		            	<div class="commentList">
-			            
-		            	</div>
+				    <c:if test="${not empty moreReply}">
+				      <c:forEach var="comment" items="${moreReply}">
+				      	<c:if test="${reviewNo == comment.reviewNo}">
+						    <div class="commentList">
+						        <div class="commentBorder">
+						            <div>
+					                    <p>
+					                        <i class="far fa-calendar-alt"></i>&nbsp;작성 일자 : ${comment.createDate}
+					                    </p>
+					                <div>
+						                <p>
+						                    <i class="far fa-comment-dots"></i>&nbsp;사장님 댓글 : ${comment.content}
+						                </p>
+					                </div>
+						            </div>
+						        </div>
+						    </div>
+				      	</c:if>
+				      </c:forEach>
+				    </c:if>        	
 		            </c:forEach>
 		           </c:if>
 			   </div>

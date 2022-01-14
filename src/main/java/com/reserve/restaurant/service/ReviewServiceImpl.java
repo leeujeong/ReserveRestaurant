@@ -131,6 +131,7 @@ public class ReviewServiceImpl implements ReviewService {
    public void moreReview(Model model) {
       
       ReviewRepository reviewRepository = sqlSession.getMapper(ReviewRepository.class);
+      UserRepository userRepository = sqlSession.getMapper(UserRepository.class);
       
     		  
       Map<String, Object> m = model.asMap();
@@ -147,12 +148,13 @@ public class ReviewServiceImpl implements ReviewService {
       
       List<Integer> reviewCountList = reviewRepository.selectReviewCount(resNo);
       List<Review> list = reviewRepository.reviewList(map);
-      
+
       model.addAttribute("resNo", resNo);
       model.addAttribute("reviewlist", list);
       model.addAttribute("avgReview", avgReview);
       model.addAttribute("totalReviewCount", totalReviewCount);
       model.addAttribute("reviewCountList", reviewCountList);
+      model.addAttribute("moreReply" , userRepository.commentList1(resNo) );
       
    }
 

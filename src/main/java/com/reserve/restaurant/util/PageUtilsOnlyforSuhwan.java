@@ -63,24 +63,23 @@ public class PageUtilsOnlyforSuhwan {
 		// 위와 같은 경우 page 파라미터는 "&page=" 로 path에 추가해야 함.
 		// path = find.notice?column=WRITER&query=admin&page=
 		
-		// 1페이지로 이동 : 1페이지는 링크가 필요 없음.
-		if (page == 1) {
-			sb.append("◀◀&nbsp;");
-		} else {
-			if (path.contains("?")) {
-				sb.append("<a href=\"" + path + "&page=1\">◀◀</a>&nbsp;");
-			} else {
-				sb.append("<a href=\"" + path + "?page=1\">◀◀</a>&nbsp;");
-			}
-		}
-		
 		String concat = path.contains("?") ? "&" : "?";
 		
 		// 이전 블록으로 이동 : 1블록은 링크가 필요 없음.
 		if (page <= pagePerBlock) {
-			sb.append("◀&nbsp;");
+			sb.append("<i class=\"fas fa-angle-double-left\"></i>&nbsp;");
 		} else {
-			sb.append("<a href=\"" + path + concat + "page=" + (beginPage - 1) + "\">◀</a>&nbsp;");
+			sb.append("<a href=\"" + path + concat + "page=" + (beginPage - 1) + "\"><i class=\"fas fa-angle-double-left\"></i></a>&nbsp;");
+		}
+		// 1페이지로 이동 : 1페이지는 링크가 필요 없음.
+		if (page == 1) {
+			sb.append("<i class=\"fas fa-angle-left\"></i>&nbsp;");
+		} else {
+			if (path.contains("?")) {
+				sb.append("<a href=\"" + path + "&page=1\"><i class=\"fas fa-angle-left\"></i></a>&nbsp;");
+			} else {
+				sb.append("<a href=\"" + path + "?page=1\"><i class=\"fas fa-angle-left\"></i></a>&nbsp;");
+			}
 		}
 		// 페이지 번호 : 현재 페이지는 링크가 필요 없음.
 		for (int i = beginPage; i <= endPage; i++) {
@@ -90,18 +89,20 @@ public class PageUtilsOnlyforSuhwan {
 				sb.append("<a href=\"" + path + concat + "page=" + i + "\">" + i + "</a>&nbsp;");
 			}
 		}
-		// 다음 블록으로 이동 : 마지막 블록은 링크가 필요 없음.
-		if (endPage == totalPage) {
-			sb.append("▶&nbsp;");
-		} else {
-			sb.append("<a href=\"" + path + concat + "page=" + (endPage + 1) + "\">▶</a>&nbsp;");
-		}
+	
 		// 마지막 페이지로 이동 : 마지막 페이지는 링크가 필요 없음.
 		if (page == totalPage) {
-			sb.append("▶▶");
+			sb.append("<i class=\"fas fa-angle-right\"></i></i>");
 		} else {
-			sb.append("<a href=\"" + path + concat + "page=" + totalPage + "\">▶▶</a>");
-			// sb.append("<a href="findAllUser?column=id&query=1&page=2>▶▶</a>");
+			sb.append("<a href=\"" + path + concat + "page=" + totalPage + "\"><i class=\"fas fa-angle-right\"></i></a>");
+			
+		}
+		
+		// 다음 블록으로 이동 : 마지막 블록은 링크가 필요 없음.
+		if (endPage == totalPage) {
+			sb.append("<i class=\"fas fa-angle-double-right\"></i>&nbsp;");
+		} else {
+			sb.append("<a href=\"" + path + concat + "page=" + (endPage + 1) + "\"></a>&nbsp;");
 		}
 		
 		return sb.toString();

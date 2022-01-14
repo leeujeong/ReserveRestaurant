@@ -406,7 +406,12 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 	}
 	
-	
+	@Override
+	public void reviewRate(Model model) {
+		AdminRepository adminRepository = sqlSession.getMapper(AdminRepository.class);
+		List<Restaurant> list = adminRepository.ReviewRate();
+		model.addAttribute("list", list);
+	}
 	
 	
 	

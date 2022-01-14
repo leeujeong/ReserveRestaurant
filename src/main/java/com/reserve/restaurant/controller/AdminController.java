@@ -154,6 +154,16 @@ public class AdminController {
 		
 	}
 	
+	
+	// 평점 높은 식당
+	@GetMapping(value="reviewRate")
+	public String reviewRate(Model model) {
+		adminService.reviewRate(model);
+		return "user/reviewDesc";
+	}
+	
+	
+	
  	
 	
 }
