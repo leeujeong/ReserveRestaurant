@@ -154,7 +154,7 @@
                 <a href="javascript:void(0);" class="subopen"></a>
             </span>
             <ul>
-                <li><a href="#">다이닝 매거진</a></li>
+                <li><a href="/restaurant/user/magazine">다이닝 매거진</a></li>
             </ul>
         </div>
     </div>
