@@ -10,8 +10,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	
 	<typeAliases>
-
-
 		<typeAlias type="com.reserve.restaurant.domain.Restaurant" alias="Restaurant"/>
 		<typeAlias type="com.reserve.restaurant.domain.Owner" alias="Owner"/>
 		<typeAlias type="com.reserve.restaurant.domain.User" alias="User"/>
