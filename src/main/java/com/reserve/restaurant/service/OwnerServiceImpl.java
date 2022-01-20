@@ -37,7 +37,7 @@ public class OwnerServiceImpl implements OwnerService {
 		owner.setName(SecurityUtils.xxs(owner.getName()));
 		owner.setEmail(owner.getEmail());
 		owner.setTel(owner.getTel());
-		
+	System.out.println(owner);
 		
 		OwnerRepository ownerRepository = sqlSession.getMapper(OwnerRepository.class);
 		ownerRepository.joinOwner(owner);
