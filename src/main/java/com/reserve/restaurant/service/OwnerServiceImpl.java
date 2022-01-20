@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import com.reserve.restaurant.domain.Owner;
 import com.reserve.restaurant.repository.OwnerRepository;
 import com.reserve.restaurant.util.SecurityUtils;
+import com.reserve.restaurant.service.OwnerService;
+
+
 @Service
 public class OwnerServiceImpl implements OwnerService {
 
